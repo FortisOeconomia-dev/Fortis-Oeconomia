@@ -42,9 +42,19 @@ const CreateWork = () => {
     if (!signingClient || walletAddress.length === 0) {
       return
     }
+    console.log('ehre')
     getMyAirdropAmount()
     GetAlreadyAirdropped()
-  }, [signingClient, walletAddress])
+  }, [signingClient, walletAddress, ])
+
+  useEffect(() => {
+    if (!signingClient || walletAddress.length === 0) {
+      return
+    }
+    console.log(airdropAmount)
+    
+  }, [airdropAmount ])
+
   
   const handleSubmit = async (event: MouseEvent<HTMLElement>) => {
     if (!signingClient || walletAddress.length === 0) {
@@ -53,9 +63,12 @@ const CreateWork = () => {
     }
     
     if (alreadyAirdropped) {
-      NotificationManager.error('Already airdropped')  
+      NotificationManager.warning('Already airdropped')  
       return
     }
+
+    event.preventDefault()
+
     executeAirdrop()
   }
 

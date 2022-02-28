@@ -47,7 +47,7 @@ export const defaultFee = {
   gas: "400000",
 }
 
-export const CW20_DECIMAL = 1000
+export const CW20_DECIMAL = 1000000
 
 
 export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
@@ -77,7 +77,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   ////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////
 
-  const showNotification = false;
+  const showNotification = true;
 
   const connectWallet = async (inBackground:boolean) => {
     if (!inBackground)
@@ -175,15 +175,15 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     var amount = 0
     voters.forEach((rec) => {
       if (rec.address == walletAddress) {
-        setAirdropAmount(parseInt(rec.amount))
         amount = parseInt(rec.amount)
         
       }
     });
-
+    setAirdropAmount(amount)
     if (amount == 0)
       return
-    let receivers: Array<{ address: string; amount: string }> = voters
+
+      let receivers: Array<{ address: string; amount: string }> = voters
     let airdrop = new Airdrop(receivers)
     let proof = airdrop.getMerkleProof({address: walletAddress, amount: amount.toString()})
     setMerkleProof(proof)
@@ -214,9 +214,13 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   }
 
   const executeAirdrop = async () => {
+    if (alreadyAirdropped) {
+      if (showNotification)
+        NotificationManager.warning('Already airdropped')
+    }
     setLoading(true)
+
     try {
-      
       await signingClient.execute(
         walletAddress, // sender address
         PUBLIC_AIRDROP_CONTRACT, // token escrow contract
@@ -238,8 +242,10 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         NotificationManager.success('Successfully airdropped')
     } catch (error) {
       setLoading(false)
-      if (showNotification)
+      if (showNotification) {
         NotificationManager.error(`Airdrop error : ${error}`)
+        console.log(error.toString())
+      }
     }
   }
 
