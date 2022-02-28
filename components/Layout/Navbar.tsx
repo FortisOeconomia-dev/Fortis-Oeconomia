@@ -98,13 +98,9 @@ const Navbar = () => {
           <div className='container'>
             <Link className="flex" href='/'>
               <div className="d-flex flex-row align-items-center" >
-                <a className="justify-content-center" style= {{ width:"40px"}}>
-                  <img src='/images/juno.png' alt='logo' className="justify-right"/>
+                <a className="justify-content-center" style= {{ "width":"100px","marginTop":"20px"}}>
+                  <img src='/images/castle.png' alt='logo' className="justify-right" style={{"marginRight":"20px", "cursor":"pointer",}}/>
                 </a>
-                <h3 className="text-3xl font-bold justify-center mt-2 ms-2">
-                  Fortis Oeconomia
-
-                </h3>
               </div>
             </Link>
 
@@ -117,12 +113,42 @@ const Navbar = () => {
                     <a className='nav-link'>Airdrop</a>
                   </Link>
                 </li>
+                <li className='nav-item'>
+                  <Link href='/publicsale' activeClassName='active'>
+                    <a className='nav-link'>Public Sale</a>
+                  </Link>
+                </li>
+                <li className='nav-item'>
+                  <Link href='/burnmodule' activeClassName='active'>
+                    <a className='nav-link'>Burn Module</a>
+                  </Link>
+                </li>
+                <li className='nav-item'>
+                  <Link href='/gFOTmodule' activeClassName='active'>
+                    <a className='nav-link'>gFOT Module</a>
+                  </Link>
+                </li>
+                <li className='nav-item'>
+                  <Link href='/burntostake' activeClassName='active'>
+                    <a className='nav-link'>Burn to Stake</a>
+                  </Link>
+                </li>
+                <li className='nav-item'>
+                  <Link href='/legionnairecoins' activeClassName='active'>
+                    <a className='nav-link'>Legionnaire Coins</a>
+                  </Link>
+                </li>
+                <li className='nav-item'>
+                  <Link href='/wallett' activeClassName='active'>
+                    <a className='nav-link'>Wallet</a>
+                  </Link>
+                </li>
                 
               </ul>
               <div className='others-option'>
                 <div className='d-flex align-items-center'>
                   {walletAddress.length == 0 ?<></>:
-                      <div className='banner-wrapper-content'>
+                      <div className='banner-wrapper-content' style={{"marginLeft":"30px"}}>
                           <span className="sub-title ms-2" style={{"marginBottom":"0px", "fontSize":"16px"}}>
                           {nativeBalance} JUNO 
                           </span>

@@ -64,6 +64,8 @@ const Footer = () => {
                   <li>
                     Email: <a href='phantomtop0127@gmail.com'>phantomtop0127@gmail.com</a>
                   </li>
+                  <li>Zeki Volkan Ün</li>
+                  <li>Email: <a href='zeki.volkan24@gmail.com'>zeki.volkan24@gmail.com</a></li>
                   {/* <li>
                     Phone: <a href='tel:+44587154756'>+1234-567-8901</a>
                   </li>
