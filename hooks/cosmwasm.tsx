@@ -9,6 +9,8 @@ import {
 } from '../util/conversion'
 import {NotificationContainer, NotificationManager} from 'react-notifications'
 import { create } from 'ipfs-http-client'
+import {voters} from '../proposal.json'
+import {Airdrop} from '../util/merkle-airdrop-cli/airdrop'
 
 export interface ISigningCosmWasmClientContext {
   walletAddress: string
@@ -19,46 +21,26 @@ export interface ISigningCosmWasmClientContext {
   connectWallet: Function,
   disconnect: Function,
 
-  getIsAdmin: Function,
-  isAdmin: boolean,
-
-  getManagerConstants: Function,
-  setManagerConstants: Function,
-  setManagerAddr: Function,
-  setMinStake: Function,
-  setRateClient: Function,
-  setRateManager: Function,
-  managerAddr: string,
-  minStake: number,
-  rateClient: number,
-  rateManager: number,
-  
-
   getBalances: Function,
   nativeBalanceStr: string,
   cw20Balance: number,
   nativeBalance: number,
 
-  executeSendContract: Function,
-
-  getDetailsAll: Function,
-  detailsAll: any,
-
-  executeApproveContract: Function,
-  executeRefundContract: Function,
-  executeRemoveContract: Function,
-
-  executeUploadImage: Function
-
+  alreadyAirdropped: boolean,
+  airdropAmount: number,
+  merkleProof:any[],
+  
+  getMyAirdropAmount: Function,
+  GetAlreadyAirdropped: Function,
+  executeAirdrop: Function
 
 }
 
 export const PUBLIC_CHAIN_RPC_ENDPOINT = process.env.NEXT_PUBLIC_CHAIN_RPC_ENDPOINT || ''
 export const PUBLIC_CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID || ''
 export const PUBLIC_STAKING_DENOM = process.env.NEXT_PUBLIC_STAKING_DENOM || 'ujuno'
-export const PUBLIC_TOKEN_ESCROW_CONTRACT = process.env.NEXT_PUBLIC_TOKEN_ESCROW_CONTRACT || ''
+export const PUBLIC_AIRDROP_CONTRACT = process.env.NEXT_PUBLIC_AIRDROP_CONTRACT || ''
 export const PUBLIC_CW20_CONTRACT = process.env.NEXT_PUBLIC_CW20_CONTRACT || ''
-const IPFS_URL = 'https://ipfs.infura.io/ipfs/'
 
 export const defaultFee = {
   amount: [],
@@ -75,18 +57,18 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   const [walletAddress, setWalletAddress] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-  const [isAdmin, setIsAdmin] = useState(false)
-
-  const [managerAddr, setManagerAddr] = useState('')
-  const [minStake, setMinStake] = useState(0.01)
-  const [rateClient, setRateClient] = useState(10)
-  const [rateManager, setRateManager] = useState(10)
 
   const [nativeBalanceStr, setNativeBalanceStr] = useState('')
   const [cw20Balance, setCw20Balance] = useState(0)
   const [nativeBalance, setNativeBalance] = useState(0)
+    
+  /////////////////////////////////////////////////////////////////////
+  /////////////////////  Airdrop Variables   //////////////////////////
+  /////////////////////////////////////////////////////////////////////
+  const [alreadyAirdropped, setAlreadyAirdropped] = useState(false)
+  const [airdropAmount, setAirdropAmount] = useState(0)
+  const [merkleProof, setMerkleProof] = useState([])
 
-  const [detailsAll, setDetailsAll] = useState([])
   
 
   ////////////////////////////////////////////////////////////////////////
@@ -148,7 +130,6 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       signingClient.disconnect()
       
     }
-    setIsAdmin(false)
     setWalletAddress('')
     setSigningClient(null)
     setLoading(false)
@@ -181,223 +162,69 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         NotificationManager.error(`GetBalances error : ${error}`)
     }
   }
-
-  const getIsAdmin = async () => {
-    
-    setLoading(true)
-    try {
-      const response:JsonObject = await signingClient.queryContractSmart(PUBLIC_TOKEN_ESCROW_CONTRACT, {
-        is_admin: {addr:walletAddress}
-      })
-      setIsAdmin(response.isadmin)
-      setLoading(false)   
-      if (showNotification)
-        NotificationManager.info(`Successfully got isAdmin`)
-    } catch (error) {
-      setLoading(false)
-      if (showNotification)
-        NotificationManager.error(`GetIsAdmin error : ${error}`)
-    }
-  }
-
   ////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////
-  ///////////////////////    Admin management       //////////////////////
-  ////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////
-
-  const getManagerConstants = async () => {
-    setLoading(true)
-    try {
-      const response:JsonObject = await signingClient.queryContractSmart(PUBLIC_TOKEN_ESCROW_CONTRACT, {
-        constants: {}
-      })
-      console.log(response)
-      setManagerAddr(response.manager_addr)
-      setMinStake(response.min_stake)
-      setRateClient(response.rate_client)
-      setRateManager(response.rate_manager)
-
-      setLoading(false)   
-      if (showNotification)
-        NotificationManager.success(`Successfully got manager constants`)
-    } catch (error) {
-      setLoading(false)
-      if (showNotification)
-        NotificationManager.error(`GetManagerConstants Error : ${error}`)
-      console.log(error)
-    }
-  }
-
-  const setManagerConstants = async () => {
-    setLoading(true)
-    try {
-      
-      await signingClient.execute(
-        walletAddress, // sender address
-        PUBLIC_TOKEN_ESCROW_CONTRACT, // token escrow contract
-        { 
-          "set_constant":
-          {
-            "manager_addr":`${managerAddr}`, 
-            "min_stake":`${minStake}`, 
-            "rate_client": `${rateClient}`,
-            "rate_manager": `${rateManager}`
-          } 
-        }, // msg
-        defaultFee,
-        undefined,
-        []
-      )
-
-      setLoading(false)
-      getBalances()
-      if (showNotification)
-        NotificationManager.success('Successfully set manager constants')
-    } catch (error) {
-      setLoading(false)
-      if (showNotification)
-        NotificationManager.error(`SetManagerConstants error : ${error}`)
-    }
-  }
-
-  ////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////
-  ///////////////    Send CREW Token to Escrow Contract   ////////////////
-  ////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////
-
-  const executeSendContract = async (plainMsg:string, amount:number) => {
-    setLoading(true)
-    // let end_time:number
- 
-    try {
-      let encodedMsg:string = toBase64(new TextEncoder().encode(plainMsg))
-    
-      await signingClient?.execute(
-        walletAddress, // sender address
-        PUBLIC_CW20_CONTRACT, // token escrow contract
-        { 
-          "send":
-          {
-            "contract":PUBLIC_TOKEN_ESCROW_CONTRACT, 
-            "amount":(amount*CW20_DECIMAL).toString(), 
-            "msg": encodedMsg
-          } 
-        }, // msg
-        defaultFee,
-        undefined,
-        []
-      )
-      setLoading(false)
-      getBalances()
-      getDetailsAll()
-      NotificationManager.success('Successfully executed')
-    } catch (error) {
-      setLoading(false)
-      getBalances()
-      NotificationManager.error(`executeSendContract error : ${error}`)
-    }
-  }
-
-  ////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////
-  ///////////////    Get Staked Full Info   //////////////////////////////
+  ///////////////////////    airdrop Functions   /////////////////////////
   ////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////
   
-  const getDetailsAll = async () => {
+  const getMyAirdropAmount = async () => {
+    if (walletAddress == '') 
+      return
     setLoading(true)
-    try {
-      const response:JsonObject = await signingClient.queryContractSmart(PUBLIC_TOKEN_ESCROW_CONTRACT, {
-        details_all: {addr:walletAddress}
-      })
-      let tempstr:string = "";
-      
-      console.log(response)
-      response.escrows.map((data) => {
-
-        tempstr = data.account_info;
-        let accountList:Array<JsonObject> = [];
-        if (tempstr.length > 0) {
-          tempstr = tempstr.substring(1)
-          tempstr.split(";").map((rec) => {
-            let arr = rec.split(":")
-            let account_info:JsonObject = {"addr": arr[0], "amount":arr[1], "start_time":arr[2], "end_time":arr[3]}
-            accountList.push(account_info)
-          })
-        }
-        data.account_info = accountList
-        data.isWorkManager = (data.client == walletAddress || isAdmin)
-        //data.state
-        // 0: canStake
-        // 1: Started ( but only can show when expired)
-        // 2: Client rewarded
-        // 3: manager rewarded
+    var amount = 0
+    voters.forEach((rec) => {
+      if (rec.address == walletAddress) {
+        setAirdropAmount(parseInt(rec.amount))
+        amount = parseInt(rec.amount)
         
+      }
+    });
 
-      })
-      setLoading(false)
-      setDetailsAll(response)
-      if (showNotification)
-        NotificationManager.success('Successfully got DetailsAll')
-    } catch (error) {
-      setLoading(false)
-      if (showNotification)
-        NotificationManager.error(`GetDetailsAll Error : ${error}`)
-      console.log(error)
-    }
-  }
-
-  ////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////
-  ///////    Approve or Refund CREW Token from Escrow Contract   /////////
-  ////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////
-
-  const executeApproveContract = async (id:string) => {
- 
-    setLoading(true)
-    try {
-      
-      await signingClient.execute(
-        walletAddress, // sender address
-        PUBLIC_TOKEN_ESCROW_CONTRACT, // token escrow contract
-        { 
-          "approve":
-          {
-            "id":`${id}`
-          }
-        }, // msg
-        defaultFee,
-        undefined,
-        []
-      )
-
-      setLoading(false)
-      getDetailsAll()
-      getBalances()
-      NotificationManager.success('Successfully approved')
-    } catch (error) {
-      setLoading(false)
-      getBalances()
-      NotificationManager.error(`Approve error : ${error}`)
+    if (amount == 0)
+      return
+    let receivers: Array<{ address: string; amount: string }> = voters
+    let airdrop = new Airdrop(receivers)
+    let proof = airdrop.getMerkleProof({address: walletAddress, amount: amount.toString()})
+    setMerkleProof(proof)
     
+    setLoading(false)
+  }
+
+  const GetAlreadyAirdropped = async () => {
+    if (walletAddress == '') 
+      return
+    setLoading(true)
+    try {
+      const response:JsonObject = await signingClient.queryContractSmart(PUBLIC_AIRDROP_CONTRACT, {
+        is_claimed: {
+          stage: 1,
+          address: walletAddress
+        },
+      })
+      setAlreadyAirdropped(response.is_claimed)
+      setLoading(false)   
+      if (showNotification)
+        NotificationManager.info(`Successfully got AlreadyAirdropped`)
+    } catch (error) {
+      setLoading(false)
+      if (showNotification)
+        NotificationManager.error(`GetAlreadyAirdropped error : ${error}`)
     }
   }
 
-  const executeRefundContract = async (id:string) => {
- 
+  const executeAirdrop = async () => {
     setLoading(true)
     try {
       
       await signingClient.execute(
         walletAddress, // sender address
-        PUBLIC_TOKEN_ESCROW_CONTRACT, // token escrow contract
+        PUBLIC_AIRDROP_CONTRACT, // token escrow contract
         { 
-          "refund":
-          {
-            "id":`${id}`
+          "claim": {
+            "stage": 1,
+            "amount": `${airdropAmount}`,
+            "proof": merkleProof
           }
         }, // msg
         defaultFee,
@@ -406,72 +233,17 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       )
 
       setLoading(false)
-      getDetailsAll()
       getBalances()
-      NotificationManager.success('Successfully refunded')
+      if (showNotification)
+        NotificationManager.success('Successfully airdropped')
     } catch (error) {
       setLoading(false)
-      getBalances()
-      if (error.message.indexOf("Still in your staking period") < 0)
-        NotificationManager.error(`Refund error : ${error}`)
-      else
-        NotificationManager.warning("Still in your staking period")
+      if (showNotification)
+        NotificationManager.error(`Airdrop error : ${error}`)
     }
   }
 
-  const executeRemoveContract = async (id:string) => {
- 
-    setLoading(true)
-    try {
-      
-      await signingClient.execute(
-        walletAddress, // sender address
-        PUBLIC_TOKEN_ESCROW_CONTRACT, // token escrow contract
-        { 
-          "remove":
-          {
-            "id":`${id}`
-          }
-        }, // msg
-        defaultFee,
-        undefined,
-        []
-      )
 
-      setLoading(false)
-      getDetailsAll()
-      getBalances()
-      NotificationManager.success('Successfully removed')
-    } catch (error) {
-      setLoading(false)
-      getBalances()
-      NotificationManager.error(`Remove error : ${error}`)
-    }
-  }
-
-  
-  const executeUploadImage = async (file) => {
-    console.log("Upload start " + file.toString())
-    setLoading(true)
-    const client = create({ url: 'https://ipfs.infura.io:5001/api/v0' })
-    try {
-      const image_hash = await client.add(file)
-      // const metadata = JSON.stringify({
-      //   name: file.toString(),
-      //   description: file.toString(),
-      //   image: IPFS_URL + image_hash.cid.toString()
-      // })
-      // const meta_hash = await client.add(metadata)
-      // console.log("meta_hash : " + meta_hash)
-      console.log("url : " + IPFS_URL + image_hash.cid.toString())
-      setLoading(false)
-      return IPFS_URL + image_hash.cid.toString()
-    } catch (error) {
-      NotificationManager.error(`Upload image error : ${error}`)
-      setLoading(false)
-    }
-  }
-  
 
   return {
     walletAddress,
@@ -481,34 +253,20 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     connectWallet,
     disconnect,
     client,
-    getIsAdmin,
-    isAdmin,
-
-    getManagerConstants,
-    setManagerConstants,
-    setManagerAddr,
-    setMinStake,
-    setRateClient,
-    setRateManager,
-    managerAddr,
-    minStake,
-    rateClient,
-    rateManager,
-
+    
     getBalances,
     nativeBalanceStr,
     cw20Balance,
     nativeBalance,
 
-    executeSendContract,
-    getDetailsAll,
-    detailsAll,
+    alreadyAirdropped,
+    airdropAmount,
+    merkleProof,
 
-    executeApproveContract,
-    executeRefundContract,
-    executeRemoveContract,
-
-    executeUploadImage
+    getMyAirdropAmount,
+    GetAlreadyAirdropped,
+    executeAirdrop
+    
 
   }
 }

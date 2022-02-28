@@ -13,8 +13,6 @@ const Navbar = () => {
     signingClient, 
     disconnect, 
     loading,
-    getIsAdmin,
-    isAdmin,
     getBalances,
     nativeBalance,
     cw20Balance
@@ -38,7 +36,6 @@ const Navbar = () => {
   useEffect(() => {
     if (!signingClient || walletAddress.length === 0)
       return
-    getIsAdmin()
     getBalances()
   }, [walletAddress, signingClient, ])
   
@@ -105,7 +102,8 @@ const Navbar = () => {
                   <img src='/images/juno.png' alt='logo' className="justify-right"/>
                 </a>
                 <h3 className="text-3xl font-bold justify-center mt-2 ms-2">
-                  DOODLE WORKSHOP
+                  Fortis Oeconomia
+
                 </h3>
               </div>
             </Link>
@@ -113,102 +111,13 @@ const Navbar = () => {
             <div className='collapse navbar-collapse mean-menu'>
               
               <ul className='navbar-nav'>
-                {!isAdmin ? <></>:
-                  <li className='nav-item megamenu support'>
-                    <Link href='#' activeClassName='active'>
-                      <a className='dropdown-toggle nav-link'>Admin</a>
-                    </Link>
-                    <ul className='dropdown-menu'>
-                      <li className='nav-item'>
-                        <Link href='/adminconstants'>
-                          <a className='nav-link'>
-                            <i className='bx bx-info-circle'></i>
-                            Constant
-                          </a>
-                        </Link>
-                      </li>
-                      <li className='nav-item'>
-                        <Link href='/adminrewards'>
-                          <a className='nav-link'>
-                            <i className='bx bx-wallet'></i>
-                            Reward
-                          </a>
-                        </Link>
-                      </li>
-                    </ul>
-                  </li>
-                }
                 
-                <li className='nav-item megamenu support'>
-                  <Link href='#' activeClassName='active'>
-                    <a className='dropdown-toggle nav-link'>My Works</a>
-                  </Link>
-                  <ul className='dropdown-menu'>
-                    <li className='nav-item'>
-                      <Link href='/creatework'>
-                        <a className='nav-link'>
-                          <i className='bx bx-info-circle'></i>
-                          Create
-                        </a>
-                      </Link>
-                      
-                    </li>
-                    <li className='nav-item'>
-                      <Link href='/clientrewards'>
-                        <a className='nav-link'>
-                          <i className='bx bx-wallet'></i>
-                          Reward
-                        </a>
-                      </Link>
-                    </li>
-                  </ul>
-                </li>
-
                 <li className='nav-item'>
-                  <Link href='/stakework' activeClassName='active'>
-                    <a className='nav-link'>Stake Work</a>
+                  <Link href='/airdrop' activeClassName='active'>
+                    <a className='nav-link'>Airdrop</a>
                   </Link>
                 </li>
-              
-                <li className='nav-item megamenu support'>
-                  <Link href='/faq' activeClassName='active'>
-                    <a className='dropdown-toggle nav-link'>Support</a>
-                  </Link>
-                  <ul className='dropdown-menu'>
-                    <li className='nav-item'>
-                      <Link href='/faq' activeClassName='active'>
-                        <a className='nav-link'>
-                          <i className='bx bx-info-circle'></i>
-                          FAQ
-                        </a>
-                      </Link>
-                    </li>
-                    <li className='nav-item'>
-                      <Link href='/guides' activeClassName='active'>
-                        <a className='nav-link'>
-                          <i className='bx bx-book'></i>
-                          Guides
-                        </a>
-                      </Link>
-                    </li>
-                    <li className='nav-item'>
-                      <Link href='/wallet' activeClassName='active'>
-                        <a className='nav-link'>
-                          <i className='bx bx-wallet'></i>
-                          Wallets
-                        </a>
-                      </Link>
-                    </li>
-                    <li className='nav-item'>
-                      <Link href='/about' activeClassName='active'>
-                        <a className='nav-link'>
-                          <i className='bx bx-group'></i>
-                          About Us
-                        </a>
-                      </Link>
-                    </li>
-                  </ul>
-                </li>
+                
               </ul>
               <div className='others-option'>
                 <div className='d-flex align-items-center'>
