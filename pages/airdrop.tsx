@@ -26,11 +26,13 @@ const CreateWork = () => {
 
     getBalances,
     nativeBalanceStr,
-    cw20Balance,
     nativeBalance,
+    fotBalance,
+    fotBalanceStr,
 
     alreadyAirdropped,
     airdropAmount,
+    airdropAmountDenom,
     merkleProof,
 
     getMyAirdropAmount,
@@ -42,7 +44,6 @@ const CreateWork = () => {
     if (!signingClient || walletAddress.length === 0) {
       return;
     }
-    console.log("ehre");
     getMyAirdropAmount();
     GetAlreadyAirdropped();
   }, [signingClient, walletAddress]);
@@ -51,7 +52,6 @@ const CreateWork = () => {
     if (!signingClient || walletAddress.length === 0) {
       return;
     }
-    console.log(airdropAmount);
   }, [airdropAmount]);
 
   const handleSubmit = async (event: MouseEvent<HTMLElement>) => {
@@ -79,7 +79,7 @@ const CreateWork = () => {
               <div className="trade-cryptocurrency-box">
                 <div className="currency-selection">
                   <span>Airdrop Amount</span>
-                  <label> {airdropAmount}</label>
+                  <label> {airdropAmountDenom}</label>
                 </div>
 
                 <button type="submit" onClick={handleSubmit}>
@@ -88,7 +88,7 @@ const CreateWork = () => {
                 {walletAddress.length == 0 ?<></>:
                       <div className='banner-wrapper-content' style={{"marginLeft":"0"}}>
                         <span className="sub-title ms-2" style={{"marginBottom":"0px"}}>
-                          {cw20Balance} CREW
+                          {fotBalanceStr} 
                         </span>
                       </div>
                   }

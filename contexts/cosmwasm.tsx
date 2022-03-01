@@ -25,6 +25,7 @@ let { Provider } = (CosmWasmContext =
 
     alreadyAirdropped: false,
     airdropAmount: 0,
+    airdropAmountDenom: 0,
     merkleProof: [],
 
     getMyAirdropAmount: () => {},

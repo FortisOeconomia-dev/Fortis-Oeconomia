@@ -32,6 +32,7 @@ export interface ISigningCosmWasmClientContext {
 
   alreadyAirdropped: boolean,
   airdropAmount: number,
+  airdropAmountDenom: number,
   merkleProof:any[],
   
   getMyAirdropAmount: Function,
@@ -74,6 +75,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   /////////////////////////////////////////////////////////////////////
   const [alreadyAirdropped, setAlreadyAirdropped] = useState(false)
   const [airdropAmount, setAirdropAmount] = useState(0)
+  const [airdropAmountDenom, setAirdropAmountDenom] = useState(0)
   const [merkleProof, setMerkleProof] = useState([])
 
   
@@ -140,6 +142,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     setWalletAddress('')
     setSigningClient(null)
     setAirdropAmount(0)
+    setAirdropAmountDenom(0)
     setAlreadyAirdropped(false)
     setLoading(false)
     NotificationManager.info(`Disconnected successfully`)
@@ -202,6 +205,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       }
     });
     setAirdropAmount(amount)
+    setAirdropAmountDenom(amount / Math.pow(10, fotTokenInfo.decimals))
     if (amount == 0)
       return
 
@@ -236,11 +240,10 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   }
 
   const executeAirdrop = async () => {
-    
     if (alreadyAirdropped) {
       if (showNotification)
         NotificationManager.warning('Already airdropped')
-    }
+    }    
     setLoading(true)
 
     try {
@@ -294,6 +297,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
     alreadyAirdropped,
     airdropAmount,
+    airdropAmountDenom,
     merkleProof,
 
     getMyAirdropAmount,

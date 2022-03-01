@@ -17,7 +17,6 @@ const Navbar = () => {
     loading,
     getBalances,
     nativeBalance,
-    cw20Balance,
   } = useSigningClient();
 
   const handleConnect = () => {
