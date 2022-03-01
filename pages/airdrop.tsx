@@ -74,25 +74,25 @@ const CreateWork = () => {
     <>
       <div className="trade-cryptocurrency-area ptb-100">
         <div className="container">
-          
-              
-              
-            <div className="trade-cryptocurrency-box-div">
+          <div className="trade-cryptocurrency-box-div">
             <div className="trade-cryptocurrency-content">
               <div className="trade-cryptocurrency-box">
                 <div className="currency-selection">
                   <span>Airdrop Amount</span>
-                  <TextField
-                    fullWidth
-                    id="standard-basic"
-                    variant="standard"
-                    value={airdropAmount}
-                  />
+                  <label> {airdropAmount}</label>
                 </div>
 
                 <button type="submit" onClick={handleSubmit}>
                   <i className="bx bxs-hand-right"></i> GetAirdrop
                 </button>
+                {walletAddress.length == 0 ?<></>:
+                      <div className='banner-wrapper-content' style={{"marginLeft":"0"}}>
+                        <span className="sub-title ms-2" style={{"marginBottom":"0px"}}>
+                          {cw20Balance} CREW
+                        </span>
+                      </div>
+                  }
+
               </div>
             </div>
           </div>
