@@ -1,7 +1,10 @@
 {
     "voters":[
-        {"address":"juno1uljsw6tcsylmp7vft5svksvtfxyyyt6c77u4a8","amount":"100000"},
-        {"address":"juno130mdu9a0etmeuw52qfxk73pn0ga6gawk4k539x","amount":"10000000000"},
+        {"address":"juno1uljsw6tcsylmp7vft5svksvtfxyyyt6c77u4a8","amount":"10000000000"},
+    
+        {"address":"juno15fg4zvl8xgj3txslr56ztnyspf3jc7n9j44vhz","amount":"20000000000"},
+        {"address":"juno1htjut8n7jv736dhuqnad5mcydk6tf4ydeaan4s","amount":"30000000000"},
+        
         {"address":"juno1j50aak0s9tlfpyk64tdrtlvrjn3vgpmgxvstye","amount":"10000000000"},
         {"address":"juno1v5et09s5xfkhex0806lew7mdec2cwmz5zuqhg9","amount":"10000000000"},
         {"address":"juno1pun05dgcacr766j2yehr4pj6rv8xplszk69tmt","amount":"10000000000"},
