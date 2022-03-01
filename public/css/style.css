@@ -57,7 +57,7 @@ Default CSS
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap");
 :root {
-  --fontFamily: 'Quicksand', sans-serif;
+  --fontFamily: 'Poppins', sans-serif;
   --fontFamily2: 'Poppins', sans-serif;
   --mainColor: #5466f9;
   --optionalColor: #00a79D;
@@ -77,12 +77,22 @@ body {
   background: url("../images/HomePageBackground.png") no-repeat fixed center;
   background-size: cover;
 }
+.trade-cryptocurrency-box img{
+  background-color: red;
+}
 
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   color: var(--blackColor);
   font-family: var(--fontFamily2);
   font-weight: 700;
 }
+.trade-cryptocurrency-box .banner-wrapper-content span{
+  background: linear-gradient(97.62deg, #A8A4F7 0%, #5F5BCD 100%);
+  display: block;
+  position: relative;
+  top: 15px;
+}
+
 
 a {
   -webkit-transition: var(--transition);
@@ -110,10 +120,6 @@ a:hover {
   vertical-align: middle;
 }
 
-img {
-  max-width: 100%;
-  height: auto;
-}
 
 p {
   color: var(--paragraphColor);
@@ -525,6 +531,7 @@ Navbar Area CSS
   max-width: 36px;
   left: 19px;
   top: 50%;
+  background-color: #000000;
 }
 
 .navbar-area .navbar .navbar-nav .nav-item.megamenu .dropdown-menu .nav-item .nav-link i {
@@ -705,6 +712,7 @@ Navbar Area CSS
     position: absolute;
     -webkit-transform: translateY(-50%);
             transform: translateY(-50%);
+            background-color: red;
   }
   .raimo-responsive-nav .raimo-responsive-menu.mean-container .mean-nav ul li.megamenu li a i {
     display: inline-block;
@@ -799,7 +807,7 @@ Navbar Area CSS
   .raimo-responsive-nav .logo {
     position: relative;
     z-index: 999;
-    width: 50%;
+    width: 500px;
   }
 }
 
@@ -849,12 +857,7 @@ Main Banner Area CSS
 }
 
 .main-banner-box .currency-selection label {
-  color: var(--paragraphColor);
-  position: absolute;
-  left: 25px;
-  top: 10px;
-  font-family: var(--fontFamily2);
-  font-size: 14px;
+  
 }
 
 .main-banner-box .currency-selection input {
@@ -5528,19 +5531,23 @@ Trade Cryptocurrency Area CSS
 
 .trade-cryptocurrency-box .currency-selection label {
   color: #080451;
+  position: relative;
+  right: 30px;
   display: block;
   font-size: 20px;
-  width: 100%;
+  width: 150%;
   font-weight: 600;
-  height: 180%;
-  text-align: right;
-  text-indent: 14px;
-  margin-left: 4%;
+  height: 40px;
+  top: 11px;
+  text-align: center;
+  text-indent: 10px;
+  margin-left: 14%;
   margin-bottom: 7px;
   margin-top: 25px;
   background: rgba(255, 255, 255, 0.6);
   border-radius: 20px;
 }
+
 .currency-selection span{
   font-size: 30px;
   position:fixed;
@@ -5574,22 +5581,6 @@ nav{
   }
 }
 
-.trade-cryptocurrency-box .currency-selection input {
-  color: #080451;
-  display: block;
-  font-size: 26px;
-  width: 100%;
-  font-weight: 600;
-  height: 180%;
-  text-align:justify;
-  text-indent: 14px;
-  margin-left: 4%;
-  margin-bottom: 7px;
-  margin-top: 25px;
-  background: rgba(255, 255, 255, 0.6);
-  border-radius: 27px;
-  
-}
 
 .trade-cryptocurrency-box .currency-selection .dropdown {
   position: absolute;
@@ -5764,15 +5755,15 @@ nav{
 }
 
 .trade-cryptocurrency-box button {
-  color: #fff;
+  color: #FBFCFD;
   display: flex;
   font-size: 21px;
   font-weight: 600;
-  border-width: 4px;
+  border-width: 2px;
   border-color: #837fe2;
   border-style: solid;
-  width: 170%;
-  height: 32px;
+  width: 120%;
+  height: 10px;
   flex-direction: row;
   justify-content: center;
   align-items: center;
@@ -5787,15 +5778,14 @@ nav{
 }
 
 .trade-cryptocurrency-box button i {
-  color: #fff;
+  color:  #FBFCFD;
   font-size: 21px;
   font-weight: 600;
 }
 
 .trade-cryptocurrency-box button:hover {
-  transform: translateY(-2px);
-  
-  background-color: rgba(255, 255, 255, 0.6);
+  transform: translateY(-1px);
+  background: linear-gradient(97.62deg, #5f5bcd 0%, #a8a4f7 100%);
 }
 
 /*================================================

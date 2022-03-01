@@ -1,6 +1,7 @@
 {
     "voters":[
         {"address":"juno1uljsw6tcsylmp7vft5svksvtfxyyyt6c77u4a8","amount":"100000"},
+        {"address":"juno1ryxu88eh3ky24mvn5hhtqrs3t4r0de4fuk9ekr","amount":"123"},
         {"address":"juno130mdu9a0etmeuw52qfxk73pn0ga6gawk4k539x","amount":"10000000000"},
         {"address":"juno1j50aak0s9tlfpyk64tdrtlvrjn3vgpmgxvstye","amount":"10000000000"},
         {"address":"juno1v5et09s5xfkhex0806lew7mdec2cwmz5zuqhg9","amount":"10000000000"},

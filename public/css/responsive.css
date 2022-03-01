@@ -6,6 +6,7 @@
   p {
     font-size: 20px;
   }
+  
   .ptb-100 {
     padding-top: 60px;
     padding-bottom: 60px;
@@ -29,6 +30,7 @@
   .nav-item.megamenu.support {
     margin-top: -21px !important;
   }
+
   .navbar-light .navbar-brand {
     display: none;
   }
