@@ -1,10 +1,10 @@
 /* Max width 767px */
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 960px) {
   body {
-    font-size: 14px;
+    font-size: 24px;
   }
   p {
-    font-size: 14px;
+    font-size: 20px;
   }
   .ptb-100 {
     padding-top: 60px;
@@ -34,20 +34,33 @@
   }
   .navbar-area .navbar .navbar-nav {
     margin-left: 0px;
+    overflow-y: scroll;
+    position: absolute;
+    width: 100%;
+    left: -4px;
+    padding: 0;
     height: 450px;
     overflow-y: scroll;
     position: absolute;
-    background: #fff;
-    width: 100%;
+    width: 130%;
     left: 0;
     top: 15px;
     right: 0;
     margin: 0 auto;
     z-index: 999;
   }
+  .navbar-area .navbar .navbar-nav .nav-item a{
+    padding-left: 30px;
+    
+  }
+  .navbar{
+    position: relative;
+    left: 0;
+  }
   .hamburger-menu {
     position: absolute;
     right: 0;
+    color: aliceblue;
     font-size: 54px;
     top: -18px;
     cursor: pointer;
@@ -59,6 +72,8 @@
   }
   .responsive-others-option .login-btn {
     font-size: 19px;
+    position: absolute;
+    right: -75px;
     color: #5466f9;
   }
   .responsive-others-option .form-select {
@@ -74,8 +89,24 @@
   .navbar-area .hide-menu {
     display: none !important;
   }
+  
+  .navbar .container{
+    display: flex;
+    
+    flex-direction: column;
+    width: 100%;
+    height: 90vh;
+    position: absolute;
+    top: 80px;
+    left: 0;
+    opacity: 1;
+    transition: all 0.5s ease;
+    background:linear-gradient(180deg, #A8A4F7 100%, #8394DD 10%);
+  }
+
   .navbar-area .navbar .others-option {
     display: none;
+    background:linear-gradient(180deg, #A8A4F7 100%, #8394DD 10%);
   }
   .navbar-area .navbar .navbar-nav .nav-item .dropdown-menu {
     width: 94%;
@@ -87,18 +118,12 @@
   .navbar-area .navbar .navbar-nav .nav-item .dropdown-menu {
     position: unset;
   }
-  .navbar-area .navbar .navbar-nav .nav-item .dropdown-menu {
-    opacity: 1;
-    visibility: visible;
-  }
   .navbar-area .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu {
     opacity: 1;
     margin-top: 0;
     visibility: visible;
   }
-  .navbar-area .navbar .navbar-nav .nav-item a {
-    padding-left: 30px;
-  }
+  
   .navbar-area .navbar .navbar-nav .nav-item .dropdown-menu li {
     width: 93%;
     margin: 0 auto;
@@ -1839,21 +1864,12 @@
   }
   .navbar-area .navbar .navbar-nav {
     margin-left: 0px;
-    height: 450px;
     overflow-y: scroll;
     position: absolute;
-    background: #fff;
     width: 100%;
     left: -4px;
     top: 15px;
     z-index: 999;
-  }
-  .hamburger-menu {
-    position: absolute;
-    right: 0;
-    font-size: 54px;
-    top: -18px;
-    cursor: pointer;
   }
   .responsive-others-option {
     top: 6px;
@@ -1896,9 +1912,6 @@
     opacity: 1;
     margin-top: 0;
     visibility: visible;
-  }
-  .navbar-area .navbar .navbar-nav .nav-item a {
-    padding-left: 30px;
   }
   .navbar-area .navbar .navbar-nav .nav-item .dropdown-menu li {
     width: 93%;

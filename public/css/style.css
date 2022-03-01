@@ -5448,8 +5448,9 @@ Sell Cryptocurrency Area CSS
 Trade Cryptocurrency Area CSS
 =================================================*/
 .trade-cryptocurrency-area {
-  background: -webkit-gradient(linear, left bottom, left top, from(#0062ff), to(#081587));
-  background: linear-gradient(0deg, #0062ff, #081587);
+  margin-top: 7%;
+  margin-left: 5%;
+  margin-right: 5%;
   position: relative;
   z-index: 1;
 }
@@ -5457,16 +5458,13 @@ Trade Cryptocurrency Area CSS
 .trade-cryptocurrency-content {
   padding-right: 15px;
 }
-
-.trade-cryptocurrency-content h1 {
-  font-size: 40px;
-  margin-bottom: 20px;
-  color: var(--whiteColor);
-}
-
 .trade-cryptocurrency-content h1 span {
-  display: block;
-  margin-bottom: 10px;
+  color: #080451;
+  font-size: 41px;
+  width: 100%;
+  font-weight: 600;
+  position: relative;
+  top: 90px;
 }
 
 .trade-cryptocurrency-content p {
@@ -5500,10 +5498,28 @@ Trade Cryptocurrency Area CSS
 }
 
 .trade-cryptocurrency-box {
-  padding: 40px;
-  margin-left: 15px;
-  border-radius: 10px;
-  background-color: var(--whiteColor);
+  background-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 15.119420051574707px 15.119420051574707px 60.47768020629883px 0px
+    rgba(8, 4, 81, 0.18);
+    
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 31.75px;
+  padding: 3%;
+  margin: auto;
+  width: 50%;
+  height: 30%;
+  border-radius: 40px;
+  position: relative;
+  top: 0;
+  
+}
+.trade-cryptocurrency-box-div{
+  position: relative;
+
 }
 
 .trade-cryptocurrency-box .currency-selection {
@@ -5511,26 +5527,68 @@ Trade Cryptocurrency Area CSS
 }
 
 .trade-cryptocurrency-box .currency-selection label {
-  color: var(--paragraphColor);
-  position: absolute;
-  left: 25px;
-  top: 10px;
-  font-family: var(--fontFamily2);
-  font-size: 14px;
+  color: #080451;
+  display: block;
+  font-size: 20px;
+  width: 100%;
+  font-weight: 600;
+  height: 180%;
+  text-align: right;
+  text-indent: 14px;
+  margin-left: 4%;
+  margin-bottom: 7px;
+  margin-top: 25px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 20px;
+}
+.currency-selection span{
+  font-size: 30px;
+  position:fixed;
+  margin-top: -2%;
+  margin-left: 10%;
+  
+
+}
+nav{
+  display: flex;
+  align-items: center;
+  list-style: none;
+  text-align: center;
+}
+@media only screen and (max-width: 960px){
+  nav ul{
+
+  }
+  nav{
+    display: flex;
+
+    flex-direction: column;
+    width: 100%;
+    height: 90vh;
+    position: absolute;
+    top: 80px;
+    left: 4%;
+    opacity: 1;
+    transition: all 0.5s ease;
+    background:linear-gradient(180deg, #A8A4F7 100%, #8394DD 10%);
+  }
 }
 
 .trade-cryptocurrency-box .currency-selection input {
-  width: 100%;
-  height: 70px;
-  border: none;
+  color: #080451;
   display: block;
-  border-radius: 5px;
-  padding: 20px 0 0 25px;
-  color: var(--blackColor);
-  border: 1px solid #eeeeee;
-  font-size: 22px;
-  font-weight: 700;
-  font-family: var(--fontFamily2);
+  font-size: 26px;
+  width: 100%;
+  font-weight: 600;
+  height: 180%;
+  text-align:justify;
+  text-indent: 14px;
+  margin-left: 4%;
+  margin-bottom: 7px;
+  margin-top: 25px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 27px;
+  
 }
 
 .trade-cryptocurrency-box .currency-selection .dropdown {
@@ -5706,36 +5764,38 @@ Trade Cryptocurrency Area CSS
 }
 
 .trade-cryptocurrency-box button {
-  display: block;
-  width: 100%;
-  border-radius: 3px;
-  margin-top: 25px;
-  text-align: center;
-  position: relative;
-  -webkit-transition: var(--transition);
-  transition: var(--transition);
-  background-color: var(--optionalColor);
-  color: var(--whiteColor);
-  border: none;
-  padding: 14px 30px;
-  font-family: var(--fontFamily2);
-  font-size: var(--fontSize);
+  color: #fff;
+  display: flex;
+  font-size: 21px;
   font-weight: 600;
+  border-width: 4px;
+  border-color: #837fe2;
+  border-style: solid;
+  width: 170%;
+  height: 32px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  border-radius: 59px;
+  margin-top: 35px;
+  text-indent: 8px;
+  align-self: center;
+  background: linear-gradient(97.62deg, #a8a4f7 0%, #5f5bcd 100%);
+  box-shadow: 0px 4px 16px 0px rgba(34, 40, 95, 0.24);
 }
 
 .trade-cryptocurrency-box button i {
-  font-size: 20px;
-  margin-left: -30px;
-  position: absolute;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
-  line-height: 1;
+  color: #fff;
+  font-size: 21px;
+  font-weight: 600;
 }
 
 .trade-cryptocurrency-box button:hover {
-  background-color: var(--mainColor);
-  color: var(--whiteColor);
+  transform: translateY(-2px);
+  
+  background-color: rgba(255, 255, 255, 0.6);
 }
 
 /*================================================

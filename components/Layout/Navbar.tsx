@@ -74,21 +74,19 @@ const Navbar = () => {
               <div className='logo'>
                 <Link href='/'>
                   <a>
-                    <img src='/images/juno.png' alt='logo' />
+                    <img src='/images/castle.png' alt='logo' />
                   </a>
                 </Link>
               </div>
 
 
               <div className='responsive-others-option'>
-                <div className='d-flex align-items-center'>
                   <div className='option-item'>
                     <Link href='/authentication' activeClassName='active'>
                       <a className='login-btn'>
                         <i className='bx bx-log-in'></i>
                       </a>
                     </Link>
-                  </div>
                 </div>
               </div>
             </div>
@@ -96,18 +94,11 @@ const Navbar = () => {
         </div>
         <nav className={showMenu? 'show navbar navbar-expand-md navbar-light':'navbar navbar-expand-md navbar-light hide-menu'}>
           <div className='container'>
-            <Link className="flex" href='/'>
-              <div className="d-flex flex-row align-items-center" >
-                <a className="justify-content-center" style= {{ "width":"100px","marginTop":"20px"}}>
-                  <img src='/images/castle.png' alt='logo' className="justify-right" style={{"marginRight":"20px", "cursor":"pointer",}}/>
-                </a>
-              </div>
-            </Link>
+            
 
             <div className='collapse navbar-collapse mean-menu'>
               
-              <ul className='navbar-nav'>
-                
+              <ul className='navbar-nav'>                
                 <li className='nav-item'>
                   <Link href='/airdrop' activeClassName='active'>
                     <a className='nav-link'>Airdrop</a>
