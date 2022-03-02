@@ -1,9 +1,8 @@
-import Banner from '../components/Home/Banner';
 
 const Index = () => {
   return (
     <>
-      <Banner />
+      {/* <Banner /> */}
       {/* <OurFeature title="The Global Leader of Social Workshop"/>
      
       <RegisterArea

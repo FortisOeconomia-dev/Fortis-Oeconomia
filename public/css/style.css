@@ -1361,7 +1361,6 @@ Main Banner Area CSS
 }
 
 .banner-wrapper-area {
-  background-image: url(../images/banner/banner-bg1.jpg);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -1543,7 +1542,6 @@ About Area CSS
 .about-content {
   border-radius: 0 0 5px 5px;
   background-color: var(--blackColor);
-  background-image: url(../images/about.jpg);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -1667,23 +1665,18 @@ About Area CSS
 }
 
 .history-timeline.timeline .timeline-event-date.bg1 {
-  background-image: url(../images/history/history1.jpg);
 }
 
 .history-timeline.timeline .timeline-event-date.bg2 {
-  background-image: url(../images/history/history2.jpg);
 }
 
 .history-timeline.timeline .timeline-event-date.bg3 {
-  background-image: url(../images/history/history3.jpg);
 }
 
 .history-timeline.timeline .timeline-event-date.bg4 {
-  background-image: url(../images/history/history4.jpg);
 }
 
 .history-timeline.timeline .timeline-event-date.bg5 {
-  background-image: url(../images/history/history5.jpg);
 }
 
 .history-timeline.timeline .timeline-event-icon {
@@ -1811,7 +1804,6 @@ Buy & Sell Cryptocurrency Area CSS
 }
 
 .buy-sell-cryptocurrency-area.bg-image {
-  background-image: url(../images/bg.jpg);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -1879,7 +1871,6 @@ Buy & Sell Cryptocurrency Area CSS
 Account Create Process Area CSS
 =================================================*/
 .account-create-process-area.bg-image {
-  background-image: url(../images/bg2.jpg);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -4270,7 +4261,6 @@ Reigster Area CSS
 }
 
 .cta-area.bg-gradient-image {
-  background-image: url(../images/bg4.jpg);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -4450,15 +4440,12 @@ Data Table Area CSS
 }
 
 .cryptocurrency-data-table .dataTable thead .sorting_asc {
-  background-image: url(../images/sort_asc.png) !important;
 }
 
 .cryptocurrency-data-table .dataTable thead .sorting_desc {
-  background-image: url(../images/sort_desc.png) !important;
 }
 
 .cryptocurrency-data-table .dataTable thead .sorting {
-  background-image: url(../images/sort_both.png);
 }
 
 .cryptocurrency-data-table .dataTable thead .sorting_disabled {
@@ -6154,7 +6141,6 @@ Blog Area CSS
 Blog Details Area CSS
 =================================================*/
 .blog-details-area {
-  background-image: url(../images/bg5.jpg);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
