@@ -1,9 +1,6 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-//top header
-import TopHeader from './TopHeader';
-
 //navbar
 import Navbar from './Navbar';
 

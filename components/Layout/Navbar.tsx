@@ -17,7 +17,6 @@ const Navbar = () => {
     loading,
     getBalances,
     nativeBalance,
-    cw20Balance,
   } = useSigningClient();
 
   const handleConnect = () => {
@@ -73,7 +72,7 @@ const Navbar = () => {
               <div className="logo">
                 <Link href="/">
                   <a>
-                    <img src="/images/castle.png" alt="logo" />
+                    <img src="/images/castlenew.png" alt="logo" />
                   </a>
                 </Link>
               </div>
@@ -102,7 +101,7 @@ const Navbar = () => {
               <div className="d-flex flex-row align-items-center">
                 <a className="justify-content-center" style={{ width: "100px", marginTop: "20px" }}>
                   <img
-                    src="/images/castle.png"
+                    src="/images/castlenew.png"
                     alt="logo"
                     className="justify-right"
                     style={{ marginRight: "20px", cursor: "pointer" }}
@@ -118,11 +117,11 @@ const Navbar = () => {
                     <a className="nav-link">Airdrop</a>
                   </Link>
                 </li>
-                <li className="nav-item">
+                {/*<li className="nav-item">
                   <Link href="/publicsale" activeClassName="active">
                     <a className="nav-link">Public Sale</a>
                   </Link>
-                </li>
+                  </li>*/}
                 <li className="nav-item">
                   <Link href="/burnmodule" activeClassName="active">
                     <a className="nav-link">Burn Module</a>
@@ -144,7 +143,7 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link href="/wallett" activeClassName="active">
+                  <Link href="/wallet" activeClassName="active">
                     <a className="nav-link">Wallet</a>
                   </Link>
                 </li>
@@ -158,12 +157,6 @@ const Navbar = () => {
                       className="banner-wrapper-content"
                       style={{ marginLeft: "30px" }}
                     >
-                      <span
-                        className="sub-title ms-2"
-                        style={{ marginBottom: "0px", fontSize: "16px" }}
-                      >
-                        JUNO {nativeBalance}
-                      </span>
                     </div>
                   )}
                   <i

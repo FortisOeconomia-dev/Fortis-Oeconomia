@@ -12,7 +12,6 @@ import DateTimePicker from "@mui/lab/DateTimePicker";
 
 import { useSigningClient } from "../contexts/cosmwasm";
 import { fromBase64, toBase64 } from "@cosmjs/encoding";
-import { CW20_DECIMAL } from "../hooks/cosmwasm";
 
 const CreateWork = () => {
   const {
@@ -26,11 +25,13 @@ const CreateWork = () => {
 
     getBalances,
     nativeBalanceStr,
-    cw20Balance,
     nativeBalance,
+    fotBalance,
+    fotBalanceStr,
 
     alreadyAirdropped,
     airdropAmount,
+    airdropAmountDenom,
     merkleProof,
 
     getMyAirdropAmount,
@@ -42,7 +43,6 @@ const CreateWork = () => {
     if (!signingClient || walletAddress.length === 0) {
       return;
     }
-    console.log("ehre");
     getMyAirdropAmount();
     GetAlreadyAirdropped();
   }, [signingClient, walletAddress]);
@@ -51,7 +51,6 @@ const CreateWork = () => {
     if (!signingClient || walletAddress.length === 0) {
       return;
     }
-    console.log(airdropAmount);
   }, [airdropAmount]);
 
   const handleSubmit = async (event: MouseEvent<HTMLElement>) => {
@@ -78,17 +77,18 @@ const CreateWork = () => {
             <div className="trade-cryptocurrency-content">
               <div className="trade-cryptocurrency-box">
                 <div className="currency-selection">
-                  <span>Airdrop Amount</span>
-                  <label> {airdropAmount}</label>
+                  <span>Votedrop Amount</span>
+                  <label style={{ alignItems: "center",textAlign: "center",height: "fit-content" }}> {airdropAmountDenom}</label>
                 </div>
 
                 <button type="submit" onClick={handleSubmit}>
-                  <i className="bx bxs-hand-right"></i> GetAirdrop
+                  Claim
                 </button>
+                <div className="juno-load"></div>
                 {walletAddress.length == 0 ?<></>:
                       <div className='banner-wrapper-content' style={{"marginLeft":"0"}}>
                         <span className="sub-title ms-2" style={{"marginBottom":"0px"}}>
-                          {cw20Balance} CREW
+                          {fotBalanceStr} 
                         </span>
                       </div>
                   }

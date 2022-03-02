@@ -22,12 +22,17 @@ export interface ISigningCosmWasmClientContext {
   disconnect: Function,
 
   getBalances: Function,
-  nativeBalanceStr: string,
-  cw20Balance: number,
+  
+  
   nativeBalance: number,
+  nativeBalanceStr: string,
+  fotBalance: number,
+  fotBalanceStr: string,
+  fotTokenInfo: any,
 
   alreadyAirdropped: boolean,
   airdropAmount: number,
+  airdropAmountDenom: number,
   merkleProof:any[],
   
   getMyAirdropAmount: Function,
@@ -58,15 +63,19 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
-  const [nativeBalanceStr, setNativeBalanceStr] = useState('')
-  const [cw20Balance, setCw20Balance] = useState(0)
   const [nativeBalance, setNativeBalance] = useState(0)
+  const [nativeBalanceStr, setNativeBalanceStr] = useState('')
+  const [fotBalance, SetFotBalance] = useState(0)
+  const [fotBalanceStr, SetFotBalanceStr] = useState('')
+  
+  const [fotTokenInfo, setFotTokenInfo] = useState({ name: '', symbol: '', decimals: 10, total_supply:0 })
     
   /////////////////////////////////////////////////////////////////////
   /////////////////////  Airdrop Variables   //////////////////////////
   /////////////////////////////////////////////////////////////////////
   const [alreadyAirdropped, setAlreadyAirdropped] = useState(false)
   const [airdropAmount, setAirdropAmount] = useState(0)
+  const [airdropAmountDenom, setAirdropAmountDenom] = useState(0)
   const [merkleProof, setMerkleProof] = useState([])
 
   
@@ -132,6 +141,9 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     }
     setWalletAddress('')
     setSigningClient(null)
+    setAirdropAmount(0)
+    setAirdropAmountDenom(0)
+    setAlreadyAirdropped(false)
     setLoading(false)
     NotificationManager.info(`Disconnected successfully`)
   }
@@ -149,10 +161,24 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       setNativeBalanceStr(`${convertMicroDenomToDenom(objectNative.amount)} ${convertFromMicroDenom(objectNative.denom)}`)
       setNativeBalance(convertMicroDenomToDenom(objectNative.amount))
 
+
+
+      const objectFotTokenInfo:JsonObject = await signingClient.queryContractSmart(PUBLIC_CW20_CONTRACT, {
+        token_info: {},
+      })
+      setFotTokenInfo(objectFotTokenInfo)
+      console.log(objectFotTokenInfo)
+      
       const objectCrew:JsonObject = await signingClient.queryContractSmart(PUBLIC_CW20_CONTRACT, {
         balance: { address: walletAddress },
       })
-      setCw20Balance(parseInt(objectCrew.balance) / CW20_DECIMAL)
+
+
+      console.log((objectCrew.balance) / Math.pow(10, objectFotTokenInfo.decimals))
+      SetFotBalance(parseInt(objectCrew.balance) / Math.pow(10, objectFotTokenInfo.decimals))
+      SetFotBalanceStr(parseInt(objectCrew.balance) / Math.pow(10, objectFotTokenInfo.decimals) + objectFotTokenInfo.symbol)
+      
+      
       setLoading(false)
       if (showNotification)
         NotificationManager.info(`Successfully got balances`)
@@ -176,14 +202,14 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     voters.forEach((rec) => {
       if (rec.address == walletAddress) {
         amount = parseInt(rec.amount)
-        
       }
     });
     setAirdropAmount(amount)
+    setAirdropAmountDenom(amount / Math.pow(10, fotTokenInfo.decimals))
     if (amount == 0)
       return
 
-      let receivers: Array<{ address: string; amount: string }> = voters
+    let receivers: Array<{ address: string; amount: string }> = voters
     let airdrop = new Airdrop(receivers)
     let proof = airdrop.getMerkleProof({address: walletAddress, amount: amount.toString()})
     setMerkleProof(proof)
@@ -217,7 +243,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     if (alreadyAirdropped) {
       if (showNotification)
         NotificationManager.warning('Already airdropped')
-    }
+    }    
     setLoading(true)
 
     try {
@@ -238,6 +264,8 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
       setLoading(false)
       getBalances()
+      setAlreadyAirdropped(true)
+      
       if (showNotification)
         NotificationManager.success('Successfully airdropped')
     } catch (error) {
@@ -261,12 +289,15 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     client,
     
     getBalances,
-    nativeBalanceStr,
-    cw20Balance,
     nativeBalance,
+    nativeBalanceStr,
+    fotBalance,
+    fotBalanceStr,
+    fotTokenInfo,
 
     alreadyAirdropped,
     airdropAmount,
+    airdropAmountDenom,
     merkleProof,
 
     getMyAirdropAmount,

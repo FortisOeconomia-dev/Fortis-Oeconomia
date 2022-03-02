@@ -16,12 +16,16 @@ let { Provider } = (CosmWasmContext =
     disconnect: () => {},
 
     getBalances: () => {},
-    nativeBalanceStr: '',
-    cw20Balance: 0,
+    
     nativeBalance: 0,
+    nativeBalanceStr: '',
+    fotBalance: 0,
+    fotBalanceStr: '',
+    fotTokenInfo: null,
 
     alreadyAirdropped: false,
     airdropAmount: 0,
+    airdropAmountDenom: 0,
     merkleProof: [],
 
     getMyAirdropAmount: () => {},
