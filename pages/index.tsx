@@ -1,6 +1,4 @@
 import Banner from '../components/Home/Banner';
-import OurFeature from '../components/Common/OurFeature';
-import RegisterArea from '../components/Common/RegisterArea';
 
 const Index = () => {
   return (

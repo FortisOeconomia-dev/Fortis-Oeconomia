@@ -12,7 +12,6 @@ import DateTimePicker from "@mui/lab/DateTimePicker";
 
 import { useSigningClient } from "../contexts/cosmwasm";
 import { fromBase64, toBase64 } from "@cosmjs/encoding";
-import { CW20_DECIMAL } from "../hooks/cosmwasm";
 
 const CreateWork = () => {
   const {

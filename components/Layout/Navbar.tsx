@@ -143,7 +143,7 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link href="/wallett" activeClassName="active">
+                  <Link href="/wallet" activeClassName="active">
                     <a className="nav-link">Wallet</a>
                   </Link>
                 </li>
