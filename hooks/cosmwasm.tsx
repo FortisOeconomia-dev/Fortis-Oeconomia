@@ -86,7 +86,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   ////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////
 
-  const showNotification = true;
+  const showNotification = false;
 
   const connectWallet = async (inBackground:boolean) => {
     if (!inBackground)
@@ -99,7 +99,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       await (window as any).keplr.enable(PUBLIC_CHAIN_ID)
 
       // get offline signer for signing txs
-      const offlineSigner = await (window as any).getOfflineSigner(
+      const offlineSigner = await (window as any).getOfflineSignerOnlyAmino(
         PUBLIC_CHAIN_ID
       )
 
@@ -231,7 +231,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       setAlreadyAirdropped(response.is_claimed)
       setLoading(false)   
       if (showNotification)
-        NotificationManager.info(`AlreadyAirdropped`)
+        NotificationManager.info('AlreadyAirdropped')
     } catch (error) {
       setLoading(false)
       if (showNotification)
