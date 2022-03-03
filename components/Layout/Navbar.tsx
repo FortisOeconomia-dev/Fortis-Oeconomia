@@ -133,7 +133,7 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link href="/wallet" activeClassName="active">
+                  <Link href="/nwallet" activeClassName="active">
                     <a className="nav-link">Wallet</a>
                   </Link>
                 </li>

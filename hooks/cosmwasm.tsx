@@ -86,7 +86,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   ////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////
 
-  const showNotification = true;
+  const showNotification = false;
 
   const connectWallet = async (inBackground:boolean) => {
     if (!inBackground)
@@ -231,7 +231,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       setAlreadyAirdropped(response.is_claimed)
       setLoading(false)   
       if (showNotification)
-        NotificationManager.info(`AlreadyAirdropped`)
+        NotificationManager.info('AlreadyAirdropped')
     } catch (error) {
       setLoading(false)
       if (showNotification)

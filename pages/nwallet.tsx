@@ -1,5 +1,5 @@
 
-const Wallet = () => {
+const nwallet = () => {
   return (
     <div className="container">
               <img
@@ -12,4 +12,4 @@ const Wallet = () => {
 )
 };
 
-export default Wallet;
+export default nwallet;
