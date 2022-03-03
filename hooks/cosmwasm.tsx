@@ -231,7 +231,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       setAlreadyAirdropped(response.is_claimed)
       setLoading(false)   
       if (showNotification)
-        NotificationManager.info(`Successfully got AlreadyAirdropped`)
+        NotificationManager.info(`AlreadyAirdropped`)
     } catch (error) {
       setLoading(false)
       if (showNotification)

@@ -1828,6 +1828,10 @@
   .value-trade-area .container {
     max-width: 540px;
   }
+  
+  .trade-cryptocurrency-box .currency-selection{
+    background-color: red;
+  }
   .value-trade-area .container-fluid {
     max-width: 540px;
   }

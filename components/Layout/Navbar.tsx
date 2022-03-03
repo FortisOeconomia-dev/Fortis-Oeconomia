@@ -62,28 +62,12 @@ const Navbar = () => {
         <div className="raimo-responsive-nav">
           <div className="container">
             <div className="raimo-responsive-menu">
-              <div onClick={() => toggleMenu()} className="hamburger-menu">
-                {showMenu ? (
-                  <i className="bx bx-x"></i>
-                ) : (
-                  <i className="bx bx-menu"></i>
-                )}
-              </div>
-              <div className="logo">
-                <Link href="/">
-                  <a>
-                    <img src="/images/castlenew.png" alt="logo" />
-                  </a>
-                </Link>
-              </div>
-
+              <Link className="flex" href="https://www.fortisoeconomia.com/">
+                <img src="/images/construction.png"
+                  style={{ display: "block", marginLeft: "auto", marginRight: "auto", width: "100%", height: "100%", marginBottom: "1000px", cursor:"pointer" }} />
+              </Link>
               <div className="responsive-others-option">
                 <div className="option-item">
-                  <Link href="/authentication" activeClassName="active">
-                    <a className="login-btn">
-                      <i className="bx bx-log-in"></i>
-                    </a>
-                  </Link>
                 </div>
               </div>
             </div>
@@ -97,7 +81,7 @@ const Navbar = () => {
           }
         >
           <div className="container">
-            <Link className="flex" href="/">
+            <Link className="flex" href="https://www.fortisoeconomia.com/">
               <div className="d-flex flex-row align-items-center">
                 <a className="justify-content-center" style={{ width: "100px", marginTop: "20px" }}>
                   <img
@@ -105,6 +89,7 @@ const Navbar = () => {
                     alt="logo"
                     className="justify-right"
                     style={{ marginRight: "20px", cursor: "pointer" }}
+
                   />
                 </a>
               </div>
