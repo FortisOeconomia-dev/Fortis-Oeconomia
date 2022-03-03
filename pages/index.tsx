@@ -2,14 +2,7 @@
 const Index = () => {
   return (
     <>
-      {/* <Banner /> */}
-      {/* <OurFeature title="The Global Leader of Social Workshop"/>
-     
-      <RegisterArea
-        bgGradient='bg-gradient-image'
-        blackText='black-text'
-        ctaImage='/images/wallet.png'
-      /> */}
+    <img src="./images/fortisoeconomia.png" style={{ display: "block", marginLeft:"auto", marginRight:"auto", width: "100%", height:"100%" }}/>
     </>
   );
 };
