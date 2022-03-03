@@ -133,6 +133,11 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li className="nav-item">
+                  <Link href="/sFOTmodule" activeClassName="active">
+                    <a className="nav-link">sFOT Module</a>
+                  </Link>
+                </li>
+                <li className="nav-item">
                   <Link href="/burntostake" activeClassName="active">
                     <a className="nav-link">Burn to Stake</a>
                   </Link>
@@ -170,11 +175,11 @@ const Navbar = () => {
                       <i className="bx bxs-contact"></i>
                       {walletAddress
                         ? walletAddress.substring(0, 12) +
-                          "..." +
-                          walletAddress.substring(
-                            walletAddress.length - 6,
-                            walletAddress.length
-                          )
+                        "..." +
+                        walletAddress.substring(
+                          walletAddress.length - 6,
+                          walletAddress.length
+                        )
                         : "Connect Wallet"}
                     </button>
                   </div>

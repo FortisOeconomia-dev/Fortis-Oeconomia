@@ -366,8 +366,8 @@ Navbar Area CSS
 
 .navbar-area .navbar .navbar-nav .nav-item {
   position: relative;
-  margin-left: 15px;
-  margin-right: 15px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .navbar-area .navbar .navbar-nav .nav-item a {
@@ -378,10 +378,11 @@ Navbar Area CSS
   font-weight: 600;
   font-size: var(--fontSize);
   font-family: var(--fontFamily2);
-  padding-left: 50px;
+  padding-left: 40px;
   padding-right: 20px;
   padding-top: 50px;
   padding-bottom: 30px;
+
 }
 
 .navbar-area .navbar .navbar-nav .nav-item a:hover{

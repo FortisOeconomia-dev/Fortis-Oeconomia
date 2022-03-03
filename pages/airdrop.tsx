@@ -84,9 +84,8 @@ const CreateWork = () => {
                 <button type="submit" onClick={handleSubmit}>
                   Claim
                 </button>
-                <div className="juno-load"></div>
                 {walletAddress.length == 0 ?<></>:
-                      <div className='banner-wrapper-content' style={{"marginLeft":"0"}}>
+                      <div className='banner-wrapper-content' style={{"marginRight":"0"}}>
                         <span className="sub-title ms-2" style={{"marginBottom":"0px"}}>
                           {fotBalanceStr} 
                         </span>
