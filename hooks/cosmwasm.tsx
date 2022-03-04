@@ -97,6 +97,10 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
       // enable website to access kepler
       await (window as any).keplr.enable(PUBLIC_CHAIN_ID)
+      
+      console.log((window as any).keplr)
+
+      await (window as any).keplr.suggestToken(PUBLIC_CHAIN_ID, PUBLIC_CW20_CONTRACT, PUBLIC_CW20_CONTRACT)
 
       // get offline signer for signing txs
       const offlineSigner = await (window as any).getOfflineSignerOnlyAmino(
