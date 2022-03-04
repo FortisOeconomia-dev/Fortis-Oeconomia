@@ -1,4 +1,4 @@
-Options -MultiViews
-RewriteEngine On
-RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI}.html -f
-RewriteRule !\.\w{2,4}$ %{REQUEST_URI}.html [L]
+RewriteEngine on 
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^(.*)$ https://www.fortisoeconomia.space/$1.html [NC,L]
