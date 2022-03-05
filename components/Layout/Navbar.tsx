@@ -99,7 +99,7 @@ const Navbar = () => {
               <ul className="navbar-nav">
                 <li className="nav-item">
                   <Link href="/airdrop" activeClassName="active">
-                    <a className="nav-link">Airdrop</a>
+                    <a className="nav-link" style={{whiteSpace:"nowrap"}}>Airdrop</a>
                   </Link>
                 </li>
                 {/*<li className="nav-item">
@@ -109,32 +109,32 @@ const Navbar = () => {
                   </li>*/}
                 <li className="nav-item">
                   <Link href="/burnmodule" activeClassName="active">
-                    <a className="nav-link">Burn Module</a>
+                    <a className="nav-link" style={{whiteSpace:"nowrap"}}>Burn Module</a>
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link href="/gFOTmodule" activeClassName="active">
-                    <a className="nav-link">gFOT Module</a>
+                    <a className="nav-link" style={{whiteSpace:"nowrap"}}>Grand Module (gFOT)</a>
                   </Link>
                 </li>
-                <li className="nav-item">
+                {/*<li className="nav-item">
                   <Link href="/sFOTmodule" activeClassName="active">
-                    <a className="nav-link">sFOT Module</a>
+                    <a className="nav-link" style={{whiteSpace:"nowrap"}}>sFOT Module</a>
                   </Link>
-                </li>
+                </li>*/}
                 <li className="nav-item">
                   <Link href="/burntostake" activeClassName="active">
-                    <a className="nav-link">Burn to Stake</a>
+                    <a className="nav-link" style={{whiteSpace:"nowrap"}}>Burn to Stake</a>
                   </Link>
                 </li>
-                <li className="nav-item">
+                {/*<li className="nav-item">
                   <Link href="/legionnairecoins" activeClassName="active">
-                    <a className="nav-link">Legionnaire Coins</a>
+                    <a className="nav-link" style={{whiteSpace:"nowrap"}}>Legionnaire Coins</a>
                   </Link>
-                </li>
+                </li>*/}
                 <li className="nav-item">
                   <Link href="/nwallet" activeClassName="active">
-                    <a className="nav-link">Wallet</a>
+                    <a className="nav-link" style={{whiteSpace:"nowrap"}}>Wallet</a>
                   </Link>
                 </li>
               </ul>

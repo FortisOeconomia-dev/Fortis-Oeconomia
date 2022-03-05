@@ -55,10 +55,11 @@ This files table contents are outlined below>>>>>
 Default CSS
 =================================================*/
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&family=Quicksand&display=swap');
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap");
 :root {
-  --fontFamily: "Poppins", sans-serif;
-  --fontFamily2: "Poppins", sans-serif;
+  --fontFamily: "Quicksand", sans-serif;
+  --fontFamily2: "Quicksand", sans-serif;
   --mainColor: #5466f9;
   --optionalColor: #00a79d;
   --whiteColor: #ffffff;
@@ -69,14 +70,70 @@ Default CSS
   --transition: 0.5s;
 }
 
+.currencyt-box{
+  background: linear-gradient(315deg, #f2efff 0%, #8394DD 100%);
+  box-shadow: 15.1194px 15.1194px 60.4777px rgba(8, 4, 81, 0.18);
+  border-radius: 52.162px;
+  overflow: hidden;
+  display: block;
+  opacity: 0.8;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 31.75px;
+  padding: 3%;
+  margin: auto;
+  width: 50%;
+  height: 30%;
+  position: relative;
+  top: 0;
+}
+
+.currencyt-selection{
+  position: relative;
+  text-align: center;
+}
+.currencyt-selection .wallet-title{
+  background: radial-gradient(207.29% 1467.58% at 50% 50%, #3b55ca 0%, #110f58 45.83%, #A8A4F7 100%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.currencyt-selection .wallet-label{
+}
+.currencyt-selection .wallet-text .wallet-label{
+  color: #080451;
+  position: relative;
+  display: block;
+  font-size: 20px;
+  width: 50%;
+  font-weight: 600;
+  height: 115%;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+  text-indent: 15px;
+  margin-top: 45px;
+}
+.currencyt-selection .wallet-text .wallet-label .wallet-span{
+  white-space: nowrap;
+  font-size: 37px;
+  font-weight: 600;
+  top: 5px;
+  left: 30%;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  background-clip: text;
+}
 body {
   margin: 0;
   padding: 0;
   color: var(--blackColor);
   font-size: var(--fontSize);
   font-family: var(--fontFamily);
-  background: url("../images/HomePageBackground.png") no-repeat fixed center;
+  background: linear-gradient(180deg, #8394DD 0%, #FFFFFF 100%);
   background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .h1,
@@ -366,8 +423,8 @@ Navbar Area CSS
 
 .navbar-area .navbar .navbar-nav .nav-item {
   position: relative;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin-left: 35px;
+  margin-right: 35px;
 }
 
 .navbar-area .navbar .navbar-nav .nav-item a {

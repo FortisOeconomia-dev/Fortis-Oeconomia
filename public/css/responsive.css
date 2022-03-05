@@ -2602,9 +2602,20 @@
   .trade-cryptocurrency-content p {
     font-size: 15px;
   }
-  .trade-cryptocurrency-box {
-    margin-left: 0;
-    margin-top: 35px;
+  .trade-cryptocurrency-box{
+    overflow: hidden;
+    display: block;
+    opacity: 0.8;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 31.75px;
+    padding: 3%;
+    margin: auto;
+    width: 50%;
+    height: 30%;
+    position: relative;
+    top: 0;
   }
   .payment-method-list {
     margin-top: -15px;
@@ -2947,7 +2958,9 @@
 /* Min width 992px to Max width 1199px */
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   .navbar-area .container {
-    max-width: 960px;
+    max-width: 992px;
+    overflow: hidden;
+    font-size:small;
   }
   .navbar-area .container-fluid {
     max-width: 960px;
@@ -3252,9 +3265,20 @@
   .trade-cryptocurrency-content p {
     font-size: 16px;
   }
-  .trade-cryptocurrency-box {
-    padding: 30px;
-    margin-left: 0;
+  .trade-cryptocurrency-box{
+    overflow: hidden;
+    display: block;
+    opacity: 0.8;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 31.75px;
+    padding: 3%;
+    margin: auto;
+    width: 50%;
+    height: 30%;
+    position: relative;
+    top: 0;
   }
   .payment-method-list li {
     padding: 5px;
@@ -3431,6 +3455,21 @@
   .features-box p {
     padding-left: 0;
     padding-right: 0;
+  }
+  .trade-cryptocurrency-box{
+    overflow: hidden;
+    display: block;
+    opacity: 0.8;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 31.75px;
+    padding: 3%;
+    margin: auto;
+    width: 50%;
+    height: 30%;
+    position: relative;
+    top: 0;
   }
   .buy-sell-cryptocurrency-content .single-buy-sell-box {
     padding: 20px;
