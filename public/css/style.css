@@ -71,7 +71,7 @@ Default CSS
 }
 
 .currencyt-box{
-  background: linear-gradient(315deg, #f2efff 0%, #8394DD 100%);
+  background: linear-gradient(135deg, #f2efff 0%, #8394DD 100%);
   box-shadow: 15.1194px 15.1194px 60.4777px rgba(8, 4, 81, 0.18);
   border-radius: 52.162px;
   overflow: hidden;
@@ -99,9 +99,20 @@ Default CSS
   -webkit-text-fill-color: transparent;
 }
 .currencyt-selection .wallet-label{
+  color: #ffffff;
+  position: relative;
+  display: block;
+  font-size: 20px;
+  width: 50%;
+  font-weight: 600;
+  height: 115%;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
 }
+
 .currencyt-selection .wallet-text .wallet-label{
-  color: #080451;
+  color: #ffffff;
   position: relative;
   display: block;
   font-size: 20px;
@@ -418,13 +429,14 @@ Navbar Area CSS
 }
 
 .navbar-area .navbar .navbar-nav {
-  margin-left: 100px;
+ margin-left: auto;
+ margin-right: auto;
 }
 
 .navbar-area .navbar .navbar-nav .nav-item {
   position: relative;
-  margin-left: 35px;
-  margin-right: 35px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .navbar-area .navbar .navbar-nav .nav-item a {
@@ -777,7 +789,7 @@ Navbar Area CSS
 }
 
 .navbar-area .navbar .others-option {
-  margin-left: auto;
+  width: fit-content;
 }
 
 .navbar-area .navbar .others-option .option-item {
@@ -1129,9 +1141,6 @@ Main Banner Area CSS
 
 .main-banner-box .currency-selection {
   position: relative;
-}
-
-.main-banner-box .currency-selection label {
 }
 
 .main-banner-box .currency-selection input {
@@ -2023,21 +2032,6 @@ About Area CSS
   background-color: var(--whiteColor);
   font-size: var(--fontSize);
   font-weight: 700;
-}
-
-.history-timeline.timeline .timeline-event-date.bg1 {
-}
-
-.history-timeline.timeline .timeline-event-date.bg2 {
-}
-
-.history-timeline.timeline .timeline-event-date.bg3 {
-}
-
-.history-timeline.timeline .timeline-event-date.bg4 {
-}
-
-.history-timeline.timeline .timeline-event-date.bg5 {
 }
 
 .history-timeline.timeline .timeline-event-icon {
@@ -4840,15 +4834,6 @@ Data Table Area CSS
   text-align: start;
 }
 
-.cryptocurrency-data-table .dataTable thead .sorting_asc {
-}
-
-.cryptocurrency-data-table .dataTable thead .sorting_desc {
-}
-
-.cryptocurrency-data-table .dataTable thead .sorting {
-}
-
 .cryptocurrency-data-table .dataTable thead .sorting_disabled {
   background-image: unset !important;
 }
@@ -6059,8 +6044,7 @@ nav {
   text-align: center;
 }
 @media only screen and (max-width: 960px) {
-  nav ul {
-  }
+
   nav {
     display: flex;
 
@@ -6308,7 +6292,37 @@ nav {
   transform: translateY(-1px);
   background: linear-gradient(97.62deg, #5f5bcd 0%, #a8a4f7 100%);
 }
-
+.currencyt-box button {
+  color: #fbfcfd;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  font-size: 21px;
+  font-weight: 600;
+  border-width: 0px;
+  width: 60%;
+  height: 10px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  border-radius: 59px;
+  margin-top: 35px;
+  text-indent: 8px;
+  align-self: center;
+  background: linear-gradient(97.62deg, #a8a4f7 0%, #5f5bcd 100%);
+  box-shadow: 0px 4px 16px 0px rgba(34, 40, 95, 0.24);
+}
+.currencyt-box button:hover {
+  transform: translateY(-1px);
+  background: linear-gradient(97.62deg, #5f5bcd 0%, #a8a4f7 100%);
+}
+.currencyt-box button i {
+  color: #fbfcfd;
+  font-size: 21px;
+  font-weight: 600;
+}
 /*================================================
 Profile Authentication Area CSS
 =================================================*/

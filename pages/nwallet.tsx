@@ -1,3 +1,5 @@
+import { display } from "@mui/system";
+
 const nwallet = () => {
   return (
     <div style={{ width: "100%" }}>
@@ -18,56 +20,61 @@ const nwallet = () => {
               My Assets
             </span>
             <div className="wallet-text">
-              <label className="wallet-label" style={{ fontSize: "27px" }}>
+              <label className="wallet-label" style={{width:"418px",marginLeft:"40px" ,textAlign:"left",fontSize: "27px",color:"#030f49"}}>
                 FOT
                 <span style={{
-                  marginLeft: "35%",
-                  fontSize: "27px"
-
+                  fontSize: "27px",
+                  display:"block",
+                  float:"right"
                 }}> 0
                 </span>
               </label>
-              <label className="wallet-label" style={{ fontSize: "27px" }} >
+              <label className="wallet-label" style={{width:"418px",marginLeft:"40px" ,textAlign:"left", fontSize: "27px",color:"#030f49" }} >
                 bFOT
                 <span style={{
-                  marginLeft: "31.5%",
-                  fontSize: "27px"
+                  fontSize: "27px",
+                  display:"block",
+                  float:"right"
                 }}>
                   0
                 </span>
               </label>
-              <label className="wallet-label" style={{ fontSize: "27px" }} >
+              <label className="wallet-label" style={{width:"418px",marginLeft:"40px" ,textAlign:"left", fontSize: "27px",color:"#030f49" }} >
                 gFOT
                 <span style={{
-                  marginLeft: "31.5%",
-                  fontSize: "27px"
+                  fontSize: "27px",
+                  display:"block",
+                  float:"right"
                 }}>
                   0
                 </span>
               </label>
-              <label className="wallet-label" style={{ fontSize: "27px" }} >
+              <label className="wallet-label" style={{width:"418px",marginLeft:"40px" , textAlign:"left", fontSize: "27px",color:"#030f49" }} >
                 ATOM
                 <span style={{
-                  marginLeft: "29%",
-                  fontSize: "27px"
+                  fontSize: "27px",
+                  display:"block",
+                  float:"right"
                 }}>
                   0
                 </span>
               </label>
-              <label className="wallet-label" style={{ fontSize: "27px" }}  >
+              <label className="wallet-label" style={{width:"418px",marginLeft:"40px" , textAlign:"left", fontSize: "27px",color:"#030f49" }}  >
                 JUNO
                 <span style={{
-                  marginLeft: "28.75%",
-                  fontSize: "27px"
+                  fontSize: "27px",
+                  display:"block",
+                  float:"right"
                 }} >
                   0
                 </span>
               </label>
-              <label className="wallet-label" style={{ fontSize: "27px" }} >
+              <label className="wallet-label" style={{width:"418px",marginLeft:"40px" ,textAlign:"left", fontSize: "27px",color:"#030f49" }} >
                 OSMO
                 <span style={{
-                  marginLeft: "27.5%",
-                  fontSize: "27px"
+                  fontSize: "27px",
+                  display:"block",
+                  float:"right"
                 }} >
                   0
                 </span>
