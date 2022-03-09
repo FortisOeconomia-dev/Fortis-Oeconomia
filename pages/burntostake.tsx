@@ -1,4 +1,4 @@
-import Timer from "../components/Shared/timer"
+import Timer from "../components/Shared/timersfot"
 
 const burntostake = () => {
     return (

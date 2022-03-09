@@ -1,8 +1,12 @@
 import Navbar from "../components/Layout/Navbar";
+import Timer from "../components/Shared/timergfot";
 
 const gfotmodule = () => {
   return (
-    <>
+
+    <Timer/>
+
+    /*<>
       <div
         style={{ position: "relative", display: "flex", flexDirection: "row" }}
       >
@@ -284,7 +288,7 @@ const gfotmodule = () => {
           
         </div>
       </div>
-    </>
+    </>*/
   );
 };
 

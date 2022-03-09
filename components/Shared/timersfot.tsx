@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 
-const timer = () => {
+const timersfot = () => {
   const [launch, setLaunch] = useState(false);
   const [days, setDays] = useState(0);
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
   useEffect(() => {
-    const target = new Date("03/08/2022 23:59:59");
-
+    const target = new Date("03/23/2022 21:00:00");
+    
     const interval = setInterval(() => {
       const now = new Date();
       const difference = target.getTime() - now.getTime();
@@ -38,25 +38,32 @@ const timer = () => {
   }, []);
   return (
     <div className="timer-container">
-      {launch ? (<h1>Launching now</h1>) : (
+      {launch ? (<div className="launch">Launching now</div>) : (
         <>
-          <div className="timer-wrapper">
+          <div className="trade-cryptocurrency-box"
+          style={{
+            marginTop:"200px",
+            width:"fit-content"
+          }}>
             <div className="timer-inner">
               <div className="timer-segment">
-                <span className="time">{days}</span>
-                <span className="label">   Days</span>
+                <span className="times"> {days}</span>
+                <span className="timer-label"> Days </span>
               </div>
+              <span className="divider">:</span>
               <div className="timer-segment">
-                <span className="time">{hours}</span>
-                <span className="label">Hours</span>
+                <span className="times"> {hours}</span>
+                <span className="timer-label"> Hours </span>
               </div>
+              <span className="divider">:</span>
               <div className="timer-segment">
-                <span className="time">{minutes}</span>
-                <span className="label">Minutes</span>
+                <span className="times"> {minutes}</span>
+                <span className="timer-label"> Minutes </span>
               </div>
+              <span className="divider">:</span>
               <div className="timer-segment">
-                <span className="time">{seconds}</span>
-                <span className="label">Seconds</span>
+                <span className="times"> {seconds}</span>
+                <span className="timer-label"> Seconds </span>
               </div>
             </div>
           </div>
@@ -65,4 +72,4 @@ const timer = () => {
   );
 };
 
-export default timer;
+export default timersfot;

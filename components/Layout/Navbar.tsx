@@ -63,7 +63,7 @@ const Navbar = () => {
           <div className="container">
             <div className="raimo-responsive-menu">
               <Link className="flex" href="https://www.fortisoeconomia.com/">
-                <img src="/images/construction.png"
+                <img src="/images/mobileapp.png"
                   style={{ display: "block", marginLeft: "auto", marginRight: "auto", width: "100%", height: "100%", marginBottom: "1000px", cursor:"pointer" }} />
               </Link>
               <div className="responsive-others-option">
@@ -117,16 +117,16 @@ const Navbar = () => {
                     <a className="nav-link" style={{whiteSpace:"nowrap"}}>Grand Module (gFOT)</a>
                   </Link>
                 </li>
-                {/*<li className="nav-item">
+                <li className="nav-item">
                   <Link href="/sFOTmodule" activeClassName="active">
                     <a className="nav-link" style={{whiteSpace:"nowrap"}}>sFOT Module</a>
                   </Link>
-                </li>*/}
-                <li className="nav-item">
+                </li>
+                {/*<li className="nav-item">
                   <Link href="/burntostake" activeClassName="active">
                     <a className="nav-link" style={{whiteSpace:"nowrap"}}>Burn to Stake</a>
                   </Link>
-                </li>
+                </li>*/}
                 {/*<li className="nav-item">
                   <Link href="/legionnairecoins" activeClassName="active">
                     <a className="nav-link" style={{whiteSpace:"nowrap"}}>Legionnaire Coins</a>
@@ -167,17 +167,6 @@ const Navbar = () => {
                         )
                         : "Connect Wallet"}
                     </button>
-                  </div>
-                  <div className="option-item">
-                    {walletAddress.length == 0 ? (
-                      <Link href="https://keplr.app/" activeClassName="active">
-                        <a className="login-btn">
-                          <i className="bx bxs-error"></i> no Keplr?
-                        </a>
-                      </Link>
-                    ) : (
-                      <></>
-                    )}
                   </div>
                 </div>
               </div>

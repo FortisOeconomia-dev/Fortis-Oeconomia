@@ -70,8 +70,34 @@ Default CSS
   --transition: 0.5s;
 }
 .timer-wrapper{
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 2rem;
+  border: solid 2px white;
+  border-radius: 5px;
   z-index: 2;
+  width: fit-content;
+}
+
+.timer-inner{
+  display: flex;
+  padding: 2rem;
   
+}
+
+.timer-segment{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-size: 7rem;
+}
+
+.divider{
+  padding: 0 2rem;
+  font-size: 7rem;
+}
+
+.timer-label{
+  font-size: 2rem;
 }
 
 .currencyt-box{
@@ -181,9 +207,6 @@ gFOT style
   margin-right: auto;
   align-items: center;
   padding-bottom: 20px;
-  
-
-  
 }
 
 .gFotCurrencyt-selection .wallet-text .wallet-label{

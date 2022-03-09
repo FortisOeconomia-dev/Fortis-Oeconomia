@@ -51,8 +51,8 @@ const burnmodule = () => {
           <div className="currencyt-box" style={{ height: "631px", marginTop: "50px", marginLeft: "100px", width: "621px" }}>
             <div className="currencyt-selection" style={{}}>
               <div className="wallet-text" style={{ textAlign: "left" }}>
-                <label className="wallet-label" style={{ fontSize: "27px", marginLeft: "20px", marginBottom: "178px", width: "486px",color:"#030f49" }}>
-                  FOT Supply
+                <label className="wallet-label" style={{display:"block", fontSize: "27px", marginLeft: "20px", width: "486px",color:"black",paddingBottom:"89px" }}>
+                  Current FOT Supply
                   <span style={{
                     fontSize: "27px",
                     display: "block",
@@ -62,8 +62,8 @@ const burnmodule = () => {
                 </label>
               </div>
               <div className="wallet-text" style={{ textAlign: "left" }}>
-                <label className="wallet-label" style={{ fontSize: "27px", marginLeft: "20px", marginBottom: "178px", width: "486px",color:"#030f49" }}>
-                  Burned FOT
+                <label className="wallet-label" style={{marginTop:"89px", display:"block", fontSize: "27px", marginLeft: "20px", width: "486px",color:"black",paddingBottom:"89px" }}>
+                  Total Burned FOT
                   <span style={{
                     fontSize: "27px",
                     display: "block",
@@ -73,8 +73,8 @@ const burnmodule = () => {
                 </label>
               </div>
               <div className="wallet-text" style={{ textAlign: "left" }}>
-                <label className="wallet-label" style={{ fontSize: "27px", marginLeft: "20px", width: "486px",color:"#030f49" }}>
-                  bFOT Supply
+                <label className="wallet-label" style={{marginTop:"89px", fontSize: "27px", marginLeft: "20px", width: "486px",color:"black",borderBottom:"none" }}>
+                  Current bFOT Supply
                   <span style={{
                     fontSize: "27px",
                     display: "block",
