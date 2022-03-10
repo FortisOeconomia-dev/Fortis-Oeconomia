@@ -32,6 +32,17 @@ let { Provider } = (CosmWasmContext =
     GetAlreadyAirdropped: () => {},
     executeAirdrop: () => {},
 
+    bfotBalance: 0,
+    bfotBalanceStr: '',
+    bfotTokenInfo: null,
+    fotBurnContractInfo: null,
+    fotBurnAmount:'',
+    setFotBurnAmount: () => {},
+    expectedBfotAmount: 0,
+
+    handleFotChange:(value:number) => {},
+    executeFotBurn: () => {}
+
   }))
 
 export const useSigningClient = (): ISigningCosmWasmClientContext =>

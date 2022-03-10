@@ -5,6 +5,8 @@ import { fromBase64, toBase64 } from '@cosmjs/encoding'
 import {
   convertMicroDenomToDenom, 
   convertDenomToMicroDenom,
+  convertMicroDenomToDenom2,
+  convertDenomToMicroDenom2,
   convertFromMicroDenom
 } from '../util/conversion'
 import {NotificationContainer, NotificationManager} from 'react-notifications'
@@ -29,6 +31,11 @@ export interface ISigningCosmWasmClientContext {
   fotBalance: number,
   fotBalanceStr: string,
   fotTokenInfo: any,
+  bfotBalance: number,
+  bfotBalanceStr: string,
+  bfotTokenInfo: any,
+  fotBurnContractInfo: any
+  
 
   alreadyAirdropped: boolean,
   airdropAmount: number,
@@ -37,15 +44,26 @@ export interface ISigningCosmWasmClientContext {
   
   getMyAirdropAmount: Function,
   GetAlreadyAirdropped: Function,
-  executeAirdrop: Function
+  executeAirdrop: Function,
+
+  //fotburn part
+  fotBurnAmount: string,
+  setFotBurnAmount: Function,
+  expectedBfotAmount: number,
+
+  handleFotChange: Function,
+  executeFotBurn: Function
 
 }
 
 export const PUBLIC_CHAIN_RPC_ENDPOINT = process.env.NEXT_PUBLIC_CHAIN_RPC_ENDPOINT || ''
 export const PUBLIC_CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID || ''
 export const PUBLIC_STAKING_DENOM = process.env.NEXT_PUBLIC_STAKING_DENOM || 'ujuno'
+
 export const PUBLIC_AIRDROP_CONTRACT = process.env.NEXT_PUBLIC_AIRDROP_CONTRACT || ''
-export const PUBLIC_CW20_CONTRACT = process.env.NEXT_PUBLIC_CW20_CONTRACT || ''
+export const PUBLIC_FOTBURN_CONTRACT = process.env.NEXT_PUBLIC_FOTBURN_CONTRACT || ''
+export const PUBLIC_FOT_CONTRACT = process.env.NEXT_PUBLIC_FOT_CONTRACT || ''
+export const PUBLIC_BFOT_CONTRACT = process.env.NEXT_PUBLIC_BFOT_CONTRACT || ''
 
 export const defaultFee = {
   amount: [],
@@ -67,9 +85,14 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   const [nativeBalanceStr, setNativeBalanceStr] = useState('')
   const [fotBalance, SetFotBalance] = useState(0)
   const [fotBalanceStr, SetFotBalanceStr] = useState('')
+  const [bfotBalance, SetBfotBalance] = useState(0)
+  const [bfotBalanceStr, SetBfotBalanceStr] = useState('')
+  
   
   const [fotTokenInfo, setFotTokenInfo] = useState({ name: '', symbol: '', decimals: 10, total_supply:0 })
-    
+  const [bfotTokenInfo, setBfotTokenInfo] = useState({ name: '', symbol: '', decimals: 6, total_supply:0 })
+  const [fotBurnContractInfo, setFotBurnContractInfo] = useState({ owner: '', fot_burn_amount: 0, bfot_sent_amount: 0, bfot_current_amount:0 })
+
   /////////////////////////////////////////////////////////////////////
   /////////////////////  Airdrop Variables   //////////////////////////
   /////////////////////////////////////////////////////////////////////
@@ -78,7 +101,11 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   const [airdropAmountDenom, setAirdropAmountDenom] = useState(0)
   const [merkleProof, setMerkleProof] = useState([])
 
-  
+  /////////////////////////////////////////////////////////////////////
+  /////////////////////  FotBurn Variables   //////////////////////////
+  /////////////////////////////////////////////////////////////////////
+  const [fotBurnAmount, setFotBurnAmount] = useState('')
+  const [expectedBfotAmount, setExpectedBfotAmount] = useState(0)
 
   ////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////
@@ -86,7 +113,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   ////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////
 
-  const showNotification = false;
+  const showNotification = true;
 
   const connectWallet = async (inBackground:boolean) => {
     if (!inBackground)
@@ -100,7 +127,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       
       console.log((window as any).keplr)
 
-      await (window as any).keplr.suggestToken(PUBLIC_CHAIN_ID, PUBLIC_CW20_CONTRACT, PUBLIC_CW20_CONTRACT)
+      await (window as any).keplr.suggestToken(PUBLIC_CHAIN_ID, PUBLIC_FOT_CONTRACT, PUBLIC_FOT_CONTRACT)
 
       // get offline signer for signing txs
       const offlineSigner = await (window as any).getOfflineSignerOnlyAmino(
@@ -161,27 +188,47 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   const getBalances = async () => {
     setLoading(true)
     try {
+      //Native balance
       const objectNative:JsonObject = await signingClient.getBalance(walletAddress, PUBLIC_STAKING_DENOM)
       setNativeBalanceStr(`${convertMicroDenomToDenom(objectNative.amount)} ${convertFromMicroDenom(objectNative.denom)}`)
       setNativeBalance(convertMicroDenomToDenom(objectNative.amount))
 
-
-
-      const objectFotTokenInfo:JsonObject = await signingClient.queryContractSmart(PUBLIC_CW20_CONTRACT, {
+      //FOT balance and info
+      const objectFotTokenInfo:JsonObject = await signingClient.queryContractSmart(PUBLIC_FOT_CONTRACT, {
         token_info: {},
       })
       setFotTokenInfo(objectFotTokenInfo)
       console.log(objectFotTokenInfo)
       
-      const objectCrew:JsonObject = await signingClient.queryContractSmart(PUBLIC_CW20_CONTRACT, {
+      const objectFot:JsonObject = await signingClient.queryContractSmart(PUBLIC_FOT_CONTRACT, {
         balance: { address: walletAddress },
       })
 
-
-      console.log((objectCrew.balance) / Math.pow(10, objectFotTokenInfo.decimals))
-      SetFotBalance(parseInt(objectCrew.balance) / Math.pow(10, objectFotTokenInfo.decimals))
-      SetFotBalanceStr(parseInt(objectCrew.balance) / Math.pow(10, objectFotTokenInfo.decimals) + objectFotTokenInfo.symbol)
+      console.log((objectFot.balance) / Math.pow(10, objectFotTokenInfo.decimals))
+      SetFotBalance(parseInt(objectFot.balance) / Math.pow(10, objectFotTokenInfo.decimals))
+      SetFotBalanceStr(parseInt(objectFot.balance) / Math.pow(10, objectFotTokenInfo.decimals) + objectFotTokenInfo.symbol)
       
+      //BFOT balance and info
+      const objectBfotTokenInfo:JsonObject = await signingClient.queryContractSmart(PUBLIC_BFOT_CONTRACT, {
+        token_info: {},
+      })
+      setBfotTokenInfo(objectBfotTokenInfo)
+      console.log(objectBfotTokenInfo)
+      
+      const objectBfot:JsonObject = await signingClient.queryContractSmart(PUBLIC_FOT_CONTRACT, {
+        balance: { address: walletAddress },
+      })
+
+      console.log((objectBfot.balance) / Math.pow(10, objectBfotTokenInfo.decimals))
+      SetBfotBalance(parseInt(objectBfot.balance) / Math.pow(10, objectBfotTokenInfo.decimals))
+      SetBfotBalanceStr(parseInt(objectBfot.balance) / Math.pow(10, objectBfotTokenInfo.decimals) + objectBfotTokenInfo.symbol)
+      
+      //FotBurn Contract Info
+      const fotBurnContractInfo = await signingClient.queryContractSmart(PUBLIC_FOTBURN_CONTRACT, {
+        config: {},
+      })
+      setFotBurnContractInfo(fotBurnContractInfo)
+      console.log(fotBurnContractInfo)
       
       setLoading(false)
       if (showNotification)
@@ -280,8 +327,90 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       }
     }
   }
+  ////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////
+  ///////////////////////    fotburn Functions   /////////////////////////
+  ////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////
 
+  const FOT_STEP:number=10000000000000000;
+  const calc_fot_rate = (fot_amount: number) => {
+    // console.log(fot_amount + ":" + BigInt(--fot_amount))
+    let step = Math.floor(fot_amount / FOT_STEP)
+    if (fot_amount % FOT_STEP == 0)
+      step --;
 
+    // let step = Math.floor((fot_amount - 1) / FOT_STEP);
+    step = step + 1;
+    return 110 - step;
+  }
+
+  //calculate bfot amount to send according to the fot_amount and fot_rate
+  const calc_bfot_amount = (fot_amount: number, fot_rate: number) => {
+    return fot_amount * fot_rate;
+  }
+
+  const handleFotChange = (value) => {
+    setFotBurnAmount(value)
+    
+    let bfot_send_amount = 0;
+    let amount = Number(convertDenomToMicroDenom2(value, fotTokenInfo.decimals))
+
+    console.log("FOT microdenom amount:" + amount)
+    let fot_amount = fotTokenInfo.total_supply
+    console.log("fot_unburn_amount:" + fot_amount)
+    // let FOT_STEP = Math.pow(10,12);
+    while (amount > 0) {
+        let sliceamount = fot_amount % FOT_STEP;
+        if (sliceamount == 0) {
+            sliceamount = FOT_STEP;
+        }
+        if (sliceamount > amount) {
+            sliceamount = amount;
+        }
+        bfot_send_amount = bfot_send_amount + calc_bfot_amount(sliceamount, calc_fot_rate(fot_amount));
+        fot_amount = fot_amount - sliceamount;
+        amount = amount - sliceamount;
+    }
+
+    setExpectedBfotAmount(Number(convertMicroDenomToDenom2(bfot_send_amount, bfotTokenInfo.decimals)))
+  }
+
+  const executeFotBurn = async () => {
+
+    setLoading(true)
+    const defaultFee = {
+      amount: [],
+      gas: "800000",
+    };
+    try {
+      await signingClient?.execute(
+        walletAddress, // sender address
+        PUBLIC_FOT_CONTRACT, // token sale contract
+        { "send": {
+          "amount": convertDenomToMicroDenom2(fotBurnAmount, fotTokenInfo.decimals),
+          "contract": PUBLIC_FOTBURN_CONTRACT,
+          "msg": ""
+        } }, // msg
+        defaultFee,
+        undefined,
+        []
+      )
+
+      setLoading(false)
+      setFotBurnAmount('')
+      setExpectedBfotAmount(0)
+      getBalances()
+      if (showNotification)
+        NotificationManager.success('Successfully burned')
+    } catch (error) {
+      setLoading(false)
+      if (showNotification) {
+        NotificationManager.error(`Burnmodule error : ${error}`)
+        console.log(error.toString())
+      }
+    }
+  }
 
   return {
     walletAddress,
@@ -299,6 +428,11 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     fotBalanceStr,
     fotTokenInfo,
 
+    bfotBalance,
+    bfotBalanceStr,
+    bfotTokenInfo,
+    fotBurnContractInfo,
+    
     alreadyAirdropped,
     airdropAmount,
     airdropAmountDenom,
@@ -306,8 +440,13 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
     getMyAirdropAmount,
     GetAlreadyAirdropped,
-    executeAirdrop
+    executeAirdrop,
     
+    fotBurnAmount,
+    setFotBurnAmount,
+    expectedBfotAmount,
+    handleFotChange,
+    executeFotBurn
 
   }
 }
