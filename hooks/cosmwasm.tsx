@@ -113,7 +113,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   ////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////
 
-  const showNotification = true;
+  const showNotification = false;
 
   const connectWallet = async (inBackground:boolean) => {
     if (!inBackground)
