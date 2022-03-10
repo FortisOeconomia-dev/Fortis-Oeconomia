@@ -128,6 +128,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       console.log((window as any).keplr)
 
       await (window as any).keplr.suggestToken(PUBLIC_CHAIN_ID, PUBLIC_FOT_CONTRACT, PUBLIC_FOT_CONTRACT)
+      await (window as any).keplr.suggestToken(PUBLIC_CHAIN_ID, PUBLIC_BFOT_CONTRACT, PUBLIC_BFOT_CONTRACT)
 
       // get offline signer for signing txs
       const offlineSigner = await (window as any).getOfflineSignerOnlyAmino(
