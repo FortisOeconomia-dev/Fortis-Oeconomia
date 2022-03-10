@@ -7,7 +7,7 @@ const timergfot = () => {
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
   useEffect(() => {
-    const target = new Date("03/14/2022 21:00:00");
+    const target = new Date("03/31/2022 21:00:00");
     
     const interval = setInterval(() => {
       const now = new Date();
