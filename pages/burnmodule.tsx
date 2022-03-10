@@ -175,7 +175,7 @@ const burnmodule = () => {
                 {walletAddress.length == 0 ? <></> :
                   <div className='banner-wrapper-content' style={{height:"fit-content",textAlign:"right"}}>
                     <span className="sub-title ms-2" style={{ background: "#83B8DD",marginTop:"10px" }}>
-                      {fotBalance}
+                     Balance {fotBalance}
                     </span>
                   </div>
                 }
@@ -206,7 +206,7 @@ const burnmodule = () => {
                 {walletAddress.length == 0 ? <></> :
                   <div className='banner-wrapper-content' style={{height:"fit-content",textAlign:"right"}}>
                     <span className="sub-title ms-2" style={{ background: "#A8A4F7",marginTop:"10px"}}>
-                      { bfotBalance}
+                      Balance { bfotBalance}
                     </span>
                   </div>
                 }

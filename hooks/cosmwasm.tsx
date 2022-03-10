@@ -412,7 +412,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       }
     }
   }
-
+  
   return {
     walletAddress,
     signingClient,
