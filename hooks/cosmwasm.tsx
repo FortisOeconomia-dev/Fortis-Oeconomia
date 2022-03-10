@@ -215,7 +215,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       setBfotTokenInfo(objectBfotTokenInfo)
       console.log(objectBfotTokenInfo)
       
-      const objectBfot:JsonObject = await signingClient.queryContractSmart(PUBLIC_FOT_CONTRACT, {
+      const objectBfot:JsonObject = await signingClient.queryContractSmart(PUBLIC_BFOT_CONTRACT, {
         balance: { address: walletAddress },
       })
 
