@@ -28,6 +28,8 @@ export interface ISigningCosmWasmClientContext {
   
   nativeBalance: number,
   nativeBalanceStr: string,
+  atomBalance: number,
+  osmoBalance: number,
   fotBalance: number,
   fotBalanceStr: string,
   fotTokenInfo: any,
@@ -77,12 +79,15 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   const [client, setClient] = useState<CosmWasmClient | null>(null)
   const [signingClient, setSigningClient] =
     useState<SigningCosmWasmClient | null>(null)
+  
   const [walletAddress, setWalletAddress] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
   const [nativeBalance, setNativeBalance] = useState(0)
   const [nativeBalanceStr, setNativeBalanceStr] = useState('')
+  const [atomBalance, setAtomBalance] = useState(0)
+  const [osmoBalance, setOsmoBalance] = useState(0)
   const [fotBalance, SetFotBalance] = useState(0)
   const [fotBalanceStr, SetFotBalanceStr] = useState('')
   const [bfotBalance, SetBfotBalance] = useState(0)
@@ -157,6 +162,36 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         setLoading(false)
         NotificationManager.success(`Connected successfully`)
       }
+
+
+      //for atom and osmo balance
+      const offlineSigner_osmo = await (window as any).getOfflineSignerOnlyAmino(
+        'osmosis-1'
+      )
+      let osmoClient = await SigningCosmWasmClient.connectWithSigner(
+        'https://rpc-osmosis.blockapsis.com:443',
+        offlineSigner_osmo
+      )
+      
+      const listOsmo = await offlineSigner_osmo.getAccounts()
+      const osmoAddress = listOsmo[0].address;
+      const objectOsmo:JsonObject = await osmoClient.getBalance(osmoAddress, 'uosmo')
+      setOsmoBalance(convertMicroDenomToDenom(objectOsmo.amount))
+
+
+      const offlineSigner_atom = await (window as any).getOfflineSignerOnlyAmino(
+        'cosmoshub-4'
+      )
+      let atomClient = await SigningCosmWasmClient.connectWithSigner(
+        'https://cosmoshub.validator.network:443',
+        offlineSigner_atom
+      )
+      
+      const listAtom = await offlineSigner_atom.getAccounts()
+      const atomAddress = listAtom[0].address;
+      const objectAtom:JsonObject = await atomClient.getBalance(atomAddress, 'uatom')
+      setAtomBalance(convertMicroDenomToDenom(objectAtom.amount))
+
     } catch (error) {
       NotificationManager.error(`ConnectWallet error : ${error}`)
       if (!inBackground) {
@@ -424,6 +459,8 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     
     getBalances,
     nativeBalance,
+    atomBalance,
+    osmoBalance,
     nativeBalanceStr,
     fotBalance,
     fotBalanceStr,

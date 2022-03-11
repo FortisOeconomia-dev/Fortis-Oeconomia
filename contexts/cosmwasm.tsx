@@ -18,6 +18,8 @@ let { Provider } = (CosmWasmContext =
     getBalances: () => {},
     
     nativeBalance: 0,
+    atomBalance:0,
+    osmoBalance:0,
     nativeBalanceStr: '',
     fotBalance: 0,
     fotBalanceStr: '',

@@ -6,6 +6,8 @@ const nwallet = () => {
     fotBalance,
     fotBalanceStr,
     nativeBalance,
+    atomBalance,
+    osmoBalance,
     walletAddress,
   } = useSigningClient();
   return (
@@ -106,7 +108,7 @@ const nwallet = () => {
                     display: "block",
                     float: "right"
                   }}>
-                    0
+                    {atomBalance}
                   </span>
                 }
               </label>
@@ -146,7 +148,7 @@ const nwallet = () => {
                     display: "block",
                     float: "right"
                   }} >
-                    0
+                    {osmoBalance}
                   </span>
                 }
               </label>
