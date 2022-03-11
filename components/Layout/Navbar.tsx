@@ -149,9 +149,6 @@ const Navbar = () => {
                     >
                     </div>
                   )}
-                  <i
-                    className={loading ? "bx bx-loader bx-spin bx-md" : ""}
-                  ></i>
                   <div className="flex flex-grow lg:flex-grow-0 max-w-full ms-2">
                     <button
                       className="block default-btn w-full max-w-full truncate"

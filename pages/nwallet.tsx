@@ -50,6 +50,7 @@ const nwallet = () => {
                     display: "block",
                     float: "right"
                   }}> {fotBalance}
+                    <img src="../images/FOT120.png" style={{ width: "37.5px", height: "37.5px", borderRadius: "39px", marginLeft: "20px" }} />
                   </span>
                 }
               </label>
@@ -69,7 +70,9 @@ const nwallet = () => {
                     float: "right"
                   }}>
                     {bfotBalance}
+                    <img src="../images/bFOT120.png" style={{ width: "37.5px", height: "37.5px", borderRadius: "39px", marginLeft: "20px" }} />
                   </span>
+
                 }
               </label>
               <label className="wallet-label" style={{
@@ -89,6 +92,7 @@ const nwallet = () => {
                     float: "right"
                   }}>
                     0
+                    <img src="../images/gFOT120.png" style={{ width: "37.5px", height: "37.5px", borderRadius: "39px", marginLeft: "20px" }} />
                   </span>
                 }
               </label>
@@ -109,6 +113,7 @@ const nwallet = () => {
                     float: "right"
                   }}>
                     {atomBalance}
+                    <img src="../images/atom.png" style={{ width: "37.5px", height: "37.5px", borderRadius: "39px", marginLeft: "20px" }} />
                   </span>
                 }
               </label>
@@ -129,6 +134,7 @@ const nwallet = () => {
                     float: "right"
                   }} >
                     {nativeBalance}
+                    <img src="../images/juno.png" style={{ width: "37.5px", height: "37.5px", borderRadius: "39px", marginLeft: "20px" }} />
                   </span>
                 }
               </label>
@@ -149,6 +155,7 @@ const nwallet = () => {
                     float: "right"
                   }} >
                     {osmoBalance}
+                    <img src="../images/osmo.png" style={{ width: "37.5px", height: "37.5px", borderRadius: "39px", marginLeft: "20px" }} />
                   </span>
                 }
               </label>
