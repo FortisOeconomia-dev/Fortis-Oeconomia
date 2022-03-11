@@ -79,6 +79,15 @@ const burnmodule = () => {
       return;
     }
 
+    if (Number(fotBurnAmount) == 0) {
+      NotificationManager.error("Please input the FOT amount first");
+      return;
+    }
+    if (Number(fotBurnAmount) >= Number(fotBalance)) {
+      NotificationManager.error("Please input correct FOT amount");
+      return;
+    }
+
     event.preventDefault();
     executeFotBurn();
   };
@@ -89,6 +98,9 @@ const burnmodule = () => {
 
   }
   const handleFotBurnPlus = () => {
+    if (Number(fotBurnAmount) >= Number(fotBalance))
+      return
+
     handleFotChange((Number(fotBurnAmount) + 1))
   }
   const handleFotBurnMinus = () => {

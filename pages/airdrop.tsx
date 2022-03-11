@@ -81,7 +81,7 @@ const CreateWork = () => {
                   <label style={{ alignItems: "center",textAlign: "center",height: "fit-content" }}> {alreadyAirdropped ? 0 : airdropAmountDenom}</label>
                 </div>
 
-                <button type="submit" onClick={handleSubmit}>
+                <button type="submit" onClick={handleSubmit} disabled={alreadyAirdropped}>
                   {alreadyAirdropped ? `Already Claimed` : `Claim`}
                 </button>
                 {walletAddress.length == 0 ?<></>:

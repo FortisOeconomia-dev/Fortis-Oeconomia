@@ -412,8 +412,8 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       getBalances()
       setAlreadyAirdropped(true)
 
-      if (showNotification)
-        NotificationManager.success('Successfully airdropped')
+      // if (showNotification)
+      NotificationManager.success('Successfully airdropped')
     } catch (error) {
       setLoading(false)
       if (showNotification) {
@@ -498,6 +498,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       setFotBurnAmount('')
       setExpectedBfotAmount(0)
       getBalances()
+      NotificationManager.success(`Successfully burned`)
     } catch (error) {
       setLoading(false)
       if (showNotification) {
