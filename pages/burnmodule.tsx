@@ -83,7 +83,7 @@ const burnmodule = () => {
       NotificationManager.error("Please input the FOT amount first");
       return;
     }
-    if (Number(fotBurnAmount) >= Number(fotBalance)) {
+    if (Number(fotBurnAmount) > Number(fotBalance)) {
       NotificationManager.error("Please input correct FOT amount");
       return;
     }
