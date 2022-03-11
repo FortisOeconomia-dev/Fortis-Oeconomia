@@ -1,3 +1,4 @@
+import { borderBottom } from "@mui/system";
 import { useSigningClient } from "../contexts/cosmwasm";
 
 const nwallet = () => {
@@ -6,9 +7,10 @@ const nwallet = () => {
     fotBalance,
     fotBalanceStr,
     nativeBalance,
+    walletAddress,
     atomBalance,
     osmoBalance,
-    walletAddress,
+    gfotBalance,
   } = useSigningClient();
   return (
     <div style={{ width: "100%" }}>
@@ -16,18 +18,19 @@ const nwallet = () => {
         <div
           className="currencyt-box"
           style={{
-            height: "790px",
-            width: "650px",
+            height: "fit-content",
+            width: "fit-content",
             top: "20px",
             bottom: "20px"
           }}
         >
+        
           <div className="currencyt-selection">
             <span className="wallet-title"
               style={{
                 alignItems: "center",
                 fontWeight: "600",
-                fontSize: "32px",
+                fontSize: "20px",
                 lineHeight: "48px"
               }}
             >
@@ -35,18 +38,18 @@ const nwallet = () => {
             </span>
             <div className="wallet-text">
               <label className="wallet-label" style={{
-                width: "418px", marginLeft: "40px",
+                width: "418px",
                 textAlign: "left",
-                fontSize: "27px",
+                fontSize: "20px",
                 color: "#030f49",
-                borderBottom: "none",
                 display: "block",
-                marginBottom: "40px"
+                marginBottom: "30px",
+                borderBottom:"none"
               }}>
                 FOT
                 {walletAddress.length == 0 ? <></> :
                   <span style={{
-                    fontSize: "27px",
+                    fontSize: "20px",
                     display: "block",
                     float: "right"
                   }}> {fotBalance}
@@ -55,60 +58,57 @@ const nwallet = () => {
                 }
               </label>
               <label className="wallet-label" style={{
-                width: "418px", marginLeft: "40px",
+                width: "418px",
                 textAlign: "left",
-                fontSize: "27px",
+                fontSize: "20px",
                 color: "#030f49",
-                borderBottom: "none",
-                marginBottom: "40px"
+                marginBottom: "30px",
+                borderBottom:"none"
               }} >
                 bFOT
                 {walletAddress.length == 0 ? <></> :
                   <span style={{
-                    fontSize: "27px",
+                    fontSize: "20px",
                     display: "block",
                     float: "right"
                   }}>
                     {bfotBalance}
                     <img src="../images/bFOT120.png" style={{ width: "37.5px", height: "37.5px", borderRadius: "39px", marginLeft: "20px" }} />
                   </span>
-
                 }
               </label>
               <label className="wallet-label" style={{
                 width: "418px",
-                marginLeft: "40px",
                 textAlign: "left",
-                fontSize: "27px",
+                fontSize: "20px",
                 color: "#030f49",
-                borderBottom: "none",
-                marginBottom: "40px"
+                marginBottom: "30px",
+                borderBottom:"none"
               }} >
                 gFOT
                 {walletAddress.length == 0 ? <></> :
                   <span style={{
-                    fontSize: "27px",
+                    fontSize: "20px",
                     display: "block",
                     float: "right"
                   }}>
-                    0
+                    {gfotBalance}
                     <img src="../images/gFOT120.png" style={{ width: "37.5px", height: "37.5px", borderRadius: "39px", marginLeft: "20px" }} />
                   </span>
                 }
               </label>
               <label className="wallet-label" style={{
                 width: "418px",
-                marginLeft: "40px",
                 textAlign: "left",
-                fontSize: "27px",
+                fontSize: "20px",
                 color: "#030f49",
-                borderBottom: "none",
-                marginBottom: "40px"
+                marginBottom: "30px",
+                borderBottom:"none"
               }} >
                 ATOM
                 {walletAddress.length == 0 ? <></> :
                   <span style={{
-                    fontSize: "27px",
+                    fontSize: "20px",
                     display: "block",
                     float: "right"
                   }}>
@@ -119,17 +119,16 @@ const nwallet = () => {
               </label>
               <label className="wallet-label" style={{
                 width: "418px",
-                marginLeft: "40px",
                 textAlign: "left",
-                fontSize: "27px",
+                fontSize: "20px",
                 color: "#030f49",
-                borderBottom: "none",
-                marginBottom: "40px"
+                marginBottom: "30px",
+                borderBottom:"none"
               }}  >
                 JUNO
                 {walletAddress.length == 0 ? <></> :
                   <span style={{
-                    fontSize: "27px",
+                    fontSize: "20px",
                     display: "block",
                     float: "right"
                   }} >
@@ -140,17 +139,15 @@ const nwallet = () => {
               </label>
               <label className="wallet-label" style={{
                 width: "418px",
-                marginLeft: "40px",
                 textAlign: "left",
-                fontSize: "27px",
+                fontSize: "20px",
                 color: "#030f49",
                 borderBottom: "none",
-                marginBottom: "78px"
               }} >
                 OSMO
                 {walletAddress.length == 0 ? <></> :
                   <span style={{
-                    fontSize: "27px",
+                    fontSize: "20px",
                     display: "block",
                     float: "right"
                   }} >
@@ -168,3 +165,4 @@ const nwallet = () => {
 };
 
 export default nwallet;
+

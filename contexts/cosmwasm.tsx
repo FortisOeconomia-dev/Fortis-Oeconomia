@@ -43,7 +43,18 @@ let { Provider } = (CosmWasmContext =
     expectedBfotAmount: 0,
 
     handleFotChange:(value:number) => {},
-    executeFotBurn: () => {}
+    executeFotBurn: () => {},
+
+    gfotBalance: 0,
+    gfotBalanceStr: '',
+    gfotTokenInfo: null,
+    bfotBurnContractInfo: null,
+    bfotBurnAmount: '',
+    setbFotBurnAmount: () => {},
+    expectedGfotAmount:0,
+
+    handlebFotChange:(value:number) => {},
+    executebFotBurn: () => {}
 
   }))
 
