@@ -278,7 +278,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
       console.log((objectFot.balance) / Math.pow(10, objectFotTokenInfo.decimals))
       SetFotBalance(parseInt(objectFot.balance) / Math.pow(10, objectFotTokenInfo.decimals))
-      SetFotBalanceStr(parseInt(objectFot.balance) / Math.pow(10, objectFotTokenInfo.decimals) + objectFotTokenInfo.symbol)
+      SetFotBalanceStr(parseInt(objectFot.balance) / Math.pow(10, objectFotTokenInfo.decimals) + ' ' + objectFotTokenInfo.symbol)
 
       //BFOT balance and info
       const objectBfotTokenInfo: JsonObject = await signingClient.queryContractSmart(PUBLIC_BFOT_CONTRACT, {
@@ -293,7 +293,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
       console.log((objectBfot.balance) / Math.pow(10, objectBfotTokenInfo.decimals))
       SetBfotBalance(parseInt(objectBfot.balance) / Math.pow(10, objectBfotTokenInfo.decimals))
-      SetBfotBalanceStr(parseInt(objectBfot.balance) / Math.pow(10, objectBfotTokenInfo.decimals) + objectBfotTokenInfo.symbol)
+      SetBfotBalanceStr(parseInt(objectBfot.balance) / Math.pow(10, objectBfotTokenInfo.decimals) + ' ' + objectBfotTokenInfo.symbol)
 
       //GFOT balance and info
       const objectGfotTokenInfo: JsonObject = await signingClient.queryContractSmart(PUBLIC_GFOT_CONTRACT, {
@@ -308,7 +308,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
       console.log((objectGfot.balance) / Math.pow(10, objectGfotTokenInfo.decimals))
       SetGfotBalance(parseInt(objectGfot.balance) / Math.pow(10, objectGfotTokenInfo.decimals))
-      SetGfotBalanceStr(parseInt(objectGfot.balance) / Math.pow(10, objectGfotTokenInfo.decimals) + objectGfotTokenInfo.symbol)
+      SetGfotBalanceStr(parseInt(objectGfot.balance) / Math.pow(10, objectGfotTokenInfo.decimals) + ' ' + objectGfotTokenInfo.symbol)
 
       //FotBurn Contract Info
       const fotBurnContractInfo = await signingClient.queryContractSmart(PUBLIC_FOTBURN_CONTRACT, {

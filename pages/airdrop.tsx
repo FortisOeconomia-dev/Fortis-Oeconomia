@@ -78,11 +78,11 @@ const CreateWork = () => {
               <div className="trade-cryptocurrency-box">
                 <div className="currency-selection">
                   <span>Votedrop Amount</span>
-                  <label style={{ alignItems: "center",textAlign: "center",height: "fit-content" }}> {airdropAmountDenom}</label>
+                  <label style={{ alignItems: "center",textAlign: "center",height: "fit-content" }}> {alreadyAirdropped ? 0 : airdropAmountDenom}</label>
                 </div>
 
                 <button type="submit" onClick={handleSubmit}>
-                  Claim
+                  {alreadyAirdropped ? `Already Claimed` : `Claim`}
                 </button>
                 {walletAddress.length == 0 ?<></>:
                       <div className='banner-wrapper-content' style={{"marginRight":"0"}}>
