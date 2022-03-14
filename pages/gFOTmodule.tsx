@@ -43,10 +43,21 @@ const gfotmodule = () => {
     expectedGfotAmount,
 
     handlebFotChange,
-    executebFotBurn
+    executebFotBurn,
+
+    gfotStakingContractInfo,
+    gfotStakingAmount,
+    setgFotStakingAmount,
+    gfotStakingApy,
+    gfotStakingMyStaked,
+    gfotStakingMyReward,
+    handlegFotStakingChange,
+    executegFotStaking,
+    executegFotClaimReward,
+    executegFotUnstake
   } = useSigningClient();
 
-  const handleSubmit = async (event: MouseEvent<HTMLElement>) => {
+  const handlebFotBurn = async (event: MouseEvent<HTMLElement>) => {
     if (!signingClient || walletAddress.length === 0) {
       NotificationManager.error("Please connect wallet first");
       return;
@@ -71,7 +82,7 @@ const gfotmodule = () => {
   }
 
   const handlebFotBurnPlus = () => {
-    if (Number(bfotBurnAmount) >= Number(fotBalance))
+    if (Number(bfotBurnAmount) >= Number(bfotBalance))
       return
 
     handlebFotChange((Number(bfotBurnAmount) + 1))
@@ -82,9 +93,63 @@ const gfotmodule = () => {
     handlebFotChange((Number(bfotBurnAmount) - 1))
   }
 
+  const handlegFotStaking = async (event: MouseEvent<HTMLElement>) => {
+    if (!signingClient || walletAddress.length === 0) {
+      NotificationManager.error("Please connect wallet first");
+      return;
+    }
+
+    if (Number(gfotStakingAmount) == 0) {
+      NotificationManager.error("Please input the GFOT amount first");
+      return;
+    }
+    if (Number(gfotStakingAmount) > Number(gfotBalance)) {
+      NotificationManager.error("Please input correct GFOT amount");
+      return;
+    }
+
+    event.preventDefault();
+    executegFotStaking();
+  };
+
+  const handlegFotStakingUnstake = async (event: MouseEvent<HTMLElement>) => {
+    if (!signingClient || walletAddress.length === 0) {
+      NotificationManager.error("Please connect wallet first");
+      return;
+    }
+
+    event.preventDefault();
+    executegFotUnstake();
+  };
+
+  const handlegFotStakingClaimReward = async (event: MouseEvent<HTMLElement>) => {
+    if (!signingClient || walletAddress.length === 0) {
+      NotificationManager.error("Please connect wallet first");
+      return;
+    }
+
+    event.preventDefault();
+    executegFotClaimReward();
+  };
+
+  const ongFotStakingChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { target: { value } } = event
+    handlegFotStakingChange(Number(value))
+  }
+
+  const handlegFotStakingPlus = () => {
+    if (Number(gfotStakingAmount) >= Number(gfotBalance))
+      return
+
+    handlegFotStakingChange((Number(gfotStakingAmount) + 1))
+  }
+  const handlegFotStakingMinus = () => {
+    if (Number(gfotStakingAmount) <= 1)
+      return
+    handlegFotStakingChange((Number(gfotStakingAmount) - 1))
+  }
+ 
   return (
-
-
 
     <>
         {/* <Timer/> */}
@@ -223,7 +288,7 @@ const gfotmodule = () => {
                   </span>
                 </div>
               }
-              <button onClick={handleSubmit}>Burn</button>
+              <button onClick={handlebFotBurn}>Burn</button>
             </div>
           </div>
         </div>
@@ -261,7 +326,7 @@ const gfotmodule = () => {
                 }}
               >
                 {" "}
-                0
+                {convertMicroDenomToDenom2(gfotStakingContractInfo.gfot_amount, gfotTokenInfo.decimals)}
               </span>
             </label>
             <label
@@ -285,7 +350,7 @@ const gfotmodule = () => {
                 }}
               >
                 {" "}
-                0 %
+                {gfotStakingApy / 10000000000.0} %
               </span>
             </label>
           </div>
@@ -315,6 +380,7 @@ const gfotmodule = () => {
                 marginTop: "16px",
                 marginBottom: "15px",
               }}
+              onClick={handlegFotStakingMinus}
             />
             <span
               style={{
@@ -324,7 +390,19 @@ const gfotmodule = () => {
                 marginRight: "auto",
               }}
             >
-              0
+              <input type="number" style={{
+                  color: "#080451",
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                  background: "transparent",
+                  border: "none",
+                  textAlign: "center"
+                }}
+                value={gfotStakingAmount}
+                onChange={ongFotStakingChange}
+                step="1"
+                min="1"
+              />
             </span>
             <button
               className="fa fa-plus"
@@ -339,6 +417,7 @@ const gfotmodule = () => {
                 marginTop: "16px",
                 marginBottom: "15px",
               }}
+              onClick={handlegFotStakingPlus}
             />
           </label>
           <button
@@ -350,6 +429,7 @@ const gfotmodule = () => {
               flexDirection: "row",
               marginLeft: "10%",
             }}
+            onClick={handlegFotStaking}
           >
             Stake
           </button>
@@ -396,7 +476,7 @@ const gfotmodule = () => {
                 }}
               >
                 {" "}
-                0
+                {convertMicroDenomToDenom2(gfotStakingMyStaked, gfotTokenInfo.decimals)}
               </span>
             </label>
           </div>
@@ -412,6 +492,7 @@ const gfotmodule = () => {
               display: "flex",
               flexDirection: "row",
             }}
+            onClick={handlegFotStakingUnstake}
           >
             Unstake
           </button>
@@ -447,7 +528,7 @@ const gfotmodule = () => {
                 }}
               >
                 {" "}
-                0
+                {convertMicroDenomToDenom2(gfotStakingMyReward, fotTokenInfo.decimals)}
               </span>
             </label>
           </div>
@@ -463,6 +544,7 @@ const gfotmodule = () => {
               display: "flex",
               flexDirection: "row",
             }}
+            onClick={handlegFotStakingClaimReward}
           >
             Claim
           </button>

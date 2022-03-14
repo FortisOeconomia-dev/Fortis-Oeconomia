@@ -69,6 +69,18 @@ export interface ISigningCosmWasmClientContext {
   handlebFotChange: Function,
   executebFotBurn: Function,
 
+  //gfotstaking part
+  gfotStakingContractInfo: any,
+  gfotStakingAmount: string,
+  setgFotStakingAmount: Function,
+  gfotStakingApy : number,
+  gfotStakingMyStaked: number,
+  gfotStakingMyReward: number,
+  handlegFotStakingChange: Function,
+  executegFotStaking: Function,
+  executegFotClaimReward: Function,
+  executegFotUnstake: Function
+
 }
 
 export const PUBLIC_CHAIN_RPC_ENDPOINT = process.env.NEXT_PUBLIC_CHAIN_RPC_ENDPOINT || ''
@@ -78,6 +90,7 @@ export const PUBLIC_STAKING_DENOM = process.env.NEXT_PUBLIC_STAKING_DENOM || 'uj
 export const PUBLIC_AIRDROP_CONTRACT = process.env.NEXT_PUBLIC_AIRDROP_CONTRACT || ''
 export const PUBLIC_FOTBURN_CONTRACT = process.env.NEXT_PUBLIC_FOTBURN_CONTRACT || ''
 export const PUBLIC_BFOTBURN_CONTRACT = process.env.NEXT_PUBLIC_BFOTBURN_CONTRACT || ''
+export const PUBLIC_GFOTSTAKING_CONTRACT = process.env.NEXT_PUBLIC_GFOTSTAKING_CONTRACT || ''
 
 export const PUBLIC_FOT_CONTRACT = process.env.NEXT_PUBLIC_FOT_CONTRACT || ''
 export const PUBLIC_BFOT_CONTRACT = process.env.NEXT_PUBLIC_BFOT_CONTRACT || ''
@@ -114,9 +127,12 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
   const [fotTokenInfo, setFotTokenInfo] = useState({ name: '', symbol: '', decimals: 10, total_supply: 0 })
   const [bfotTokenInfo, setBfotTokenInfo] = useState({ name: '', symbol: '', decimals: 6, total_supply: 0 })
-  const [fotBurnContractInfo, setFotBurnContractInfo] = useState({ owner: '', fot_burn_amount: 0, bfot_sent_amount: 0, bfot_current_amount: 0 })
   const [gfotTokenInfo, setGfotTokenInfo] = useState({ name: '', symbol: '', decimals: 6, total_supply: 0 })
+
+  
+  const [fotBurnContractInfo, setFotBurnContractInfo] = useState({ owner: '', fot_burn_amount: 0, bfot_sent_amount: 0, bfot_current_amount: 0 })
   const [bfotBurnContractInfo, setbFotBurnContractInfo] = useState({ owner: '', bfot_burn_amount: 0, gfot_sent_amount: 0, gfot_current_amount: 0 })
+  const [gfotStakingContractInfo, setgFotStakingContractInfo] = useState({ owner: '', fot_amount: 0, gfot_amount: 0, last_time: 0 })
 
   /////////////////////////////////////////////////////////////////////
   /////////////////////  Airdrop Variables   //////////////////////////
@@ -138,6 +154,16 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
   const [bfotBurnAmount, setbFotBurnAmount] = useState('')
   const [expectedGfotAmount, setExpectedGfotAmount] = useState(0)
+
+  //////////////////////////////////////////////////////////////////////
+  /////////////////////  gFotStaking Variables   //////////////////////////
+  //////////////////////////////////////////////////////////////////////
+
+
+  const [gfotStakingAmount, setgFotStakingAmount] = useState('')
+  const [gfotStakingApy, setgFotStakingApy] = useState(0)
+  const [gfotStakingMyStaked, setgFotStakingMyStaked] = useState(0)
+  const [gfotStakingMyReward, setgFotStakingMyReward] = useState(0)
 
   ////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////
@@ -321,6 +347,32 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       })
       setbFotBurnContractInfo(bfotBurnContractInfo)
       console.log(bfotBurnContractInfo)
+
+      //GFotStaking Contract Info
+      const gfotStakingContractInfo = await signingClient.queryContractSmart(PUBLIC_GFOTSTAKING_CONTRACT, {
+        config: {},
+      })
+      setgFotStakingContractInfo(gfotStakingContractInfo)
+      console.log(gfotStakingContractInfo)
+
+      //GFotStaking APY and myInfo
+      const gfotStakingApy = await signingClient.queryContractSmart(PUBLIC_GFOTSTAKING_CONTRACT, {
+        apy: {},
+      })
+      setgFotStakingApy(gfotStakingApy)
+      console.log(gfotStakingApy)
+
+      const gfotStakingMyInfo = await signingClient.queryContractSmart(PUBLIC_GFOTSTAKING_CONTRACT, {
+        staker: {
+          address: `${walletAddress}`
+        },
+      })
+      setgFotStakingMyStaked(gfotStakingMyInfo.amount)
+      setgFotStakingMyReward(gfotStakingMyInfo.reward)
+
+      console.log(gfotStakingMyInfo)
+
+
 
       setLoading(false)
       if (showNotification)
@@ -562,6 +614,108 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     }
   }
 
+  ////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////
+  ///////////////////////    gfotstaking Functions   /////////////////////////
+  ////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////
+
+  const handlegFotStakingChange = async (value) => {
+    setgFotStakingAmount(value)
+  }
+
+  const executegFotStaking = async () => {
+
+    setLoading(true)
+    
+    try {
+      await signingClient?.execute(
+        walletAddress, // sender address
+        PUBLIC_GFOT_CONTRACT, 
+        {
+          "send": {
+            "amount": convertDenomToMicroDenom2(gfotStakingAmount, gfotTokenInfo.decimals),
+            "contract": PUBLIC_GFOTSTAKING_CONTRACT,
+            "msg": ""
+          }
+        }, // msg
+        defaultFee,
+        undefined,
+        []
+      )
+
+      setLoading(false)
+      setgFotStakingAmount('')
+      getBalances()
+      if (showNotification)
+        NotificationManager.success('Successfully staked')
+    } catch (error) {
+      setLoading(false)
+      if (showNotification) {
+        NotificationManager.error(`Stakemodule error : ${error}`)
+        console.log(error.toString())
+      }
+    }
+  }
+
+  const executegFotClaimReward = async () => {
+
+    setLoading(true)
+    
+    try {
+      await signingClient?.execute(
+        walletAddress, // sender address
+        PUBLIC_GFOTSTAKING_CONTRACT, 
+        {
+          "claim_reward": {}
+        }, // msg
+        defaultFee,
+        undefined,
+        []
+      )
+
+      setLoading(false)
+      getBalances()
+      if (showNotification)
+        NotificationManager.success('Successfully clamied reward')
+    } catch (error) {
+      setLoading(false)
+      if (showNotification) {
+        NotificationManager.error(`Stakemodule claim error : ${error}`)
+        console.log(error.toString())
+      }
+    }
+  }
+
+  const executegFotUnstake = async () => {
+
+    setLoading(true)
+    
+    try {
+      await signingClient?.execute(
+        walletAddress, // sender address
+        PUBLIC_GFOTSTAKING_CONTRACT, 
+        {
+          "unstake": {}
+        }, // msg
+        defaultFee,
+        undefined,
+        []
+      )
+
+      setLoading(false)
+      getBalances()
+      if (showNotification)
+        NotificationManager.success('Successfully unstaked')
+    } catch (error) {
+      setLoading(false)
+      if (showNotification) {
+        NotificationManager.error(`Stakemodule unstake error : ${error}`)
+        console.log(error.toString())
+      }
+    }
+  }
+
   return {
     walletAddress,
     signingClient,
@@ -611,6 +765,17 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     expectedGfotAmount,
     handlebFotChange,
     executebFotBurn,
+
+    gfotStakingContractInfo,
+    gfotStakingAmount,
+    setgFotStakingAmount,
+    gfotStakingApy,
+    gfotStakingMyStaked,
+    gfotStakingMyReward,
+    handlegFotStakingChange,
+    executegFotStaking,
+    executegFotClaimReward,
+    executegFotUnstake
 
   }
 }

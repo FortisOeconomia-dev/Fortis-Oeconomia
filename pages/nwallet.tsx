@@ -92,8 +92,8 @@ const nwallet = () => {
                     display: "block",
                     float: "right"
                   }}>
-                    0
-                    {/* {gfotBalance} */}
+                    
+                    {gfotBalance}
                     <img src="../images/gFOT120.png" style={{ width: "37.5px", height: "37.5px", borderRadius: "39px", marginLeft: "20px" }} />
                   </span>
                 }

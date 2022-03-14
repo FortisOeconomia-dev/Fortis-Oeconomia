@@ -54,7 +54,18 @@ let { Provider } = (CosmWasmContext =
     expectedGfotAmount:0,
 
     handlebFotChange:(value:number) => {},
-    executebFotBurn: () => {}
+    executebFotBurn: () => {},
+
+    gfotStakingContractInfo: null,
+    gfotStakingAmount: '',
+    setgFotStakingAmount: () => {},
+    gfotStakingApy: 0,
+    gfotStakingMyStaked: 0,
+    gfotStakingMyReward: 0,
+    handlegFotStakingChange: () => {},
+    executegFotStaking: () => {},
+    executegFotClaimReward: () => {},
+    executegFotUnstake: () => {}
 
   }))
 
