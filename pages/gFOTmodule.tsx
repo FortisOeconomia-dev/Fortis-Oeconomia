@@ -154,14 +154,14 @@ const gfotmodule = () => {
     <>
         {/* <Timer/> */}
     <div
-      style={{ position: "relative", display: "flex", flexDirection: "row" }}
+      style={{ position: "relative", display: "flex", flexDirection: "row", height:"fit-content" }}
     >
       <div style={{ width: "50%" }}>
         <div className="container">
           <div
             className="currencyt-box"
             style={{
-              height: "881px",
+              height: "750px",
               width: "600px",
               background: "transparent",
               boxShadow: "none",
@@ -187,7 +187,6 @@ const gfotmodule = () => {
                   width: "453px",
                   height: "79px",
                   borderRadius: "20px",
-                  marginBottom: "58px",
                   display: "flex",
                   flexDirection: "row",
                 }}
@@ -231,14 +230,14 @@ const gfotmodule = () => {
                     color: "#080451",
                     marginRight: "16px",
                     marginTop: "16px",
-                    marginBottom: "15px",
+                    marginBottom:"15px",
                   }}
                   onClick={handlebFotBurnPlus}
                 />
               </label>
               {walletAddress.length == 0 ? <></> :
                 <div className='banner-wrapper-content' style={{height:"fit-content",textAlign:"right"}}>
-                  <span className="sub-title ms-2" style={{ background: "#83B8DD",marginTop:"10px" }}>
+                  <span className="sub-title ms-2" style={{ background: "#83B8DD",marginTop:"15px" }}>
                     Balance {bfotBalance}
                   </span>
                 </div>
@@ -256,8 +255,8 @@ const gfotmodule = () => {
                   fontWeight: "600",
                   fontSize: "32px",
                   lineHeight: "48px",
-                  marginBottom: "32px",
-                  marginTop:"50px"
+                  marginTop:"30px",                  
+                  marginBottom:"30px",
                 }}
               >
                 gFOT
@@ -269,7 +268,6 @@ const gfotmodule = () => {
                   width: "453px",
                   height: "79px",
                   borderRadius: "20px",
-                  marginBottom: "72px",
                   display: "flex",
                 }}
                 
@@ -283,12 +281,12 @@ const gfotmodule = () => {
               </label>
               {walletAddress.length == 0 ? <></> :
                 <div className='banner-wrapper-content' style={{height:"fit-content",textAlign:"right"}}>
-                  <span className="sub-title ms-2" style={{ background: "#83B8DD",marginTop:"10px" }}>
+                  <span className="sub-title ms-2" style={{ background: "#83B8DD",marginTop:"15px" }}>
                     Balance {gfotBalance}
                   </span>
                 </div>
               }
-              <button onClick={handlebFotBurn}>Burn</button>
+              <button onClick={handlebFotBurn}>Mint</button>
             </div>
           </div>
         </div>
@@ -299,9 +297,10 @@ const gfotmodule = () => {
           className="currencyt-box"
           style={{
             height: "390px",
-            width: "80%",
+            width: "750px",
             marginTop: "15px",
-            marginRight: "300px",
+            opacity:"0.3",
+            marginRight:"300px"
           }}
         >
           <div className="wallet-text" style={{ textAlign: "left" }}>
@@ -344,13 +343,13 @@ const gfotmodule = () => {
               APY
               <span
                 style={{
-                  fontSize: "20px",
+                  fontSize: "30px",
                   display: "block",
                   float: "right",
                 }}
               >
                 {" "}
-                {(gfotStakingApy / 10000000000.0).toFixed(10)} %
+                {/*{(gfotStakingApy / 10000000000.0).toFixed(10)}*/} ∞ %
               </span>
             </label>
           </div>
@@ -367,7 +366,7 @@ const gfotmodule = () => {
               marginLeft: "10%",
             }}
           >
-            <button
+            {/*<button
               className="fa fa-minus"
               style={{
                 width: "fit-content",
@@ -376,12 +375,12 @@ const gfotmodule = () => {
                 background: "transparent",
                 boxShadow: "none",
                 color: "#080451",
-                marginLeft: "16px",
+                marginLeft: "0",
                 marginTop: "16px",
                 marginBottom: "15px",
               }}
               onClick={handlegFotStakingMinus}
-            />
+            />*/}
             <span
               style={{
                 color: "#080451",
@@ -404,7 +403,7 @@ const gfotmodule = () => {
                 min="1"
               />
             </span>
-            <button
+            {/*<button
               className="fa fa-plus"
               style={{
                 width: "fit-content",
@@ -413,12 +412,12 @@ const gfotmodule = () => {
                 background: "transparent",
                 boxShadow: "none",
                 color: "#080451",
-                marginRight: "16px",
                 marginTop: "16px",
+                marginRight:"0",
                 marginBottom: "15px",
               }}
               onClick={handlegFotStakingPlus}
-            />
+            />*/}
           </label>
           <button
             style={{
@@ -429,7 +428,7 @@ const gfotmodule = () => {
               flexDirection: "row",
               marginLeft: "10%",
             }}
-            onClick={handlegFotStaking}
+            //onClick={handlegFotStaking}
           >
             Stake
           </button>
@@ -472,7 +471,7 @@ const gfotmodule = () => {
                   fontSize: "20px",
                   display: "block",
                   float: "right",
-                  marginLeft: "100px",
+                  marginLeft: "60px",
                 }}
               >
                 {" "}
@@ -492,7 +491,7 @@ const gfotmodule = () => {
               display: "flex",
               flexDirection: "row",
             }}
-            onClick={handlegFotStakingUnstake}
+            //onClick={handlegFotStakingUnstake}
           >
             Unstake
           </button>
@@ -544,7 +543,7 @@ const gfotmodule = () => {
               display: "flex",
               flexDirection: "row",
             }}
-            onClick={handlegFotStakingClaimReward}
+            //onClick={handlegFotStakingClaimReward}
           >
             Claim
           </button>
@@ -553,15 +552,15 @@ const gfotmodule = () => {
         <div
           className="currencyt-box"
           style={{
-            height: "370px",
-            width: "80%",
-            marginTop: "50px",
+            height: "fit-content",
+            width: "fit-content",
+            marginTop: "30px",
             marginRight: "300px",
           }}
         >
           <div className="currencyt-selection" style={{}}>
             <div className="wallet-text" style={{ textAlign: "left" }}>
-              <label className="wallet-label">
+              <label className="wallet-label" style={{borderBottom:"none",marginBottom:"30px"}}>
                 Current bFOT Supply
                 <span className="wallet-span">
                   {convertMicroDenomToDenom2(bfotTokenInfo.total_supply, bfotTokenInfo.decimals)}
@@ -569,7 +568,7 @@ const gfotmodule = () => {
               </label>
             </div>
             <div className="wallet-text" style={{ textAlign: "left" }}>
-              <label className="wallet-label">
+              <label className="wallet-label" style={{borderBottom:"none",marginBottom:"30px"}}>
                 Total Burned bFOT
                 <span className="wallet-span">
                   {convertMicroDenomToDenom2(bfotBurnContractInfo.bfot_burn_amount, bfotTokenInfo.decimals)}  
@@ -577,7 +576,7 @@ const gfotmodule = () => {
               </label>
             </div>
             <div className="wallet-text" style={{ textAlign: "left" }}>
-              <label className="wallet-label">
+              <label className="wallet-label" style={{borderBottom:"none",marginBottom:"0"}}>
                gFOT Supply
                 <span className="wallet-span">
                 {convertMicroDenomToDenom2(gfotTokenInfo.total_supply, gfotTokenInfo.decimals)}  
