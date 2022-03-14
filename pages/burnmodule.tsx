@@ -36,42 +36,19 @@ const burnmodule = () => {
     fotBalance,
     fotBalanceStr,
     fotTokenInfo,
-
-    alreadyAirdropped,
-    airdropAmount,
-    airdropAmountDenom,
-    merkleProof,
-
-    getMyAirdropAmount,
-    GetAlreadyAirdropped,
-    executeAirdrop,
-
+    
     bfotBalance,
     bfotBalanceStr,
     bfotTokenInfo,
     fotBurnContractInfo,
     fotBurnAmount,
-    setFotBurnAmount,
     expectedBfotAmount,
 
     handleFotChange,
     executeFotBurn
   } = useSigningClient();
 
-  // const [fotAmount, setFotAmount] = useState(0)
-
-  useEffect(() => {
-    if (!signingClient || walletAddress.length === 0) {
-      return;
-    }
-
-  }, [signingClient, walletAddress]);
-
-  useEffect(() => {
-    if (!signingClient || walletAddress.length === 0) {
-      return;
-    }
-  }, [airdropAmount]);
+  
 
   const handleSubmit = async (event: MouseEvent<HTMLElement>) => {
     if (!signingClient || walletAddress.length === 0) {
@@ -95,8 +72,8 @@ const burnmodule = () => {
   const onFotBurnChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { target: { value } } = event
     handleFotChange(Number(value))
-
   }
+
   const handleFotBurnPlus = () => {
     if (Number(fotBurnAmount) >= Number(fotBalance))
       return

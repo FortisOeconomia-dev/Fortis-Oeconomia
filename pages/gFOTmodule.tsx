@@ -1,14 +1,94 @@
 import Navbar from "../components/Layout/Navbar";
 import Timer from "../components/Shared/timergfot";
+import {
+  NotificationContainer,
+  NotificationManager,
+} from "react-notifications";
+import { useEffect, useState, MouseEvent, ChangeEvent } from "react";
+import { useSigningClient } from "../contexts/cosmwasm";
+import { fromBase64, toBase64 } from "@cosmjs/encoding";
+import {
+  convertMicroDenomToDenom,
+  convertDenomToMicroDenom,
+  convertMicroDenomToDenom2,
+  convertDenomToMicroDenom2,
+  convertFromMicroDenom
+} from '../util/conversion'
 
 const gfotmodule = () => {
+  const {
+    walletAddress,
+    signingClient,
+    loading,
+    error,
+    connectWallet,
+    disconnect,
+    client,
+
+    getBalances,
+    nativeBalanceStr,
+    nativeBalance,
+    fotBalance,
+    fotBalanceStr,
+    fotTokenInfo,
+    bfotBalance,
+    bfotBalanceStr,
+    bfotTokenInfo,
+    gfotBalance,
+    gfotBalanceStr,
+    gfotTokenInfo,
+
+    bfotBurnContractInfo,
+    bfotBurnAmount,
+    expectedGfotAmount,
+
+    handlebFotChange,
+    executebFotBurn
+  } = useSigningClient();
+
+  const handleSubmit = async (event: MouseEvent<HTMLElement>) => {
+    if (!signingClient || walletAddress.length === 0) {
+      NotificationManager.error("Please connect wallet first");
+      return;
+    }
+
+    if (Number(bfotBurnAmount) == 0) {
+      NotificationManager.error("Please input the BFOT amount first");
+      return;
+    }
+    if (Number(bfotBurnAmount) > Number(bfotBalance)) {
+      NotificationManager.error("Please input correct FOT amount");
+      return;
+    }
+
+    event.preventDefault();
+    executebFotBurn();
+  };
+
+  const onbFotBurnChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { target: { value } } = event
+    handlebFotChange(Number(value))
+  }
+
+  const handlebFotBurnPlus = () => {
+    if (Number(bfotBurnAmount) >= Number(fotBalance))
+      return
+
+    handlebFotChange((Number(bfotBurnAmount) + 1))
+  }
+  const handlebFotBurnMinus = () => {
+    if (Number(bfotBurnAmount) <= 1)
+      return
+    handlebFotChange((Number(bfotBurnAmount) - 1))
+  }
+
   return (
 
 
 
     <>
-        <Timer/>
-    {/*<div
+        {/* <Timer/> */}
+    <div
       style={{ position: "relative", display: "flex", flexDirection: "row" }}
     >
       <div style={{ width: "50%" }}>
@@ -16,7 +96,7 @@ const gfotmodule = () => {
           <div
             className="currencyt-box"
             style={{
-              height: "681px",
+              height: "881px",
               width: "600px",
               background: "transparent",
               boxShadow: "none",
@@ -60,16 +140,21 @@ const gfotmodule = () => {
                     marginTop: "16px",
                     marginBottom: "15px",
                   }}
+                  onClick={handlebFotBurnMinus}
                 />
-                <span
-                  style={{
+                <input type="number" style={{
                     color: "#080451",
                     marginLeft: "auto",
                     marginRight: "auto",
+                    background: "transparent",
+                    border: "none",
+                    textAlign: "center"
                   }}
-                >
-                  0
-                </span>
+                    value={bfotBurnAmount}
+                    onChange={onbFotBurnChange}
+                    step="1"
+                    min="1"
+                  />
                 <button
                   className="fa fa-plus"
                   style={{
@@ -83,8 +168,16 @@ const gfotmodule = () => {
                     marginTop: "16px",
                     marginBottom: "15px",
                   }}
+                  onClick={handlebFotBurnPlus}
                 />
               </label>
+              {walletAddress.length == 0 ? <></> :
+                <div className='banner-wrapper-content' style={{height:"fit-content",textAlign:"right"}}>
+                  <span className="sub-title ms-2" style={{ background: "#83B8DD",marginTop:"10px" }}>
+                    Balance {bfotBalance}
+                  </span>
+                </div>
+              }
               <div>
                 <img
                   src="../images/gfotarrow.png"
@@ -114,10 +207,23 @@ const gfotmodule = () => {
                   marginBottom: "72px",
                   display: "flex",
                 }}
+                
               >
-                <span className="wallet-span">0</span>
+                <span style={{
+                    color: "#080451",
+                    marginLeft: "auto",
+                    marginRight: "auto"
+                  }}>{expectedGfotAmount}</span>
+                
               </label>
-              <button>Burn</button>
+              {walletAddress.length == 0 ? <></> :
+                <div className='banner-wrapper-content' style={{height:"fit-content",textAlign:"right"}}>
+                  <span className="sub-title ms-2" style={{ background: "#83B8DD",marginTop:"10px" }}>
+                    Balance {gfotBalance}
+                  </span>
+                </div>
+              }
+              <button onClick={handleSubmit}>Burn</button>
             </div>
           </div>
         </div>
@@ -375,25 +481,31 @@ const gfotmodule = () => {
             <div className="wallet-text" style={{ textAlign: "left" }}>
               <label className="wallet-label">
                 Current bFOT Supply
-                <span className="wallet-span">0</span>
+                <span className="wallet-span">
+                  {convertMicroDenomToDenom2(bfotTokenInfo.total_supply, bfotTokenInfo.decimals)}
+                </span>
               </label>
             </div>
             <div className="wallet-text" style={{ textAlign: "left" }}>
               <label className="wallet-label">
                 Total Burned bFOT
-                <span className="wallet-span">0</span>
+                <span className="wallet-span">
+                  {convertMicroDenomToDenom2(bfotBurnContractInfo.bfot_burn_amount, bfotTokenInfo.decimals)}  
+                </span>
               </label>
             </div>
             <div className="wallet-text" style={{ textAlign: "left" }}>
               <label className="wallet-label">
                gFOT Supply
-                <span className="wallet-span">0</span>
+                <span className="wallet-span">
+                {convertMicroDenomToDenom2(gfotTokenInfo.total_supply, gfotTokenInfo.decimals)}  
+                </span>
               </label>
             </div>
           </div>
         </div>
       </div>
-    </div>*/ }
+    </div>
     </>
   );
 };

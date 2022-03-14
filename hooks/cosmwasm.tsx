@@ -8,8 +8,6 @@ import {
   convertMicroDenomToDenom2,
   convertDenomToMicroDenom2,
   convertFromMicroDenom,
-  convertDenomToMicroDenom3,
-  convertMicroDenomToDenom3,
 } from '../util/conversion'
 import { NotificationContainer, NotificationManager } from 'react-notifications'
 import { create } from 'ipfs-http-client'
@@ -87,7 +85,7 @@ export const PUBLIC_GFOT_CONTRACT = process.env.NEXT_PUBLIC_GFOT_CONTRACT || ''
 
 export const defaultFee = {
   amount: [],
-  gas: "400000",
+  gas: "800000",
 }
 
 export const CW20_DECIMAL = 1000000
@@ -333,6 +331,8 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         NotificationManager.error(`GetBalances error : ${error}`)
     }
 
+    
+
   }
   ////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////
@@ -474,10 +474,6 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   const executeFotBurn = async () => {
 
     setLoading(true)
-    const defaultFee = {
-      amount: [],
-      gas: "800000",
-    };
     try {
       await signingClient?.execute(
         walletAddress, // sender address
@@ -513,63 +509,35 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   ////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////
 
-  const BFOT_STEP: number = 10000000000000000;
-  const calc_bfot_rate = (bfot_amount: number) => {
-    // console.log(bfot_amount + ":" + BigInt(--bfot_amount))
-    let bstep = Math.floor(bfot_amount / BFOT_STEP)
-    if (bfot_amount % BFOT_STEP == 0)
-      bstep--;
-
-    // let bstep = Math.floor((bfot_amount - 1) / BFOT_STEP);
-    bstep = bstep + 1;
-    return 110 - bstep;
-  }
-
-  //calculate gfot amount to send according to the bfot_amount and bfot_rate
-  const calc_gfot_amount = (bfot_amount: number, bfot_rate: number) => {
-    return bfot_amount * bfot_rate;
-  }
-
-  const handlebFotChange = (value) => {
+  const handlebFotChange = async (value) => {
     setbFotBurnAmount(value)
 
-    let gfot_send_amount = 0;
-    let bamount = Number(convertDenomToMicroDenom3(value, bfotTokenInfo.decimals))
+    let bamount = Number(convertDenomToMicroDenom2(value, bfotTokenInfo.decimals))
 
     console.log("BFOT microdenom amount:" + bamount)
     let bfot_amount = bfotTokenInfo.total_supply
-    console.log("Bfot_unburn_amount:" + bfot_amount)
+    console.log("BFOT_unburn_amount:" + bfot_amount)
     // let BFOT_STEP = Math.pow(10,12);
-    while (bamount > 0) {
-      let sliceamount = bfot_amount % BFOT_STEP;
-      if (sliceamount == 0) {
-        sliceamount = BFOT_STEP;
-      }
-      if (sliceamount > bamount) {
-        sliceamount = bamount;
-      }
-      gfot_send_amount = gfot_send_amount + calc_gfot_amount(sliceamount, calc_bfot_rate(bfot_amount));
-      bfot_amount = bfot_amount - sliceamount;
-      bamount = bamount - sliceamount;
-    }
+    const expectedInfo: JsonObject = await signingClient.queryContractSmart(PUBLIC_BFOTBURN_CONTRACT, {
+      expected_amount: {bfot_amount: `${bamount}`},
+    })
+    console.log(expectedInfo)
+    console.log(expectedInfo.gfot_amount)
 
-    setExpectedGfotAmount(Number(convertMicroDenomToDenom3(gfot_send_amount, gfotTokenInfo.decimals)))
+    setExpectedGfotAmount(Number(convertMicroDenomToDenom2(expectedInfo.gfot_amount, gfotTokenInfo.decimals)))
   }
 
   const executebFotBurn = async () => {
 
     setLoading(true)
-    const defaultFee = {
-      amount: [],
-      gas: "800000",
-    };
+    
     try {
       await signingClient?.execute(
         walletAddress, // sender address
         PUBLIC_BFOT_CONTRACT, // token sale contract
         {
           "send": {
-            "amount": convertDenomToMicroDenom3(bfotBurnAmount, bfotTokenInfo.decimals),
+            "amount": convertDenomToMicroDenom2(bfotBurnAmount, bfotTokenInfo.decimals),
             "contract": PUBLIC_BFOTBURN_CONTRACT,
             "msg": ""
           }
