@@ -361,6 +361,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       })
       setgFotStakingApy(gfotStakingApy)
       console.log(gfotStakingApy)
+      
 
       const gfotStakingMyInfo = await signingClient.queryContractSmart(PUBLIC_GFOTSTAKING_CONTRACT, {
         staker: {
@@ -370,6 +371,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       setgFotStakingMyStaked(gfotStakingMyInfo.amount)
       setgFotStakingMyReward(gfotStakingMyInfo.reward)
 
+      console.log("gfotStakingMyInfo")
       console.log(gfotStakingMyInfo)
 
 

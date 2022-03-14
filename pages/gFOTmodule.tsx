@@ -350,7 +350,7 @@ const gfotmodule = () => {
                 }}
               >
                 {" "}
-                {gfotStakingApy / 10000000000.0} %
+                {(gfotStakingApy / 10000000000.0).toFixed(10)} %
               </span>
             </label>
           </div>
