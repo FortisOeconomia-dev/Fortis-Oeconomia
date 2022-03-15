@@ -9,6 +9,7 @@ import "react-notifications/lib/notifications.css";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DateTimePicker from "@mui/lab/DateTimePicker";
+import styled from "styled-components"
 
 import { useSigningClient } from "../contexts/cosmwasm";
 import { fromBase64, toBase64 } from "@cosmjs/encoding";
@@ -19,6 +20,55 @@ import {
   convertDenomToMicroDenom2,
   convertFromMicroDenom
 } from '../util/conversion'
+
+import Converter from '../components/Converter'
+import StatisticBox from '../components/StatisticBox'
+
+//styled components
+const Wrapper = styled.div`
+  max-width: 1312px;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  flex: 1;
+  width: 100%;
+  margin: 44px;
+  padding: 0 20px;
+  gap: 50px;
+`
+
+const LeftPart = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  max-width: 100%;
+`
+
+const RightPart = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  max-width: 100%;
+`
+
+const defaultValues = [
+  {
+    key: 'FOT Supply',
+    value: '100.000.000'
+  },
+  {
+    key: 'Burned FOT',
+    value: '0'
+  },
+  {
+    key: 'bFOT Supply',
+    value: '0'
+  }
+]
 
 const burnmodule = () => {
   const {
@@ -88,7 +138,7 @@ const burnmodule = () => {
 
   return (
     <>
-      <div style={{
+      {/* <div style={{
         position: "relative",
         display: "flex",
         flexDirection: "row"
@@ -228,7 +278,7 @@ const burnmodule = () => {
                   </span>
                 </label>
               </div> */}
-              <div className="wallet-text" style={{ textAlign: "left" }}>
+              {/* <div className="wallet-text" style={{ textAlign: "left" }}>
                 <label className="wallet-label" style={{
                   display: "block",
                   fontSize: "27px",
@@ -286,10 +336,25 @@ const burnmodule = () => {
             </div>
 
           </div>
-
-
         </div>
-      </div>
+      </div> */}
+      <Wrapper>
+        <LeftPart>
+          <Converter 
+            handleBurnMinus={handleFotBurnMinus} 
+            burnAmount={fotBurnAmount}
+            onBurnChange={onFotBurnChange}
+            handleBurnPlus={handleFotBurnPlus}
+            convImg='/images/fire.png' 
+            from='FOT' 
+            to='bFOT' 
+            expectedAmount={expectedBfotAmount}
+          />
+        </LeftPart>
+        <RightPart>
+          <StatisticBox values={defaultValues} />
+        </RightPart>
+      </Wrapper>
     </>
   )
 }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useRouter } from 'next/router';
 import Link from "../../util/ActiveLink";
 import {
   NotificationContainer,
@@ -18,6 +19,8 @@ const Navbar = () => {
     getBalances,
     nativeBalance,
   } = useSigningClient();
+  const router = useRouter();
+  const { pathname } = router;
 
   const handleConnect = () => {
     if (walletAddress.length === 0) {
@@ -58,8 +61,8 @@ const Navbar = () => {
   return (
     <>
       <NotificationContainer />
-      <div id="navbar" className="navbar-area">
-        <div className="raimo-responsive-nav">
+      <div id="navbar" className="navbar-area" style={{width: '100%'}}>
+        {/* <div className="raimo-responsive-nav">
           <div className="container">
             <div className="raimo-responsive-menu">
               <Link className="flex" href="https://www.fortisoeconomia.com/">
@@ -72,7 +75,7 @@ const Navbar = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
         <nav
           className={
             showMenu
@@ -85,7 +88,7 @@ const Navbar = () => {
               <div className="d-flex flex-row align-items-center">
                 <a className="justify-content-center" style={{ width: "100px", marginTop: "20px" }}>
                   <img
-                    src="/images/castlenew.png"
+                    src={`/images/castle${pathname === '/gFOTmodule' ? '-dark' : 'new'}.png`}
                     alt="logo"
                     className="justify-right"
                     style={{ marginRight: "20px", cursor: "pointer" }}
@@ -97,9 +100,14 @@ const Navbar = () => {
 
             <div className="collapse navbar-collapse mean-menu">
               <ul className="navbar-nav">
-                <li className="nav-item">
+                <li 
+                  className="nav-item"
+                >
                   <Link href="/airdrop" activeClassName="active">
-                    <a className="nav-link" style={{whiteSpace:"nowrap"}}>Airdrop</a>
+                    <a className="nav-link" style={{
+                      whiteSpace:"nowrap",
+                      color: pathname === '/gFOTmodule' ? '#4B365B' : 'white'
+                    }}>Airdrop</a>
                   </Link>
                 </li>
                 {/*<li className="nav-item">
@@ -109,17 +117,29 @@ const Navbar = () => {
                   </li>*/}
                 <li className="nav-item">
                   <Link href="/burnmodule" activeClassName="active">
-                    <a className="nav-link" style={{whiteSpace:"nowrap"}}>Burn Module</a>
+                    <a className="nav-link" style={{
+                      whiteSpace:"nowrap",
+                      color: pathname === '/gFOTmodule' ? '#4B365B' : 'white'
+                    }}>Burn Module</a>
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link href="/gFOTmodule" activeClassName="active">
-                    <a className="nav-link" style={{whiteSpace:"nowrap"}}>Grand Module (gFOT)</a>
+                    <a className="nav-link" style={{
+                      whiteSpace:"nowrap",
+                      color: pathname === '/gFOTmodule' ? '#4B365B' : 'white'
+                    }}>Grand Module (gFOT)</a>
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link href="/sFOTmodule" activeClassName="active">
-                    <a className="nav-link" style={{whiteSpace:"nowrap"}}>sFOT Module</a>
+                    <a 
+                    className="nav-link" 
+                    style={{
+                      whiteSpace:"nowrap",
+                      color: pathname === '/gFOTmodule' ? '#4B365B' : 'white'
+                    }}
+                    >sFOT Module</a>
                   </Link>
                 </li>
                 {/*<li className="nav-item">
@@ -134,11 +154,17 @@ const Navbar = () => {
                 </li>*/}
                 <li className="nav-item">
                   <Link href="/nwallet" activeClassName="active">
-                    <a className="nav-link" style={{whiteSpace:"nowrap"}}>Wallet</a>
+                    <a 
+                    className="nav-link" 
+                    style={{
+                      whiteSpace:"nowrap",
+                      color: pathname === '/gFOTmodule' ? '#4B365B' : 'white'
+                    }}
+                    >Wallet</a>
                   </Link>
                 </li>
               </ul>
-              <div className="others-option">
+              {/* <div className="others-option">
                 <div className="d-flex align-items-center">
                   {walletAddress.length == 0 ? (
                     <></>
@@ -166,7 +192,7 @@ const Navbar = () => {
                     </button>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </nav>

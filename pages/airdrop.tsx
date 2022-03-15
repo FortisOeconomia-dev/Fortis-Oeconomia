@@ -9,9 +9,21 @@ import "react-notifications/lib/notifications.css";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DateTimePicker from "@mui/lab/DateTimePicker";
+import styled from "styled-components"
 
 import { useSigningClient } from "../contexts/cosmwasm";
 import { fromBase64, toBase64 } from "@cosmjs/encoding";
+
+const Wrapper = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+`
+
+const CurrencySelection = styled.div`
+  display: flex;
+  flex-direction: column;
+` 
 
 const CreateWork = () => {
   const {
@@ -71,15 +83,15 @@ const CreateWork = () => {
 
   return (
     <>
-      <div className="trade-cryptocurrency-area ptb-100">
+      <Wrapper className="trade-cryptocurrency-area ptb-100 w-full">
         <div className="container">
           <div className="trade-cryptocurrency-box-div">
             <div className="trade-cryptocurrency-content">
               <div className="trade-cryptocurrency-box">
-                <div className="currency-selection">
+                <CurrencySelection className="currency-selection">
                   <span>Votedrop Amount</span>
                   <label style={{ alignItems: "center",textAlign: "center",height: "fit-content" }}> {alreadyAirdropped ? 0 : airdropAmountDenom}</label>
-                </div>
+                </CurrencySelection>
 
                 <button type="submit" onClick={handleSubmit} disabled={alreadyAirdropped}>
                   {alreadyAirdropped ? `Already Claimed` : `Claim`}
@@ -96,8 +108,7 @@ const CreateWork = () => {
             </div>
           </div>
         </div>
-        
-      </div>
+      </Wrapper>
     </>
   );
 };
