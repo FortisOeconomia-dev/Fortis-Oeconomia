@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import Navbar from './Navbar';
 
 //footer
-import Footer from './Footer';
+// import Footer from './Footer';
 
 //styled components
 const Wrapper = styled.div`
