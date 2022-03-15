@@ -91,6 +91,10 @@ Default CSS
   font-size: 7rem;
 }
 
+.w-full {
+  width: 100%;
+}
+
 .divider{
   padding: 0 2rem;
   font-size: 7rem;
@@ -185,6 +189,9 @@ gFOT style
 .gFotCurrencyt-selection{
   position: relative;
   text-align: center;
+  filter: drop-shadow(0px 4px 16px rgba(34, 40, 95, 0.24));
+  max-width: 453px;
+  width: 100%;
 }
 
 .gFotCurrencyt-selection .wallet-title{
@@ -440,13 +447,43 @@ p:last-child {
   background: linear-gradient(97.62deg, #5f5bcd 0%, #a8a4f7 100%);
   border-radius: 59px;
   color: var(--whiteColor);
-  padding-top: 12px;
-  padding-left: 55px;
-  padding-right: 30px;
-  padding-bottom: 12px;
+  padding: 24px 32px;
   font-family: var(--fontFamily2);
   font-size: var(--fontSize);
   font-weight: 600;
+}
+
+.secondary-btn {
+  background: linear-gradient(97.62deg, #2B064D 0%, #4D0C8B 100%);
+  border-radius: 10px;
+}
+
+.secondary-btn.outlined {
+  color: #2B064D;
+  background: rgba(255, 255, 255, 0.6);
+  border: 3.29px solid;
+  border-radius: 8.23373px;
+}
+
+.connect-btn {
+  position: fixed;
+  top: 111px;
+  right: 36px;
+  z-index: 10;
+}
+
+.wallet-btn {
+  width: 101px;
+  height: 101px;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  position: fixed;
+  bottom: 88px;
+  right: 85px;
+  z-index: 10;
 }
 
 .default-btn i {

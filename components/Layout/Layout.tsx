@@ -10,9 +10,14 @@ import Footer from './Footer';
 const Layout = ({ children }) => {
   const router = useRouter();
   const { pathname } = router;
-
   return (
-    <>
+    <div style={{
+      background: pathname==='/gFOTmodule' ? 'white' : 'linear-gradient(97.62deg, #5F5BCD 0%, #A8A4F7 100%)',
+      minHeight: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center'
+    }}>
       <Head>
         <title>Fortis Oeconomia</title>
         <meta
@@ -37,11 +42,16 @@ const Layout = ({ children }) => {
 
       {/* {pathname === '/' ? <TopHeader /> : ''} */}
       <Navbar />
-  
+      <button className={`default-btn connect-btn ${pathname==='/gFOTmodule'?'secondary-btn':''}`}>
+        Connect Wallet
+      </button>
+      <button className={`default-btn wallet-btn ${pathname==='/gFOTmodule'?'secondary-btn':''}`}>
+        <img src="../images/wallet.png" />
+      </button>
       {children}
 
       {/* <Footer /> */}
-    </>
+    </div>
   );
 };
 
