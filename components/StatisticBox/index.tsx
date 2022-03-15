@@ -14,31 +14,21 @@ const StakedValue = styled.span`
     float: right;
 `
 
-const StatisticBox = () => {
+const StatisticBox = ({values=[]}) => {
     return (
         <Wrapper>
             <div className="wallet-text w-full">
-                <label className="wallet-label" style={{marginLeft: '0px', maxWidth: '100%'}}>
-                    bFOT Supply
-                    <StakedValue>
-                        {" "}
-                        100.000.000
-                    </StakedValue>
-                </label>
-                <label className="wallet-label" style={{marginLeft: '0px', maxWidth: '100%'}}>
-                    Burned bFOT
-                    <StakedValue>
-                        {" "}
-                        0
-                    </StakedValue>
-                </label>
-                <label className="wallet-label" style={{marginBottom: '20px', marginLeft: '0px', maxWidth: '100%'}}>
-                    gFOT Supply
-                    <StakedValue>
-                        {" "}
-                        0
-                    </StakedValue>
-                </label>
+                {values.map((v, idx) => {
+                    return (
+                        <label key={`${v}-${idx}`} className="wallet-label" style={{marginLeft: '0px', maxWidth: '100%', marginBottom: `${idx === values.length - 1 && '20px'}`}}>
+                            {v.key}
+                            <StakedValue>
+                                {" "}
+                                {v.value}
+                            </StakedValue>
+                        </label>
+                    )
+                })}
             </div>
         </Wrapper>
     )

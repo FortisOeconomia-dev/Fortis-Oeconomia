@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 
-const WalletTitle = styled.div`
+const WalletTitle = styled.label`
     align-items: center;
     font-weight: 600;
-    font-xize: 32px;
+    font-size: 32px;
     line-height: 48px;
     margin-bottom: 32px;
     margin-top:50px;
@@ -24,14 +24,14 @@ const ExpectedVal = styled.span`
     margin-right: auto;
 `
 
-const ToConv = ({to}) => {
+const ToConv = ({to, expectedAmount}) => {
     return (
         <div className="gFotCurrencyt-selection">
             <WalletTitle className="wallet-title">
                 {to}
             </WalletTitle>
             <ExpectedValWrapper className="wallet-label">
-                <ExpectedVal>{}</ExpectedVal>
+                <ExpectedVal>{expectedAmount}</ExpectedVal>
             </ExpectedValWrapper>
         </div>
     )

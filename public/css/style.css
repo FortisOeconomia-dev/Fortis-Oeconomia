@@ -451,6 +451,7 @@ p:last-child {
   font-family: var(--fontFamily2);
   font-size: var(--fontSize);
   font-weight: 600;
+  min-width: 227px;
 }
 
 .secondary-btn {
@@ -473,6 +474,7 @@ p:last-child {
 }
 
 .wallet-btn {
+  min-width: unset;
   width: 101px;
   height: 101px;
   border-radius: 100%;
@@ -6170,7 +6172,8 @@ Trade Cryptocurrency Area CSS
   gap: 31.75px;
   padding: 3%;
   margin: auto;
-  width: 50%;
+  width: 100%;
+  max-width: 700px;
   height: 30%;
   position: relative;
   top: 0;
@@ -6188,7 +6191,7 @@ Trade Cryptocurrency Area CSS
   position: relative;
   display: block;
   font-size: 20px;
-  width: 50%;
+  width: 100%;
   font-weight: 600;
   height: 40px;
   margin-left: auto;
@@ -6205,7 +6208,6 @@ Trade Cryptocurrency Area CSS
   font-weight: 600;
   line-height: 48px;
   top: 5px;
-  left: 30%;
   align-items: center;
   text-align: center;
   position: relative;

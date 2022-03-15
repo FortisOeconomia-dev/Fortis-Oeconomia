@@ -10,13 +10,24 @@ const WalletTitle = styled.label`
     margin-bottom: 32px;
 `
 
-const FromConv = ({from}) => {
+const FromConv = ({
+    from,
+    handleBurnMinus,
+    burnAmount,
+    onBurnChange,
+    handleBurnPlus,
+}) => {
     return (
         <div className="gFotCurrencyt-selection">
             <WalletTitle className="wallet-title">
                 {from}
-              </WalletTitle>
-              <InputWithIncDec />
+            </WalletTitle>
+            <InputWithIncDec
+                handleBurnMinus={handleBurnMinus}
+                burnAmount={burnAmount}
+                onBurnChange={onBurnChange}
+                handleBurnPlus={handleBurnPlus}
+            />
         </div>
     )
 }

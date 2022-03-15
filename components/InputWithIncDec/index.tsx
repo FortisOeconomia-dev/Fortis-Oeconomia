@@ -1,4 +1,9 @@
-const InputWithIncDec = () => {
+const InputWithIncDec = ({
+  handleBurnMinus,
+  burnAmount,
+  onBurnChange,
+  handleBurnPlus,
+}) => {
     return (
         <label
                 style={{
@@ -23,6 +28,7 @@ const InputWithIncDec = () => {
                     marginTop: "16px",
                     marginBottom: "15px",
                   }}
+                  onClick={handleBurnMinus}
                 />
                 <input type="number" style={{
                     color: "#080451",
@@ -31,6 +37,8 @@ const InputWithIncDec = () => {
                     border: "none",
                     textAlign: "center"
                   }}
+                  value={burnAmount}
+                  onChange={onBurnChange}
                     step="1"
                     min="1"
                   />
@@ -47,6 +55,7 @@ const InputWithIncDec = () => {
                     marginTop: "16px",
                     marginBottom: "15px",
                   }}
+                  onClick={handleBurnPlus}
                 />
               </label>
     )

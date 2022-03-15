@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import styled from 'styled-components'
 
 //navbar
 import Navbar from './Navbar';
@@ -7,17 +8,20 @@ import Navbar from './Navbar';
 //footer
 import Footer from './Footer';
 
+//styled components
+const Wrapper = styled.div`
+  background: ${props => props.title==='/gFOTmodule' ? 'white' : 'linear-gradient(97.62deg, #5F5BCD 0%, #A8A4F7 100%)'};
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
 const Layout = ({ children }) => {
   const router = useRouter();
   const { pathname } = router;
   return (
-    <div style={{
-      background: pathname==='/gFOTmodule' ? 'white' : 'linear-gradient(97.62deg, #5F5BCD 0%, #A8A4F7 100%)',
-      minHeight: '100vh',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center'
-    }}>
+    <Wrapper title={pathname}>
       <Head>
         <title>Fortis Oeconomia</title>
         <meta
@@ -51,7 +55,7 @@ const Layout = ({ children }) => {
       {children}
 
       {/* <Footer /> */}
-    </div>
+    </Wrapper>
   );
 };
 

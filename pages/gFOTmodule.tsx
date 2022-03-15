@@ -51,6 +51,21 @@ const RightPart = styled.div`
   max-width: 100%;
 `
 
+const defaultValues = [
+  {
+    key: 'bFOT Supply',
+    value: '100.000.000'
+  },
+  {
+    key: 'Burned bFOT',
+    value: '0'
+  },
+  {
+    key: 'gFOT Supply',
+    value: '0'
+  }
+]
+
 const gfotmodule = () => {
   const {
     walletAddress,
@@ -626,11 +641,20 @@ const gfotmodule = () => {
     </div> */}
     <Wrapper>
       <LeftPart>
-        <Converter convImg='/images/gfotarrow.png' from='bFOT' to='gFOT' />
+        <Converter 
+          handleBurnMinus={handlebFotBurnMinus} 
+          burnAmount={bfotBurnAmount}
+          onBurnChange={onbFotBurnChange}
+          handleBurnPlus={handlebFotBurnPlus}
+          expectedAmount={expectedGfotAmount}
+          convImg='/images/gfotarrow.png' 
+          from='bFOT' 
+          to='gFOT' 
+        />
       </LeftPart>
       <RightPart>
         <StakeNClaim />
-        <StatisticBox />
+        <StatisticBox values={defaultValues} />
       </RightPart>
     </Wrapper>
     </>
