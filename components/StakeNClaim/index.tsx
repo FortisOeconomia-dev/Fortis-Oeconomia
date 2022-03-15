@@ -67,7 +67,12 @@ const MyStakedText = styled.label`
     margin: 0 !important;
 `
 
-const StakeNClaim = () => {
+const StakeNClaim = ({
+    handleBurnMinus,
+    burnAmount,
+    onBurnChange,
+    handleBurnPlus,
+}) => {
     return (
         <Wrapper>
             <TotalStaked>
@@ -88,7 +93,12 @@ const StakeNClaim = () => {
                     </TotalStakedText>
                 </div>
                 <div className='gFotCurrencyt-selection'>
-                    <InputWithIncDec />
+                    <InputWithIncDec
+                        handleBurnMinus={handleBurnMinus}
+                        burnAmount={burnAmount}
+                        onBurnChange={onBurnChange}
+                        handleBurnPlus={handleBurnPlus}
+                    />
                 </div>
                 <button className={`default-btn secondary-btn`}>Stake</button>
             </TotalStaked>

@@ -653,7 +653,12 @@ const gfotmodule = () => {
         />
       </LeftPart>
       <RightPart>
-        <StakeNClaim />
+        <StakeNClaim
+          handleBurnMinus={handlebFotBurnMinus} 
+          burnAmount={bfotBurnAmount}
+          onBurnChange={onbFotBurnChange}
+          handleBurnPlus={handlebFotBurnPlus}
+        />
         <StatisticBox values={defaultValues} />
       </RightPart>
     </Wrapper>
