@@ -71,7 +71,7 @@ const CreateWork = () => {
 
   return (
     <>
-      <div className="trade-cryptocurrency-area ptb-100">
+      <div className="trade-cryptocurrency-area ptb-100 w-full">
         <div className="container">
           <div className="trade-cryptocurrency-box-div">
             <div className="trade-cryptocurrency-content">
