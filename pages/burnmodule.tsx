@@ -349,6 +349,7 @@ const burnmodule = () => {
             from='FOT' 
             to='bFOT' 
             expectedAmount={expectedBfotAmount}
+            handleSubmit={handleSubmit}
           />
         </LeftPart>
         <RightPart>

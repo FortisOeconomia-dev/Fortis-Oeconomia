@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import styled from 'styled-components'
 
 const Wrapper = styled.div`
@@ -15,13 +16,15 @@ const StakedValue = styled.span`
 `
 
 const StatisticBox = ({values=[]}) => {
+    const router = useRouter();
+    const { pathname } = router;
     return (
         <Wrapper>
             <div className="wallet-text w-full">
                 {values.map((v, idx) => {
                     return (
                         <label key={`${v}-${idx}`} className="wallet-label" style={{marginLeft: '0px', maxWidth: '100%', marginBottom: `${idx === values.length - 1 && '20px'}`}}>
-                            {v.key}
+                            <span style={{color: pathname === '/gFOTmodule' ? '#080451' : 'white'}}>{v.key}</span>
                             <StakedValue>
                                 {" "}
                                 {v.value}

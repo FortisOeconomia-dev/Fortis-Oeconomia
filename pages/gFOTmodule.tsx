@@ -649,15 +649,18 @@ const gfotmodule = () => {
           expectedAmount={expectedGfotAmount}
           convImg='/images/gfotarrow.png' 
           from='bFOT' 
-          to='gFOT' 
+          to='gFOT'
+          handleSubmit={handlebFotBurn}
         />
       </LeftPart>
       <RightPart>
         <StakeNClaim
-          handleBurnMinus={handlebFotBurnMinus} 
-          burnAmount={bfotBurnAmount}
-          onBurnChange={onbFotBurnChange}
-          handleBurnPlus={handlebFotBurnPlus}
+          handleBurnMinus={handlegFotStakingMinus} 
+          onBurnChange={ongFotStakingChange}
+          handleBurnPlus={handlegFotStakingPlus}
+          handleFotStaking={handlegFotStaking}
+          handleFotStakingUnstake={handlegFotStakingUnstake}
+          handleFotStakingClaimReward={handlegFotStakingClaimReward}
         />
         <StatisticBox values={defaultValues} />
       </RightPart>

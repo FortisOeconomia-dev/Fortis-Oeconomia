@@ -1,6 +1,8 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import styled from 'styled-components'
+import { useSigningClient } from "../../contexts/cosmwasm";
+import { useEffect } from 'react'
 
 //navbar
 import Navbar from './Navbar';
@@ -18,8 +20,37 @@ const Wrapper = styled.div`
 `
 
 const Layout = ({ children }) => {
+  const {
+    walletAddress,
+    connectWallet,
+    signingClient,
+    disconnect,
+    loading,
+    getBalances,
+    nativeBalance,
+  } = useSigningClient();
   const router = useRouter();
   const { pathname } = router;
+
+  const handleConnect = () => {
+    if (walletAddress.length === 0) {
+      connectWallet(false);
+    } else {
+      disconnect();
+    }
+  };
+
+  useEffect(() => {
+    let account = localStorage.getItem("address");
+    if (account != null) {
+      connectWallet(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!signingClient || walletAddress.length === 0) return;
+    getBalances();
+  }, [walletAddress, signingClient]);
   return (
     <Wrapper title={pathname}>
       <Head>
@@ -46,8 +77,15 @@ const Layout = ({ children }) => {
 
       {/* {pathname === '/' ? <TopHeader /> : ''} */}
       <Navbar />
-      <button className={`default-btn connect-btn ${pathname==='/gFOTmodule'?'secondary-btn':''}`}>
-        Connect Wallet
+      <button className={`default-btn connect-btn ${pathname==='/gFOTmodule'?'secondary-btn':''}`} onClick={handleConnect}>
+        {walletAddress
+          ? walletAddress.substring(0, 12) +
+            "..." +
+            walletAddress.substring(
+              walletAddress.length - 6,
+              walletAddress.length
+            ) : 
+        "Connect Wallet"}
       </button>
       <button className={`default-btn wallet-btn ${pathname==='/gFOTmodule'?'secondary-btn':''}`}>
         <img src="../images/wallet.png" />

@@ -61,7 +61,7 @@ const Navbar = () => {
   return (
     <>
       <NotificationContainer />
-      <div id="navbar" className="navbar-area" style={{width: '100%'}}>
+      <div id="navbar" className="navbar-area w-full">
         {/* <div className="raimo-responsive-nav">
           <div className="container">
             <div className="raimo-responsive-menu">
@@ -83,7 +83,7 @@ const Navbar = () => {
               : "navbar navbar-expand-md navbar-light hide-menu"
           }
         >
-          <div className="container">
+          <div className="container" style={{padding: '0px 32px'}}>
             <Link className="flex" href="https://www.fortisoeconomia.com/">
               <div className="d-flex flex-row align-items-center">
                 <a className="justify-content-center" style={{ width: "100px", marginTop: "20px" }}>
