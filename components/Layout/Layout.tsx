@@ -77,19 +77,10 @@ const Layout = ({ children }) => {
 
       {/* {pathname === '/' ? <TopHeader /> : ''} */}
       <Navbar />
-      <button className={`default-btn connect-btn ${pathname==='/gFOTmodule'?'secondary-btn':''}`} onClick={handleConnect}>
-        {walletAddress
-          ? walletAddress.substring(0, 12) +
-            "..." +
-            walletAddress.substring(
-              walletAddress.length - 6,
-              walletAddress.length
-            ) : 
-        "Connect Wallet"}
-      </button>
-      <button className={`default-btn wallet-btn ${pathname==='/gFOTmodule'?'secondary-btn':''}`}>
+      
+      {/* <button className={`default-btn wallet-btn ${pathname==='/gFOTmodule'?'secondary-btn':''}`}>
         <img src="../images/wallet.png" />
-      </button>
+      </button> */}
       {children}
 
       {/* <Footer /> */}
