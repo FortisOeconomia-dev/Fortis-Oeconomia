@@ -154,7 +154,6 @@ const nwallet = () => {
     osmoBalance,
     gfotBalance,
   } = useSigningClient();
-
   const assetData = [
     {
       label: 'FOT',
