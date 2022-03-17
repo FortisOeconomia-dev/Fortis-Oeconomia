@@ -108,7 +108,7 @@ const Navbar = () => {
             </Link>
 
             <div className="collapse navbar-collapse mean-menu">
-              <ul className="navbar-nav" style={{width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+              <ul className="navbar-nav" style={{width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-around'}}>
                 <li 
                   className="nav-item"
                 >
