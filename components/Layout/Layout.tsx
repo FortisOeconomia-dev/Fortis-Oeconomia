@@ -12,7 +12,7 @@ import Footer from './Footer';
 
 //styled components
 const Wrapper = styled.div`
-  background: ${props => props.title==='/gFOTmodule' ? 'white' : 'linear-gradient(97.62deg, #5F5BCD 0%, #A8A4F7 100%)'};
+  background: ${props => props.slot==='/gFOTmodule' ? 'white' : 'linear-gradient(97.62deg, #5F5BCD 0%, #A8A4F7 100%)'};
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -52,7 +52,7 @@ const Layout = ({ children }) => {
     getBalances();
   }, [walletAddress, signingClient]);
   return (
-    <Wrapper title={pathname}>
+    <Wrapper slot={pathname}>
       <Head>
         <title>Fortis Oeconomia</title>
         <meta

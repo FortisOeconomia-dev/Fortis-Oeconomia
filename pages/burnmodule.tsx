@@ -26,7 +26,7 @@ import StatisticBox from '../components/StatisticBox'
 
 //styled components
 const Wrapper = styled.div`
-  max-width: 1312px;
+  max-width: 1368px;
   height: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -35,7 +35,7 @@ const Wrapper = styled.div`
   width: 100%;
   margin: 44px;
   padding: 0 20px;
-  gap: 50px;
+  gap: 125px;
 `
 
 const LeftPart = styled.div`

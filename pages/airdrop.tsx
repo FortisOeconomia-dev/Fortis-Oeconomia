@@ -18,6 +18,8 @@ const Wrapper = styled.div`
   flex: 1;
   display: flex;
   margin: 0 !important;
+  align-items: center;
+  padding: 0 !important;
 `
 
 const CurrencySelection = styled.div`
