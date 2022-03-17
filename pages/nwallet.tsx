@@ -30,8 +30,9 @@ const nwallet = () => {
               style={{
                 alignItems: "center",
                 fontWeight: "600",
-                fontSize: "20px",
-                lineHeight: "48px"
+                fontSize:"26px",
+                lineHeight: "48px",
+                marginBottom:"48px"
               }}
             >
               My Assets
@@ -40,16 +41,16 @@ const nwallet = () => {
               <label className="wallet-label" style={{
                 width: "418px",
                 textAlign: "left",
-                fontSize: "20px",
+                fontSize:"26px",
                 color: "#030f49",
                 display: "block",
-                marginBottom: "30px",
+                marginBottom: "40px",
                 borderBottom:"none"
               }}>
                 FOT
                 {walletAddress.length == 0 ? <></> :
                   <span style={{
-                    fontSize: "20px",
+                    fontSize:"26px",
                     display: "block",
                     float: "right"
                   }}> {fotBalance}
@@ -60,15 +61,15 @@ const nwallet = () => {
               <label className="wallet-label" style={{
                 width: "418px",
                 textAlign: "left",
-                fontSize: "20px",
+                fontSize:"26px",
                 color: "#030f49",
-                marginBottom: "30px",
+                marginBottom: "40px",
                 borderBottom:"none"
               }} >
                 bFOT
                 {walletAddress.length == 0 ? <></> :
                   <span style={{
-                    fontSize: "20px",
+                    fontSize:"26px",
                     display: "block",
                     float: "right"
                   }}>
@@ -80,15 +81,15 @@ const nwallet = () => {
               <label className="wallet-label" style={{
                 width: "418px",
                 textAlign: "left",
-                fontSize: "20px",
+                fontSize:"26px",
                 color: "#030f49",
-                marginBottom: "30px",
+                marginBottom: "40px",
                 borderBottom:"none"
               }} >
                 gFOT
                 {walletAddress.length == 0 ? <></> :
                   <span style={{
-                    fontSize: "20px",
+                    fontSize:"26px",
                     display: "block",
                     float: "right"
                   }}>
@@ -101,15 +102,15 @@ const nwallet = () => {
               <label className="wallet-label" style={{
                 width: "418px",
                 textAlign: "left",
-                fontSize: "20px",
+                fontSize:"26px",
                 color: "#030f49",
-                marginBottom: "30px",
+                marginBottom: "40px",
                 borderBottom:"none"
               }} >
                 ATOM
                 {walletAddress.length == 0 ? <></> :
                   <span style={{
-                    fontSize: "20px",
+                    fontSize:"26px",
                     display: "block",
                     float: "right"
                   }}>
@@ -121,15 +122,15 @@ const nwallet = () => {
               <label className="wallet-label" style={{
                 width: "418px",
                 textAlign: "left",
-                fontSize: "20px",
+                fontSize:"26px",
                 color: "#030f49",
-                marginBottom: "30px",
+                marginBottom: "40px",
                 borderBottom:"none"
               }}  >
                 JUNO
                 {walletAddress.length == 0 ? <></> :
                   <span style={{
-                    fontSize: "20px",
+                    fontSize:"26px",
                     display: "block",
                     float: "right"
                   }} >
@@ -141,14 +142,14 @@ const nwallet = () => {
               <label className="wallet-label" style={{
                 width: "418px",
                 textAlign: "left",
-                fontSize: "20px",
+                fontSize:"26px",
                 color: "#030f49",
                 borderBottom: "none",
               }} >
                 OSMO
                 {walletAddress.length == 0 ? <></> :
                   <span style={{
-                    fontSize: "20px",
+                    fontSize:"26px",
                     display: "block",
                     float: "right"
                   }} >

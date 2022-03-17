@@ -88,7 +88,7 @@ Default CSS
   display: flex;
   flex-direction: column;
   text-align: center;
-  font-size: 7rem;
+  font-size: 4rem;
 }
 
 .w-full {
@@ -97,11 +97,12 @@ Default CSS
 
 .divider{
   padding: 0 2rem;
-  font-size: 7rem;
+  font-size: 4rem;
 }
 
 .timer-label{
   font-size: 2rem;
+  
 }
 
 .currencyt-box{
@@ -147,6 +148,29 @@ Default CSS
 .wallet-text .wallet-label{
   font-size: 20px;
   margin-left: 20px;
+  margin-bottom: 50px;
+  width: 606px;
+  color: #030f49;
+  position: relative;
+  display: block;
+  font-size: 20px;
+  font-weight: 600;
+  align-items: center;
+  text-indent: 15px;
+  margin-top: 20px;
+  
+}
+.wallet-text .wallet-label .wallet-span{
+  margin: 0;
+  padding-right: 10px ;
+  font-size: 20px;
+  display: block,;
+  float: right;
+}
+
+.gfotwallet-text .gfotwallet-label{
+  font-size: 20px;
+  margin-left: 20px;
   margin-bottom: 70px;
   width: 606px;
   color: #030f49;
@@ -156,11 +180,11 @@ Default CSS
   font-weight: 600;
   align-items: center;
   text-indent: 15px;
-  margin-top: 25px;
+  margin-top: 15px;
   border-bottom:  2px solid #22053D;
   padding-bottom: 27px;
 }
-.wallet-text .wallet-label .wallet-span{
+.gfotwallet-text .gfotwallet-label .gfotwallet-span{
   margin: 0;
   padding-right: 10px ;
   font-size: 20px;

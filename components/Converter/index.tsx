@@ -19,7 +19,8 @@ const Converter = ({
     burnAmount,
     onBurnChange,
     handleBurnPlus,
-    expectedAmount
+    expectedAmount,
+    handleSubmit
 }) => {
     return (
         <Wrapper>
@@ -32,7 +33,7 @@ const Converter = ({
             />
             <img src={convImg} />
             <ToConv to={to} expectedAmount={expectedAmount} />
-            <button className={`default-btn ${from === 'bFOT' ? 'secondary-btn' : ''}`}>Burn</button>
+            <button className={`default-btn ${from === 'bFOT' ? 'secondary-btn' : ''}`} onClick={handleSubmit}>Burn</button>
         </Wrapper>
     )
 }
