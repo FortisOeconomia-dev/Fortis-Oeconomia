@@ -91,7 +91,7 @@ const CreateWork = () => {
             <div className="trade-cryptocurrency-content">
               <div className="trade-cryptocurrency-box">
                 <CurrencySelection className="currency-selection">
-                  <span>Votedrop Amount</span>
+                  <span>Votedrop Juno Proposal #14</span>
                   <label style={{ alignItems: "center",textAlign: "center",height: "fit-content" }}> {alreadyAirdropped ? 0 : airdropAmountDenom}</label>
                 </CurrencySelection>
 
