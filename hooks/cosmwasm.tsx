@@ -506,7 +506,6 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
     let bfot_send_amount = 0;
     let amount = Number(convertDenomToMicroDenom2(value, fotTokenInfo.decimals))
-    
     // console.log("FOT microdenom amount:" + amount)
     let fot_amount = fotTokenInfo.total_supply
     // console.log("fot_unburn_amount:" + fot_amount)
@@ -572,7 +571,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
     let bamount = Number(convertDenomToMicroDenom2(value, bfotTokenInfo.decimals))
 
-    //console.log("BFOT microdenom amount:" + bamount)
+    // console.log("BFOT microdenom amount:" + bamount)
     let bfot_amount = bfotTokenInfo.total_supply
     // console.log("BFOT_unburn_amount:" + bfot_amount)
     // let BFOT_STEP = Math.pow(10,12);
