@@ -18,6 +18,7 @@ const Wrapper = styled.div`
   box-shadow: 15.1194px 15.1194px 60.4777px rgba(8, 4, 81, 0.18);
   border-radius: 52.162px;
   padding: 40px;
+  position: relative;
 `
 
 const Asset = styled.label`
@@ -31,6 +32,7 @@ const Asset = styled.label`
   display: flex;
   align-items: center;
   gap: 32px;
+  padding-top: 1px;
 `
 
 const AssetImage = styled.img`
@@ -73,7 +75,7 @@ const AssetContent = styled.div`
   font-weight: 600;
   font-size: 32px;
   line-height: 48px;
-  color: black;
+  color: #FBFCFD;
   display: flex;
   width: 100%;
   justify-content: space-between;
@@ -91,7 +93,51 @@ const Title = styled.span`
   font-weight: 500;
   font-size: 32px;
   line-height: 48px;
-  color: black;
+  color: #FBFCFD;
+`
+
+const Gradient1 = styled.div`
+  position: absolute;
+  left: 10%;
+  top: 10%;
+  background: #5F5BCD;
+  filter: blur(128px);
+  width: 269px;
+  height: 32%;
+  border-radius: 100%;
+`
+
+const Gradient2 = styled.div`
+  position: absolute;
+  width: 327px;
+  height: 39%;
+  left: 0;
+  bottom: 0;
+  background: #8394DD;
+  filter: blur(120px);
+  border-radius: 100%;
+`
+
+const Gradient3 = styled.div`
+  position: absolute;
+  width: 269px;
+  height: 32%;
+  right: 0;
+  top: 0;
+  background: #A8A4F7;
+  filter: blur(80px);
+  border-radius: 100%;
+`
+
+const Gradient4 = styled.div`
+  position: absolute;
+  width: 269px;
+  height: 32%;
+  right: 0;
+  bottom: 0;
+  background: #83B8DD;
+  filter: blur(80px);
+  border-radius: 100%;
 `
 
 const nwallet = () => {
@@ -147,6 +193,10 @@ const nwallet = () => {
   return (
     <Wallet>
       <Wrapper>
+        <Gradient1 />
+        <Gradient2 />
+        <Gradient3 />
+        <Gradient4 />
         <div className="currencyt-selection">
           <Title>
             My Assets

@@ -449,7 +449,8 @@ p:last-child {
   color: var(--whiteColor);
   padding: 24px 32px;
   font-family: var(--fontFamily2);
-  font-size: var(--fontSize);
+  font-size: 21px;
+  line-height: 32px;
   font-weight: 600;
   min-width: 227px;
 }

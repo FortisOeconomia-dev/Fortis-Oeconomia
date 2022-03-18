@@ -16,6 +16,8 @@ const NavLink = styled.a`
   cursor: pointer;
   padding-top: 0 !important;
   padding-bottom: 0 !important;
+  font-size: 19px !important;
+  line-height: 28px !important;
 `
 
 const Navbar = () => {
@@ -101,7 +103,6 @@ const Navbar = () => {
                     alt="logo"
                     className="justify-right"
                     style={{ marginRight: "20px", cursor: "pointer" }}
-
                   />
                 </a>
               </div>
