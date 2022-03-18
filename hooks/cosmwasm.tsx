@@ -575,10 +575,8 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     const expectedInfo: JsonObject = await signingClient.queryContractSmart(PUBLIC_BFOTBURN_CONTRACT, {
       expected_amount: {bfot_amount: `${bamount}`},
     })
-    console.log(expectedInfo)
-    console.log(expectedInfo.gfot_amount)
-
-    setExpectedGfotAmount(Number(convertMicroDenomToDenom2(expectedInfo.gfot_amount, gfotTokenInfo.decimals)))
+    
+    setExpectedGfotAmount(Number(convertMicroDenomToDenom2(expectedInfo.gfot_send_amount, gfotTokenInfo.decimals)))
   }
 
   const executebFotBurn = async () => {
