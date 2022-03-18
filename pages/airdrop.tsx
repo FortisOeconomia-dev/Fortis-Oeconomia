@@ -18,6 +18,8 @@ const Wrapper = styled.div`
   flex: 1;
   display: flex;
   margin: 0 !important;
+  align-items: center;
+  padding: 0 !important;
 `
 
 const CurrencySelection = styled.div`
@@ -89,7 +91,7 @@ const CreateWork = () => {
             <div className="trade-cryptocurrency-content">
               <div className="trade-cryptocurrency-box">
                 <CurrencySelection className="currency-selection">
-                  <span>Votedrop Amount</span>
+                  <span>Votedrop Juno Proposal #14</span>
                   <label style={{ alignItems: "center",textAlign: "center",height: "fit-content" }}> {alreadyAirdropped ? 0 : airdropAmountDenom}</label>
                 </CurrencySelection>
 

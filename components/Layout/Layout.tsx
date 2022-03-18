@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import styled from 'styled-components'
 import { useSigningClient } from "../../contexts/cosmwasm";
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 //navbar
 import Navbar from './Navbar';
@@ -12,11 +12,24 @@ import Footer from './Footer';
 
 //styled components
 const Wrapper = styled.div`
-  background: ${props => props.title==='/gFOTmodule' ? 'white' : 'linear-gradient(97.62deg, #5F5BCD 0%, #A8A4F7 100%)'};
+  background: ${props => props.slot==='/gFOTmodule' ? 'white' : props.slot==='/'? 'unset' : 'linear-gradient(180deg, #8394DD 0%, #FFFFFF 100%)'};
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+`
+
+const Background = styled.div`
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url(${props => props.slot});
+  background-size: cover;
+  background-repeat: no-repeat;
 `
 
 const Layout = ({ children }) => {
@@ -31,7 +44,7 @@ const Layout = ({ children }) => {
   } = useSigningClient();
   const router = useRouter();
   const { pathname } = router;
-
+  const [index, setIndex] = useState(0)
   const handleConnect = () => {
     if (walletAddress.length === 0) {
       connectWallet(false);
@@ -45,6 +58,11 @@ const Layout = ({ children }) => {
     if (account != null) {
       connectWallet(true);
     }
+    let interval = null;
+    interval = setInterval(() => {
+      setIndex(index => index + 1);
+    }, 400);
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
@@ -52,7 +70,8 @@ const Layout = ({ children }) => {
     getBalances();
   }, [walletAddress, signingClient]);
   return (
-    <Wrapper title={pathname}>
+    <Wrapper slot={pathname}>
+      {pathname === '/' && <Background slot={`../images/HomePageBackground/${index%4 + 1}.png`}></Background>}
       <Head>
         <title>Fortis Oeconomia</title>
         <meta
@@ -76,7 +95,7 @@ const Layout = ({ children }) => {
       </Head>
 
       {/* {pathname === '/' ? <TopHeader /> : ''} */}
-      <Navbar />
+      {pathname !== '/' && <Navbar />}
       
       {/* <button className={`default-btn wallet-btn ${pathname==='/gFOTmodule'?'secondary-btn':''}`}>
         <img src="../images/wallet.png" />

@@ -97,15 +97,15 @@ const StakeNClaim = ({
     return (
         <Wrapper>
             <TotalStaked>
-                <div className="gfotwallet-text w-full">
-                    <TotalStakedText className="gfotwallet-label">
+                <div className="wallet-text w-full">
+                    <TotalStakedText className="wallet-label">
                         Total Staked gFOT
                         <StakedValue>
                             {" "}
                             {convertMicroDenomToDenom2(gfotStakingContractInfo.gfot_amount, gfotTokenInfo.decimals)}
                         </StakedValue>
                     </TotalStakedText>
-                    <TotalStakedText className="gfotwallet-label">
+                    <TotalStakedText className="wallet-label">
                         APY
                         <StakedValue>
                             {" "}
@@ -124,8 +124,8 @@ const StakeNClaim = ({
                 <button className={`default-btn secondary-btn`} onClick={handleFotStaking}>Stake</button>
             </TotalStaked>
             <MyStaked>
-                <MyStakedContent className="gfotwallet-text">
-                    <MyStakedText className="gfotwallet-label">
+                <MyStakedContent className="wallet-text">
+                    <MyStakedText className="wallet-label">
                         My Staked gFOT
                         <StakedValue>
                             {" "}
@@ -139,7 +139,7 @@ const StakeNClaim = ({
                     >
                         Unstake
                     </button>
-                    <MyStakedText className="gfotwallet-label">
+                    <MyStakedText className="wallet-label">
                         My Rewards
                         <StakedValue>
                             {" "}

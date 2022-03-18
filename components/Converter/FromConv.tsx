@@ -8,7 +8,7 @@ const WalletTitle = styled.label`
     font-size: 32px;
     line-height: 48px;
     margin-bottom: 32px;
-    background-color: ${props => props.title!=='bFOT' && 'white !important'}
+    background-color: ${props => props.slot!=='bFOT' && '#22053D !important'};
 `
 
 const FromConv = ({
@@ -20,7 +20,7 @@ const FromConv = ({
 }) => {
     return (
         <div className="gFotCurrencyt-selection">
-            <WalletTitle title={from} className="wallet-title">
+            <WalletTitle slot={from} className="wallet-title">
                 {from}
             </WalletTitle>
             <InputWithIncDec

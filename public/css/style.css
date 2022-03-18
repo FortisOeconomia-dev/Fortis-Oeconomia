@@ -57,6 +57,7 @@ Default CSS
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&family=Quicksand&display=swap');
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
 :root {
   --fontFamily: "Quicksand", sans-serif;
   --fontFamily2: "Quicksand", sans-serif;
@@ -102,7 +103,6 @@ Default CSS
 
 .timer-label{
   font-size: 2rem;
-  
 }
 
 .currencyt-box{
@@ -148,29 +148,6 @@ Default CSS
 .wallet-text .wallet-label{
   font-size: 20px;
   margin-left: 20px;
-  margin-bottom: 50px;
-  width: 606px;
-  color: #030f49;
-  position: relative;
-  display: block;
-  font-size: 20px;
-  font-weight: 600;
-  align-items: center;
-  text-indent: 15px;
-  margin-top: 20px;
-  
-}
-.wallet-text .wallet-label .wallet-span{
-  margin: 0;
-  padding-right: 10px ;
-  font-size: 20px;
-  display: block,;
-  float: right;
-}
-
-.gfotwallet-text .gfotwallet-label{
-  font-size: 20px;
-  margin-left: 20px;
   margin-bottom: 70px;
   width: 606px;
   color: #030f49;
@@ -180,11 +157,11 @@ Default CSS
   font-weight: 600;
   align-items: center;
   text-indent: 15px;
-  margin-top: 15px;
+  margin-top: 25px;
   border-bottom:  2px solid #22053D;
   padding-bottom: 27px;
 }
-.gfotwallet-text .gfotwallet-label .gfotwallet-span{
+.wallet-text .wallet-label .wallet-span{
   margin: 0;
   padding-right: 10px ;
   font-size: 20px;

@@ -23,15 +23,15 @@ import StatisticBox from '../components/StatisticBox'
 
 //styled components
 const Wrapper = styled.div`
-  max-width: 1312px;
+  max-width: 1368px;
   height: 100%;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   flex: 1;
   width: 100%;
-  margin: 44px;
-  padding: 0 20px;
+  margin: 24px;
+  padding: 0 10px;
   gap: 50px;
 `
 const LeftPart = styled.div`
@@ -40,7 +40,6 @@ const LeftPart = styled.div`
   justify-content: center;
   flex: 1;
   max-width: 100%;
-  margin-top: -50px;
 `
 
 const RightPart = styled.div`
