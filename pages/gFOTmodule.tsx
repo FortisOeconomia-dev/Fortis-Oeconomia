@@ -51,7 +51,20 @@ const RightPart = styled.div`
   max-width: 100%;
 `
 
-
+const defaultValues = [
+  {
+    key: 'bFOT Supply',
+    value: '100.000.000'
+  },
+  {
+    key: 'Burned bFOT',
+    value: '0'
+  },
+  {
+    key: 'gFOT Supply',
+    value: '0'
+  }
+]
 
 const gfotmodule = () => {
   const {
@@ -112,7 +125,6 @@ const gfotmodule = () => {
   ]
 
   const handlebFotBurn = async (event: MouseEvent<HTMLElement>) => {
-    
     if (!signingClient || walletAddress.length === 0) {
       NotificationManager.error("Please connect wallet first");
       return;
