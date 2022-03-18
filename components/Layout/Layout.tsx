@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import styled from 'styled-components'
 import { useSigningClient } from "../../contexts/cosmwasm";
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 //navbar
 import Navbar from './Navbar';
@@ -17,6 +17,19 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+`
+
+const Background = styled.div`
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url(${props => props.slot});
+  background-size: cover;
+  background-repeat: no-repeat;
 `
 
 const Layout = ({ children }) => {
@@ -31,7 +44,7 @@ const Layout = ({ children }) => {
   } = useSigningClient();
   const router = useRouter();
   const { pathname } = router;
-
+  const [index, setIndex] = useState(0)
   const handleConnect = () => {
     if (walletAddress.length === 0) {
       connectWallet(false);
@@ -45,6 +58,11 @@ const Layout = ({ children }) => {
     if (account != null) {
       connectWallet(true);
     }
+    let interval = null;
+    interval = setInterval(() => {
+      setIndex(index => index + 1);
+    }, 200);
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
