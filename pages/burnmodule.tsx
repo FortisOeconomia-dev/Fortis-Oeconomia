@@ -55,22 +55,10 @@ const RightPart = styled.div`
   max-width: 100%;
 `
 
-const defaultValues = [
-  {
-    key: 'FOT Supply',
-    value: '100.000.000'
-  },
-  {
-    key: 'Burned FOT',
-    value: '0'
-  },
-  {
-    key: 'bFOT Supply',
-    value: '0'
-  }
-]
+
 
 const burnmodule = () => {
+  
   const {
     walletAddress,
     signingClient,
@@ -98,7 +86,20 @@ const burnmodule = () => {
     executeFotBurn
   } = useSigningClient();
 
-  
+  const defaultValues = [
+    {
+      key: 'FOT Supply',
+      value: `${convertMicroDenomToDenom2(fotTokenInfo.total_supply, fotTokenInfo.decimals)}`
+    },
+    {
+      key: 'Burned FOT',
+      value: `${convertMicroDenomToDenom2(fotBurnContractInfo.fot_burn_amount, bfotTokenInfo.decimals)}`
+    },
+    {
+      key: 'bFOT Supply',
+      value: `${convertMicroDenomToDenom2(fotBurnContractInfo.bfot_sent_amount, bfotTokenInfo.decimals)}`
+    }
+  ]
 
   const handleSubmit = async (event: MouseEvent<HTMLElement>) => {
     if (!signingClient || walletAddress.length === 0) {
@@ -121,6 +122,7 @@ const burnmodule = () => {
 
   const onFotBurnChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { target: { value } } = event
+    console.log("UI value:" + value)
     handleFotChange(Number(value))
   }
 
