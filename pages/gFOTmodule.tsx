@@ -30,9 +30,9 @@ const Wrapper = styled.div`
   align-items: center;
   flex: 1;
   width: 100%;
-  margin: 44px;
-  padding: 0 20px;
-  gap: 125px;
+  margin: 24px;
+  padding: 0 10px;
+  gap: 50px;
 `
 const LeftPart = styled.div`
   display: flex;
@@ -51,7 +51,20 @@ const RightPart = styled.div`
   max-width: 100%;
 `
 
-
+const defaultValues = [
+  {
+    key: 'bFOT Supply',
+    value: '100.000.000'
+  },
+  {
+    key: 'Burned bFOT',
+    value: '0'
+  },
+  {
+    key: 'gFOT Supply',
+    value: '0'
+  }
+]
 
 const gfotmodule = () => {
   const {
@@ -95,23 +108,7 @@ const gfotmodule = () => {
     executegFotUnstake
   } = useSigningClient();
 
-  const defaultValues = [
-    {
-      key: 'bFOT Supply',
-      value: `${convertMicroDenomToDenom2(bfotTokenInfo.total_supply, bfotTokenInfo.decimals)}`
-    },
-    {
-      key: 'Burned bFOT',
-      value: `${convertMicroDenomToDenom2(bfotBurnContractInfo.bfot_burn_amount, bfotTokenInfo.decimals)}`
-    },
-    {
-      key: 'gFOT Supply',
-      value: `${convertMicroDenomToDenom2(gfotTokenInfo.total_supply, gfotTokenInfo.decimals)}`
-    }
-  ]
-
   const handlebFotBurn = async (event: MouseEvent<HTMLElement>) => {
-    
     if (!signingClient || walletAddress.length === 0) {
       NotificationManager.error("Please connect wallet first");
       return;
