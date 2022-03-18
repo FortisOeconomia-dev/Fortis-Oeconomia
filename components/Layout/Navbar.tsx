@@ -57,17 +57,17 @@ const Navbar = () => {
   const toggleMenu = () => {
     setshowMenu(!showMenu);
   };
-  useEffect(() => {
-    let elementId = document.getElementById("navbar");
-    document.addEventListener("scroll", () => {
-      if (window.scrollY > 170) {
-        elementId.classList.add("is-sticky");
-      } else {
-        elementId.classList.remove("is-sticky");
-      }
-    });
-    window.scrollTo(0, 0);
-  }, []);
+  // useEffect(() => {
+  //   let elementId = document.getElementById("navbar");
+  //   document.addEventListener("scroll", () => {
+  //     if (window.scrollY > 80) {
+  //       elementId.classList.add("is-sticky");
+  //     } else {
+  //       elementId.classList.remove("is-sticky");
+  //     }
+  //   });
+  //   window.scrollTo(0, 0);
+  // }, []);
 
   return (
     <>
