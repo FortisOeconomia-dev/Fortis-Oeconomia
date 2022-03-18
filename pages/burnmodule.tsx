@@ -60,7 +60,6 @@ const RightPart = styled.div`
 
 
 const burnmodule = () => {
-
   const {
     walletAddress,
     signingClient,
