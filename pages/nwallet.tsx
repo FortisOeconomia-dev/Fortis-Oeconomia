@@ -75,7 +75,7 @@ const AssetContent = styled.div`
   font-weight: 600;
   font-size: 24px;
   line-height: 48px;
-  color: black;
+  color: #FBFCFD;
   display: flex;
   width: 100%;
   justify-content: space-between;
