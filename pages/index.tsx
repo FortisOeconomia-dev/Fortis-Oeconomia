@@ -13,7 +13,7 @@ const Home = styled.div`
   height: 100%;
   justify-content: center;
   gap: 80px;
-  flex-direction: ${props => parseInt(props.slot) > 15 ? 'column-reverse': 'row'}
+  flex-direction: ${props => parseInt(props.slot) > 20 ? 'column-reverse': 'row'}
 `
 
 const Title = styled.div`
@@ -41,26 +41,24 @@ const Index = () => {
   const [index, setIndex] = useState(1)
   useEffect(() => {
     let interval = null;
-    if (index < 16) {
-      interval = setInterval(() => {
-        setIndex(index => index + 1);
-      }, 300);
-    }
+    interval = setInterval(() => {
+      setIndex(index => index + 1);
+    }, 300);
     return () => clearInterval(interval);
   })
 
   return (
-    <Home slot={`${index}`}>
-      {index > 15 && <EnterText>Enter the Castle</EnterText>}
+    <Home slot={`${index}`} className={`${index > 20 && 'my-animate'}`}>
+      {index > 20 && <EnterText>Enter the Castle</EnterText>}
       <Link href="/airdrop" activeClassName="active">
         <HomeImage src="./images/home.png"/>
       </Link>
-      {index > 15 && <Description>Innovative Financial Toolkit</Description>}
+      {index > 20 && <Description>Innovative Financial Toolkit</Description>}
       <Title>
         {Array.from(Array(index).keys()).map(idx => 
-          idx === 6 ? 
+          idx < 16 && (idx === 6 ? 
             <div style={{width: '36px'}} key={idx}></div> :
-            <img key={idx} src={`./images/FortisOeconomia/${idx+1}.png`} />
+            <img key={idx} src={`./images/FortisOeconomia/${idx+1}.png`} />)
         )}
       </Title>
     </Home>
