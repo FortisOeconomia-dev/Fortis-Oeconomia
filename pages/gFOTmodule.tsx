@@ -76,6 +76,7 @@ const gfotmodule = () => {
     gfotBalanceStr,
     gfotTokenInfo,
 
+    fotBurnContractInfo,
     bfotBurnContractInfo,
     bfotBurnAmount,
     expectedGfotAmount,
@@ -98,7 +99,7 @@ const gfotmodule = () => {
   const defaultValues = [
     {
       key: 'bFOT Supply',
-      value: `${convertMicroDenomToDenom2(bfotTokenInfo.total_supply, bfotTokenInfo.decimals)}`
+      value: `${convertMicroDenomToDenom2(fotBurnContractInfo.bfot_sent_amount, bfotTokenInfo.decimals)}`
     },
     {
       key: 'Burned bFOT',
@@ -106,7 +107,7 @@ const gfotmodule = () => {
     },
     {
       key: 'gFOT Supply',
-      value: `${convertMicroDenomToDenom2(gfotTokenInfo.total_supply, gfotTokenInfo.decimals)}`
+      value: `${convertMicroDenomToDenom2(bfotBurnContractInfo.gfot_sent_amount, gfotTokenInfo.decimals)}`
     }
   ]
 
