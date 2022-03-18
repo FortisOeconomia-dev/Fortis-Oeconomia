@@ -89,6 +89,7 @@ const gfotmodule = () => {
     gfotBalanceStr,
     gfotTokenInfo,
 
+    fotBurnContractInfo,
     bfotBurnContractInfo,
     bfotBurnAmount,
     expectedGfotAmount,
@@ -107,6 +108,21 @@ const gfotmodule = () => {
     executegFotClaimReward,
     executegFotUnstake
   } = useSigningClient();
+
+  const defaultValues = [
+    {
+      key: 'bFOT Supply',
+      value: `${convertMicroDenomToDenom2(fotBurnContractInfo.bfot_sent_amount, bfotTokenInfo.decimals)}`
+    },
+    {
+      key: 'Burned bFOT',
+      value: `${convertMicroDenomToDenom2(bfotBurnContractInfo.bfot_burn_amount, bfotTokenInfo.decimals)}`
+    },
+    {
+      key: 'gFOT Supply',
+      value: `${convertMicroDenomToDenom2(bfotBurnContractInfo.gfot_sent_amount, gfotTokenInfo.decimals)}`
+    }
+  ]
 
   const handlebFotBurn = async (event: MouseEvent<HTMLElement>) => {
     if (!signingClient || walletAddress.length === 0) {
