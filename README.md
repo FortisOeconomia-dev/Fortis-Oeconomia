@@ -23,5 +23,5 @@ The solution is simple, forbid it. Did forbidding not work? Let it, but limit it
 Fill the hole dug for many years, yet another one can occur. But this does not mean we should stop.
 
 
-#### The hope for giving the next generations the chance to live a good life lies in extensive development that makes possible for everyone what is only attainable for a few today, giving them a survival chance in a new, uncontaminated financial world; while preventing another hole from being dug.####
+# The hope for giving the next generations the chance to live a good life lies in extensive development that makes possible for everyone what is only attainable for a few today, giving them a survival chance in a new, uncontaminated financial world; while preventing another hole from being dug. 
     
