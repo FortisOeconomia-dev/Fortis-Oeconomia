@@ -455,6 +455,16 @@ p:last-child {
   min-width: 227px;
 }
 
+.my-animate {
+  animation-name: example;
+  animation-duration: 1s;
+}
+
+@keyframes example {
+  from {opacity: 0;}
+  to {background-color: 1;}
+}
+
 .secondary-btn {
   background: linear-gradient(97.62deg, #2B064D 0%, #4D0C8B 100%);
   border-radius: 10px;

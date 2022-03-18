@@ -114,7 +114,7 @@ const Gradient2 = styled.div`
   left: 0;
   bottom: 0;
   background: #8394DD;
-  filter: blur(120px);
+  filter: blur(90px);
   border-radius: 100%;
 `
 
