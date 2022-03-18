@@ -12,12 +12,12 @@ import Footer from './Footer';
 
 //styled components
 const Wrapper = styled.div`
-  background: ${props => props.slot==='/gFOTmodule' ? 'white' : props.slot==='/'? 'unset' : 'linear-gradient(180deg, #8394DD 0%, #FFFFFF 100%)'};
+  background: ${props => props.slot === '/gFOTmodule' ? 'white' : props.slot === '/' ? 'unset' : 'linear-gradient(180deg, #8394DD 0%, #FFFFFF 100%)'};
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
 `
 
 const Background = styled.div`
@@ -71,7 +71,6 @@ const Layout = ({ children }) => {
   }, [walletAddress, signingClient]);
   return (
     <Wrapper slot={pathname}>
-      {pathname === '/' && <Background slot={`../images/HomePageBackground/${index%4 + 1}.png`}></Background>}
       <Head>
         <title>Fortis Oeconomia</title>
         <meta
@@ -95,8 +94,8 @@ const Layout = ({ children }) => {
       </Head>
 
       {/* {pathname === '/' ? <TopHeader /> : ''} */}
-      {pathname !== '/' && <Navbar />}
-      
+      <Navbar />
+
       {/* <button className={`default-btn wallet-btn ${pathname==='/gFOTmodule'?'secondary-btn':''}`}>
         <img src="../images/wallet.png" />
       </button> */}
