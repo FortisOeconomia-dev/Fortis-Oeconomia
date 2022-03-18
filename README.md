@@ -15,8 +15,6 @@ We need to examine the machine’s anatomy.
 The States compose the outer shell, and we see government, then big corporations respectively, as we go deeper into the machine.
 This morally deficient machine of a perfect design to manipulate has only one purpose; to ensure that a person’s financial rights are only as much as their service to the machine.
 This way, even when the world advocate equality, that equality can never be met in the financial world.
-   One of the most prominent examples of hypocrisy is even though almost all States present themselves as advocates of green energy, investing in sustainable energy in those States has conditions that an ordinary citizen can never meet.
-Furthermore, even for the access to classical financial instruments in States to be closed to individuals without capital clearly shows the strength of the machine.
 Every time a threat is posed to the machine, it instantly reacts.
 Did a new opportunity come up that could harm the wealth disequilibrium balance?
 The solution is simple, forbid it. Did forbidding not work? Let it, but limit it…
