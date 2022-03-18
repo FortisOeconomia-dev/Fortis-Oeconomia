@@ -50,7 +50,7 @@ const Layout = ({ children }) => {
       
       {/* <button className={`default-btn wallet-btn ${pathname==='/gFOTmodule'?'secondary-btn':''}`}>
         <img src="../images/wallet.png" />
-      </button>
+      </button> */}
       {children}
 
       {/* <Footer /> */}
