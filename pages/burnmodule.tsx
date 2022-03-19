@@ -124,18 +124,21 @@ const burnmodule = () => {
 
   const onFotBurnChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { target: { value } } = event
-    console.log("UI value:" + value)
+    if (Number(value) > Number(fotBalance))
+      return
+    if (Number(value) < 0)
+      return
     handleFotChange(Number(value))
   }
 
   const handleFotBurnPlus = () => {
-    if (Number(fotBurnAmount) >= Number(fotBalance))
+    if (Number(fotBurnAmount) + 1 > Number(fotBalance))
       return
 
     handleFotChange((Number(fotBurnAmount) + 1))
   }
   const handleFotBurnMinus = () => {
-    if (Number(fotBurnAmount) == 1)
+    if (Number(fotBurnAmount) - 1< 0)
       return
     handleFotChange((Number(fotBurnAmount) - 1))
   }

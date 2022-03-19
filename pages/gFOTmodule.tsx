@@ -145,17 +145,21 @@ const gfotmodule = () => {
 
   const onbFotBurnChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { target: { value } } = event
+    if (Number(value) > Number(bfotBalance))
+      return
+    if (Number(value) < 0)
+      return
     handlebFotChange(Number(value))
   }
 
   const handlebFotBurnPlus = () => {
-    if (Number(bfotBurnAmount) >= Number(bfotBalance))
+    if (Number(bfotBurnAmount) + 1 > Number(bfotBalance))
       return
 
     handlebFotChange((Number(bfotBurnAmount) + 1))
   }
   const handlebFotBurnMinus = () => {
-    if (Number(bfotBurnAmount) <= 1)
+    if (Number(bfotBurnAmount) - 1 < 0) 
       return
     handlebFotChange((Number(bfotBurnAmount) - 1))
   }
@@ -201,17 +205,21 @@ const gfotmodule = () => {
 
   const ongFotStakingChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { target: { value } } = event
+    if (Number(value) > Number(gfotBalance))
+      return
+    if (Number(value) < 0)
+      return
     handlegFotStakingChange(Number(value))
   }
 
   const handlegFotStakingPlus = () => {
-    if (Number(gfotStakingAmount) >= Number(gfotBalance))
+    if (Number(gfotStakingAmount) + 1 > Number(gfotBalance))
       return
 
     handlegFotStakingChange((Number(gfotStakingAmount) + 1))
   }
   const handlegFotStakingMinus = () => {
-    if (Number(gfotStakingAmount) <= 1)
+    if (Number(gfotStakingAmount) - 1 < 0)
       return
     handlegFotStakingChange((Number(gfotStakingAmount) - 1))
   }
