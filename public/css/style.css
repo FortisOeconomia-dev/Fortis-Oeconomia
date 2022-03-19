@@ -450,9 +450,20 @@ p:last-child {
   color: var(--whiteColor);
   padding: 24px 32px;
   font-family: var(--fontFamily2);
-  font-size: var(--fontSize);
+  font-size: 21px;
+  line-height: 32px;
   font-weight: 600;
   min-width: 227px;
+}
+
+.my-animate {
+  animation-name: example;
+  animation-duration: 1s;
+}
+
+@keyframes example {
+  from {opacity: 0;}
+  to {background-color: 1;}
 }
 
 .secondary-btn {
@@ -477,7 +488,7 @@ p:last-child {
 .wallet-btn {
   min-width: unset;
   width: 101px;
-  height: 101px;
+  height: 80px;
   border-radius: 100%;
   display: flex;
   align-items: center;
@@ -639,7 +650,7 @@ Navbar Area CSS
   -webkit-text-fill-color: transparent;
 }
 .navbar-area .navbar .navbar-nav .nav-item a.active {
-  color:var(--blackColor)
+  color: black
 }
 
 .navbar-area .navbar .navbar-nav .nav-item .dropdown-toggle {
@@ -669,7 +680,7 @@ Navbar Area CSS
 }
 
 .navbar-area .navbar .navbar-nav .nav-item.active a {
-  color: var(--mainColor);
+  color: black;
 }
 
 .navbar-area .navbar .navbar-nav .nav-item .dropdown-menu {

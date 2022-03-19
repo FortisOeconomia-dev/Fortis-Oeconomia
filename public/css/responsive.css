@@ -183,9 +183,9 @@
     margin-top: 12px;
   }
   .default-btn {
-    font-size: 13px;
-    padding-left: 45px;
-    padding-right: 28px;
+    font-size: 21px;
+    line-height: 32px;
+    padding: 24px 32px;
   }
   .default-btn i {
     left: 25px;

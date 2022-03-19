@@ -8,7 +8,7 @@ const WalletTitle = styled.label`
     font-size: 32px;
     line-height: 48px;
     margin-bottom: 32px;
-    background-color: ${props => props.slot!=='bFOT' && '#22053D !important'};
+    background-color: ${props => props.slot!=='bFOT' && 'white !important'}
 `
 
 const FromConv = ({

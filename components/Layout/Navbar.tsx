@@ -12,10 +12,15 @@ import { useSigningClient } from "../../contexts/cosmwasm";
 
 const NavLink = styled.a`
   white-space:nowrap;
-  color: ${props => props.slot === '/gFOTmodule' ? '#4B365B' : 'white'} !important;
+  color: ${props => props.slot === '/gFOTmodule' ? '#4D0C8B' : 'white'} !important;
   cursor: pointer;
   padding-top: 0 !important;
   padding-bottom: 0 !important;
+  font-size: 19px !important;
+  line-height: 28px !important;
+  &.active {
+    color: ${props => props.slot === 'gFOTmodule' ? 'red' : 'black'} !important;
+  }
 `
 
 const Navbar = () => {
@@ -55,17 +60,17 @@ const Navbar = () => {
   const toggleMenu = () => {
     setshowMenu(!showMenu);
   };
-  useEffect(() => {
-    let elementId = document.getElementById("navbar");
-    document.addEventListener("scroll", () => {
-      if (window.scrollY > 170) {
-        elementId.classList.add("is-sticky");
-      } else {
-        elementId.classList.remove("is-sticky");
-      }
-    });
-    window.scrollTo(0, 0);
-  }, []);
+  // useEffect(() => {
+  //   let elementId = document.getElementById("navbar");
+  //   document.addEventListener("scroll", () => {
+  //     if (window.scrollY > 80) {
+  //       elementId.classList.add("is-sticky");
+  //     } else {
+  //       elementId.classList.remove("is-sticky");
+  //     }
+  //   });
+  //   window.scrollTo(0, 0);
+  // }, []);
 
   return (
     <>
@@ -101,7 +106,6 @@ const Navbar = () => {
                     alt="logo"
                     className="justify-right"
                     style={{ marginRight: "20px", cursor: "pointer" }}
-
                   />
                 </a>
               </div>
