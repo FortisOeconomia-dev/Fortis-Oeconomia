@@ -6,8 +6,22 @@ import {
   NotificationManager,
 } from "react-notifications";
 import "react-notifications/lib/notifications.css";
+import styled from 'styled-components'
 
 import { useSigningClient } from "../../contexts/cosmwasm";
+
+const NavLink = styled.a`
+  white-space:nowrap;
+  color: ${props => props.slot === '/gFOTmodule' ? '#4D0C8B' : 'white'} !important;
+  cursor: pointer;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  font-size: 19px !important;
+  line-height: 28px !important;
+  &.active {
+    color: ${props => props.slot === 'gFOTmodule' ? 'red' : 'black'} !important;
+  }
+`
 
 const Navbar = () => {
   const {
@@ -46,22 +60,22 @@ const Navbar = () => {
   const toggleMenu = () => {
     setshowMenu(!showMenu);
   };
-  useEffect(() => {
-    let elementId = document.getElementById("navbar");
-    document.addEventListener("scroll", () => {
-      if (window.scrollY > 170) {
-        elementId.classList.add("is-sticky");
-      } else {
-        elementId.classList.remove("is-sticky");
-      }
-    });
-    window.scrollTo(0, 0);
-  }, []);
+  // useEffect(() => {
+  //   let elementId = document.getElementById("navbar");
+  //   document.addEventListener("scroll", () => {
+  //     if (window.scrollY > 80) {
+  //       elementId.classList.add("is-sticky");
+  //     } else {
+  //       elementId.classList.remove("is-sticky");
+  //     }
+  //   });
+  //   window.scrollTo(0, 0);
+  // }, []);
 
   return (
     <>
       <NotificationContainer />
-      <div id="navbar" className="navbar-area" style={{width: '100%'}}>
+      <div id="navbar" className="navbar-area w-full">
         {/* <div className="raimo-responsive-nav">
           <div className="container">
             <div className="raimo-responsive-menu">
@@ -83,31 +97,27 @@ const Navbar = () => {
               : "navbar navbar-expand-md navbar-light hide-menu"
           }
         >
-          <div className="container">
+          <div className="container" style={{padding: '20px 32px'}}>
             <Link className="flex" href="https://www.fortisoeconomia.com/">
               <div className="d-flex flex-row align-items-center">
-                <a className="justify-content-center" style={{ width: "100px", marginTop: "20px" }}>
+                <a className="justify-content-center w-full">
                   <img
                     src={`/images/castle${pathname === '/gFOTmodule' ? '-dark' : 'new'}.png`}
                     alt="logo"
                     className="justify-right"
                     style={{ marginRight: "20px", cursor: "pointer" }}
-
                   />
                 </a>
               </div>
             </Link>
 
             <div className="collapse navbar-collapse mean-menu">
-              <ul className="navbar-nav">
+              <ul className="navbar-nav" style={{width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-around'}}>
                 <li 
                   className="nav-item"
                 >
                   <Link href="/airdrop" activeClassName="active">
-                    <a className="nav-link" style={{
-                      whiteSpace:"nowrap",
-                      color: pathname === '/gFOTmodule' ? '#4B365B' : 'white'
-                    }}>Airdrop</a>
+                    <NavLink className="nav-link" slot={pathname}>Airdrop</NavLink>
                   </Link>
                 </li>
                 {/*<li className="nav-item">
@@ -117,29 +127,17 @@ const Navbar = () => {
                   </li>*/}
                 <li className="nav-item">
                   <Link href="/burnmodule" activeClassName="active">
-                    <a className="nav-link" style={{
-                      whiteSpace:"nowrap",
-                      color: pathname === '/gFOTmodule' ? '#4B365B' : 'white'
-                    }}>Burn Module</a>
+                    <NavLink className="nav-link" slot={pathname}>Burn Module</NavLink>
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link href="/gFOTmodule" activeClassName="active">
-                    <a className="nav-link" style={{
-                      whiteSpace:"nowrap",
-                      color: pathname === '/gFOTmodule' ? '#4B365B' : 'white'
-                    }}>Grand Module (gFOT)</a>
+                    <NavLink className="nav-link" slot={pathname}>Grand Module (gFOT)</NavLink>
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link href="/sFOTmodule" activeClassName="active">
-                    <a 
-                    className="nav-link" 
-                    style={{
-                      whiteSpace:"nowrap",
-                      color: pathname === '/gFOTmodule' ? '#4B365B' : 'white'
-                    }}
-                    >sFOT Module</a>
+                    <NavLink className="nav-link" slot={pathname}>sFOT Module</NavLink>
                   </Link>
                 </li>
                 {/*<li className="nav-item">
@@ -154,15 +152,19 @@ const Navbar = () => {
                 </li>*/}
                 <li className="nav-item">
                   <Link href="/nwallet" activeClassName="active">
-                    <a 
-                    className="nav-link" 
-                    style={{
-                      whiteSpace:"nowrap",
-                      color: pathname === '/gFOTmodule' ? '#4B365B' : 'white'
-                    }}
-                    >Wallet</a>
+                    <NavLink className="nav-link" slot={pathname}>Wallet</NavLink>
                   </Link>
                 </li>
+                <button className={`default-btn ${pathname==='/gFOTmodule'?'secondary-btn':''}`} onClick={handleConnect}>
+                  {walletAddress
+                    ? walletAddress.substring(0, 12) +
+                      "..." +
+                      walletAddress.substring(
+                        walletAddress.length - 6,
+                        walletAddress.length
+                      ) : 
+                  "Connect Wallet"}
+                </button>
               </ul>
               {/* <div className="others-option">
                 <div className="d-flex align-items-center">

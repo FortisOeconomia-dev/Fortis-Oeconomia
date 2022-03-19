@@ -1,7 +1,10 @@
 import Timer from "../components/Shared/timersfot"
+import styled from 'styled-components'
 const sfotmodule = () => {
     return (
-        <Timer/>
+      <div style={{flex: '1'}}>
+        <Timer />
+      </div>
   )
 }
 

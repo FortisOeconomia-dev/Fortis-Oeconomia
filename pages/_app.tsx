@@ -24,7 +24,7 @@ export default function App({ Component, pageProps }) {
           <Component {...pageProps} />
 
           {/* Go Top Button */}
-          <GoTop/>
+          {/* <GoTop/> */}
         </Layout>
       </Provider>
     </SigningCosmWasmProvider>

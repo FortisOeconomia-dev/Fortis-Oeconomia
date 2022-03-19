@@ -17,13 +17,36 @@ import { fromBase64, toBase64 } from "@cosmjs/encoding";
 const Wrapper = styled.div`
   flex: 1;
   display: flex;
+  margin: 0 !important;
   align-items: center;
+  padding: 0 !important;
 `
 
 const CurrencySelection = styled.div`
   display: flex;
   flex-direction: column;
-` 
+`
+
+const Ellipse2 = styled.div`
+    position: absolute;
+    border-radius: 100%;
+    width: 275px;
+    height: 250px;
+    left: 520px;
+    top: 180px;
+    background: #ffb049;
+    filter: blur(110px);
+`
+const Ellipse3 = styled.div`
+    position: absolute;
+    width: 289px;
+    height: 286px;
+    border-radius: 100%;
+    left: -93px;
+    bottom: 85px;
+    background: #83B8DD;
+    filter: blur(75px);
+`
 
 const CreateWork = () => {
   const {
@@ -88,21 +111,23 @@ const CreateWork = () => {
           <div className="trade-cryptocurrency-box-div">
             <div className="trade-cryptocurrency-content">
               <div className="trade-cryptocurrency-box">
+                <Ellipse2 />
+                <Ellipse3 />
                 <CurrencySelection className="currency-selection">
-                  <span>Votedrop Amount</span>
-                  <label style={{ alignItems: "center",textAlign: "center",height: "fit-content" }}> {alreadyAirdropped ? 0 : airdropAmountDenom}</label>
+                  <span>Votedrop Juno Proposal #14</span>
+                  <label style={{ alignItems: "center", textAlign: "center", height: "fit-content" }}> {alreadyAirdropped ? 0 : airdropAmountDenom}</label>
                 </CurrencySelection>
 
                 <button type="submit" onClick={handleSubmit} disabled={alreadyAirdropped}>
                   {alreadyAirdropped ? `Already Claimed` : `Claim`}
                 </button>
-                {walletAddress.length == 0 ?<></>:
-                      <div className='banner-wrapper-content' style={{"marginRight":"0"}}>
-                        <span className="sub-title ms-2" style={{"marginBottom":"0px"}}>
-                          {fotBalanceStr} 
-                        </span>
-                      </div>
-                  }
+                {walletAddress.length == 0 ? <></> :
+                  <div className='banner-wrapper-content' style={{ "marginRight": "0" }}>
+                    <span className="sub-title ms-2" style={{ "marginBottom": "0px" }}>
+                      {fotBalanceStr}
+                    </span>
+                  </div>
+                }
 
               </div>
             </div>

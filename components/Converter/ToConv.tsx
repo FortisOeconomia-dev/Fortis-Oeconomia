@@ -6,7 +6,8 @@ const WalletTitle = styled.label`
     font-size: 32px;
     line-height: 48px;
     margin-bottom: 32px;
-    margin-top:50px;
+    margin-top:0px !important;
+    background-color: ${props => props.slot!=='gFOT' && 'white !important'}
 `
 
 const ExpectedValWrapper = styled.label`
@@ -22,12 +23,16 @@ const ExpectedVal = styled.span`
     color: #080451;
     margin-left: auto;
     margin-right: auto;
+    font-weight: 600;
+    font-size: 21px;
+    line-height: 32px;
+    margin-top: 20px;
 `
 
 const ToConv = ({to, expectedAmount}) => {
     return (
         <div className="gFotCurrencyt-selection">
-            <WalletTitle className="wallet-title">
+            <WalletTitle slot={to} className="wallet-title">
                 {to}
             </WalletTitle>
             <ExpectedValWrapper className="wallet-label">

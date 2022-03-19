@@ -57,6 +57,7 @@ Default CSS
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&family=Quicksand&display=swap');
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
 :root {
   --fontFamily: "Quicksand", sans-serif;
   --fontFamily2: "Quicksand", sans-serif;
@@ -88,7 +89,7 @@ Default CSS
   display: flex;
   flex-direction: column;
   text-align: center;
-  font-size: 7rem;
+  font-size: 4rem;
 }
 
 .w-full {
@@ -97,7 +98,7 @@ Default CSS
 
 .divider{
   padding: 0 2rem;
-  font-size: 7rem;
+  font-size: 4rem;
 }
 
 .timer-label{
@@ -449,9 +450,20 @@ p:last-child {
   color: var(--whiteColor);
   padding: 24px 32px;
   font-family: var(--fontFamily2);
-  font-size: var(--fontSize);
+  font-size: 21px;
+  line-height: 32px;
   font-weight: 600;
   min-width: 227px;
+}
+
+.my-animate {
+  animation-name: example;
+  animation-duration: 1s;
+}
+
+@keyframes example {
+  from {opacity: 0;}
+  to {background-color: 1;}
 }
 
 .secondary-btn {
@@ -476,7 +488,7 @@ p:last-child {
 .wallet-btn {
   min-width: unset;
   width: 101px;
-  height: 101px;
+  height: 80px;
   border-radius: 100%;
   display: flex;
   align-items: center;
@@ -638,7 +650,7 @@ Navbar Area CSS
   -webkit-text-fill-color: transparent;
 }
 .navbar-area .navbar .navbar-nav .nav-item a.active {
-  color:var(--blackColor)
+  color: black
 }
 
 .navbar-area .navbar .navbar-nav .nav-item .dropdown-toggle {
@@ -668,7 +680,7 @@ Navbar Area CSS
 }
 
 .navbar-area .navbar .navbar-nav .nav-item.active a {
-  color: var(--mainColor);
+  color: black;
 }
 
 .navbar-area .navbar .navbar-nav .nav-item .dropdown-menu {
