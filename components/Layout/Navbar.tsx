@@ -13,7 +13,7 @@ import ToggleSwitch from "../ToggleSwitch";
 
 const NavLink = styled.a`
   white-space:nowrap;
-  color: ${props => props.slot === '/gFOTmodule' ? '#4D0C8B' : 'white'} !important;
+  color: ${props => !props.defaultChecked && props.slot === '/gFOTmodule' ? '#4B365B' : 'white'} !important;
   cursor: pointer;
   padding-top: 0 !important;
   padding-bottom: 0 !important;
@@ -123,7 +123,7 @@ const Navbar = ({
                   className="nav-item"
                 >
                   <Link href="/airdrop" activeClassName="active">
-                    <NavLink className="nav-link" slot={pathname}>Airdrop</NavLink>
+                    <NavLink className="nav-link" slot={pathname} defaultChecked={toggle}>Airdrop</NavLink>
                   </Link>
                 </li>
                 {/*<li className="nav-item">
@@ -133,17 +133,17 @@ const Navbar = ({
                   </li>*/}
                 <li className="nav-item">
                   <Link href="/burnmodule" activeClassName="active">
-                    <NavLink className="nav-link" slot={pathname}>Burn Module</NavLink>
+                    <NavLink className="nav-link" slot={pathname} defaultChecked={toggle}>Burn Module</NavLink>
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link href="/gFOTmodule" activeClassName="active">
-                    <NavLink className="nav-link" slot={pathname}>Grand Module (gFOT)</NavLink>
+                    <NavLink className="nav-link" slot={pathname} defaultChecked={toggle}>Grand Module (gFOT)</NavLink>
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link href="/sFOTmodule" activeClassName="active">
-                    <NavLink className="nav-link" slot={pathname}>sFOT Module</NavLink>
+                    <NavLink className="nav-link" slot={pathname} defaultChecked={toggle}>sFOT Module</NavLink>
                   </Link>
                 </li>
                 {/*<li className="nav-item">
@@ -158,11 +158,11 @@ const Navbar = ({
                 </li>*/}
                 <li className="nav-item">
                   <Link href="/nwallet" activeClassName="active">
-                    <NavLink className="nav-link" slot={pathname}>Wallet</NavLink>
+                    <NavLink className="nav-link" slot={pathname} defaultChecked={toggle}>Wallet</NavLink>
                   </Link>
                 </li>
                 <ToggleSwitch toggle={toggle} setToggle={setToggle} />
-                <button className={`default-btn ${pathname==='/gFOTmodule'?'secondary-btn':''}`} onClick={handleConnect}>
+                <button className={`default-btn ${!toggle && pathname==='/gFOTmodule'?'secondary-btn':''}`} onClick={handleConnect}>
                   {walletAddress
                     ? walletAddress.substring(0, 12) +
                       "..." +

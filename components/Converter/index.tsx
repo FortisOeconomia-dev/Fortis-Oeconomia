@@ -1,4 +1,6 @@
+import { useContext } from 'react'
 import styled from 'styled-components'
+import { ToggleContext } from '../Layout/Layout'
 
 import FromConv from './FromConv'
 import ToConv from './ToConv'
@@ -22,6 +24,7 @@ const Converter = ({
     expectedAmount,
     handleSubmit
 }) => {
+    const toggle = useContext(ToggleContext)
     return (
         <Wrapper>
             <FromConv 
@@ -33,7 +36,7 @@ const Converter = ({
             />
             <img src={convImg} style={{marginBottom: '58px'}} />
             <ToConv to={to} expectedAmount={expectedAmount} />
-            <button className={`default-btn ${from === 'bFOT' ? 'secondary-btn' : ''}`} onClick={handleSubmit}>Burn</button>
+            <button className={`default-btn ${!toggle && from === 'bFOT' ? 'secondary-btn' : ''}`} onClick={handleSubmit}>Burn</button>
         </Wrapper>
     )
 }
