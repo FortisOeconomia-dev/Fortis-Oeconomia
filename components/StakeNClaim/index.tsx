@@ -8,6 +8,8 @@ import {
 } from '../../util/conversion'
 import InputWithIncDec from '../InputWithIncDec'
 import styled from 'styled-components'
+import {useContext} from 'react'
+import { ToggleContext } from "../Layout/Layout";
 
 const Wrapper = styled.div`
     padding: 50px 32px;
@@ -94,6 +96,7 @@ const StakeNClaim = ({
     gfotStakingMyStaked,
     gfotStakingMyReward,
   } = useSigningClient();
+  const toggle = useContext(ToggleContext)
     return (
         <Wrapper>
             <TotalStaked>
@@ -121,7 +124,7 @@ const StakeNClaim = ({
                         handleBurnPlus={handleBurnPlus}
                     />
                 </div>
-                <button className={`default-btn secondary-btn`} onClick={handleFotStaking}>Stake</button>
+                <button className={`default-btn ${!toggle && 'secondary-btn'}`} onClick={handleFotStaking}>Stake</button>
             </TotalStaked>
             <MyStaked>
                 <MyStakedContent className="wallet-text">
@@ -133,7 +136,7 @@ const StakeNClaim = ({
                         </StakedValue>
                     </MyStakedText>
                     <button 
-                        className={`default-btn secondary-btn outlined`}
+                        className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
                         style={{marginBottom: '25px'}}
                         onClick={handleFotStakingUnstake}
                     >
@@ -147,7 +150,7 @@ const StakeNClaim = ({
                         </StakedValue>
                     </MyStakedText>
                 </MyStakedContent>
-                <button className={`default-btn secondary-btn`} onClick={handleFotStakingClaimReward}>Claim</button>
+                <button className={`default-btn   ${!toggle && 'secondary-btn'}`} onClick={handleFotStakingClaimReward}>Claim</button>
             </MyStaked>
         </Wrapper>
     )
