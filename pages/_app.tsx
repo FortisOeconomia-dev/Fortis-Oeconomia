@@ -16,7 +16,6 @@ import { SigningCosmWasmProvider } from '../contexts/cosmwasm'
 
 export default function App({ Component, pageProps }) {
   const store = useStore(pageProps.initialReduxState);
-
   return (
     <SigningCosmWasmProvider>
       <Provider store={store}>

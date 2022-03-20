@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components'
 
@@ -9,8 +10,9 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 
 //styled components
+// background: ${props => props.slot==='/gFOTmodule' ? 'white' : `linear-gradient(180deg, ${props.defaultChecked ? '#1e2e71' : '#8394DD'} 0%, ${props.defaultChecked ? '#181a1b' : '#FFFFFF'} 100%)`};
 const Wrapper = styled.div`
-  background: ${props => props.slot==='/gFOTmodule' ? 'white' : 'linear-gradient(180deg, #8394DD 0%, #FFFFFF 100%)'};
+  background: ${props => props.slot==='/gFOTmodule' ? 'white' : `linear-gradient(180deg, #8394DD 0%, #FFFFFF 100%)`};
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -18,10 +20,11 @@ const Wrapper = styled.div`
 `
 
 const Layout = ({ children }) => {
+  const [toggle, setToggle] = useState(false)
   const router = useRouter();
   const { pathname } = router;
   return (
-    <Wrapper slot={pathname}>
+    <Wrapper defaultChecked={toggle} slot={pathname} style={{filter: toggle && 'drop-shadow(16px 16px 20px yellow) invert(90) hue-rotate(170deg) saturate(200%) contrast(100%) brightness(90%)'}}>
       {/* {pathname === '/' && <Background slot={`../images/HomePageBackground/${index%4 + 1}.png`}></Background>} */}
       <Head>
         <title>Fortis Oeconomia</title>
@@ -46,7 +49,7 @@ const Layout = ({ children }) => {
       </Head>
 
       {/* {pathname === '/' ? <TopHeader /> : ''} */}
-      {<Navbar />}
+      {<Navbar toggle={toggle} setToggle={setToggle} />}
       
       {/* <button className={`default-btn wallet-btn ${pathname==='/gFOTmodule'?'secondary-btn':''}`}>
         <img src="../images/wallet.png" />
