@@ -9,6 +9,7 @@ import "react-notifications/lib/notifications.css";
 import styled from 'styled-components'
 
 import { useSigningClient } from "../../contexts/cosmwasm";
+import ToggleSwitch from "../ToggleSwitch";
 
 const NavLink = styled.a`
   white-space:nowrap;
@@ -18,9 +19,14 @@ const NavLink = styled.a`
   padding-bottom: 0 !important;
   font-size: 19px !important;
   line-height: 28px !important;
+  padding-left: unset !important;
+  padding-right: unset !important;
 `
 
-const Navbar = () => {
+const Navbar = ({
+  toggle,
+  setToggle,
+}) => {
   const {
     walletAddress,
     connectWallet,
@@ -94,7 +100,7 @@ const Navbar = () => {
               : "navbar navbar-expand-md navbar-light hide-menu"
           }
         >
-          <div className="container" style={{padding: '20px 32px'}}>
+          <div className="container" style={{padding: '20px 32px', maxWidth: 'unset'}}>
             <Link className="flex" href="https://www.fortisoeconomia.com/">
               <div className="d-flex flex-row align-items-center">
                 <a className="justify-content-center w-full">
@@ -152,6 +158,7 @@ const Navbar = () => {
                     <NavLink className="nav-link" slot={pathname}>Wallet</NavLink>
                   </Link>
                 </li>
+                <ToggleSwitch toggle={toggle} setToggle={setToggle} />
                 <button className={`default-btn ${pathname==='/gFOTmodule'?'secondary-btn':''}`} onClick={handleConnect}>
                   {walletAddress
                     ? walletAddress.substring(0, 12) +

@@ -7,11 +7,7 @@ const WalletTitle = styled.label`
     line-height: 48px;
     margin-bottom: 32px;
     margin-top:0px !important;
-<<<<<<< HEAD
     background-color: ${props => props.slot!=='gFOT' && 'white !important'}
-=======
-    background-color: ${props => props.slot!=='gFOT' && '#22053D !important'}
->>>>>>> 4c33a21d5b1d6786ea9595d54000bc3f970eb5b5
 `
 
 const ExpectedValWrapper = styled.label`

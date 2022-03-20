@@ -8445,3 +8445,136 @@ Go Top CSS
   cursor: pointer;
 }
 /*# sourceMappingURL=style.css.map */
+
+
+/* Toggle Switch CSS */
+:root {
+	--gray-5:#010101; /*dark*/
+	--gray-10:#040404;
+	--gray-15:#070808;
+	--gray-20:#0D0D0E;
+	--gray-25:#141516;
+	--gray-30:#1E2022;
+	--gray-35:#2D2F31;
+	--gray-40:#404346;
+	--gray-45:#5B5E62;
+	--gray-50:#7C8084;
+	--gray-55:#9DA1A5;
+	--gray-60:#B9BDC1;
+	--gray-65:#CDD1D5;
+	--gray-70:#DCE0E3;
+	--gray-75:#E7EAED;
+	--gray-80:#EFF2F5;
+	--gray-85:#F4F7FA;
+	--gray-90:#F7FAFD;
+	--gray-95:#FCFEFE; /*light*/
+	--animate:200ms;
+}
+.mode-toggle {
+	display:inline-flex;
+	flex-direction:row;
+	align-items:center;
+}
+.toggle-switch {
+	margin:0;
+	padding:0;
+	width:48px;
+	height:28px;
+	border:none;
+	outline:none;
+	overflow:hidden;
+	position:relative;
+	border-radius:14px;
+	display:inline-block;
+	background:var(--gray-40);
+}
+.mode-toggle.dark .toggle-switch {
+	width:48px;
+}
+.toggle-switch,
+.toggle-switch:before,
+.toggle-switch:after {
+	transition:all var(--animate) ease-in-out;
+}
+.mode-toggle.dark .toggle-switch {
+	background:var(--gray-70);
+}
+.toggle-switch:before {
+	top:4px;
+	left:24px;
+	content:"";
+	width:20px;
+	height:20px;
+	display:block;
+	position:absolute;
+	border-radius:12px;
+	background:var(--gray-70);
+}
+.mode-toggle.dark .toggle-switch:before {
+	left:4px;
+	background:var(--gray-35);
+}
+.toggle-switch:after {
+	content:"";
+	top:14px;
+	right:2px;
+	width:1px;
+	height:1px;
+	display:block;
+	position:absolute;
+	border-radius:0.5px;
+	background:var(--gray-40);
+}
+.mode-toggle.dark .toggle-switch:after {
+	top:-2px;
+	right:2px;
+	width:32px;
+	height:32px;
+	border-radius:16px;
+	background:var(--gray-70);
+}
+.toggle-switch:hover,
+.toggle-switch:hover:after {
+	background:var(--gray-35);
+}
+.toggle-switch:focus,
+.toggle-switch:active,
+.toggle-switch:active:after {
+	background:var(--gray-25);
+}
+.mode-toggle.dark .toggle-switch:hover,
+.mode-toggle.dark .toggle-switch:hover:after {
+	background:var(--gray-95);
+}
+.mode-toggle.dark .toggle-switch:focus,
+.mode-toggle.dark .toggle-switch:active,
+.mode-toggle.dark .toggle-switch:active:after {
+	background:var(--gray-65);
+}
+.noselect {
+	user-select:none;
+	-ms-user-select:none;
+	-moz-user-select:none;
+	-webkit-user-select:none;
+}
+.disableEasingTemporarily,
+.disableEasingTemporarily:after,
+.disableEasingTemporarily:before {
+  -o-transition-property:none!important;
+  -moz-transition-property:none!important;
+  -ms-transition-property:none!important;
+  -webkit-transition-property:none!important;
+  transition-property:none!important;
+  -o-transform:none!important;
+  -moz-transform:none!important;
+  -ms-transform:none!important;
+  -webkit-transform:none!important;
+  transform:none!important;
+  -webkit-animation:none!important;
+  -moz-animation:none!important;
+  -o-animation:none!important;
+  -ms-animation:none!important;
+  animation:none!important;
+}
+/* end */
+
