@@ -51,21 +51,6 @@ const RightPart = styled.div`
   max-width: 100%;
 `
 
-const defaultValues = [
-  {
-    key: 'bFOT Supply',
-    value: '100.000.000'
-  },
-  {
-    key: 'Burned bFOT',
-    value: '0'
-  },
-  {
-    key: 'gFOT Supply',
-    value: '0'
-  }
-]
-
 const gfotmodule = () => {
   const {
     walletAddress,
@@ -108,6 +93,17 @@ const gfotmodule = () => {
     executegFotClaimReward,
     executegFotUnstake
   } = useSigningClient();
+  const [seconds, setSeconds] = useState(0)
+  useEffect(() => {
+    let interval = null;
+    if(seconds === 0) {
+      getBalances()
+    }
+    interval = setInterval(() => {
+      setSeconds(seconds => (seconds + 1) % 10);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [seconds])
 
   const defaultValues = [
     {
