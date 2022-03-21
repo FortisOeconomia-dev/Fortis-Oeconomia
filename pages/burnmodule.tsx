@@ -60,7 +60,6 @@ const RightPart = styled.div`
 
 
 const burnmodule = () => {
-  
   const {
     walletAddress,
     signingClient,
@@ -76,7 +75,7 @@ const burnmodule = () => {
     fotBalance,
     fotBalanceStr,
     fotTokenInfo,
-    
+
     bfotBalance,
     bfotBalanceStr,
     bfotTokenInfo,
@@ -124,18 +123,21 @@ const burnmodule = () => {
 
   const onFotBurnChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { target: { value } } = event
-    console.log("UI value:" + value)
+    if (Number(value) > Number(fotBalance))
+      return
+    if (Number(value) < 0)
+      return
     handleFotChange(Number(value))
   }
 
   const handleFotBurnPlus = () => {
-    if (Number(fotBurnAmount) >= Number(fotBalance))
+    if (Number(fotBurnAmount) + 1 > Number(fotBalance))
       return
 
     handleFotChange((Number(fotBurnAmount) + 1))
   }
   const handleFotBurnMinus = () => {
-    if (Number(fotBurnAmount) == 1)
+    if (Number(fotBurnAmount) - 1< 0)
       return
     handleFotChange((Number(fotBurnAmount) - 1))
   }
@@ -144,14 +146,14 @@ const burnmodule = () => {
     <>
       <Wrapper>
         <LeftPart>
-          <Converter 
-            handleBurnMinus={handleFotBurnMinus} 
+          <Converter
+            handleBurnMinus={handleFotBurnMinus}
             burnAmount={fotBurnAmount}
             onBurnChange={onFotBurnChange}
             handleBurnPlus={handleFotBurnPlus}
-            convImg='/images/fire.png' 
-            from='FOT' 
-            to='bFOT' 
+            convImg='/images/fire.png'
+            from='FOT'
+            to='bFOT'
             expectedAmount={expectedBfotAmount}
             handleSubmit={handleSubmit}
           />

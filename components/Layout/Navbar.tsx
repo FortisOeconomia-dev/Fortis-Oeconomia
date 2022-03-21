@@ -21,6 +21,9 @@ const NavLink = styled.a`
   line-height: 28px !important;
   padding-left: unset !important;
   padding-right: unset !important;
+  &.active {
+    color: ${props => props.slot === 'gFOTmodule' ? 'red' : 'black'} !important;
+  }
 `
 
 const Navbar = ({

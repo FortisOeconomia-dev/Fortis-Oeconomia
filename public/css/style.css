@@ -488,7 +488,7 @@ p:last-child {
 .wallet-btn {
   min-width: unset;
   width: 101px;
-  height: 101px;
+  height: 80px;
   border-radius: 100%;
   display: flex;
   align-items: center;
@@ -650,7 +650,7 @@ Navbar Area CSS
   -webkit-text-fill-color: transparent;
 }
 .navbar-area .navbar .navbar-nav .nav-item a.active {
-  color:var(--blackColor)
+  color: black
 }
 
 .navbar-area .navbar .navbar-nav .nav-item .dropdown-toggle {
@@ -680,7 +680,7 @@ Navbar Area CSS
 }
 
 .navbar-area .navbar .navbar-nav .nav-item.active a {
-  color: var(--mainColor);
+  color: black;
 }
 
 .navbar-area .navbar .navbar-nav .nav-item .dropdown-menu {

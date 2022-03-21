@@ -500,11 +500,13 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   }
 
   const handleFotChange = (value) => {
+    if (Number(value) > fotBalance || Number(value) < 0)
+      return;
     setFotBurnAmount(value)
 
     let bfot_send_amount = 0;
     let amount = Number(convertDenomToMicroDenom2(value, fotTokenInfo.decimals))
-
+    
     // console.log("FOT microdenom amount:" + amount)
     let fot_amount = fotTokenInfo.total_supply
     // console.log("fot_unburn_amount:" + fot_amount)
@@ -564,6 +566,8 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   ////////////////////////////////////////////////////////////////////////
 
   const handlebFotChange = async (value) => {
+    if (Number(value) > bfotBalance || Number(value) < 0)
+      return;
     setbFotBurnAmount(value)
 
     let bamount = Number(convertDenomToMicroDenom2(value, bfotTokenInfo.decimals))
@@ -621,6 +625,8 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   ////////////////////////////////////////////////////////////////////////
 
   const handlegFotStakingChange = async (value) => {
+    if (Number(value) > bfotBalance || Number(value) < 0)
+      return;
     setgFotStakingAmount(value)
   }
 
