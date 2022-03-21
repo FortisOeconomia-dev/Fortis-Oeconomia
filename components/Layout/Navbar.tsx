@@ -19,6 +19,8 @@ const NavLink = styled.a`
   padding-bottom: 0 !important;
   font-size: 19px !important;
   line-height: 28px !important;
+  padding-left: unset !important;
+  padding-right: unset !important;
   &.active {
     color: ${props => props.slot === 'gFOTmodule' ? 'red' : 'black'} !important;
   }

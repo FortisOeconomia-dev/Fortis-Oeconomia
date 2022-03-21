@@ -26,7 +26,6 @@ const ExpectedVal = styled.span`
     font-weight: 600;
     font-size: 21px;
     line-height: 32px;
-    margin-top: 20px;
 `
 
 const ToConv = ({to, expectedAmount}) => {
