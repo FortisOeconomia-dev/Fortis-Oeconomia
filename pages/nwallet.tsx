@@ -72,6 +72,9 @@ const OutWrapper = styled.div`
 `
 
 const Divider = styled.div`
+  background: linear-gradient(270deg, #5F5BCD 0%, #83B8DD 100%);
+  height: 2.5px;
+  width: 100%;
 `
 
 const AssetContent = styled.div`
@@ -97,10 +100,7 @@ const Title = styled.span`
   font-weight: 500;
   font-size: 32px;
   line-height: 48px;
-  background: radial-gradient(207.29% 1467.58% at 50% 50%, #0d18d2 0%, #4586fc 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #FBFCFD;
 `
 
 const Gradient1 = styled.div`
