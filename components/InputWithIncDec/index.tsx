@@ -12,7 +12,6 @@ const Wrapper = styled.label`
 const DecButton = styled.button`
   width: fit-content !important;
   height: 48px !important;
-  border: 2px solid #00000 !important;
   background: transparent !important;
   box-shadow: none !important;
   color: #080451 !important;
@@ -25,7 +24,6 @@ const DecButton = styled.button`
 const IncButton = styled.button`
   width: fit-content !important;
   height: 48px !important;
-  border: 2px solid #00000 !important;
   background: transparent !important;
   box-shadow: none !important;
   color: #080451 !important;
@@ -36,7 +34,7 @@ const IncButton = styled.button`
 `
 
 const IncDecInput = styled.input`
-  color: #080451,
+  color: #080451;
   width: 100%;
   background: transparent;
   border: none;

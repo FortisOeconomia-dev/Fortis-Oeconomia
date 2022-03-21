@@ -7,7 +7,7 @@ const WalletTitle = styled.label`
     line-height: 48px;
     margin-bottom: 32px;
     margin-top:0px !important;
-    background-color: ${props => props.slot!=='gFOT' && 'white !important'}
+    background-color: ${props => props.slot!=='gFOT' && '#22053D !important'}
 `
 
 const ExpectedValWrapper = styled.label`
@@ -26,6 +26,7 @@ const ExpectedVal = styled.span`
     font-weight: 600;
     font-size: 21px;
     line-height: 32px;
+    margin-top: 20px;
 `
 
 const ToConv = ({to, expectedAmount}) => {

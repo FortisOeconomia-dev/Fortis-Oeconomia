@@ -624,8 +624,8 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   ////////////////////////////////////////////////////////////////////////
 
   const handlegFotStakingChange = async (value) => {
-    if (Number(value) > bfotBalance || Number(value) < 0)
-      return;
+//    if (Number(value) > bfotBalance || Number(value) < 0)
+//    return;
     setgFotStakingAmount(value)
   }
 
@@ -656,10 +656,11 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         NotificationManager.success('Successfully staked')
     } catch (error) {
       setLoading(false)
-      if (showNotification) {
+      console.log(error);
+      //if (showNotification) {
         NotificationManager.error(`Stakemodule error : ${error}`)
         console.log(error.toString())
-      }
+      //}
     }
   }
 

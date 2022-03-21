@@ -18,7 +18,7 @@ const StatisticLabel = styled.span`
     font-weight: 600;
     font-size: ${props => props.slot=== '/gFOTmodule' ? '16.4907px' : '24px'};
     line-height: ${props => props.slot=== '/gFOTmodule' ? '25px' : '36px'};
-    color: ${props => props.slot=== '/gFOTmodule' ? '#080451' : 'white'};
+    color: ${props => props.slot=== '/gFOTmodule' ? '#080451' : '#22053D'};
 `
 
 const StatisticValue = styled.span`
