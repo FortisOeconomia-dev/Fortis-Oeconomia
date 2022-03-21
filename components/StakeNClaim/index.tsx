@@ -48,10 +48,11 @@ const TotalStakedText = styled.label`
     width: unset !important;
     border-bottom: 0px !important;
     margin: 0 !important;
+    font-size: 18px;
 `
 
 const StakedValue = styled.span`
-    font-size: 20px;
+    font-size: 18px;
     display: block;
     float: right;
 `
@@ -77,6 +78,14 @@ const MyStakedText = styled.label`
     margin: 0 !important;
 `
 
+const MaxButton = styled.button`
+    margin-bottom: 25px;
+    margin-top: -35px;
+    padding: 5px !important;
+    width: 100px;
+    min-width: unset !important;
+`
+
 const StakeNClaim = ({
     handleBurnMinus,
     onBurnChange,
@@ -84,6 +93,7 @@ const StakeNClaim = ({
     handleFotStaking,
     handleFotStakingUnstake,
     handleFotStakingClaimReward,
+
 }) => {
   const {
     fotTokenInfo,
@@ -93,6 +103,8 @@ const StakeNClaim = ({
     gfotStakingApy,
     gfotStakingMyStaked,
     gfotStakingMyReward,
+    gfotBalance,
+    handlegFotStakingChange,
   } = useSigningClient();
   const toggle = useContext(ToggleContext)
     return (
@@ -122,6 +134,12 @@ const StakeNClaim = ({
                         handleBurnPlus={handleBurnPlus}
                     />
                 </div>
+                <MaxButton 
+                    onClick={() => handlegFotStakingChange(gfotBalance)}
+                    className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
+                >
+                    Max
+                </MaxButton>
                 <button className={`default-btn ${!toggle && 'secondary-btn'}`} onClick={handleFotStaking}>Stake</button>
             </TotalStaked>
             <MyStaked>
