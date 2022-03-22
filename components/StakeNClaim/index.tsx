@@ -118,7 +118,7 @@ const StakeNClaim = ({
                         </StakedValue>
                     </TotalStakedText>
                     <TotalStakedText className="wallet-label">
-                        APR
+                        DPR
                         <StakedValue>
                             {" "}
                             {(gfotStakingApy / 10000000000.0).toFixed(10)} %

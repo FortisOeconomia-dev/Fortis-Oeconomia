@@ -360,7 +360,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         apy: {},
       })
       setgFotStakingApy(gfotStakingApy)
-      console.log(gfotStakingApy)
+      
       
 
       const gfotStakingMyInfo = await signingClient.queryContractSmart(PUBLIC_GFOTSTAKING_CONTRACT, {

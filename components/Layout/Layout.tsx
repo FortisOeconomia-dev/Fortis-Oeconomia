@@ -43,18 +43,18 @@ const Layout = ({ children }) => {
           />
           <meta
             name='description'
-            content='Ribnic - Muli-Niche eCommerce React Template'
+            content='Innovative Financial Toolkit'
           />
           <meta
             name='og:title'
             property='og:title'
-            content='Ribnic - Muli-Niche eCommerce React Template'
+            content='Innovative Financial Toolkit'
           ></meta>
           <meta
             name='twitter:card'
-            content='Ribnic - Muli-Niche eCommerce React Template'
+            content='Innovative Financial Toolkit'
           ></meta>
-          <link rel='canonical' href='https://novis-react.envytheme.com'></link>
+          {/* <link rel='canonical' href='https://novis-react.envytheme.com'></link> */}
         </Head>
 
         {/* {pathname === '/' ? <TopHeader /> : ''} */}
