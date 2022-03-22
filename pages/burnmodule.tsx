@@ -156,6 +156,8 @@ const burnmodule = () => {
             to='bFOT'
             expectedAmount={expectedBfotAmount}
             handleSubmit={handleSubmit}
+            handleChange={handleFotChange}
+            balance={fotBalance}
           />
         </LeftPart>
         <RightPart>

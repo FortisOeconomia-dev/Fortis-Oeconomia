@@ -80,6 +80,7 @@ const MyStakedText = styled.label`
 
 const MaxButton = styled.button`
     margin-top: -35px;
+    margin-bottom: 20px;
     padding: 5px !important;
     width: 100px;
     min-width: unset !important;
@@ -118,10 +119,17 @@ const StakeNClaim = ({
                         </StakedValue>
                     </TotalStakedText>
                     <TotalStakedText className="wallet-label">
-                        APY
+                        APR
                         <StakedValue>
                             {" "}
                             {(gfotStakingApy / 10000000000.0).toFixed(10)} %
+                        </StakedValue>
+                    </TotalStakedText>
+                    <TotalStakedText className="wallet-label">
+                        APY
+                        <StakedValue>
+                            {" "}
+                            {((gfotStakingApy * 365) / 10000000000.0).toFixed(10)} %
                         </StakedValue>
                     </TotalStakedText>
                 </div>

@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import React, { useState, createContext, useContext } from 'react';
+import React, { useState, createContext, useContext, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components'
 
@@ -23,6 +23,12 @@ export const ToggleContext = createContext(false)
 
 const Layout = ({ children }) => {
   const [toggle, setToggle] = useState(false)
+  useEffect(() => {
+    let temp = localStorage.getItem('toggle')
+    if (temp) {
+      setToggle(JSON.parse(temp))
+    }
+  }, [])
   const router = useRouter();
   const { pathname } = router;
   return (
@@ -52,7 +58,11 @@ const Layout = ({ children }) => {
         </Head>
 
         {/* {pathname === '/' ? <TopHeader /> : ''} */}
-        {<Navbar toggle={toggle} setToggle={setToggle} />}
+        {<Navbar toggle={toggle} setToggle={(toggle) => {
+            localStorage.setItem('toggle', toggle.toString())
+            setToggle(toggle)
+          }} 
+        />}
         
         {/* <button className={`default-btn wallet-btn ${pathname==='/gFOTmodule'?'secondary-btn':''}`}>
           <img src="../images/wallet.png" />

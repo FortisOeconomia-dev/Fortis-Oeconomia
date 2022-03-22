@@ -22,7 +22,9 @@ const Converter = ({
     onBurnChange,
     handleBurnPlus,
     expectedAmount,
-    handleSubmit
+    handleSubmit,
+    balance,
+    handleChange
 }) => {
     const toggle = useContext(ToggleContext)
     return (
@@ -33,6 +35,8 @@ const Converter = ({
                 burnAmount={burnAmount} 
                 onBurnChange={onBurnChange}
                 handleBurnPlus={handleBurnPlus}
+                balance={balance}
+                handleChange={handleChange}
             />
             <img src={convImg} style={{marginBottom: '58px'}} />
             <ToConv to={to} expectedAmount={expectedAmount} />
