@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { useContext } from 'react'
 import { ToggleContext } from '../Layout/Layout'
 import InputWithIncDec from "../InputWithIncDec"
+import { useSigningClient } from "../../contexts/cosmwasm";
 
 const WalletTitle = styled.label`
     align-items: center;
@@ -29,6 +30,9 @@ const FromConv = ({
     balance,
     handleChange
 }) => {
+    const {
+        walletAddress,
+    } = useSigningClient();
     const toggle = useContext(ToggleContext)
     return (
         <div className="gFotCurrencyt-selection">
@@ -41,6 +45,13 @@ const FromConv = ({
                 onBurnChange={onBurnChange}
                 handleBurnPlus={handleBurnPlus}
             />
+            {walletAddress.length == 0 ? <></> :
+                <div className='banner-wrapper-content' style={{height:"fit-content",textAlign:"right"}}>
+                  <span className="sub-title ms-2" style={{ background: "#83B8DD" }}>
+                    Balance {balance}
+                  </span>
+                </div>
+            }
             <MaxButton 
                 onClick={() => handleChange(balance)}
                 className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
