@@ -158,6 +158,7 @@ const burnmodule = () => {
             handleSubmit={handleSubmit}
             handleChange={handleFotChange}
             balance={fotBalance}
+            sbalance={bfotBalance}
           />
         </LeftPart>
         <RightPart>
