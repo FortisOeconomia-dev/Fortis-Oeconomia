@@ -98,7 +98,7 @@ export const PUBLIC_GFOT_CONTRACT = process.env.NEXT_PUBLIC_GFOT_CONTRACT || ''
 
 export const defaultFee = {
   amount: [],
-  gas: "800000",
+  gas: "8000000",
 }
 
 export const CW20_DECIMAL = 1000000
@@ -132,7 +132,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   
   const [fotBurnContractInfo, setFotBurnContractInfo] = useState({ owner: '', fot_burn_amount: 0, bfot_sent_amount: 0, bfot_current_amount: 0 })
   const [bfotBurnContractInfo, setbFotBurnContractInfo] = useState({ owner: '', bfot_burn_amount: 0, gfot_sent_amount: 0, gfot_current_amount: 0 })
-  const [gfotStakingContractInfo, setgFotStakingContractInfo] = useState({ owner: '', fot_amount: 0, gfot_amount: 0, last_time: 0 })
+  const [gfotStakingContractInfo, setgFotStakingContractInfo] = useState({ owner: '', fot_amount: 0, gfot_amount: 0, last_time: 0, apy_prefix: 0 })
 
   /////////////////////////////////////////////////////////////////////
   /////////////////////  Airdrop Variables   //////////////////////////
@@ -356,10 +356,10 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       // console.log(gfotStakingContractInfo)
 
       //GFotStaking APY and myInfo
-      const gfotStakingApy = await signingClient.queryContractSmart(PUBLIC_GFOTSTAKING_CONTRACT, {
-        apy: {},
-      })
-      setgFotStakingApy(gfotStakingApy)
+      // const gfotStakingApy = await signingClient.queryContractSmart(PUBLIC_GFOTSTAKING_CONTRACT, {
+      //   apy: {},
+      // })
+      // setgFotStakingApy(gfotStakingApy)
       // console.log(gfotStakingApy)
       
 
@@ -371,6 +371,9 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       setgFotStakingMyStaked(gfotStakingMyInfo.amount)
       setgFotStakingMyReward(gfotStakingMyInfo.reward)
 
+      let apy = 10.0 * gfotStakingContractInfo.apy_prefix * 10000000000 / (Math.floor(gfotTokenInfo.total_supply / 10000000000) + 10000.0) / gfotStakingContractInfo.gfot_amount 
+
+      setgFotStakingApy(apy)
       // console.log("gfotStakingMyInfo")
       // console.log(gfotStakingMyInfo)
 

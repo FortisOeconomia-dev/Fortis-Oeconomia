@@ -48,10 +48,11 @@ const TotalStakedText = styled.label`
     width: unset !important;
     border-bottom: 0px !important;
     margin: 0 !important;
+    font-size: 18px;
 `
 
 const StakedValue = styled.span`
-    font-size: 20px;
+    font-size: 18px;
     display: block;
     float: right;
 `
@@ -78,7 +79,7 @@ const MyStakedText = styled.label`
 `
 
 const MaxButton = styled.button`
-    margin-bottom: 25px;
+    margin-top: -35px;
     padding: 5px !important;
     width: 100px;
     min-width: unset !important;
@@ -91,6 +92,7 @@ const StakeNClaim = ({
     handleFotStaking,
     handleFotStakingUnstake,
     handleFotStakingClaimReward,
+
 }) => {
   const {
     fotTokenInfo,
@@ -101,7 +103,7 @@ const StakeNClaim = ({
     gfotStakingMyStaked,
     gfotStakingMyReward,
     gfotBalance,
-    handlegFotStakingChange
+    handlegFotStakingChange,
   } = useSigningClient();
   const toggle = useContext(ToggleContext)
     return (
@@ -119,7 +121,7 @@ const StakeNClaim = ({
                         APY
                         <StakedValue>
                             {" "}
-                            {(gfotStakingApy / 10000000000.0).toFixed(10)} %
+                            {(gfotStakingApy).toFixed(10)} %
                         </StakedValue>
                     </TotalStakedText>
                 </div>

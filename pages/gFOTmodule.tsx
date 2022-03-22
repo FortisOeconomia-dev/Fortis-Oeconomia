@@ -96,7 +96,7 @@ const gfotmodule = () => {
   const [seconds, setSeconds] = useState(0)
   useEffect(() => {
     let interval = null;
-    if(seconds === 0) {
+    if (seconds === 0) {
       getBalances()
     }
     interval = setInterval(() => {
@@ -104,7 +104,6 @@ const gfotmodule = () => {
     }, 1000);
     return () => clearInterval(interval);
   }, [seconds])
-
   const defaultValues = [
     {
       key: 'bFOT Supply',
@@ -155,7 +154,7 @@ const gfotmodule = () => {
     handlebFotChange((Number(bfotBurnAmount) + 1))
   }
   const handlebFotBurnMinus = () => {
-    if (Number(bfotBurnAmount) - 1 < 0) 
+    if (Number(bfotBurnAmount) - 1 < 0)
       return
     handlebFotChange((Number(bfotBurnAmount) - 1))
   }
@@ -219,36 +218,36 @@ const gfotmodule = () => {
       return
     handlegFotStakingChange((Number(gfotStakingAmount) - 1))
   }
- 
+
   return (
 
     <>
-    <Wrapper>
-      <LeftPart>
-        <Converter 
-          handleBurnMinus={handlebFotBurnMinus} 
-          burnAmount={bfotBurnAmount}
-          onBurnChange={onbFotBurnChange}
-          handleBurnPlus={handlebFotBurnPlus}
-          expectedAmount={expectedGfotAmount}
-          convImg='/images/gfotarrow.png' 
-          from='bFOT' 
-          to='gFOT'
-          handleSubmit={handlebFotBurn}
-        />
-      </LeftPart>
-      <RightPart>
-        <StakeNClaim
-          handleBurnMinus={handlegFotStakingMinus} 
-          onBurnChange={ongFotStakingChange}
-          handleBurnPlus={handlegFotStakingPlus}
-          handleFotStaking={handlegFotStaking}
-          handleFotStakingUnstake={handlegFotStakingUnstake}
-          handleFotStakingClaimReward={handlegFotStakingClaimReward}
-        />
-        <StatisticBox values={defaultValues} />
-      </RightPart>
-    </Wrapper>
+      <Wrapper>
+        <LeftPart>
+          <Converter
+            handleBurnMinus={handlebFotBurnMinus}
+            burnAmount={bfotBurnAmount}
+            onBurnChange={onbFotBurnChange}
+            handleBurnPlus={handlebFotBurnPlus}
+            expectedAmount={expectedGfotAmount}
+            convImg='/images/gfotarrow.png'
+            from='bFOT'
+            to='gFOT'
+            handleSubmit={handlebFotBurn}
+          />
+        </LeftPart>
+        <RightPart>
+          <StakeNClaim
+            handleBurnMinus={handlegFotStakingMinus}
+            onBurnChange={ongFotStakingChange}
+            handleBurnPlus={handlegFotStakingPlus}
+            handleFotStaking={handlegFotStaking}
+            handleFotStakingUnstake={handlegFotStakingUnstake}
+            handleFotStakingClaimReward={handlegFotStakingClaimReward}
+          />
+          <StatisticBox values={defaultValues} />
+        </RightPart>
+      </Wrapper>
     </>
   );
 };
