@@ -371,7 +371,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       setgFotStakingMyStaked(gfotStakingMyInfo.amount)
       setgFotStakingMyReward(gfotStakingMyInfo.reward)
 
-      let apy = gfotStakingContractInfo.apy_prefix * 10000000000 / (Math.floor(gfotTokenInfo.total_supply / 10000000000) + 10000.0) / gfotStakingContractInfo.gfot_amount 
+      let apy = 10.0 * gfotStakingContractInfo.apy_prefix * 10000000000 / (Math.floor(gfotTokenInfo.total_supply / 10000000000) + 10000.0) / gfotStakingContractInfo.gfot_amount 
 
       setgFotStakingApy(apy)
       // console.log("gfotStakingMyInfo")
