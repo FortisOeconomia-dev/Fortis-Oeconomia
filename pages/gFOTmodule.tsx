@@ -99,10 +99,6 @@ const gfotmodule = () => {
     if (seconds === 0) {
       getBalances()
     }
-    if (seconds === 9) {
-      window.location.reload()
-    }
-      
     interval = setInterval(() => {
       setSeconds(seconds => (seconds + 1) % 10);
     }, 1000);
