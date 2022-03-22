@@ -117,13 +117,14 @@ const StakeNClaim = ({
                             {convertMicroDenomToDenom2(gfotStakingContractInfo.gfot_amount, gfotTokenInfo.decimals)}
                         </StakedValue>
                     </TotalStakedText>
-                    <TotalStakedText className="wallet-label">
-                        DPR
+                    <TotalStakedText className="wallet-label" style={{fontSize:'18px'}}>
+                        Current Epoch Reward
                         <StakedValue>
                             {" "}
-                            {(gfotStakingApy / 10000000000.0).toFixed(10)} %
+                            {"30.000FOT"}
+                            {/* {(gfotStakingApy / 10000000000.0).toFixed(10)} % */}
                         </StakedValue>
-                        </TotalStakedText>
+                    </TotalStakedText>
                     {/*<TotalStakedText className="wallet-label">
                         APY (bFOT)
                         <StakedValue>
