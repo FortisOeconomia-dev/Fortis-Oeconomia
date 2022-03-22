@@ -122,7 +122,7 @@ const StakeNClaim = ({
                         APY
                         <StakedValue>
                             {" "}
-                            {(gfotStakingApy / 10000000000.0).toFixed(10)} %
+                            {(gfotStakingApy).toFixed(10)} %
                         </StakedValue>
                     </TotalStakedText>
                 </div>
