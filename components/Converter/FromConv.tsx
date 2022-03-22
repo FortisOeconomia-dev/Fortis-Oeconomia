@@ -10,11 +10,11 @@ const WalletTitle = styled.label`
     font-size: 32px;
     line-height: 48px;
     margin-bottom: 32px;
-    background-color: ${props => props.slot!=='bFOT' && '#22053D !important'}
+    background-color: ${props => props.slot !== 'bFOT' && '#22053D !important'}
 `
 
 const MaxButton = styled.span`
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     padding: 5px !important;
     width: 100px !important;
     min-width: unset !important;
@@ -46,18 +46,19 @@ const FromConv = ({
                 handleBurnPlus={handleBurnPlus}
             />
             {walletAddress.length == 0 ? <></> :
-                <div className='banner-wrapper-content' style={{height:"fit-content",textAlign:"right"}}>
-                  <span className="sub-title ms-2" style={{ background: "#83B8DD" }}>
-                    Balance {balance}
-                  </span>
+                <div className='banner-wrapper-content' style={{ height: "fit-content", textAlign: "right" }}>
+                    <span className="sub-title ms-2" style={{ background: "#83B8DD" }}>
+                        Balance {balance}
+                    </span>
                 </div>
             }
-            <MaxButton 
+            <MaxButton
                 onClick={() => handleChange(balance)}
                 className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
             >
                 Max
             </MaxButton>
+
         </div>
     )
 }

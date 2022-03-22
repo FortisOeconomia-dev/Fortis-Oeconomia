@@ -1919,13 +1919,13 @@ Main Banner Area CSS
 }
 
 .banner-wrapper-content .sub-title {
-  margin-bottom: 20px;
   border-radius: 30px;
   display: inline-block;
   color: var(--whiteColor);
   background-color: var(--optionalColor);
   padding: 4px 20px;
   font-size: 14px;
+  margin-top: 0;
 }
 
 .banner-wrapper-content h1 {

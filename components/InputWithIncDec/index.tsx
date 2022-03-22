@@ -4,7 +4,7 @@ const Wrapper = styled.label`
   background: rgba(255, 255, 255, 0.6);
   height: 79px;
   border-radius: 20px;
-  margin-bottom: 58px;
+  margin-bottom: 20px;
   display: flex;
   flex-direction: row;
 `

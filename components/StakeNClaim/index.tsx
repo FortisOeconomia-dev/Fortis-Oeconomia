@@ -8,7 +8,7 @@ import {
 } from '../../util/conversion'
 import InputWithIncDec from '../InputWithIncDec'
 import styled from 'styled-components'
-import {useContext} from 'react'
+import { useContext } from 'react'
 import { ToggleContext } from "../Layout/Layout";
 
 const Wrapper = styled.div`
@@ -48,11 +48,11 @@ const TotalStakedText = styled.label`
     width: unset !important;
     border-bottom: 0px !important;
     margin: 0 !important;
-    font-size: 18px;
+    font-size: 16px;
 `
 
 const StakedValue = styled.span`
-    font-size: 18px;
+    font-size: 16px;
     display: block;
     float: right;
 `
@@ -79,7 +79,6 @@ const MyStakedText = styled.label`
 `
 
 const MaxButton = styled.button`
-    margin-top: -35px;
     margin-bottom: 20px;
     padding: 5px !important;
     width: 100px;
@@ -95,18 +94,18 @@ const StakeNClaim = ({
     handleFotStakingClaimReward,
 
 }) => {
-  const {
-    fotTokenInfo,
-    gfotTokenInfo,
-    gfotStakingContractInfo,
-    gfotStakingAmount,
-    gfotStakingApy,
-    gfotStakingMyStaked,
-    gfotStakingMyReward,
-    gfotBalance,
-    handlegFotStakingChange,
-  } = useSigningClient();
-  const toggle = useContext(ToggleContext)
+    const {
+        fotTokenInfo,
+        gfotTokenInfo,
+        gfotStakingContractInfo,
+        gfotStakingAmount,
+        gfotStakingApy,
+        gfotStakingMyStaked,
+        gfotStakingMyReward,
+        gfotBalance,
+        handlegFotStakingChange,
+    } = useSigningClient();
+    const toggle = useContext(ToggleContext)
     return (
         <Wrapper>
             <TotalStaked>
@@ -124,14 +123,14 @@ const StakeNClaim = ({
                             {" "}
                             {(gfotStakingApy / 10000000000.0).toFixed(10)} %
                         </StakedValue>
-                    </TotalStakedText>
-                    <TotalStakedText className="wallet-label">
-                        APY
+                        </TotalStakedText>
+                    {/*<TotalStakedText className="wallet-label">
+                        APY (bFOT)
                         <StakedValue>
                             {" "}
                             {((gfotStakingApy * 365) / 10000000000.0).toFixed(10)} %
                         </StakedValue>
-                    </TotalStakedText>
+                    </TotalStakedText>*/}
                 </div>
                 <div className='gFotCurrencyt-selection'>
                     <InputWithIncDec
@@ -141,7 +140,7 @@ const StakeNClaim = ({
                         handleBurnPlus={handleBurnPlus}
                     />
                 </div>
-                <MaxButton 
+                <MaxButton
                     onClick={() => handlegFotStakingChange(gfotBalance)}
                     className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
                 >
@@ -158,9 +157,9 @@ const StakeNClaim = ({
                             {convertMicroDenomToDenom2(gfotStakingMyStaked, gfotTokenInfo.decimals)}
                         </StakedValue>
                     </MyStakedText>
-                    <button 
+                    <button
                         className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
-                        style={{marginBottom: '25px'}}
+                        style={{ marginBottom: '25px' }}
                         onClick={handleFotStakingUnstake}
                     >
                         Unstake
