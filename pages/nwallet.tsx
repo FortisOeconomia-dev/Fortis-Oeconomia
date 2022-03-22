@@ -42,7 +42,7 @@ const Asset = styled.label`
 const AssetImage = styled.img`
   width: 64px;
   height: 64px;
-  border-radius: 39px;
+  borderRadius: 39px;
   filter: ${props => props.defaultChecked && 'drop-shadow(16px 16px 20px) invert(1) hue-rotate(-170deg) '};
 `
 
@@ -71,7 +71,9 @@ const OutWrapper = styled.div`
 `
 
 const Divider = styled.div`
-
+  background: linear-gradient(270deg, #5F5BCD 0%, #83B8DD 100%);
+  height: 2.5px;
+  width: 100%;
 `
 
 const AssetContent = styled.div`
@@ -79,7 +81,7 @@ const AssetContent = styled.div`
   font-weight: 600;
   font-size: 32px;
   line-height: 48px;
-  color: #080451;
+  color: #FBFCFD;
   display: flex;
   width: 100%;
   justify-content: space-between;
@@ -97,14 +99,14 @@ const Title = styled.span`
   font-weight: 500;
   font-size: 32px;
   line-height: 48px;
-  color: #080451;
+  color: #FBFCFD;
 `
 
 const Gradient1 = styled.div`
   position: absolute;
-  left: 3%;
-  top: 3%;
-  background: #c33cc4;
+  left: 10%;
+  top: 10%;
+  background: #5F5BCD;
   filter: blur(128px);
   width: 269px;
   height: 32%;

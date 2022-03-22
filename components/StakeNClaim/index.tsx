@@ -79,7 +79,6 @@ const MyStakedText = styled.label`
 `
 
 const MaxButton = styled.button`
-    margin-bottom: 25px;
     margin-top: -35px;
     padding: 5px !important;
     width: 100px;
