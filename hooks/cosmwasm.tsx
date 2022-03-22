@@ -98,7 +98,7 @@ export const PUBLIC_GFOT_CONTRACT = process.env.NEXT_PUBLIC_GFOT_CONTRACT || ''
 
 export const defaultFee = {
   amount: [],
-  gas: "8000000",
+  gas: "800000",
 }
 
 export const CW20_DECIMAL = 1000000
@@ -356,11 +356,11 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       // console.log(gfotStakingContractInfo)
 
       //GFotStaking APY and myInfo
-      // const gfotStakingApy = await signingClient.queryContractSmart(PUBLIC_GFOTSTAKING_CONTRACT, {
-      //   apy: {},
-      // })
-      // setgFotStakingApy(gfotStakingApy)
-      // console.log(gfotStakingApy)
+      const gfotStakingApy = await signingClient.queryContractSmart(PUBLIC_GFOTSTAKING_CONTRACT, {
+        apy: {},
+      })
+      setgFotStakingApy(gfotStakingApy)
+      console.log(gfotStakingApy)
       
 
       const gfotStakingMyInfo = await signingClient.queryContractSmart(PUBLIC_GFOTSTAKING_CONTRACT, {
@@ -371,9 +371,9 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       setgFotStakingMyStaked(gfotStakingMyInfo.amount)
       setgFotStakingMyReward(gfotStakingMyInfo.reward)
 
-      let apy = 10.0 * gfotStakingContractInfo.apy_prefix * 10000000000 / (Math.floor(gfotTokenInfo.total_supply / 10000000000) + 10000.0) / gfotStakingContractInfo.gfot_amount 
+      // let apy = 10.0 * gfotStakingContractInfo.apy_prefix * 10000000000 / (Math.floor(gfotTokenInfo.total_supply / 10000000000) + 10000.0) / gfotStakingContractInfo.gfot_amount 
 
-      setgFotStakingApy(apy)
+      // setgFotStakingApy(apy)
       // console.log("gfotStakingMyInfo")
       // console.log(gfotStakingMyInfo)
 

@@ -20,6 +20,8 @@ const Wrapper = styled.div`
     display: flex;
     max-width: 770px;
     width: 100%;
+    filter: blur(2px);
+    pointer-events: none;
     @media (max-width: 768px) {
         flex-direction: column;
     }
@@ -121,7 +123,7 @@ const StakeNClaim = ({
                         APY
                         <StakedValue>
                             {" "}
-                            {(gfotStakingApy).toFixed(10)} %
+                            {(gfotStakingApy / 10000000000.0).toFixed(10)} %
                         </StakedValue>
                     </TotalStakedText>
                 </div>
