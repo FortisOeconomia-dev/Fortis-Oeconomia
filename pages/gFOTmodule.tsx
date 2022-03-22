@@ -236,6 +236,7 @@ const gfotmodule = () => {
             handleSubmit={handlebFotBurn}
             balance={bfotBalance}
             handleChange={handlebFotChange}
+            sbalance={gfotBalance}
           />
         </LeftPart>
         <RightPart>

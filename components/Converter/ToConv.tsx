@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { useSigningClient } from '../../contexts/cosmwasm'
 
 const WalletTitle = styled.label`
     align-items: center;
@@ -7,7 +8,7 @@ const WalletTitle = styled.label`
     line-height: 48px;
     margin-bottom: 32px;
     margin-top:0px !important;
-    background-color: ${props => props.slot!=='gFOT' && '#22053D !important'}
+    background-color: ${props => props.slot !== 'gFOT' && '#22053D !important'}
 `
 
 const ExpectedValWrapper = styled.label`
@@ -15,7 +16,7 @@ const ExpectedValWrapper = styled.label`
     width: 453px !important;
     height: 79px !important;
     border-radius: 20px !important;
-    margin-bottom: 72px !important;
+    margin-bottom: 30px !important;
     display: flex !important;
 `
 
@@ -29,7 +30,14 @@ const ExpectedVal = styled.span`
     margin-top: 20px;
 `
 
-const ToConv = ({to, expectedAmount}) => {
+const ToConv = ({
+    to,
+    expectedAmount,
+    sbalance,
+}) => {
+    const {
+        walletAddress,
+    } = useSigningClient();
     return (
         <div className="gFotCurrencyt-selection">
             <WalletTitle slot={to} className="wallet-title">
@@ -38,6 +46,12 @@ const ToConv = ({to, expectedAmount}) => {
             <ExpectedValWrapper className="wallet-label">
                 <ExpectedVal>{expectedAmount}</ExpectedVal>
             </ExpectedValWrapper>
+            {walletAddress.length == 0 ? <></> :
+                <div className='banner-wrapper-content' style={{ height: "fit-content", textAlign: "right"}}>
+                    <span className="sub-title ms-2" style={{ background: "#83B8DD", marginTop:"10px", marginBottom:"32px"  }}>
+                        Balance {sbalance}
+                    </span>
+                </div>}            
         </div>
     )
 }

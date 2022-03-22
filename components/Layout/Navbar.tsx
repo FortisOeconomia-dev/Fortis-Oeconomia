@@ -135,7 +135,7 @@ const Navbar = ({
                   </li>*/}
                 <li className="nav-item">
                   <Link href="/burnmodule" activeClassName="active">
-                    <NavLink className="nav-link" slot={pathname} defaultChecked={toggle}>Burn Module</NavLink>
+                    <NavLink className="nav-link" slot={pathname} defaultChecked={toggle}>Burn Module (bFOT)</NavLink>
                   </Link>
                 </li>
                 <li className="nav-item">
@@ -145,7 +145,7 @@ const Navbar = ({
                 </li>
                 <li className="nav-item">
                   <Link href="/sFOTmodule" activeClassName="active">
-                    <NavLink className="nav-link" slot={pathname} defaultChecked={toggle}>sFOT Module</NavLink>
+                    <NavLink className="nav-link" slot={pathname} defaultChecked={toggle}>Stable Module (sFOT)</NavLink>
                   </Link>
                 </li>
                 {/*<li className="nav-item">
