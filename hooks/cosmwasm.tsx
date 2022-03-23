@@ -356,11 +356,16 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       // console.log(gfotStakingContractInfo)
 
       //GFotStaking APY and myInfo
-      const gfotStakingApy = await signingClient.queryContractSmart(PUBLIC_GFOTSTAKING_CONTRACT, {
-        apy: {},
-      })
-      setgFotStakingApy(gfotStakingApy)
-      
+      // const gfotStakingApy = await signingClient.queryContractSmart(PUBLIC_GFOTSTAKING_CONTRACT, {
+      //   apy: {},
+      // })
+      // setgFotStakingApy(gfotStakingApy)
+
+
+      //Changed APY formula
+      // dpr formula is (100x30)/staked gFOT amount
+      // apr formula is 365xdpr
+      setgFotStakingApy( 365 * 100 * 30.0 / Number(convertMicroDenomToDenom2(gfotStakingContractInfo.gfot_amount, gfotTokenInfo.decimals)))
       
 
       const gfotStakingMyInfo = await signingClient.queryContractSmart(PUBLIC_GFOTSTAKING_CONTRACT, {

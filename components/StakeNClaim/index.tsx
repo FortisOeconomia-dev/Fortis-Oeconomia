@@ -125,13 +125,20 @@ const StakeNClaim = ({
                             {/* {(gfotStakingApy / 10000000000.0).toFixed(10)} % */}
                         </StakedValue>
                     </TotalStakedText>
-                    {/*<TotalStakedText className="wallet-label">
-                        APY (bFOT)
+                    <TotalStakedText className="wallet-label" style={{fontSize:'18px'}}>
+                        DPR
                         <StakedValue>
                             {" "}
-                            {((gfotStakingApy * 365) / 10000000000.0).toFixed(10)} %
+                            {(gfotStakingApy / 365.0).toFixed(10)} %
                         </StakedValue>
-                    </TotalStakedText>*/}
+                    </TotalStakedText>
+                    <TotalStakedText className="wallet-label">
+                        APR
+                        <StakedValue>
+                            {" "}
+                            {gfotStakingApy.toFixed(10)} %
+                        </StakedValue>
+                    </TotalStakedText>
                 </div>
                 <div className='gFotCurrencyt-selection'>
                     <InputWithIncDec
