@@ -10,23 +10,24 @@ const Wrapper = styled.div`
     gap: 15px;
     position: fixed;
     bottom: 15px;
-    right: 0px;
+    right: 15px;
     cursor: pointer;
 `
 
-const Equal = styled.p`
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 12px;
-    color: #171E0E;
-`
+//const Equal = styled.p`
+//    font-weight: 500;
+//    font-size: 20px;
+//   line-height: 12px;
+//    color: #171E0E;
+//`
 
 const RateShow = ({values, action}) => {
     return (
         <Wrapper onClick={action}>
-            {values.map((d, idx) => 
+            {/*{values.map((d, idx) => 
                 <Equal key={idx}>{d.fromAmount}{" "}{d.fromPer}{" "}={" "}{d.toAmount}{" "}{d.toPer}</Equal>
-            )}
+            )}*/}
+            Junoswap Pool Data
         </Wrapper>
     )
 }

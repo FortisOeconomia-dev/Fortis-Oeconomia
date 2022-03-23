@@ -133,7 +133,7 @@ const StatisticBox = ({values=[], leftValues=[]}) => {
                     )
                 })}
             </ContentWrapper>
-            <ContentWrapper>
+            {/*<ContentWrapper>
                 {leftValues.map((l, idx) => {
                     return (
                         <React.Fragment key={idx}>
@@ -148,7 +148,7 @@ const StatisticBox = ({values=[], leftValues=[]}) => {
                         </React.Fragment>
                     )
                 })}
-            </ContentWrapper>
+            </ContentWrapper>*/}
             {leftValues.length > 0 ? <VirticalDivider slot={pathname} /> : <></>} 
         </Wrapper>
     )

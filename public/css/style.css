@@ -194,6 +194,9 @@ gFOT style
   max-width: 453px;
   width: 100%;
 }
+.pool{
+  position: fixed;
+}
 
 .gFotCurrencyt-selection .wallet-title{
   background-color: #22053D;
