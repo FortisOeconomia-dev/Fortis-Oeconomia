@@ -17,6 +17,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  filter: ${props => !props.defaultChecked && props.slot==='/sFOTmodule' && 'hue-rotate(240deg)'};
 `
 
 export const ToggleContext = createContext(false)

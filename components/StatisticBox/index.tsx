@@ -111,7 +111,7 @@ const StatisticBox = ({values=[]}) => {
                                 {v.value}
                             </StatisticValue>
                         </StatisticItem>
-                        {idx!==2 && <Divider slot={pathname} />}
+                        {idx < values.length - 1 && <Divider slot={pathname} />}
                     </React.Fragment>
                 )
             })}

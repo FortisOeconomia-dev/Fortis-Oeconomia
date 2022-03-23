@@ -25,7 +25,8 @@ const Converter = ({
     handleSubmit,
     balance,
     handleChange,
-    sbalance
+    sbalance,
+    submitTitle="Burn"
 }) => {
     const toggle = useContext(ToggleContext)
     return (
@@ -41,7 +42,7 @@ const Converter = ({
             />
             <img src={convImg} style={{marginBottom: '58px'}} />
             <ToConv to={to} expectedAmount={expectedAmount} sbalance={sbalance} />
-            <button className={`default-btn ${!toggle && from === 'bFOT' ? 'secondary-btn' : ''}`} onClick={handleSubmit}>Burn</button>
+            <button className={`default-btn ${!toggle && from === 'bFOT' ? 'secondary-btn' : ''}`} onClick={handleSubmit}>{submitTitle}</button>
         </Wrapper>
     )
 }
