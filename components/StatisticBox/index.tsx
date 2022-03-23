@@ -7,7 +7,7 @@ const Wrapper = styled.div`
     box-shadow: ${props => props.slot === '/gFOTmodule' ? '2.74846px 5.49692px 57.0305px rgba(161, 164, 176, 0.25)': '4px 8px 83px rgba(34, 40, 95, 0.25)'};
     border-radius: ${props => props.slot === '/gFOTmodule' ? '15.1165px': '70px'};
     width: 100%;
-    max-width: 770px;
+    max-width: 610px;
     display: flex;
     position: relative;
     padding: 30px;

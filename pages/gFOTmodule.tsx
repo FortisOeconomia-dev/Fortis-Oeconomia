@@ -268,7 +268,7 @@ const gfotmodule = () => {
             handleFotStakingUnstake={handlegFotStakingUnstake}
             handleFotStakingClaimReward={handlegFotStakingClaimReward}
           />
-          <StatisticBox values={defaultValues} leftValues={leftValues} />
+          <StatisticBox values={defaultValues} />
         </RightPart>
         <RateShow values={values} action={() => console.log('action')} />
       </Wrapper>
