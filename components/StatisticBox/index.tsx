@@ -115,7 +115,7 @@ const StatisticBox = ({values=[], leftValues=[]}) => {
                 <Ellipse3 />
                 <Ellipse4 />
             </>}
-            <ContentWrapper>
+            {leftValues.length > 0 && <ContentWrapper>
                 {leftValues.map((l, idx) => {
                     return (
                         <React.Fragment key={idx}>
@@ -130,7 +130,7 @@ const StatisticBox = ({values=[], leftValues=[]}) => {
                         </React.Fragment>
                     )
                 })}
-            </ContentWrapper>
+            </ContentWrapper>}
             {leftValues.length > 0 ? <VirticalDivider slot={pathname} /> : <></>}
             <ContentWrapper>
                 {values.map((v, idx) => {
