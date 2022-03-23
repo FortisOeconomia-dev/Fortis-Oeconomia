@@ -19,6 +19,7 @@ const ContentWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     padding: 10px;
+
 `
 
 const StatisticLabel = styled.span`
@@ -115,23 +116,7 @@ const StatisticBox = ({values=[], leftValues=[]}) => {
                 <Ellipse3 />
                 <Ellipse4 />
             </>}
-            <ContentWrapper>
-                {leftValues.map((l, idx) => {
-                    return (
-                        <React.Fragment key={idx}>
-                            <StatisticItem htmlFor={`${idx}`} slot={`${values.length}`} datatype={pathname}>
-                                <StatisticLabel slot={pathname}>{l.key}</StatisticLabel>
-                                <StatisticValue slot={pathname}>
-                                    {" "}
-                                    {l.value}
-                                </StatisticValue>
-                            </StatisticItem>
-                            {idx < values.length - 1 && <Divider slot={pathname} />}
-                        </React.Fragment>
-                    )
-                })}
-            </ContentWrapper>
-            {leftValues.length > 0 ? <VirticalDivider slot={pathname} /> : <></>}
+            
             <ContentWrapper>
                 {values.map((v, idx) => {
                     return (
@@ -148,6 +133,23 @@ const StatisticBox = ({values=[], leftValues=[]}) => {
                     )
                 })}
             </ContentWrapper>
+            <ContentWrapper>
+                {leftValues.map((l, idx) => {
+                    return (
+                        <React.Fragment key={idx}>
+                            <StatisticItem htmlFor={`${idx}`} slot={`${values.length}`} datatype={pathname}>
+                                <StatisticLabel slot={pathname}>{l.key}</StatisticLabel>
+                                <StatisticValue slot={pathname}>
+                                    {" "}
+                                    {l.value}
+                                </StatisticValue>
+                            </StatisticItem>
+                            {idx < values.length - 1 && <Divider slot={pathname} />}
+                        </React.Fragment>
+                    )
+                })}
+            </ContentWrapper>
+            {leftValues.length > 0 ? <VirticalDivider slot={pathname} /> : <></>} 
         </Wrapper>
     )
 }

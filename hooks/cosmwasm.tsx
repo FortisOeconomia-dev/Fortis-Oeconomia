@@ -79,7 +79,12 @@ export interface ISigningCosmWasmClientContext {
   handlegFotStakingChange: Function,
   executegFotStaking: Function,
   executegFotClaimReward: Function,
-  executegFotUnstake: Function
+  executegFotUnstake: Function,
+
+  //bFOT Juno Pool Part
+  bFot2Juno: number,
+  Juno2bFot: number,
+  poolDpr: number
 
 }
 
@@ -96,6 +101,7 @@ export const PUBLIC_FOT_CONTRACT = process.env.NEXT_PUBLIC_FOT_CONTRACT || ''
 export const PUBLIC_BFOT_CONTRACT = process.env.NEXT_PUBLIC_BFOT_CONTRACT || ''
 export const PUBLIC_GFOT_CONTRACT = process.env.NEXT_PUBLIC_GFOT_CONTRACT || ''
 
+export const BFOT_JUNO_POOL_CONTRACT = "juno19859m5x8kgepwafc3h0n36kz545ngc2vlqnqxx7gx3t2kguv6fws93cu25"
 export const defaultFee = {
   amount: [],
   gas: "800000",
@@ -156,7 +162,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   const [expectedGfotAmount, setExpectedGfotAmount] = useState(0)
 
   //////////////////////////////////////////////////////////////////////
-  /////////////////////  gFotStaking Variables   //////////////////////////
+  /////////////////////  gFotStaking Variables   ///////////////////////
   //////////////////////////////////////////////////////////////////////
 
 
@@ -165,6 +171,15 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   const [gfotStakingMyStaked, setgFotStakingMyStaked] = useState(0)
   const [gfotStakingMyReward, setgFotStakingMyReward] = useState(0)
 
+  //////////////////////////////////////////////////////////////////////
+  /////////////////////  bFOT JUno Pool Variables   ////////////////////
+  //////////////////////////////////////////////////////////////////////
+
+  const [bFot2Juno, setbFot2Juno] = useState(0)
+  const [Juno2bFot, setJuno2bFot] = useState(0)
+  const [poolDpr, setPoolDpr] = useState(0)
+
+  
   ////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////
   ///////////////////////    connect & disconnect   //////////////////////
@@ -375,6 +390,28 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       setgFotStakingMyStaked(gfotStakingMyInfo.amount)
       setgFotStakingMyReward(gfotStakingMyInfo.reward)
 
+      // bFOT Juno Pool related
+      const poolInfo = await signingClient.queryContractSmart(BFOT_JUNO_POOL_CONTRACT, {
+        info: {
+        },
+      })
+      setPoolDpr(10000000 / Number(convertMicroDenomToDenom2(poolInfo.token2_reserve, objectBfotTokenInfo.decimals)))
+      
+      const bFot2JunoPriceInfo = await signingClient.queryContractSmart(BFOT_JUNO_POOL_CONTRACT, {
+        token2_for_token1_price: {
+          token2_amount: '10000000000'
+        },
+        
+      })
+      setbFot2Juno(Number(convertMicroDenomToDenom2(bFot2JunoPriceInfo.token1_amount, 6)))
+
+      const Juno2bFotPriceInfo = await signingClient.queryContractSmart(BFOT_JUNO_POOL_CONTRACT, {
+        token1_for_token2_price: {
+          token1_amount: '1000000'
+        },
+      })
+      setJuno2bFot(Number(convertMicroDenomToDenom2(Juno2bFotPriceInfo.token2_amount, objectBfotTokenInfo.decimals)))
+      
       // let apy = 10.0 * gfotStakingContractInfo.apy_prefix * 10000000000 / (Math.floor(gfotTokenInfo.total_supply / 10000000000) + 10000.0) / gfotStakingContractInfo.gfot_amount 
 
       // setgFotStakingApy(apy)
@@ -788,7 +825,12 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     handlegFotStakingChange,
     executegFotStaking,
     executegFotClaimReward,
-    executegFotUnstake
+    executegFotUnstake,
+
+    bFot2Juno,
+    Juno2bFot,
+    poolDpr
+
 
   }
 }

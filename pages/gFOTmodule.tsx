@@ -92,7 +92,10 @@ const gfotmodule = () => {
     handlegFotStakingChange,
     executegFotStaking,
     executegFotClaimReward,
-    executegFotUnstake
+    executegFotUnstake,
+    bFot2Juno,
+    Juno2bFot,
+    poolDpr
   } = useSigningClient();
   const [seconds, setSeconds] = useState(0)
   useEffect(() => {
@@ -120,16 +123,16 @@ const gfotmodule = () => {
     }
   ]
 
-  const leftValues = [
-    {
-      key: 'TVB FOT',
-      value: `${convertMicroDenomToDenom2(fotBurnContractInfo.bfot_sent_amount, bfotTokenInfo.decimals)}`
-    },
-    {
-      key: 'TVB bFOT',
-      value: `${convertMicroDenomToDenom2(bfotBurnContractInfo.bfot_burn_amount, bfotTokenInfo.decimals)}`
-    }
-  ]
+  // const leftValues = [
+  //   {
+  //     key: 'TVB FOT',
+  //     value: `${convertMicroDenomToDenom2(fotBurnContractInfo.bfot_sent_amount, bfotTokenInfo.decimals)}`
+  //   },
+  //   {
+  //     key: 'TVB bFOT',
+  //     value: `${convertMicroDenomToDenom2(bfotBurnContractInfo.bfot_burn_amount, bfotTokenInfo.decimals)}`
+  //   }
+  // ]
 
   const handlebFotBurn = async (event: MouseEvent<HTMLElement>) => {
     if (!signingClient || walletAddress.length === 0) {
@@ -233,10 +236,22 @@ const gfotmodule = () => {
 
   const values = [
     {
+      fromAmount: '',
+      toAmount: poolDpr,
+      fromPer: 'DPR',
+      toPer: '%'
+    },
+    {
       fromAmount: '1',
-      toAmount: 'x',
+      toAmount: bFot2Juno,
       fromPer: 'bFOT',
-      toPer: 'juno'
+      toPer: 'Juno'
+    },
+    {
+      fromAmount: '1',
+      toAmount: Juno2bFot,
+      fromPer: 'Juno',
+      toPer: 'bFot'
     }
   ]
 
@@ -268,9 +283,14 @@ const gfotmodule = () => {
             handleFotStakingUnstake={handlegFotStakingUnstake}
             handleFotStakingClaimReward={handlegFotStakingClaimReward}
           />
-          <StatisticBox values={defaultValues} leftValues={leftValues} />
+          <StatisticBox values={defaultValues} />
+          {/* <StatisticBox values={defaultValues} leftValues={leftValues} /> */}
         </RightPart>
-        <RateShow values={values} action={() => console.log('action')} />
+        <RateShow values={values} action={() => {
+          window.location.href = "https://www.junoswap.com/pools";
+        }
+          
+        } />
       </Wrapper>
     </>
   );

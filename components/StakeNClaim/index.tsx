@@ -167,7 +167,7 @@ const StakeNClaim = ({
                     </MyStakedText>
                     <button
                         className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
-                        style={{ marginBottom: '25px' }}
+                        style={{ marginBottom: '190px' }}
                         onClick={handleFotStakingUnstake}
                     >
                         Unstake
@@ -179,8 +179,9 @@ const StakeNClaim = ({
                             {convertMicroDenomToDenom2(gfotStakingMyReward, fotTokenInfo.decimals)}
                         </StakedValue>
                     </MyStakedText>
+                    <button className={`default-btn   ${!toggle && 'secondary-btn'}`} onClick={handleFotStakingClaimReward}>Claim</button>
                 </MyStakedContent>
-                <button className={`default-btn   ${!toggle && 'secondary-btn'}`} onClick={handleFotStakingClaimReward}>Claim</button>
+                
             </MyStaked>
         </Wrapper>
     )

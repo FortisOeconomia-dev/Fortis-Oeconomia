@@ -65,7 +65,11 @@ let { Provider } = (CosmWasmContext =
     handlegFotStakingChange: () => {},
     executegFotStaking: () => {},
     executegFotClaimReward: () => {},
-    executegFotUnstake: () => {}
+    executegFotUnstake: () => {},
+
+    bFot2Juno: 0,
+    Juno2bFot: 0,
+    poolDpr: 0
 
   }))
 
