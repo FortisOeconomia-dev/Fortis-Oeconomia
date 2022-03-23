@@ -113,38 +113,41 @@ const sfotmodule = () => {
     }
   ]
   return (
-    <Wrapper defaultChecked={toggle}>
-      <Pools>
-        <PoolsContent>
-          <Title>Assets</Title>
-          <Pool 
-            from="sFOT" 
-            to="USDC" 
-            fromImage={sFOTImage}
-            toImage="/images/usdc.png"
-          />
-          <Pool
-            from="sFOT" 
-            to="UST" 
-            fromImage={sFOTImage}
-            toImage="/images/ust.png"
-          />
-          <Pool
-            from="sFOT" 
-            to="bFOT" 
-            fromImage={sFOTImage}
-            toImage={bFOTImage}
-          />
-        </PoolsContent>
-        <Divider />
-      </Pools>
-      <PoolDetail
-        from={assets[asset].from}
-        to={assets[asset].to}
-        fromImage={assets[asset].fromImage}
-        toImage={assets[asset].toImage}
-      />
-    </Wrapper>
+    // <Wrapper defaultChecked={toggle}>
+    //   <Pools>
+    //     <PoolsContent>
+    //       <Title>Assets</Title>
+    //       <Pool 
+    //         from="sFOT" 
+    //         to="USDC" 
+    //         fromImage={sFOTImage}
+    //         toImage="/images/usdc.png"
+    //       />
+    //       <Pool
+    //         from="sFOT" 
+    //         to="UST" 
+    //         fromImage={sFOTImage}
+    //         toImage="/images/ust.png"
+    //       />
+    //       <Pool
+    //         from="sFOT" 
+    //         to="bFOT" 
+    //         fromImage={sFOTImage}
+    //         toImage={bFOTImage}
+    //       />
+    //     </PoolsContent>
+    //     <Divider />
+    //   </Pools>
+    //   <PoolDetail
+    //     from={assets[asset].from}
+    //     to={assets[asset].to}
+    //     fromImage={assets[asset].fromImage}
+    //     toImage={assets[asset].toImage}
+    //   />
+    // </Wrapper>
+    <div style={{flex: '1'}}>
+      <Timer />
+    </div>
   )
 }
 

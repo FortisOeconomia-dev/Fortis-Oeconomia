@@ -7,11 +7,18 @@ const Wrapper = styled.div`
     box-shadow: ${props => props.slot === '/gFOTmodule' ? '2.74846px 5.49692px 57.0305px rgba(161, 164, 176, 0.25)': '4px 8px 83px rgba(34, 40, 95, 0.25)'};
     border-radius: ${props => props.slot === '/gFOTmodule' ? '15.1165px': '70px'};
     width: 100%;
-    max-width: 610px;
+    max-width: 770px;
+    display: flex;
+    position: relative;
+    padding: 30px;
+`
+
+const ContentWrapper = styled.div`
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative;
+    padding: 10px;
 `
 
 const StatisticLabel = styled.span`
@@ -87,34 +94,60 @@ const Divider = styled.div`
   height: ${props => props.slot === '/gFOTmodule' ? '1.71779px' : '2.5px'};
   width: 100%;
   transform: rotate(0.01deg);
-  max-width: 470px;
 `
 
-const StatisticBox = ({values=[]}) => {
+const VirticalDivider = styled.div`
+  background: ${props => props.slot === '/gFOTmodule' ? '#2E0752' : 'linear-gradient(270deg, #5F5BCD 0%, #83B8DD 100%)'};
+  width: ${props => props.slot === '/gFOTmodule' ? '1.71779px' : '2.5px'};
+  transform: rotate(0.01deg);
+  margin-left: 20px;
+  margin-right: 20px;
+`
+
+const StatisticBox = ({values=[], leftValues=[]}) => {
     const router = useRouter();
     const { pathname } = router;
     return (
-        <Wrapper slot={pathname}>
+        <Wrapper slot={pathname} defaultChecked={leftValues.length > 0}>
             {pathname !== '/gFOTmodule' && <>
                 <Ellipse1 />
                 <Ellipse2 />
                 <Ellipse3 />
                 <Ellipse4 />
             </>}
-            {values.map((v, idx) => {
-                return (
-                    <React.Fragment key={idx}>
-                        <StatisticItem htmlFor={`${idx}`} slot={`${values.length}`} datatype={pathname}>
-                            <StatisticLabel slot={pathname}>{v.key}</StatisticLabel>
-                            <StatisticValue slot={pathname}>
-                                {" "}
-                                {v.value}
-                            </StatisticValue>
-                        </StatisticItem>
-                        {idx < values.length - 1 && <Divider slot={pathname} />}
-                    </React.Fragment>
-                )
-            })}
+            <ContentWrapper>
+                {leftValues.map((l, idx) => {
+                    return (
+                        <React.Fragment key={idx}>
+                            <StatisticItem htmlFor={`${idx}`} slot={`${values.length}`} datatype={pathname}>
+                                <StatisticLabel slot={pathname}>{l.key}</StatisticLabel>
+                                <StatisticValue slot={pathname}>
+                                    {" "}
+                                    {l.value}
+                                </StatisticValue>
+                            </StatisticItem>
+                            {idx < values.length - 1 && <Divider slot={pathname} />}
+                        </React.Fragment>
+                    )
+                })}
+            </ContentWrapper>
+            {leftValues.length > 0 ? <VirticalDivider slot={pathname} /> : <></>}
+            <ContentWrapper>
+                {values.map((v, idx) => {
+                    return (
+                        <React.Fragment key={idx}>
+                            <StatisticItem htmlFor={`${idx}`} slot={`${values.length}`} datatype={pathname}>
+                                <StatisticLabel slot={pathname}>{v.key}</StatisticLabel>
+                                <StatisticValue slot={pathname}>
+                                    {" "}
+                                    {v.value}
+                                </StatisticValue>
+                            </StatisticItem>
+                            {idx < values.length - 1 && <Divider slot={pathname} />}
+                        </React.Fragment>
+                    )
+                })}
+            </ContentWrapper>
         </Wrapper>
     )
 }
