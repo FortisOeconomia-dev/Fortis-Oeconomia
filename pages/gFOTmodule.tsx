@@ -20,6 +20,7 @@ import styled from 'styled-components'
 import Converter from '../components/Converter'
 import StakeNClaim from '../components/StakeNClaim'
 import StatisticBox from '../components/StatisticBox'
+import RateShow from "../components/RateShow";
 
 //styled components
 const Wrapper = styled.div`
@@ -116,6 +117,17 @@ const gfotmodule = () => {
     {
       key: 'gFOT Supply',
       value: `${convertMicroDenomToDenom2(bfotBurnContractInfo.gfot_sent_amount, gfotTokenInfo.decimals)}`
+    }
+  ]
+
+  const leftValues = [
+    {
+      key: 'TVB FOT',
+      value: `${convertMicroDenomToDenom2(fotBurnContractInfo.bfot_sent_amount, bfotTokenInfo.decimals)}`
+    },
+    {
+      key: 'TVB bFOT',
+      value: `${convertMicroDenomToDenom2(bfotBurnContractInfo.bfot_burn_amount, bfotTokenInfo.decimals)}`
     }
   ]
 
@@ -219,8 +231,16 @@ const gfotmodule = () => {
     handlegFotStakingChange((Number(gfotStakingAmount) - 1))
   }
 
-  return (
+  const values = [
+    {
+      fromAmount: '1',
+      toAmount: 'x',
+      fromPer: 'bFOT',
+      toPer: 'juno'
+    }
+  ]
 
+  return (
     <>
       <Wrapper>
         <LeftPart>
@@ -248,8 +268,9 @@ const gfotmodule = () => {
             handleFotStakingUnstake={handlegFotStakingUnstake}
             handleFotStakingClaimReward={handlegFotStakingClaimReward}
           />
-          <StatisticBox values={defaultValues} />
+          <StatisticBox values={defaultValues} leftValues={leftValues} />
         </RightPart>
+        <RateShow values={values} action={() => console.log('action')} />
       </Wrapper>
     </>
   );
