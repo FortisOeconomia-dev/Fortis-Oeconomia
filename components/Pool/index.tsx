@@ -2,9 +2,15 @@ import styled from 'styled-components'
 import { useContext } from 'react'
 import { ToggleContext } from "../Layout/Layout";
 
+const OutWrapper = styled.div`
+    border: double ${props => props.defaultChecked ? '2px' : '0px'};
+    border-radius: 9.95992px;
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+`
+
 const Wrapper = styled.div`
     padding: 12px;
-    background: rgba(255, 255, 255, 0.3);
     box-shadow: 0px 7.28px 18.11px rgba(41, 54, 24, 0.25);
     border-radius: 9.95992px;
 `
@@ -23,16 +29,18 @@ const Images = styled.div`
     width: 100%;
 `
 
-const Pool = ({from, to, fromImage, toImage}) => {
+const Pool = ({from, to, fromImage, toImage, onClick, isActive}) => {
     const toggle = useContext(ToggleContext)
     return (
-        <Wrapper>
-            <Title>{from} - {to}</Title>
-            <Images defaultChecked={toggle}>
-                {typeof fromImage === 'string' ? <img src={fromImage} /> : fromImage()}
-                {typeof toImage === 'string' ? <img src={toImage} /> : toImage()}
-            </Images>
-        </Wrapper>
+        <OutWrapper defaultChecked={isActive}>
+            <Wrapper onClick={onClick}>
+                <Title>{from} - {to}</Title>
+                <Images defaultChecked={toggle}>
+                    {typeof fromImage === 'string' ? <img src={fromImage} /> : fromImage()}
+                    {typeof toImage === 'string' ? <img src={toImage} /> : toImage()}
+                </Images>
+            </Wrapper>
+        </OutWrapper>
     )
 }
 

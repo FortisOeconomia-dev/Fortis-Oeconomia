@@ -5,6 +5,9 @@ import InputWithIncDec from "../InputWithIncDec"
 import { useSigningClient } from "../../contexts/cosmwasm";
 
 const WalletTitle = styled.label`
+    display: flex;  
+    gap: 10px;
+    justify-content: center;
     align-items: center;
     font-weight: 600;
     font-size: 32px;
@@ -23,21 +26,23 @@ const MaxButton = styled.span`
 
 const FromConv = ({
     from,
+    fromImage,
     handleBurnMinus,
     burnAmount,
     onBurnChange,
     handleBurnPlus,
     balance,
-    handleChange
+    handleChange,
+    maxW
 }) => {
     const {
         walletAddress,
     } = useSigningClient();
     const toggle = useContext(ToggleContext)
     return (
-        <div className="gFotCurrencyt-selection">
+        <div className="gFotCurrencyt-selection" style={{maxWidth: maxW}}>
             <WalletTitle slot={from} className="wallet-title">
-                {from}
+                {fromImage && (typeof fromImage === 'string' ? <img src={fromImage} /> : fromImage())} {from}
             </WalletTitle>
             <InputWithIncDec
                 handleBurnMinus={handleBurnMinus}
