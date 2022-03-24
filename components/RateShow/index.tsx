@@ -1,13 +1,16 @@
 import styled from 'styled-components'
+import { useContext } from 'react'
+import { ToggleContext } from "../../components/Layout/Layout";
 
 const Wrapper = styled.div`
     background: rgba(255, 255, 255, 0.44);
     box-shadow: 0px 8px 24px rgba(71, 94, 82, 0.25);
-    border-radius: 59px 0px 0px 59px;
-    padding: 21px;
+    border-radius: 200px 0px 0px 200px;
+    padding: 21px 21px 21px 60px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     position: fixed;
+    z-index: 999;
     bottom: 15px;
     right: 0px;
     cursor: pointer;
@@ -29,8 +32,9 @@ const Equal = styled.span`
 `
 
 const RateShow = ({values, action}) => {
+    const toggle = useContext(ToggleContext)
     return (
-        <Wrapper onClick={action}>
+        <Wrapper onClick={action} style={{filter: toggle && 'invert(1) hue-rotate(170deg) saturate(200%) contrast(100%) brightness(90%)'}}>
             <ContentWrapper>
                 Junoswap Pool Data
                 {values.map((d, idx) => 
