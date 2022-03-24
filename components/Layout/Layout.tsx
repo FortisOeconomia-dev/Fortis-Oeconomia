@@ -54,28 +54,32 @@ const Layout = ({ children }) => {
   const { pathname } = router;
   
   useEffect(() => {
-    if(pathname === '/gFOTmodule') {
-      const values = [
-        {
-          fromAmount: '',
-          toAmount: poolDpr,
-          fromPer: 'DPR',
-          toPer: '%'
-        },
-        {
-          fromAmount: '1',
-          toAmount: bFot2Juno,
-          fromPer: 'bFOT',
-          toPer: 'Juno'
-        },
-        {
-          fromAmount: '1',
-          toAmount: Juno2bFot,
-          fromPer: 'Juno',
-          toPer: 'bFot'
-        }
-      ]
-      setRateShow([...values])
+    switch (pathname) {
+      case '/gFOTmodule':
+        const values = [
+          {
+            fromAmount: '',
+            toAmount: poolDpr,
+            fromPer: 'DPR',
+            toPer: '%'
+          },
+          {
+            fromAmount: '1',
+            toAmount: bFot2Juno,
+            fromPer: 'bFOT',
+            toPer: 'Juno'
+          },
+          {
+            fromAmount: '1',
+            toAmount: Juno2bFot,
+            fromPer: 'Juno',
+            toPer: 'bFot'
+          }
+        ]
+        setRateShow([...values])
+        break;
+      default:
+        setRateShow([])
     }
   }, [pathname,bFot2Juno, Juno2bFot, poolDpr])
   return (
