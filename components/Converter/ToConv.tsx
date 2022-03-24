@@ -2,6 +2,9 @@ import styled from 'styled-components'
 import { useSigningClient } from '../../contexts/cosmwasm'
 
 const WalletTitle = styled.label`
+    gap: 10px;
+    display: flex;
+    justify-content: center;
     align-items: center;
     font-weight: 600;
     font-size: 32px;
@@ -13,7 +16,7 @@ const WalletTitle = styled.label`
 
 const ExpectedValWrapper = styled.label`
     background: rgba(255, 255, 255, 0.6) !important;
-    width: 453px !important;
+    width: ${props => props.slot} !important;
     height: 79px !important;
     border-radius: 20px !important;
     margin-bottom: 30px !important;
@@ -34,6 +37,8 @@ const ToConv = ({
     to,
     expectedAmount,
     sbalance,
+    maxW,
+    toImage
 }) => {
     const {
         walletAddress,
@@ -41,9 +46,9 @@ const ToConv = ({
     return (
         <div className="gFotCurrencyt-selection">
             <WalletTitle slot={to} className="wallet-title">
-                {to}
+                {toImage && (typeof toImage === 'string' ? <img src={toImage} /> : toImage())} {to}
             </WalletTitle>
-            <ExpectedValWrapper className="wallet-label">
+            <ExpectedValWrapper className="wallet-label" slot={maxW}>
                 <ExpectedVal>{expectedAmount}</ExpectedVal>
             </ExpectedValWrapper>
             {walletAddress.length == 0 ? <></> :
