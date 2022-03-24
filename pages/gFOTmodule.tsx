@@ -97,17 +97,6 @@ const gfotmodule = () => {
     Juno2bFot,
     poolDpr
   } = useSigningClient();
-  const [seconds, setSeconds] = useState(0)
-  useEffect(() => {
-    let interval = null;
-    if (seconds === 0) {
-      getBalances()
-    }
-    interval = setInterval(() => {
-      setSeconds(seconds => (seconds + 1) % 10);
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [seconds])
   const defaultValues = [
     {
       key: 'bFOT Supply',
@@ -286,11 +275,9 @@ const gfotmodule = () => {
           <StatisticBox values={defaultValues} />
           {/* <StatisticBox values={defaultValues} leftValues={leftValues} /> */}
         </RightPart>
-        <RateShow values={values} action={() => {
+        {/* <RateShow values={values} action={() => {
           window.location.href = "https://www.junoswap.com/pools";
-        }
-          
-        } />
+        }} /> */}
       </Wrapper>
     </>
   );

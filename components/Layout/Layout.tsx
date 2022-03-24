@@ -1,7 +1,9 @@
 import Head from 'next/head';
 import React, { useState, createContext, useContext, useEffect } from 'react';
-import { useRouter } from 'next/router';
 import styled from 'styled-components'
+import { useRouter } from 'next/router';
+import RateShow from "../../components/RateShow";
+import { useSigningClient } from "../../contexts/cosmwasm";
 
 //navbar
 import Navbar from './Navbar';
@@ -23,6 +25,24 @@ const Wrapper = styled.div`
 export const ToggleContext = createContext(false)
 
 const Layout = ({ children }) => {
+  const {
+    bFot2Juno,
+    getBalances,
+    Juno2bFot,
+    poolDpr
+  } = useSigningClient();
+  const [seconds, setSeconds] = useState(0)
+  const [rateShow, setRateShow] = useState([])
+  useEffect(() => {
+    let interval = null;
+    if (seconds === 0) {
+      getBalances()
+    }
+    interval = setInterval(() => {
+      setSeconds(seconds => (seconds + 1) % 10);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [seconds])
   const [toggle, setToggle] = useState(false)
   useEffect(() => {
     let temp = localStorage.getItem('toggle')
@@ -32,9 +52,38 @@ const Layout = ({ children }) => {
   }, [])
   const router = useRouter();
   const { pathname } = router;
+  
+  useEffect(() => {
+    if(pathname === '/gFOTmodule') {
+      const values = [
+        {
+          fromAmount: '',
+          toAmount: poolDpr,
+          fromPer: 'DPR',
+          toPer: '%'
+        },
+        {
+          fromAmount: '1',
+          toAmount: bFot2Juno,
+          fromPer: 'bFOT',
+          toPer: 'Juno'
+        },
+        {
+          fromAmount: '1',
+          toAmount: Juno2bFot,
+          fromPer: 'Juno',
+          toPer: 'bFot'
+        }
+      ]
+      setRateShow([...values])
+    }
+  }, [pathname,bFot2Juno, Juno2bFot, poolDpr])
   return (
     <ToggleContext.Provider value={toggle}>
-      <Wrapper defaultChecked={toggle} slot={pathname} style={{filter: toggle && 'drop-shadow(16px 16px 20px yellow) invert(90) hue-rotate(170deg) saturate(200%) contrast(100%) brightness(90%)'}}>
+      {rateShow.length > 0 ? <RateShow values={rateShow} action={() => {
+        window.location.href = "https://www.junoswap.com/pools";
+      }} /> : <></>}
+      <Wrapper defaultChecked={toggle} slot={pathname} style={{filter: toggle && 'drop-shadow(16px 16px 20px) invert(90) hue-rotate(170deg) saturate(200%) contrast(100%) brightness(90%)'}}>
         {/* {pathname === '/' && <Background slot={`../images/HomePageBackground/${index%4 + 1}.png`}></Background>} */}
         <Head>
           <title>Fortis Oeconomia</title>
