@@ -31,14 +31,14 @@ const Images = styled.div`
 `
 
 const Pool = ({from, to, fromImage, toImage, onClick, isActive}) => {
-    const toggle = useContext(ToggleContext)
+    const {toggle} = useContext(ToggleContext)
     return (
         <OutWrapper defaultChecked={isActive}>
             <Wrapper onClick={onClick}>
                 <Title>{from} - {to}</Title>
                 <Images defaultChecked={toggle}>
-                    {typeof fromImage === 'string' ? <img src={fromImage} /> : fromImage()}
-                    {typeof toImage === 'string' ? <img src={toImage} /> : toImage()}
+                    {typeof fromImage === 'string' ? <img src={fromImage} /> : fromImage(toggle)}
+                    {typeof toImage === 'string' ? <img src={toImage} /> : toImage(toggle)}
                 </Images>
             </Wrapper>
         </OutWrapper>

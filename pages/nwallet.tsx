@@ -154,7 +154,7 @@ const nwallet = () => {
     osmoBalance,
     gfotBalance,
   } = useSigningClient();
-  const toggle = useContext(ToggleContext)
+  const {toggle} = useContext(ToggleContext)
   
   const assetData = [
     {

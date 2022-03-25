@@ -7,6 +7,7 @@ const Wrapper = styled.label`
   margin-bottom: 20px;
   display: flex;
   flex-direction: row;
+  max-width: ${props => props.slot ? props.slot : 'unset'}
 `
 
 const DecButton = styled.button`
@@ -50,9 +51,10 @@ const InputWithIncDec = ({
   burnAmount,
   onBurnChange,
   handleBurnPlus,
+  maxW=null
 }) => {
     return (
-      <Wrapper>
+      <Wrapper slot={maxW}>
         <DecButton className="fa fa-minus" onClick={handleBurnMinus} />
         <IncDecInput 
           type="number" 
