@@ -122,7 +122,10 @@ const StatisticBox = ({values=[], leftValues=[]}) => {
                     return (
                         <React.Fragment key={idx}>
                             <StatisticItem htmlFor={`${idx}`} slot={`${values.length}`} datatype={pathname}>
-                                <StatisticLabel slot={pathname}>{v.key}</StatisticLabel>
+                                <StatisticLabel slot={pathname}>
+                                {v.key.split('(').map((value, idx, self) => 
+                                        self.length === 1 ? v.key : idx === self.length - 1 ? <><br /><span>({value}</span></> : value)}
+                                </StatisticLabel>
                                 <StatisticValue slot={pathname}>
                                     {" "}
                                     {v.value}
