@@ -112,7 +112,7 @@ const gfotmodule = () => {
     },
     {
       key: "gFOT Minting Ratio(Req bFOT for 1 gFOT)",
-      value: `0`
+      value: `${Math.floor(gfotTokenInfo.total_supply / 10000000000) + 10000}`
     }
   ]
 
