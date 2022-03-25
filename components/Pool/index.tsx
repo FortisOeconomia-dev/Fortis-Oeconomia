@@ -7,6 +7,7 @@ const OutWrapper = styled.div`
     border-radius: 9.95992px;
     background-origin: border-box;
     background-clip: content-box, border-box;
+    cursor: pointer;
 `
 
 const Wrapper = styled.div`

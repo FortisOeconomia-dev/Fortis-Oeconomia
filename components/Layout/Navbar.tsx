@@ -106,9 +106,9 @@ const Navbar = ({
           }
         >
           <div className="container" style={{padding: '20px 32px', maxWidth: 'unset'}}>
-            <Link className="flex" href="https://www.fortisoeconomia.com/">
+            <div className="flex">
               <div className="d-flex flex-row align-items-center">
-                <a className="justify-content-center w-full">
+                <a className="justify-content-center w-full" href="https://www.fortisoeconomia.com/" target="_SEJ" rel="noreferrer">
                   <img
                     src={`/images/castle${pathname === '/gFOTmodule' ? '-dark' : 'new'}.png`}
                     alt="logo"
@@ -117,7 +117,7 @@ const Navbar = ({
                   />
                 </a>
               </div>
-            </Link>
+            </div>
 
             <div className="collapse navbar-collapse mean-menu">
               <ul className="navbar-nav" style={{width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-around'}}>

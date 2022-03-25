@@ -109,6 +109,10 @@ const gfotmodule = () => {
     {
       key: 'gFOT Supply',
       value: `${convertMicroDenomToDenom2(bfotBurnContractInfo.gfot_sent_amount, gfotTokenInfo.decimals)}`
+    },
+    {
+      key: "gFOT Minting Ratio(Req bFOT for 1 gFOT)",
+      value: `0`
     }
   ]
 

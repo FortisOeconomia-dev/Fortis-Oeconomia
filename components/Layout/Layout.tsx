@@ -85,7 +85,7 @@ const Layout = ({ children }) => {
   return (
     <ToggleContext.Provider value={toggle}>
       {rateShow.length > 0 ? <RateShow values={rateShow} action={() => {
-        window.location.href = "https://www.junoswap.com/pools";
+        window.open("https://www.junoswap.com/pools", "_SEJ", "noreferrer");
       }} /> : <></>}
       <Wrapper defaultChecked={toggle} slot={pathname} style={{filter: toggle && 'drop-shadow(16px 16px 20px) invert(90) hue-rotate(170deg) saturate(200%) contrast(100%) brightness(90%)'}}>
         {/* {pathname === '/' && <Background slot={`../images/HomePageBackground/${index%4 + 1}.png`}></Background>} */}
