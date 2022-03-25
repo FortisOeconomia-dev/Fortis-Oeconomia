@@ -105,7 +105,7 @@ const StakeNClaim = ({
         gfotBalance,
         handlegFotStakingChange,
     } = useSigningClient();
-    const toggle = useContext(ToggleContext)
+    const {toggle} = useContext(ToggleContext)
     return (
         <Wrapper>
             <TotalStaked>

@@ -33,7 +33,7 @@ const Converter = ({
     sbalance,
     submitTitle="Burn",
 }) => {
-    const toggle = useContext(ToggleContext)
+    const {toggle} = useContext(ToggleContext)
     return (
         <Wrapper defaultChecked={wfull}>
             <FromConv 

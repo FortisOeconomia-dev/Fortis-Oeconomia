@@ -1,8 +1,10 @@
 import styled from 'styled-components'
 import StakeNClaimSecond from "../StakeNClaimSecond"
-
+import { useContext } from 'react'
+import { ToggleContext } from "../Layout/Layout";
 const Wrapper = styled.div`
     display: flex;
+    flex: 1;
     gap: 37px;
 `
 
@@ -31,14 +33,15 @@ const PoolDetail = ({
     fromImage,
     toImage
 }) => {
+    const {toggle} = useContext(ToggleContext)
     return (
         <Wrapper>
-            <div>
+            <div className='w-full'>
                 <TitleWrapper>
                     <div style={{display: 'flex', gap: '10px', alignItems: 'center'}}>
-                        {fromImage()}
+                        {fromImage(toggle)}
                         <span>-</span>
-                        {typeof toImage === 'string' ? <img src={`${toImage}`} /> : toImage()}
+                        {typeof toImage === 'string' ? <img src={`${toImage}`} /> : toImage(toggle)}
                     </div>
                     <Title>{from}-{to} Pool</Title>
                 </TitleWrapper>
@@ -49,6 +52,9 @@ const PoolDetail = ({
                     handleFotStaking={() => console.log('hello')}
                     handleFotStakingUnstake={() => console.log('hello')}
                     handleFotStakingClaimReward={() => console.log('hello')}
+                    from={from}
+                    to={to}
+                    APY={0}
                 />
             </div>
             <Divider />

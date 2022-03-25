@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 import { useContext } from 'react'
 import { ToggleContext } from "../components/Layout/Layout";
+import { assets } from "../components/Layout/Layout";
 
 import Converter from '../components/Converter'
 import StatisticBox from '../components/StatisticBox'
@@ -75,8 +76,7 @@ const Divider = styled.div`
 `
 
 const sfotmodule = () => {
-  const [asset, setAsset] = useState(0)
-  const toggle = useContext(ToggleContext)
+  const {toggle, asset, setAsset} = useContext(ToggleContext)
   const sFOTImage = () => 
     <OutWrapper defaultChecked={toggle} slot={`101.76px 27.2666px 210.7px rgba(26, 30, 44, 0.338), inset -37.9905px -10.1795px 39.3307px #606CA1, inset 37.9905px 10.1795px 39.3307px #9FB4FF`}>
       <AssetImageWrapper slot={`linear-gradient(180deg, #85B79D 0%, #FAFDFC 100%)`}>
@@ -93,28 +93,8 @@ const sfotmodule = () => {
         </svg>
       </AssetImageWrapper>
     </OutWrapper>
-  const assets = [
-    {
-      from: 'sFOT',
-      to: 'USDC',
-      fromImage: sFOTImage,
-      toImage: '/images/usdc.png'
-    },
-    {
-      from: 'sFOT',
-      to: 'UST',
-      fromImage: sFOTImage,
-      toImage: '/images/ust.png'
-    },
-    {
-      from: 'sFOT',
-      to: 'bFOT',
-      fromImage: sFOTImage,
-      toImage: bFOTImage
-    }
-  ]
   return (
-/*      <Wrapper defaultChecked={toggle}>
+    <Wrapper defaultChecked={toggle}>
        <Pools>
          <PoolsContent>
            <Title>Assets</Title>
@@ -163,8 +143,8 @@ const sfotmodule = () => {
            expectedAmount={0}
            convImg={() => 
              <svg width="127" height="70" viewBox="0 0 127 94" fill="none" xmlns="http://www.w3.org/2000/svg">
-                 <line x1="1.23677" y1="2.15124" x2="63.3153" y2="92.6086" stroke="#171E0E" stroke-width="3"/>
-                 <line x1="62.7632" y1="91.6095" x2="124.841" y2="1.15126" stroke="#171E0E" stroke-width="3"/>
+                 <line x1="1.23677" y1="2.15124" x2="63.3153" y2="92.6086" stroke="#171E0E" strokeWidth="3"/>
+                 <line x1="62.7632" y1="91.6095" x2="124.841" y2="1.15126" stroke="#171E0E" strokeWidth="3"/>
              </svg>
            }
            convImg2={() => 
@@ -184,10 +164,10 @@ const sfotmodule = () => {
            submitTitle="Swap"
         />
        </div>
-     </Wrapper> */
-    <div style={{flex: '1'}}>
-      <Timer />
-    </div>
+    </Wrapper>
+    // <div style={{flex: '1'}}>
+    //   <Timer />
+    // </div>
   )
 }
 

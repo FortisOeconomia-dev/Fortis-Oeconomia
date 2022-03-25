@@ -32,7 +32,7 @@ const Equal = styled.span`
 `
 
 const RateShow = ({values, action}) => {
-    const toggle = useContext(ToggleContext)
+    const {toggle} = useContext(ToggleContext)
     return (
         <Wrapper onClick={action} style={{filter: toggle && 'invert(1) hue-rotate(170deg) saturate(200%) contrast(100%) brightness(90%)'}}>
             <ContentWrapper>

@@ -13,7 +13,7 @@ const WalletTitle = styled.label`
     font-size: 32px;
     line-height: 48px;
     margin-bottom: 32px;
-    background-color: ${props => props.slot !== 'bFOT' && '#22053D !important'}
+    background-color: ${props => (props.slot !== 'bFOT') && 'white !important'};
 `
 
 const MaxButton = styled.span`
@@ -38,11 +38,11 @@ const FromConv = ({
     const {
         walletAddress,
     } = useSigningClient();
-    const toggle = useContext(ToggleContext)
+    const {toggle} = useContext(ToggleContext)
     return (
         <div className="gFotCurrencyt-selection" style={{maxWidth: maxW}}>
-            <WalletTitle slot={from} className="wallet-title">
-                {fromImage && (typeof fromImage === 'string' ? <img src={fromImage} /> : fromImage())} {from}
+            <WalletTitle slot={from} className="wallet-title" defaultChecked={fromImage}>
+                {fromImage && (typeof fromImage === 'string' ? <img src={fromImage} /> : fromImage(toggle))} {from}
             </WalletTitle>
             <InputWithIncDec
                 handleBurnMinus={handleBurnMinus}
