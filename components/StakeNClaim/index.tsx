@@ -18,7 +18,8 @@ const Wrapper = styled.div`
     border-radius: 15.1165px;
     margin-bottom: 16px;
     display: flex;
-    max-width: 770px;
+    max-width: 950px;
+    margin-left:50px;
     width: 100%;
     @media (max-width: 768px) {
         flex-direction: column;
