@@ -5,6 +5,11 @@ const Wrapper = styled.div`
     flex-direction: column;
     align-items: center;
     margin-top: -110px;
+    position: fixed;
+    bottom: ${props => !props.defaultChecked && '15px'};
+    right: ${props => !props.defaultChecked && '300px'};
+    top: ${props => props.defaultChecked && '16%'};
+    left: ${props => props.defaultChecked && '0px'};
 `
 
 const Description = styled.p`

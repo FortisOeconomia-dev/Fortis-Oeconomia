@@ -1,5 +1,4 @@
 import Navbar from "../components/Layout/Navbar";
-import Timer from "../components/Shared/timergfot";
 import {
   NotificationContainer,
   NotificationManager,
