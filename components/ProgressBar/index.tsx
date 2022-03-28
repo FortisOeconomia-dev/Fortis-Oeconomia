@@ -11,7 +11,7 @@ const Description = styled.p`
     font-weight: 600;
     font-size: 24px;
     line-height: 36px;
-    color: #FBFCFD;
+    color: #171E0E;
 `
 
 const BarWrapper = styled.div`
