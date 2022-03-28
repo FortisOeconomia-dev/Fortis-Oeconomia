@@ -14,6 +14,7 @@ import styled from "styled-components"
 import { useSigningClient } from "../contexts/cosmwasm";
 import { fromBase64, toBase64 } from "@cosmjs/encoding";
 import { ToggleContext } from "../components/Layout/Layout";
+import ProgressBar from '../components/ProgressBar'
 
 const Wrapper = styled.div`
   flex: 1;
@@ -84,14 +85,24 @@ const MainLabel = styled.span`
   font-weight: 600;
   font-size: 32px;
   line-height: 48px;
-  color: #FBFCFD;
+  color: #171E0E;
 `
 
 const SecondaryLabel = styled.span`
   font-weight: 500;
   font-size: 32px;
   line-height: 48px;
-  color: #FBFCFD;
+  color: #171E0E;
+`
+
+const ClaimButton = styled.button`
+  background: ${props => props.defaultChecked && 'linear-gradient(274.96deg, #83B8DD -35.34%, #728CD5 37.88%, #5F5BCD 119.14%) !important'};
+  border: double 4.5px transparent;
+  border-radius: 22px !important;
+  background-image: ${props => !props.defaultChecked && 'linear-gradient(rgba(251,252,253,0.25), white), linear-gradient(275.74deg, #5F5BCD 0%, #83B8DD 100%)'};
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  padding: 14px !important;
 `
 
 const CreateWork = () => {
@@ -151,6 +162,109 @@ const CreateWork = () => {
     executeAirdrop();
   };
 
+  const defaultValues = [
+    {
+      title: 'Week1',
+      percent: 5,
+      claimed: true
+    },
+    {
+      title: 'Week2',
+      percent: 5,
+      claimed: false
+    },
+    {
+      title: 'Week3',
+      percent: 5,
+      claimed: false
+    },
+    {
+      title: 'Week4',
+      percent: 5,
+      claimed: false
+    },
+    {
+      title: 'Week5',
+      percent: 5,
+      claimed: false
+    },
+    {
+      title: 'Week6',
+      percent: 5,
+      claimed: false
+    },
+    {
+      title: 'Week7',
+      percent: 5,
+      claimed: false
+    },
+    {
+      title: 'Week8',
+      percent: 5,
+      claimed: false
+    },
+    {
+      title: 'Week9',
+      percent: 5,
+      claimed: false
+    },
+    {
+      title: 'Week10',
+      percent: 5,
+      claimed: false
+    },
+    {
+      title: 'Week11',
+      percent: 5,
+      claimed: false
+    },
+    {
+      title: 'Week12',
+      percent: 5,
+      claimed: false
+    },
+    {
+      title: 'Week13',
+      percent: 5,
+      claimed: false
+    },
+    {
+      title: 'Week14',
+      percent: 5,
+      claimed: false
+    },
+    {
+      title: 'Week15',
+      percent: 5,
+      claimed: false
+    },
+    {
+      title: 'Week16',
+      percent: 5,
+      claimed: false
+    },
+    {
+      title: 'Week17',
+      percent: 5,
+      claimed: false
+    },
+    {
+      title: 'Week18',
+      percent: 5,
+      claimed: false
+    },
+    {
+      title: 'Week19',
+      percent: 5,
+      claimed: false
+    },
+    {
+      title: 'Week20',
+      percent: 5,
+      claimed: false
+    }
+  ]
+
   return (
     <>
       <Wrapper className="w-full">
@@ -160,6 +274,7 @@ const CreateWork = () => {
             flexDirection: 'column',
             justifyContent: 'space-between',
             gap: '50px',
+            maxWidth: '1368px'
           }}
         >
           <div style={{display: 'flex', alignItems: 'center', gap: '20px', justifyContent: 'center'}}>
@@ -172,26 +287,23 @@ const CreateWork = () => {
             </OutWrapper>
             <Title>Fortis Oeconomia $FOT Airdrop</Title>
           </div>
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '20px',
-          }}>
-            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-              <MainLabel>Month1</MainLabel>
-              <SecondaryLabel>(%20 $FOT 20/100)</SecondaryLabel>
-              <button className={`default-btn secondary-btn outlined`}>Claim</button>
+          <div style={{display: 'flex', gap: '20px', justifyContent: 'space-between', padding: '20px'}}>
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '36px',
+              flex: '1',
+              maxWidth: '881px'
+            }}>
+              {defaultValues.map(d => 
+                <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                  <MainLabel>{d.title}</MainLabel>
+                  <SecondaryLabel>(%{d.percent} $FOT {d.percent * 100 / 100}/100)</SecondaryLabel>
+                  <ClaimButton className={`default-btn secondary-btn outlined`} defaultChecked={d.claimed}>{d.claimed ? <img src="/images/check.png" /> : 'Claim'}</ClaimButton>
+                </div>
+              )}
             </div>
-            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-              <MainLabel>Month2</MainLabel>
-              <SecondaryLabel>(%20 $FOT 20/100)</SecondaryLabel>
-              <button className={`default-btn secondary-btn outlined`}>Claim</button>
-            </div>
-            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-              <MainLabel>Month3</MainLabel>
-              <SecondaryLabel>(%20 $FOT 20/100)</SecondaryLabel>
-              <button className={`default-btn secondary-btn outlined`}>Claim</button>
-            </div>
+            <ProgressBar claimedPercent={5} />
           </div>
         </div>
       </Wrapper>

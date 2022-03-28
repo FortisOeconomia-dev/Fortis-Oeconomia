@@ -109,7 +109,27 @@ const CreateWork = () => {
       <Wrapper className="trade-cryptocurrency-area ptb-100 w-full">
         <div className="container">
           <div className="trade-cryptocurrency-box-div">
-            <div className="trade-cryptocurrency-content">
+            <div className="trade-cryptocurrency-content" style={{display: 'flex', gap: '20px', flexWrap: 'wrap'}}>
+              <div className="trade-cryptocurrency-box">
+                <Ellipse2 />
+                <Ellipse3 />
+                <CurrencySelection className="currency-selection">
+                  <span>Votedrop Juno Proposal #14</span>
+                  <label style={{ alignItems: "center", textAlign: "center", height: "fit-content" }}> {alreadyAirdropped ? 0 : airdropAmountDenom}</label>
+                </CurrencySelection>
+
+                <button type="submit" onClick={handleSubmit} disabled={alreadyAirdropped}>
+                  {alreadyAirdropped ? `Already Claimed` : `Claim`}
+                </button>
+                {walletAddress.length == 0 ? <></> :
+                  <div className='banner-wrapper-content' style={{ "marginRight": "0" }}>
+                    <span className="sub-title ms-2" style={{ "marginBottom": "0px" }}>
+                      {fotBalanceStr}
+                    </span>
+                  </div>
+                }
+
+              </div>
               <div className="trade-cryptocurrency-box">
                 <Ellipse2 />
                 <Ellipse3 />

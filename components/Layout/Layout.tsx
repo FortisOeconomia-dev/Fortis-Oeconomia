@@ -160,6 +160,11 @@ const Layout = ({ children }) => {
     }
     setRateShow([...values])
   }, [pathname,bFot2Juno, Juno2bFot, poolDpr, asset])
+
+  useEffect(() => {
+    setPage(0)
+  }, [pathname])
+
   return (
     <ToggleContext.Provider value={{toggle, asset, setAsset, page, setPage}}>
       {rateShow.length > 0 ? <RateShow values={rateShow} action={() => {
