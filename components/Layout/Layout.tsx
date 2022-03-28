@@ -140,20 +140,21 @@ const Layout = ({ children }) => {
         ]
         break;
       case '/sFOTmodule':
-        values = [
-          {
-            fromAmount: '1',
-            toAmount: 'x',
-            fromPer: assets[asset].from,
-            toPer: assets[asset].to
-          },
-          {
-            fromAmount: '1',
-            toAmount: 'x',
-            fromPer: assets[asset].to,
-            toPer: assets[asset].from
-          }
-        ]
+        // values = [
+        //   {
+        //     fromAmount: '1',
+        //     toAmount: 'x',
+        //     fromPer: assets[asset].from,
+        //     toPer: assets[asset].to
+        //   },
+        //   {
+        //     fromAmount: '1',
+        //     toAmount: 'x',
+        //     fromPer: assets[asset].to,
+        //     toPer: assets[asset].from
+        //   }
+        // ]
+        values = []
         break
       default:
         break
