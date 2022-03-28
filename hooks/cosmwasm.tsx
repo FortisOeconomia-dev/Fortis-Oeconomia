@@ -462,7 +462,6 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         arr.push(0)
       setMonetaAirdropCount(cnt)
       setMonetaAirdropList(arr)
-      console.log(arr)
 
 
       setLoading(false)

@@ -4,11 +4,10 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: -110px;
     position: fixed;
-    bottom: ${props => !props.defaultChecked && '15px'};
-    right: ${props => !props.defaultChecked && '300px'};
-    top: ${props => props.defaultChecked && '16%'};
+    bottom: ${props => !props.defaultChecked && '0px'};
+    right: ${props => !props.defaultChecked && '10%'};
+    top: ${props => props.defaultChecked && '26%'};
     left: ${props => props.defaultChecked && '0px'};
 `
 
