@@ -82,7 +82,7 @@ export const assets = [
     toImage: bFOTImage
   }
 ]
-export const ToggleContext = createContext({toggle: false, asset: 0, setAsset: null})
+export const ToggleContext = createContext({toggle: false, asset: 0, setAsset: null, page: 0, setPage: null})
 
 const Layout = ({ children }) => {
   const {
@@ -93,6 +93,7 @@ const Layout = ({ children }) => {
   } = useSigningClient();
   const [seconds, setSeconds] = useState(0)
   const [rateShow, setRateShow] = useState([])
+  const [page, setPage] = useState(0)
   useEffect(() => {
     let interval = null;
     if (seconds === 0) {
@@ -160,10 +161,12 @@ const Layout = ({ children }) => {
     setRateShow([...values])
   }, [pathname,bFot2Juno, Juno2bFot, poolDpr, asset])
   return (
-    <ToggleContext.Provider value={{toggle, asset, setAsset}}>
+    <ToggleContext.Provider value={{toggle, asset, setAsset, page, setPage}}>
       {rateShow.length > 0 ? <RateShow values={rateShow} action={() => {
         window.open("https://www.junoswap.com/pools", "_SEJ", "noreferrer");
       }} /> : <></>}
+      {page === 1 && <RateShow text="Clearance Sale" action={() => setPage(0)} top={true} />}
+      {page === 2 && <RateShow text="Stable Module (sFOT)" action={() => setPage(0)} left={true} />}
       <Wrapper defaultChecked={toggle} slot={pathname} style={{filter: toggle && 'drop-shadow(16px 16px 20px) invert(90) hue-rotate(170deg) saturate(200%) contrast(100%) brightness(90%)'}}>
         {/* {pathname === '/' && <Background slot={`../images/HomePageBackground/${index%4 + 1}.png`}></Background>} */}
         <Head>
