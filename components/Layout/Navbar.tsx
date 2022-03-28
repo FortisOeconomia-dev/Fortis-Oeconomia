@@ -26,6 +26,14 @@ const NavLink = styled.a`
   }
   padding-left: unset !important;
   padding-right: unset !important;
+  `
+  
+const SubLink = styled.a`
+  font-size: 14px !important;
+  line-height: 21px !important;
+  color: #080451 !important;
+  padding: 11px 32px !important;
+  cursor: pointer;
 `
 
 const Navbar = ({
@@ -64,6 +72,7 @@ const Navbar = ({
     getBalances();
   }, [walletAddress, signingClient]);
 
+  const [dropsMenu, setDropsMenu] = useState(false)
   const [showMenu, setshowMenu] = useState(false);
   const toggleMenu = () => {
     setshowMenu(!showMenu);
@@ -122,11 +131,59 @@ const Navbar = ({
             <div className="collapse navbar-collapse mean-menu">
               <ul className="navbar-nav" style={{width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-around'}}>
                 <li 
-                  className="nav-item"
+                  className="dropdown"
                 >
-                  <Link href="/airdrop" activeClassName="active">
-                    <NavLink className="nav-link" slot={pathname} defaultChecked={toggle}>Airdrop</NavLink>
+                  <Link 
+                    href="#" 
+                    activeClassName="active" 
+                  >
+                      <NavLink 
+                        className="nav-link" 
+                        style={{display: 'flex', gap: '10px', fontWeight: '600'}}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setDropsMenu(!dropsMenu);
+                        }} slot={pathname} 
+                        defaultChecked={toggle}>
+                          Drops
+                          <div style={{transform: 'rotate(90deg)', fontFamily: 'cursive'}}>{`>`}</div>
+                      </NavLink>
                   </Link>
+                  {dropsMenu && <ul style={{position: 'absolute', minWidth: '180px', marginTop: '10px', border: '1px solid #080451', borderRadius: '13px'}}>
+                    <li style={{
+                      background: '#FBFCFD',
+                      borderRadius: '13px 13px 0px 0px'
+                    }}>
+                      <Link href="/airdrop" activeClassName="active">
+                        <SubLink 
+                          className="nav-link" slot={pathname} defaultChecked={toggle}
+                          onClick={() => setDropsMenu(!dropsMenu)}
+                          >Airdrop</SubLink>
+                      </Link>
+                    </li>
+                    <li style={{
+                      background: '#FBFCFD',
+                      borderTop: '1px solid',
+                      borderBottom: '1px solid',
+                      borderColor: '#080451'
+                    }}>
+                      <Link href="/votedrops" activeClassName="active">
+                        <SubLink 
+                          onClick={() => setDropsMenu(!dropsMenu)}
+                          className="nav-link" slot={pathname} defaultChecked={toggle}>Votedrops</SubLink>
+                      </Link>
+                    </li>
+                    <li style={{
+                      background: '#FBFCFD',
+                      borderRadius: '0px 0px 13px 13px',
+                    }}>
+                      <Link href="/junoswap" activeClassName="active">
+                        <SubLink 
+                          onClick={() => setDropsMenu(!dropsMenu)}
+                          className="nav-link" slot={pathname} defaultChecked={toggle}>Junoswap LP'ers</SubLink>
+                      </Link>
+                    </li>
+                  </ul>}
                 </li>
                 {/*<li className="nav-item">
                   <Link href="/publicsale" activeClassName="active">

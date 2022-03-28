@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { useContext } from 'react'
 import { ToggleContext } from '../Layout/Layout'
 import InputWithIncDec from "../InputWithIncDec"
+import { useRouter } from 'next/router';
 import { useSigningClient } from "../../contexts/cosmwasm";
 
 const WalletTitle = styled.label`
@@ -13,7 +14,7 @@ const WalletTitle = styled.label`
     font-size: 32px;
     line-height: 48px;
     margin-bottom: 32px;
-    background-color: ${props => (props.slot !== 'bFOT') && 'white !important'};
+    background-color: ${props => (props.slot !== '/gFOTmodule') && 'white !important'};
 `
 
 const MaxButton = styled.span`
@@ -35,13 +36,15 @@ const FromConv = ({
     handleChange,
     maxW
 }) => {
+    const router = useRouter();
+    const { pathname } = router;
     const {
         walletAddress,
     } = useSigningClient();
     const {toggle} = useContext(ToggleContext)
     return (
         <div className="gFotCurrencyt-selection" style={{maxWidth: maxW}}>
-            <WalletTitle slot={from} className="wallet-title" defaultChecked={fromImage}>
+            <WalletTitle slot={pathname} className="wallet-title" defaultChecked={fromImage}>
                 {fromImage && (typeof fromImage === 'string' ? <img src={fromImage} /> : fromImage(toggle))} {from}
             </WalletTitle>
             <InputWithIncDec

@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { useSigningClient } from '../../contexts/cosmwasm'
 import { useContext } from 'react'
+import { useRouter } from 'next/router';
 import { ToggleContext } from '../Layout/Layout'
 
 const WalletTitle = styled.label`
@@ -13,7 +14,7 @@ const WalletTitle = styled.label`
     line-height: 48px;
     margin-bottom: 32px;
     margin-top:0px !important;
-    background-color: ${props => (props.slot !== 'gFOT') && 'white !important'};
+    background-color: ${props => (props.slot !== '/gFOTmodule') && 'white !important'};
 `
 
 const ExpectedValWrapper = styled.label`
@@ -42,13 +43,14 @@ const ToConv = ({
     maxW,
     toImage
 }) => {
-    const {toggle} = useContext(ToggleContext)
+    const router = useRouter();
+    const { pathname } = router;const {toggle} = useContext(ToggleContext)
     const {
         walletAddress,
     } = useSigningClient();
     return (
         <div className="gFotCurrencyt-selection">
-            <WalletTitle slot={to} className="wallet-title">
+            <WalletTitle slot={pathname} className="wallet-title">
                 {toImage && (typeof toImage === 'string' ? <img src={toImage} /> : toImage(toggle))} {to}
             </WalletTitle>
             <ExpectedValWrapper className="wallet-label" slot={maxW}>
