@@ -10,7 +10,6 @@ import Converter from '../components/Converter'
 import StatisticBox from '../components/StatisticBox'
 import Pool from "../components/Pool";
 import PoolDetail from "../components/PoolDetail"
-import RateShow from '../components/RateShow';
 
 //styled components
 const Wrapper = styled.div`

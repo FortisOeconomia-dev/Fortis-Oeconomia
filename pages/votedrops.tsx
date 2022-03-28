@@ -139,8 +139,8 @@ const CreateWork = () => {
                   <label style={{ alignItems: "center", textAlign: "center", height: "fit-content" }}> {alreadyAirdropped ? 0 : airdropAmountDenom}</label>
                 </CurrencySelection>
 
-                <button type="submit" onClick={handleSubmit} disabled={alreadyAirdropped} style={{pointerEvents:"none"}}>
-                  {alreadyAirdropped ? `Already Claimed` : `Claim`}
+                <button type="submit" /* onClick={handleSubmit} disabled={alreadyAirdropped}  */style={{pointerEvents:"none"}}>
+                  {/* {alreadyAirdropped ? `Already Claimed` : `Claim`} */} Claim
                 </button>
                 {walletAddress.length == 0 ? <></> :
                   <div className='banner-wrapper-content' style={{ "marginRight": "0" }}>
