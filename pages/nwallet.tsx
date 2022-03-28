@@ -181,7 +181,7 @@ const nwallet = () => {
     },
     {
       label: 'sFOT',
-      amount: gfotBalance,
+      amount: 0,
       color: '#246B51',
       background: 'linear-gradient(180deg, #85B79D 0%, #FAFDFC 100%)',
       boxShadow: '77.5316px 20.7745px 160.533px rgba(26, 30, 44, 0.338), inset -28.9451px -7.75583px 29.9662px #606CA1, inset 28.9451px 7.75583px 29.9662px #9FB4FF'

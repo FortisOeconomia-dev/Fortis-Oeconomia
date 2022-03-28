@@ -140,7 +140,7 @@ const CreateWork = () => {
                 </CurrencySelection>
 
                 <button type="submit" /* onClick={handleSubmit} disabled={alreadyAirdropped}  */style={{pointerEvents:"none"}}>
-                  {/* {alreadyAirdropped ? `Already Claimed` : `Claim`} */} Claim
+                  {/* {alreadyAirdropped ? `Already Claimed` : `Claim`} */} Not Claimable Yet
                 </button>
                 {walletAddress.length == 0 ? <></> :
                   <div className='banner-wrapper-content' style={{ "marginRight": "0" }}>
