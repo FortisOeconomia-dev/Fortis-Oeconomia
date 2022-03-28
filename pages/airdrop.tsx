@@ -285,7 +285,7 @@ const CreateWork = () => {
                 </svg>
               </AssetImageWrapper>
             </OutWrapper>
-            <Title>Fortis Oeconomia $FOT Airdrop</Title>
+            <Title>Fortis Oeconomia FOT Airdrop</Title>
           </div>
           <div style={{display: 'flex', gap: '20px', justifyContent: 'space-between', padding: '20px'}}>
             <div style={{
@@ -298,7 +298,7 @@ const CreateWork = () => {
               {defaultValues.map(d => 
                 <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                   <MainLabel>{d.title}</MainLabel>
-                  <SecondaryLabel>(%{d.percent} $FOT {d.percent * 100 / 100}/100)</SecondaryLabel>
+                  <SecondaryLabel>({d.percent}% FOT)</SecondaryLabel>
                   <ClaimButton className={`default-btn secondary-btn outlined`} defaultChecked={d.claimed}>{d.claimed ? <img src="/images/check.png" /> : 'Claim'}</ClaimButton>
                 </div>
               )}

@@ -104,6 +104,7 @@ const CreateWork = () => {
     executeAirdrop();
   };
 
+
   return (
     <>
       <Wrapper className="trade-cryptocurrency-area ptb-100 w-full">
@@ -134,11 +135,11 @@ const CreateWork = () => {
                 <Ellipse2 />
                 <Ellipse3 />
                 <CurrencySelection className="currency-selection">
-                  <span>Votedrop Juno Proposal #14</span>
+                  <span>Votedrop Juno Proposal #16</span>
                   <label style={{ alignItems: "center", textAlign: "center", height: "fit-content" }}> {alreadyAirdropped ? 0 : airdropAmountDenom}</label>
                 </CurrencySelection>
 
-                <button type="submit" onClick={handleSubmit} disabled={alreadyAirdropped}>
+                <button type="submit" onClick={handleSubmit} disabled={alreadyAirdropped} style={{pointerEvents:"none"}}>
                   {alreadyAirdropped ? `Already Claimed` : `Claim`}
                 </button>
                 {walletAddress.length == 0 ? <></> :

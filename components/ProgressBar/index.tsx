@@ -46,7 +46,7 @@ const ProgressBar = ({claimedPercent}) => {
                 <Done slot={`${claimedPercent}`} />
             </BarWrapper>
             <Description>Claimed</Description>
-            <Description>20/100 FOT</Description>
+            <Description>5% FOT</Description>
         </Wrapper>
     )
 }

@@ -164,8 +164,9 @@ const Navbar = ({
                     <li style={{
                       background: '#FBFCFD',
                       borderTop: '1px solid',
-                      borderBottom: '1px solid',
-                      borderColor: '#080451'
+                      borderRadius: '0px 0px 13px 13px',
+                  //    borderBottom: '1px solid',
+                  //    borderColor: '#080451'
                     }}>
                       <Link href="/votedrops" activeClassName="active">
                         <SubLink 
@@ -173,7 +174,7 @@ const Navbar = ({
                           className="nav-link" slot={pathname} defaultChecked={toggle}>Votedrops</SubLink>
                       </Link>
                     </li>
-                    <li style={{
+{/*                     <li style={{
                       background: '#FBFCFD',
                       borderRadius: '0px 0px 13px 13px',
                     }}>
@@ -182,7 +183,7 @@ const Navbar = ({
                           onClick={() => setDropsMenu(!dropsMenu)}
                           className="nav-link" slot={pathname} defaultChecked={toggle}>Junoswap LP'ers</SubLink>
                       </Link>
-                    </li>
+                    </li> */}
                   </ul>}
                 </li>
                 {/*<li className="nav-item">

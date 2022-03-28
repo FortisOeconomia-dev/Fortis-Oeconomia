@@ -115,7 +115,7 @@ const sfotmodule = () => {
       </AssetImageWrapper>
     </OutWrapper>
   return (
-    <Wrapper defaultChecked={toggle}>
+/*     <Wrapper defaultChecked={toggle}>
       {page < 2 ? 
       <>
         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-around', flexWrap:'wrap', gap: '50px'}} className="w-full">
@@ -214,10 +214,10 @@ const sfotmodule = () => {
         />
       </div>
       </>}
-    </Wrapper>
-    // <div style={{flex: '1'}}>
-    //   <Timer />
-    // </div>
+    </Wrapper> */
+    <div style={{flex: '1'}}>
+    <Timer />
+    </div>
   )
 }
 
