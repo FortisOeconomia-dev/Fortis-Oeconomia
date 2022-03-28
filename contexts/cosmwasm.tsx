@@ -69,7 +69,13 @@ let { Provider } = (CosmWasmContext =
 
     bFot2Juno: 0,
     Juno2bFot: 0,
-    poolDpr: 0
+    poolDpr: 0,
+
+    executeMonetaAirdrop: () => {},
+    monetaLatestStage: 0,
+    monetaAirdropCount: 0,
+    monetaAirdropList: []
+
 
   }))
 

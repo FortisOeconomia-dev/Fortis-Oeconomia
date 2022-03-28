@@ -130,6 +130,10 @@ const CreateWork = () => {
     getMyAirdropAmount,
     GetAlreadyAirdropped,
     executeAirdrop,
+    executeMonetaAirdrop,
+    monetaAirdropCount,
+    monetaAirdropList,
+    monetaLatestStage
   } = useSigningClient();
 
   useEffect(() => {
@@ -151,117 +155,137 @@ const CreateWork = () => {
       NotificationManager.error("Please connect wallet first");
       return;
     }
-
-    if (alreadyAirdropped) {
-      NotificationManager.warning("Already airdropped");
-      return;
-    }
+    
+    // if (alreadyAirdropped) {
+    //   NotificationManager.warning("Already airdropped");
+    //   return;
+    // }
 
     event.preventDefault();
 
-    executeAirdrop();
+    executeMonetaAirdrop();
   };
 
   const defaultValues = [
     {
       title: 'Week1',
       percent: 5,
-      claimed: true
+      claimed: monetaAirdropList[0],
+      id: 1
     },
     {
       title: 'Week2',
       percent: 5,
-      claimed: false
+      claimed: monetaAirdropList[1],
+      id: 2
     },
     {
       title: 'Week3',
       percent: 5,
-      claimed: false
+      claimed: monetaAirdropList[2],
+      id: 3
     },
     {
       title: 'Week4',
       percent: 5,
-      claimed: false
+      claimed: monetaAirdropList[3],
+      id: 4
     },
     {
       title: 'Week5',
       percent: 5,
-      claimed: false
+      claimed: monetaAirdropList[4],
+      id: 5
     },
     {
       title: 'Week6',
       percent: 5,
-      claimed: false
+      claimed: monetaAirdropList[5],
+      id: 6
     },
     {
       title: 'Week7',
       percent: 5,
-      claimed: false
+      claimed: monetaAirdropList[6],
+      id: 7
     },
     {
       title: 'Week8',
       percent: 5,
-      claimed: false
+      claimed: monetaAirdropList[7],
+      id: 8
     },
     {
       title: 'Week9',
       percent: 5,
-      claimed: false
+      claimed: monetaAirdropList[8],
+      id: 9
     },
     {
       title: 'Week10',
       percent: 5,
-      claimed: false
+      claimed: monetaAirdropList[9],
+      id: 10
     },
     {
       title: 'Week11',
       percent: 5,
-      claimed: false
+      claimed: monetaAirdropList[10],
+      id: 11
     },
     {
       title: 'Week12',
       percent: 5,
-      claimed: false
+      claimed: monetaAirdropList[11],
+      id: 12
     },
     {
       title: 'Week13',
       percent: 5,
-      claimed: false
+      claimed: monetaAirdropList[12],
+      id: 13
     },
     {
       title: 'Week14',
       percent: 5,
-      claimed: false
+      claimed: monetaAirdropList[13],
+      id: 14
     },
     {
       title: 'Week15',
       percent: 5,
-      claimed: false
+      claimed: monetaAirdropList[14],
+      id: 15
     },
     {
       title: 'Week16',
       percent: 5,
-      claimed: false
+      claimed: monetaAirdropList[15],
+      id: 16
     },
     {
       title: 'Week17',
       percent: 5,
-      claimed: false
+      claimed: monetaAirdropList[16],
+      id: 17
     },
     {
       title: 'Week18',
       percent: 5,
-      claimed: false
+      claimed: monetaAirdropList[17],
+      id: 18
     },
     {
       title: 'Week19',
       percent: 5,
-      claimed: false
+      claimed: monetaAirdropList[18],
+      id: 19
     },
     {
       title: 'Week20',
       percent: 5,
-      claimed: false
+      claimed: monetaAirdropList[19],
+      id: 20
     }
   ]
 
@@ -299,11 +323,12 @@ const CreateWork = () => {
                 <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                   <MainLabel>{d.title}</MainLabel>
                   <SecondaryLabel>({d.percent}% FOT)</SecondaryLabel>
-                  <ClaimButton className={`default-btn secondary-btn outlined`} defaultChecked={d.claimed}>{d.claimed ? <img src="/images/check.png" /> : 'Claim'}</ClaimButton>
+                  <ClaimButton onClick={handleSubmit} disabled={d.claimed == 1 || d.id != monetaLatestStage} className={`default-btn secondary-btn outlined`} defaultChecked={d.claimed == 1}>{d.claimed == 1 ? <img src="/images/check.png" /> : 'Claim'}</ClaimButton>
                 </div>
               )}
+              
             </div>
-            <ProgressBar claimedPercent={5} />
+            <ProgressBar claimedPercent={monetaAirdropCount * 5} />
           </div>
         </div>
       </Wrapper>

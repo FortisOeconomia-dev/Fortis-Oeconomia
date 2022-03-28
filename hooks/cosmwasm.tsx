@@ -12,6 +12,7 @@ import {
 import { NotificationContainer, NotificationManager } from 'react-notifications'
 import { create } from 'ipfs-http-client'
 import { voters } from '../proposal.json'
+import { moneta_voters } from '../monetaairdrop.json'
 import { Airdrop } from '../util/merkle-airdrop-cli/airdrop'
 
 export interface ISigningCosmWasmClientContext {
@@ -84,7 +85,12 @@ export interface ISigningCosmWasmClientContext {
   //bFOT Juno Pool Part
   bFot2Juno: number,
   Juno2bFot: number,
-  poolDpr: number
+  poolDpr: number,
+
+  executeMonetaAirdrop: Function,
+  monetaLatestStage: number,
+  monetaAirdropCount: number,
+  monetaAirdropList: any
 
 }
 
@@ -92,6 +98,7 @@ export const PUBLIC_CHAIN_RPC_ENDPOINT = process.env.NEXT_PUBLIC_CHAIN_RPC_ENDPO
 export const PUBLIC_CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID || ''
 export const PUBLIC_STAKING_DENOM = process.env.NEXT_PUBLIC_STAKING_DENOM || 'ujuno'
 
+export const PUBLIC_MONETA_AIRDROP_CONTRACT = process.env.NEXT_PUBLIC_MONETA_AIRDROP_CONTRACT || ''
 export const PUBLIC_AIRDROP_CONTRACT = process.env.NEXT_PUBLIC_AIRDROP_CONTRACT || ''
 export const PUBLIC_FOTBURN_CONTRACT = process.env.NEXT_PUBLIC_FOTBURN_CONTRACT || ''
 export const PUBLIC_BFOTBURN_CONTRACT = process.env.NEXT_PUBLIC_BFOTBURN_CONTRACT || ''
@@ -148,6 +155,12 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   const [airdropAmountDenom, setAirdropAmountDenom] = useState(0)
   const [merkleProof, setMerkleProof] = useState([])
 
+  /////////////////////////////////////////////////////////////////////
+  /////////////////////  Moneta Airdrop Variables   //////////////////////////
+  /////////////////////////////////////////////////////////////////////
+  const [monetaLatestStage, setMonetaLatestStage] = useState(0)
+  const [monetaAirdropCount, setMonetaAirdropCount] = useState(0)
+  const [monetaAirdropList, setMonetaAirdropList] = useState([])
   /////////////////////////////////////////////////////////////////////
   /////////////////////  FotBurn Variables   //////////////////////////
   /////////////////////////////////////////////////////////////////////
@@ -418,6 +431,38 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       // console.log("gfotStakingMyInfo")
       // console.log(gfotStakingMyInfo)
 
+      // Moneta airdrop action
+      const latest_val = await signingClient.queryContractSmart(PUBLIC_MONETA_AIRDROP_CONTRACT, {
+        latest_stage: {
+          
+        },
+      })
+      setMonetaLatestStage(latest_val.latest_stage)
+      let cnt = 0;
+      let arr = [];
+      for (let i = 1; i <= latest_val.latest_stage; i ++) {
+        try {
+          let val = await signingClient.queryContractSmart(PUBLIC_MONETA_AIRDROP_CONTRACT, {
+            is_claimed: {
+              stage: i,
+              address: walletAddress
+            },
+          })
+          if (val.is_claimed == true) {
+            cnt ++;
+            arr.push(1)
+          } else 
+            arr.push(0)
+        } catch(error) {
+          arr.push(0)
+          continue;
+        }
+      }
+      while (arr.length < 20)
+        arr.push(0)
+      setMonetaAirdropCount(cnt)
+      setMonetaAirdropList(arr)
+      console.log(arr)
 
 
       setLoading(false)
@@ -438,7 +483,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   ////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////
 
-  const getMyAirdropAmount = async () => {
+   const getMyAirdropAmount = async () => {
     if (walletAddress == '')
       return
     setLoading(true)
@@ -520,6 +565,95 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       }
     }
   }
+
+  
+
+  ////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////
+  ///////////////////////    Moneta airdrop Functions   /////////////////////////
+  ////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////
+
+
+  // const GetAlreadyMonetaAirdropped = async () => {
+  //   if (walletAddress == '')
+  //     return
+  //   setLoading(true)
+  //   try {
+
+  //     for (let i = 1; i < 20; i ++) {
+  //       try {
+  //         const response: JsonObject = await signingClient.queryContractSmart(PUBLIC_MONETA_AIRDROP_CONTRACT, {
+  //           is_claimed: {
+  //             stage: stage,
+  //             address: walletAddress
+  //           },
+  //         })
+
+  //       }
+  //     }
+      
+  //     setAlreadyAirdropped(response.is_claimed)
+  //     setLoading(false)
+  //     if (showNotification)
+  //       NotificationManager.info('AlreadyAirdropped')
+  //   } catch (error) {
+  //     setLoading(false)
+  //     if (showNotification)
+  //       NotificationManager.error(`GetAlreadyAirdropped error : ${error}`)
+  //   }
+  // }
+
+  
+  const executeMonetaAirdrop = async () => {
+    // if (alreadyAirdropped) {
+    //   if (showNotification)
+    //     NotificationManager.warning('Already airdropped')
+    // }
+    setLoading(true)
+    let amount = "111000000000"
+    let receivers: Array<{ address: string; amount: string }> = moneta_voters
+    let airdrop = new Airdrop(receivers)
+    let proof = airdrop.getMerkleProof({ address: walletAddress, amount: amount.toString() })
+    console.log(proof)
+    try {
+      const stage = await signingClient.queryContractSmart(PUBLIC_MONETA_AIRDROP_CONTRACT, {
+        latest_stage: {},
+      })
+      console.log(stage)
+      let val = stage.latest_stage
+      console.log("stage:" + val)
+      await signingClient.execute(
+        walletAddress, // sender address
+        PUBLIC_MONETA_AIRDROP_CONTRACT, // token escrow contract
+        {
+          "claim": {
+            "stage": val,
+            "amount": `${amount}`,
+            "proof": proof
+          }
+        }, // msg
+        defaultFee,
+        undefined,
+        []
+      )
+
+      setLoading(false)
+      getBalances()
+      setAlreadyAirdropped(true)
+
+      // if (showNotification)
+      NotificationManager.success('Successfully moneta airdropped')
+    } catch (error) {
+      setLoading(false)
+      console.log(error)
+      // if (showNotification) {
+        NotificationManager.error(`Moneta Airdrop error : ${error}`)
+        console.log(error.toString())
+      // }
+    }
+  }
+
   ////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////
   ///////////////////////    fotburn Functions   /////////////////////////
@@ -829,7 +963,12 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
     bFot2Juno,
     Juno2bFot,
-    poolDpr
+    poolDpr,
+
+    executeMonetaAirdrop,
+    monetaLatestStage,
+    monetaAirdropCount,
+    monetaAirdropList
 
 
   }
