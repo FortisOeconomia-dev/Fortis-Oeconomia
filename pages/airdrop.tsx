@@ -14,7 +14,6 @@ import styled from "styled-components"
 import { useSigningClient } from "../contexts/cosmwasm";
 import { fromBase64, toBase64 } from "@cosmjs/encoding";
 import { ToggleContext } from "../components/Layout/Layout";
-import ProgressBar from '../components/ProgressBar'
 
 const Wrapper = styled.div`
   flex: 1;
@@ -131,7 +130,6 @@ const CreateWork = () => {
     GetAlreadyAirdropped,
     executeAirdrop,
     executeMonetaAirdrop,
-    monetaAirdropCount,
     monetaAirdropList,
     monetaLatestStage
   } = useSigningClient();
@@ -320,7 +318,7 @@ const CreateWork = () => {
               maxWidth: '881px'
             }}>
               {defaultValues.map(d => 
-                <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                <div key={d + 'fot'} style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                   <MainLabel>{d.title}</MainLabel>
                   <SecondaryLabel>({d.percent}% FOT)</SecondaryLabel>
                   <ClaimButton onClick={handleSubmit} disabled={d.claimed == 1 || d.id != monetaLatestStage} className={`default-btn secondary-btn outlined`} defaultChecked={d.claimed == 1}>{d.claimed == 1 ? <img src="/images/check.png" /> : 'Claim'}</ClaimButton>
@@ -328,7 +326,6 @@ const CreateWork = () => {
               )}
               
             </div>
-            <ProgressBar claimedPercent={monetaAirdropCount * 5} />
           </div>
         </div>
       </Wrapper>

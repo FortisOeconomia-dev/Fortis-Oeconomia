@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { useRouter } from 'next/router';
 import RateShow from "../../components/RateShow";
 import { useSigningClient } from "../../contexts/cosmwasm";
+import ProgressBar from '../../components/ProgressBar'
 
 //navbar
 import Navbar from './Navbar';
@@ -88,6 +89,7 @@ const Layout = ({ children }) => {
   const {
     bFot2Juno,
     getBalances,
+    monetaAirdropCount,
     Juno2bFot,
     poolDpr
   } = useSigningClient();
@@ -173,6 +175,7 @@ const Layout = ({ children }) => {
       }} /> : <></>}
       {page === 1 && <RateShow text="Clearance Sale" action={() => setPage(0)} top={true} />}
       {page === 2 && <RateShow text="Stable Module (sFOT)" action={() => setPage(0)} left={true} />}
+      {pathname === '/airdrop' && <ProgressBar claimedPercent={monetaAirdropCount * 5} />}
       <Wrapper defaultChecked={toggle} slot={pathname} style={{filter: toggle && 'drop-shadow(16px 16px 20px) invert(90) hue-rotate(170deg) saturate(200%) contrast(100%) brightness(90%)'}}>
         {/* {pathname === '/' && <Background slot={`../images/HomePageBackground/${index%4 + 1}.png`}></Background>} */}
         <Head>
