@@ -80,7 +80,6 @@ export interface ISigningCosmWasmClientContext {
   handlegFotStakingChange: Function,
   executegFotStaking: Function,
   executegFotClaimReward: Function,
-  executegFotUnstake: Function,
 
   //bFOT Juno Pool Part
   bFot2Juno: number,
@@ -893,7 +892,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         PUBLIC_GFOTSTAKING_CONTRACT, 
         {
           "create_unstake": {
-            "unstake_amount": unstakeAmount
+            "unstake_amount": convertMicroDenomToDenom2(unstakeAmount, gfotTokenInfo.decimals)
           }
         }, // msg
         defaultFee,
@@ -947,36 +946,6 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
   const handleUnstakeChange = async (e) => {
     setUnstakeAmount(Number(e.target.value))
-  }
-
-
-  const executegFotUnstake = async () => {
-
-    setLoading(true)
-    
-    try {
-      await signingClient?.execute(
-        walletAddress, // sender address
-        PUBLIC_GFOTSTAKING_CONTRACT, 
-        {
-          "unstake": {}
-        }, // msg
-        defaultFee,
-        undefined,
-        []
-      )
-
-      setLoading(false)
-      getBalances()
-      if (showNotification)
-        NotificationManager.success('Successfully unstaked')
-    } catch (error) {
-      setLoading(false)
-      if (showNotification) {
-        NotificationManager.error(`Stakemodule unstake error : ${error}`)
-        console.log(error.toString())
-      }
-    }
   }
 
   return {
@@ -1038,7 +1007,6 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     handlegFotStakingChange,
     executegFotStaking,
     executegFotClaimReward,
-    executegFotUnstake,
 
     bFot2Juno,
     Juno2bFot,
