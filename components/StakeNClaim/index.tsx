@@ -21,7 +21,7 @@ const Wrapper = styled.div`
     max-width: 950px;
     margin-left:50px;
     width: 100%;
-    filter: blur(2px);
+    filter: blur(3px);
     pointer-events:none;
     @media (max-width: 768px) {
         flex-direction: column;

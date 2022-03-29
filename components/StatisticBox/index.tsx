@@ -14,6 +14,7 @@ const Wrapper = styled.div`
     padding: 30px;
     align-self: flex-start;
     margin: auto;
+    margin-left: 22px;
 `
 
 const ContentWrapper = styled.div`
