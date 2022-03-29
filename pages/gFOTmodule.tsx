@@ -48,13 +48,6 @@ const RightPart = styled.div`
   flex: 2;
   max-width: 100%;
 `
-const SubTitle = styled.span`
-  font-weight: 600;
-  font-size: 26px;
-  line-height: 54px;
-  color: #171E0E;
-  align-self: center;
-`
 
 const gfotmodule = () => {
   const {
@@ -243,7 +236,6 @@ const gfotmodule = () => {
 
   return (
     <>
-    <SubTitle>Contract Upgrade Process Still In Progress</SubTitle>
       <Wrapper>
         <LeftPart>
           <Converter
