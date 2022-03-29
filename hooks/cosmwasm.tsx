@@ -112,7 +112,6 @@ export const PUBLIC_GFOTSTAKING_CONTRACT = process.env.NEXT_PUBLIC_GFOTSTAKING_C
 export const PUBLIC_FOT_CONTRACT = process.env.NEXT_PUBLIC_FOT_CONTRACT || ''
 export const PUBLIC_BFOT_CONTRACT = process.env.NEXT_PUBLIC_BFOT_CONTRACT || ''
 export const PUBLIC_GFOT_CONTRACT = process.env.NEXT_PUBLIC_GFOT_CONTRACT || ''
-export const PUBLIC_UNSTAKE_CONTRACT = process.env.NEXT_PUBLIC_UNSTAKE_CONTRACT || ''
 
 export const BFOT_JUNO_POOL_CONTRACT = "juno19859m5x8kgepwafc3h0n36kz545ngc2vlqnqxx7gx3t2kguv6fws93cu25"
 export const defaultFee = {
@@ -471,7 +470,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       setMonetaAirdropCount(cnt)
       setMonetaAirdropList(arr)
       
-      const unstaking_list = await signingClient.queryContractSmart(PUBLIC_UNSTAKE_CONTRACT, {
+      const unstaking_list = await signingClient.queryContractSmart(PUBLIC_GFOTSTAKING_CONTRACT, {
         unstaking: {
           address: `${walletAddress}`
         },
@@ -891,7 +890,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     try {
       await signingClient?.execute(
         walletAddress, // sender address
-        PUBLIC_UNSTAKE_CONTRACT, 
+        PUBLIC_GFOTSTAKING_CONTRACT, 
         {
           "create_unstake": {
             "unstake_amount": unstakeAmount
@@ -922,7 +921,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     try {
       await signingClient?.execute(
         walletAddress, // sender address
-        PUBLIC_UNSTAKE_CONTRACT, 
+        PUBLIC_GFOTSTAKING_CONTRACT, 
         {
           "fetch_unstake": {
             index: num
