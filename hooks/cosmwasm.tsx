@@ -406,8 +406,11 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
           address: `${walletAddress}`
         },
       })
+
+      let new_reward = gfotStakingContractInfo.daily_fot_amount * (Math.floor((new Date().getTime()) /1000 / 86400) - Math.floor(gfotStakingMyInfo.last_time/86400) ) * gfotStakingMyInfo.amount / gfotStakingContractInfo.gfot_amount
+
       setgFotStakingMyStaked(gfotStakingMyInfo.amount)
-      setgFotStakingMyReward(gfotStakingMyInfo.reward)
+      setgFotStakingMyReward(gfotStakingMyInfo.reward + new_reward)
 
       // bFOT Juno Pool related
       const poolInfo = await signingClient.queryContractSmart(BFOT_JUNO_POOL_CONTRACT, {
