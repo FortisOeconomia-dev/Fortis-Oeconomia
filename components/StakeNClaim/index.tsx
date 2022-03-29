@@ -99,7 +99,6 @@ const StakeNClaim = ({
     onBurnChange,
     handleBurnPlus,
     handleFotStaking,
-    handleFotStakingUnstake,
     handleFotStakingClaimReward,
 
 }) => {
