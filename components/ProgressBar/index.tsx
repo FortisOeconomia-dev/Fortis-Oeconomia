@@ -1,4 +1,6 @@
 import styled from 'styled-components'
+import { useContext } from 'react'
+import { ToggleContext } from "../../components/Layout/Layout";
 
 const Wrapper = styled.div`
     display: flex;
@@ -9,13 +11,14 @@ const Wrapper = styled.div`
     right: ${props => !props.defaultChecked && '10%'};
     top: ${props => props.defaultChecked && '26%'};
     left: ${props => props.defaultChecked && '0px'};
+    z-index: 1;
 `
 
 const Description = styled.p`
     font-weight: 600;
     font-size: 24px;
     line-height: 36px;
-    color: #171E0E;
+    color: ${props => props.defaultChecked ? 'white' : '#171E0E'};
 `
 
 const BarWrapper = styled.div`
@@ -43,14 +46,15 @@ const Done = styled.div`
 `
 
 const ProgressBar = ({claimedPercent}) => {
+    const {toggle} = useContext(ToggleContext)
     return (
         <Wrapper>
-            <Description>My Progress</Description>
+            <Description defaultChecked={toggle}>My Progress</Description>
             <BarWrapper>
                 <Done slot={`${claimedPercent}`} />
             </BarWrapper>
-            <Description>Claimed</Description>
-            <Description>{`${claimedPercent}`}% FOT</Description>
+            <Description defaultChecked={toggle}>Claimed</Description>
+            <Description defaultChecked={toggle}>{`${claimedPercent}`}% FOT</Description>
         </Wrapper>
     )
 }
