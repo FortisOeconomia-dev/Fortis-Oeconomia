@@ -8,8 +8,12 @@ import {
 } from '../../util/conversion'
 import InputWithIncDec from '../InputWithIncDec'
 import styled from 'styled-components'
-import { useContext } from 'react'
+import { useContext, MouseEvent, ChangeEvent } from 'react'
 import { ToggleContext } from "../Layout/Layout";
+import {
+    NotificationContainer,
+    NotificationManager,
+  } from "react-notifications";
 
 const Wrapper = styled.div`
     padding: 50px 32px;
@@ -23,6 +27,9 @@ const Wrapper = styled.div`
     width: 100%;
     @media (max-width: 768px) {
         flex-direction: column;
+    }
+    th, td {
+        text-align: center;
     }
 `
 
@@ -71,6 +78,8 @@ const MyStakedContent = styled.div`
     display: flex;
     align-items: center;
     flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
 `
 
 const MyStakedText = styled.label`
@@ -82,7 +91,6 @@ const MyStakedText = styled.label`
 const MaxButton = styled.button`
     margin-bottom: 20px;
     padding: 5px !important;
-    width: 100px;
     min-width: unset !important;
 `
 
@@ -105,7 +113,32 @@ const StakeNClaim = ({
         gfotStakingMyReward,
         gfotBalance,
         handlegFotStakingChange,
+        unstakingList,
+        createUnstake,
+        executeFetchUnstake,
+        handleUnstakeChange,
+        unstakeAmount,
+        walletAddress,
+        signingClient,
     } = useSigningClient();
+    const handlegFotStaking = async (event: MouseEvent<HTMLElement>) => {
+        if (!signingClient || walletAddress.length === 0) {
+          NotificationManager.error("Please connect wallet first");
+          return;
+        }
+    
+        if (Number(gfotStakingAmount) == 0) {
+          NotificationManager.error("Please input the GFOT amount first");
+          return;
+        }
+        if (Number(gfotStakingAmount) > Number(gfotBalance)) {
+          NotificationManager.error("Please input correct GFOT amount");
+          return;
+        }
+    
+        event.preventDefault();
+        createUnstake();
+    };
     const {toggle} = useContext(ToggleContext)
     return (
         <Wrapper>
@@ -159,28 +192,68 @@ const StakeNClaim = ({
             </TotalStaked>
             <MyStaked>
                 <MyStakedContent className="wallet-text">
-                    <MyStakedText className="wallet-label">
-                        My Staked gFOT
-                        <StakedValue>
-                            {" "}
-                            {convertMicroDenomToDenom2(gfotStakingMyStaked, gfotTokenInfo.decimals)}
-                        </StakedValue>
-                    </MyStakedText>
-                    <button
-                        className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
-                        style={{ marginBottom: '190px' }}
-                        onClick={handleFotStakingUnstake}
-                    >
-                        Unstake
-                    </button>
-                    <MyStakedText className="wallet-label">
-                        My Rewards
-                        <StakedValue>
-                            {" "}
-                            {convertMicroDenomToDenom2(gfotStakingMyReward, fotTokenInfo.decimals)}
-                        </StakedValue>
-                    </MyStakedText>
-                    <button className={`default-btn   ${!toggle && 'secondary-btn'}`} onClick={handleFotStakingClaimReward}>Claim</button>
+                    <div className="w-full" style={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
+                        <MyStakedText className="wallet-label">
+                            My Staked gFOT
+                            <StakedValue>
+                                {" "}
+                                {convertMicroDenomToDenom2(gfotStakingMyStaked, gfotTokenInfo.decimals)}
+                            </StakedValue>
+                        </MyStakedText>
+                        <div className='gFotCurrencyt-selection'>
+                            <InputWithIncDec
+                                handleBurnMinus={handleBurnMinus}
+                                burnAmount={unstakeAmount}
+                                onBurnChange={handleUnstakeChange}
+                                handleBurnPlus={handleBurnPlus}
+                            />
+                        </div>
+                        <div className="w-full" style={{display: 'flex', justifyContent: 'space-between', gap: '10px', flexWrap: 'wrap'}}>
+                            <MaxButton
+                                onClick={() => handleUnstakeChange(Number(gfotStakingAmount))}
+                                className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
+                            >
+                                Max
+                            </MaxButton>
+                            <MaxButton
+                                onClick={(e) => handlegFotStaking(e)}
+                                className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
+                            >
+                                Create Unstake
+                            </MaxButton>
+                        </div>
+                    </div>
+                    <table className="w-full">
+                        {unstakingList.length > 0 && <tr>
+                            <th>Amount</th>
+                            <th>Release date</th>
+                            <th>Action</th>
+                        </tr>}
+                        {unstakingList.map((d, idx) => 
+                            <tr key={`${idx}-unstake`}>
+                                <td>{d.amount}</td>
+                                <td>{d.release_date}</td>
+                                <td>
+                                    <MaxButton
+                                        onClick={() => executeFetchUnstake(0)}
+                                        className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
+                                    >
+                                        Unstake
+                                    </MaxButton>
+                                </td>
+                            </tr>    
+                        )}
+                    </table>
+                    <div className="w-full" style={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
+                        <MyStakedText className="wallet-label">
+                            My Rewards
+                            <StakedValue>
+                                {" "}
+                                {convertMicroDenomToDenom2(gfotStakingMyReward, fotTokenInfo.decimals)}
+                            </StakedValue>
+                        </MyStakedText>
+                        <button className={`default-btn   ${!toggle && 'secondary-btn'}`} onClick={handleFotStakingClaimReward}>Claim</button>
+                    </div>
                 </MyStakedContent>
                 
             </MyStaked>
