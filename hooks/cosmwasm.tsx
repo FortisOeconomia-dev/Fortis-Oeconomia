@@ -474,7 +474,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
           address: `${walletAddress}`
         },
       })
-      setUnstakingList(unstaking_list);
+      setUnstakingList(unstaking_list)
 
       setLoading(false)
       if (showNotification)
@@ -892,7 +892,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         PUBLIC_GFOTSTAKING_CONTRACT, 
         {
           "create_unstake": {
-            "unstake_amount": convertMicroDenomToDenom2(unstakeAmount, gfotTokenInfo.decimals)
+            "unstake_amount": convertDenomToMicroDenom2(unstakeAmount, gfotTokenInfo.decimals)
           }
         }, // msg
         defaultFee,
@@ -945,7 +945,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   }
 
   const handleUnstakeChange = async (e) => {
-    setUnstakeAmount(Number(e.target.value))
+    setUnstakeAmount(Number(e))
   }
 
   return {

@@ -14,6 +14,7 @@ import {
     NotificationContainer,
     NotificationManager,
   } from "react-notifications";
+import moment from "moment"
 
 const Wrapper = styled.div`
     padding: 50px 32px;
@@ -138,6 +139,30 @@ const StakeNClaim = ({
         event.preventDefault();
         createUnstake();
     };
+
+    const handlegFotUnstakingPlus = () => {
+        console.log(unstakeAmount)
+        console.log(convertMicroDenomToDenom2(gfotStakingMyStaked, gfotTokenInfo.decimals))
+        if (Number(unstakeAmount) + 1 > convertMicroDenomToDenom2(gfotStakingMyStaked, gfotTokenInfo.decimals))
+            return
+
+        handleUnstakeChange((Number(unstakeAmount) + 1))
+    }
+    const handlegFotUnstakingMinus = () => {
+        if (Number(unstakeAmount) - 1 < 0)
+            return
+            handleUnstakeChange((Number(unstakeAmount) - 1))
+    }
+
+    const ongFotUnstakeChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const { target: { value } } = event
+        if (Number(value) > convertMicroDenomToDenom2(gfotStakingMyStaked, gfotTokenInfo.decimals))
+          return
+        if (Number(value) < 0)
+          return
+        handleUnstakeChange(Number(value))
+      }
+    
     const {toggle} = useContext(ToggleContext)
     return (
         <Wrapper>
@@ -201,10 +226,10 @@ const StakeNClaim = ({
                         </MyStakedText>
                         <div className='gFotCurrencyt-selection'>
                             <InputWithIncDec
-                                handleBurnMinus={handleBurnMinus}
+                                handleBurnMinus={handlegFotUnstakingMinus}
                                 burnAmount={unstakeAmount}
-                                onBurnChange={handleUnstakeChange}
-                                handleBurnPlus={handleBurnPlus}
+                                onBurnChange={ongFotUnstakeChange}
+                                handleBurnPlus={handlegFotUnstakingPlus}
                             />
                         </div>
                         <div className="w-full" style={{display: 'flex', justifyContent: 'space-between', gap: '10px', flexWrap: 'wrap'}}>
@@ -222,34 +247,36 @@ const StakeNClaim = ({
                                 Max
                             </MaxButton>
                             <MaxButton
-                                onClick={(e) => handlegFotStaking(e)}
+                                onClick={() => createUnstake()}
                                 className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
                             >
                                 Create Unstake
                             </MaxButton>
                         </div>
                     </div>
-                    <table className="w-full">
-                        {unstakingList.length > 0 && <tr>
-                            <th>Amount</th>
-                            <th>Release date</th>
-                            <th>Action</th>
-                        </tr>}
-                        {unstakingList.map((d, idx) => 
-                            <tr key={`${idx}-unstake`}>
-                                <td>{d.amount}</td>
-                                <td>{d.release_date}</td>
-                                <td>
-                                    <MaxButton
-                                        onClick={() => executeFetchUnstake(0)}
-                                        className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
-                                    >
-                                        Unstake
-                                    </MaxButton>
-                                </td>
-                            </tr>    
-                        )}
-                    </table>
+                    <div style={{overflowY:"auto"}}>
+                        <table className="w-full">
+                            {unstakingList.length > 0 && <tr>
+                                <th>Amount</th>
+                                <th>Release date</th>
+                                <th>Action</th>
+                            </tr>}
+                            {unstakingList.map((d, idx) => 
+                                <tr key={`${idx}-unstake`}>
+                                    <td>{convertMicroDenomToDenom2(d[0], gfotTokenInfo.decimals)}</td>
+                                    <td>{moment(new Date(Number(d[1]) * 1000)).format('YYYY/MM/DD HH:mm:ss')}</td>
+                                    <td>
+                                        <MaxButton
+                                            onClick={() => executeFetchUnstake(idx)}
+                                            className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
+                                        >
+                                            Unstake
+                                        </MaxButton>
+                                    </td>
+                                </tr>    
+                            )}
+                        </table>
+                    </div>
                     <div className="w-full" style={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
                         <MyStakedText className="wallet-label">
                             My Rewards
