@@ -79,6 +79,20 @@ const Title = styled.span`
   line-height: 54px;
   color: #FBFCFD;
 `
+const SubTitle1 = styled.span`
+  font-weight: 600;
+  font-size: 26px;
+  line-height: 54px;
+  color: #171E0E;
+  align-self: center;
+`
+const SubTitle2 = styled.span`
+  font-weight: 600;
+  font-size: 26px;
+  line-height: 54px;
+  color: #171E0E;
+  align-self: center;
+`
 
 const MainLabel = styled.span`
   font-weight: 600;
@@ -295,8 +309,8 @@ const CreateWork = () => {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            gap: '50px',
-            maxWidth: '1368px'
+            gap: '30px',
+            maxWidth: '1368px',
           }}
         >
           <div style={{display: 'flex', alignItems: 'center', gap: '20px', justifyContent: 'center'}}>
@@ -307,8 +321,10 @@ const CreateWork = () => {
                 </svg>
               </AssetImageWrapper>
             </OutWrapper>
-            <Title>Fortis Oeconomia FOT Airdrop</Title>
+            <Title>Fortis Oeconomia FOT Airdrop</Title>            
           </div>
+          <SubTitle1>Snapshot date: 15 December 2021</SubTitle1>
+          <SubTitle2>Minimum Staked Juno to any Validator: 0.1 Juno</SubTitle2>
           <div style={{display: 'flex', gap: '20px', justifyContent: 'space-between', padding: '20px'}}>
             <div style={{
               display: 'flex',
