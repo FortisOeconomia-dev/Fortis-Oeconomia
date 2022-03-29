@@ -65,7 +65,6 @@ let { Provider } = (CosmWasmContext =
     handlegFotStakingChange: () => {},
     executegFotStaking: () => {},
     executegFotClaimReward: () => {},
-    executegFotUnstake: () => {},
 
     bFot2Juno: 0,
     Juno2bFot: 0,
@@ -74,9 +73,13 @@ let { Provider } = (CosmWasmContext =
     executeMonetaAirdrop: () => {},
     monetaLatestStage: 0,
     monetaAirdropCount: 0,
-    monetaAirdropList: []
+    monetaAirdropList: [],
 
-
+    unstakingList: [],
+    createUnstake: () => {},
+    executeFetchUnstake: () => {},
+    unstakeAmount: 0,
+    handleUnstakeChange: () => {},
   }))
 
 export const useSigningClient = (): ISigningCosmWasmClientContext =>

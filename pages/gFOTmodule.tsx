@@ -96,7 +96,6 @@ const gfotmodule = () => {
     handlegFotStakingChange,
     executegFotStaking,
     executegFotClaimReward,
-    executegFotUnstake,
     bFot2Juno,
     Juno2bFot,
     poolDpr
@@ -190,16 +189,6 @@ const gfotmodule = () => {
     executegFotStaking();
   };
 
-  const handlegFotStakingUnstake = async (event: MouseEvent<HTMLElement>) => {
-    if (!signingClient || walletAddress.length === 0) {
-      NotificationManager.error("Please connect wallet first");
-      return;
-    }
-
-    event.preventDefault();
-    executegFotUnstake();
-  };
-
   const handlegFotStakingClaimReward = async (event: MouseEvent<HTMLElement>) => {
     if (!signingClient || walletAddress.length === 0) {
       NotificationManager.error("Please connect wallet first");
@@ -278,7 +267,6 @@ const gfotmodule = () => {
             onBurnChange={ongFotStakingChange}
             handleBurnPlus={handlegFotStakingPlus}
             handleFotStaking={handlegFotStaking}
-            handleFotStakingUnstake={handlegFotStakingUnstake}
             handleFotStakingClaimReward={handlegFotStakingClaimReward}
           />
           <StatisticBox values={defaultValues} />

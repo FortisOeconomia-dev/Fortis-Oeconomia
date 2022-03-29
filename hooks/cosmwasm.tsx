@@ -80,7 +80,6 @@ export interface ISigningCosmWasmClientContext {
   handlegFotStakingChange: Function,
   executegFotStaking: Function,
   executegFotClaimReward: Function,
-  executegFotUnstake: Function,
 
   //bFOT Juno Pool Part
   bFot2Juno: number,
@@ -90,8 +89,13 @@ export interface ISigningCosmWasmClientContext {
   executeMonetaAirdrop: Function,
   monetaLatestStage: number,
   monetaAirdropCount: number,
-  monetaAirdropList: any
+  monetaAirdropList: any,
 
+  unstakingList: any[],
+  createUnstake: Function,
+  executeFetchUnstake: Function,
+  unstakeAmount: number,
+  handleUnstakeChange: Function,
 }
 
 export const PUBLIC_CHAIN_RPC_ENDPOINT = process.env.NEXT_PUBLIC_CHAIN_RPC_ENDPOINT || ''
@@ -192,6 +196,8 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   const [Juno2bFot, setJuno2bFot] = useState(0)
   const [poolDpr, setPoolDpr] = useState(0)
 
+  const [unstakingList, setUnstakingList] = useState([])
+  const [unstakeAmount, setUnstakeAmount] = useState(0)
   
   ////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////
@@ -462,7 +468,13 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         arr.push(0)
       setMonetaAirdropCount(cnt)
       setMonetaAirdropList(arr)
-
+      
+      const unstaking_list = await signingClient.queryContractSmart(PUBLIC_GFOTSTAKING_CONTRACT, {
+        unstaking: {
+          address: `${walletAddress}`
+        },
+      })
+      setUnstakingList(unstaking_list)
 
       setLoading(false)
       if (showNotification)
@@ -870,7 +882,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     }
   }
 
-  const executegFotUnstake = async () => {
+  const createUnstake = async () => {
 
     setLoading(true)
     
@@ -879,7 +891,9 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         walletAddress, // sender address
         PUBLIC_GFOTSTAKING_CONTRACT, 
         {
-          "unstake": {}
+          "create_unstake": {
+            "unstake_amount": convertDenomToMicroDenom2(unstakeAmount, gfotTokenInfo.decimals)
+          }
         }, // msg
         defaultFee,
         undefined,
@@ -897,6 +911,41 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         console.log(error.toString())
       }
     }
+  }
+
+  const executeFetchUnstake = async (num) => {
+
+    setLoading(true)
+    
+    try {
+      await signingClient?.execute(
+        walletAddress, // sender address
+        PUBLIC_GFOTSTAKING_CONTRACT, 
+        {
+          "fetch_unstake": {
+            index: num
+          }
+        }, // msg
+        defaultFee,
+        undefined,
+        []
+      )
+
+      setLoading(false)
+      getBalances()
+      if (showNotification)
+        NotificationManager.success('Successfully unstaked')
+    } catch (error) {
+      setLoading(false)
+      if (showNotification) {
+        NotificationManager.error(`Stakemodule unstake error : ${error}`)
+        console.log(error.toString())
+      }
+    }
+  }
+
+  const handleUnstakeChange = async (e) => {
+    setUnstakeAmount(Number(e))
   }
 
   return {
@@ -958,7 +1007,6 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     handlegFotStakingChange,
     executegFotStaking,
     executegFotClaimReward,
-    executegFotUnstake,
 
     bFot2Juno,
     Juno2bFot,
@@ -967,8 +1015,12 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     executeMonetaAirdrop,
     monetaLatestStage,
     monetaAirdropCount,
-    monetaAirdropList
+    monetaAirdropList,
 
-
+    unstakingList,
+    createUnstake,
+    executeFetchUnstake,
+    unstakeAmount,
+    handleUnstakeChange,
   }
 }
