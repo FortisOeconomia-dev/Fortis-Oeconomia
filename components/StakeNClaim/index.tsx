@@ -210,7 +210,14 @@ const StakeNClaim = ({
                         </div>
                         <div className="w-full" style={{display: 'flex', justifyContent: 'space-between', gap: '10px', flexWrap: 'wrap'}}>
                             <MaxButton
-                                onClick={() => handleUnstakeChange(convertMicroDenomToDenom2(gfotStakingMyStaked, gfotTokenInfo.decimals))}
+                                onClick={() => 
+                                    handleUnstakeChange(
+                                        convertMicroDenomToDenom2(
+                                            gfotStakingMyStaked, 
+                                            gfotTokenInfo.decimals
+                                        )
+                                    )
+                                }
                                 className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
                             >
                                 Max

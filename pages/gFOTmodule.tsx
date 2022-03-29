@@ -91,7 +91,6 @@ const gfotmodule = () => {
     handlegFotStakingChange,
     executegFotStaking,
     executegFotClaimReward,
-    executegFotUnstake,
     bFot2Juno,
     Juno2bFot,
     poolDpr
@@ -192,7 +191,6 @@ const gfotmodule = () => {
     }
 
     event.preventDefault();
-    executegFotUnstake();
   };
 
   const handlegFotStakingClaimReward = async (event: MouseEvent<HTMLElement>) => {
