@@ -66,12 +66,6 @@ export const bFOTImage = (toggle) =>
 export const assets = [
   {
     from: 'sFOT',
-    to: 'USDC',
-    fromImage: sFOTImage,
-    toImage: '/images/usdc.png'
-  },
-  {
-    from: 'sFOT',
     to: 'UST',
     fromImage: sFOTImage,
     toImage: '/images/ust.png'
@@ -81,6 +75,12 @@ export const assets = [
     to: 'bFOT',
     fromImage: sFOTImage,
     toImage: bFOTImage
+  },
+  {
+    from: 'sFOT',
+    to: 'USDC',
+    fromImage: sFOTImage,
+    toImage: '/images/usdc.png'
   }
 ]
 export const ToggleContext = createContext({toggle: false, asset: 0, setAsset: null, page: 0, setPage: null})
@@ -142,20 +142,20 @@ const Layout = ({ children }) => {
         ]
         break;
       case '/sFOTmodule':
-        // values = [
-        //   {
-        //     fromAmount: '1',
-        //     toAmount: 'x',
-        //     fromPer: assets[asset].from,
-        //     toPer: assets[asset].to
-        //   },
-        //   {
-        //     fromAmount: '1',
-        //     toAmount: 'x',
-        //     fromPer: assets[asset].to,
-        //     toPer: assets[asset].from
-        //   }
-        // ]
+         values = [
+           {
+             fromAmount: '1',
+             toAmount: 'x',
+             fromPer: assets[asset].from,
+             toPer: assets[asset].to
+           },
+           {
+             fromAmount: '1',
+             toAmount: 'x',
+             fromPer: assets[asset].to,
+             toPer: assets[asset].from
+           }
+         ]
         values = []
         break
       default:
