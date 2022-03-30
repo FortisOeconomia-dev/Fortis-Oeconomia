@@ -150,8 +150,6 @@ const nwallet = () => {
     fotBalanceStr,
     nativeBalance,
     walletAddress,
-    atomBalance,
-    osmoBalance,
     gfotBalance,
   } = useSigningClient();
   const {toggle} = useContext(ToggleContext)
@@ -187,19 +185,14 @@ const nwallet = () => {
       boxShadow: '77.5316px 20.7745px 160.533px rgba(26, 30, 44, 0.338), inset -28.9451px -7.75583px 29.9662px #606CA1, inset 28.9451px 7.75583px 29.9662px #9FB4FF'
     },
     {
-      label: 'ATOM',
-      amount: atomBalance,
-      image: '../images/atom.png'
+      label: 'UST',
+      amount: 0,
+      image: '../images/ust.png'
     },
     {
       label: 'JUNO',
       amount: nativeBalance,
       image: '../images/juno.png'
-    },
-    {
-      label: 'OSMO',
-      amount: osmoBalance,
-      image: '../images/osmo.png'
     },
   ]
   return (
