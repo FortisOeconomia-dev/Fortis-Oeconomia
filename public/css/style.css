@@ -70,6 +70,23 @@ Default CSS
   --fontSize: 16px;
   --transition: 0.5s;
 }
+.launch{
+  background: rgba(251, 252, 253, 0.3);
+  box-shadow: 15.1194px 15.1194px 60.4777px rgba(8, 4, 81, 0.18);
+  border-radius: 52.162px;
+  overflow: hidden;
+  opacity: 0.8;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  margin-top: 200px;
+  width: 100%;
+  max-width: 700px;
+  height: 40%;
+  display: flex;
+  padding: 2rem;
+  font-size: 4rem;
+}
 .timer-wrapper{
   background-color: rgba(0, 0, 0, 0.8);
   padding: 2rem;

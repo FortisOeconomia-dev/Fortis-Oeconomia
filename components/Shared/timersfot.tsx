@@ -7,7 +7,7 @@ const timersfot = () => {
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
   useEffect(() => {
-    const target = new Date("2022-03-31T23:59:59Z").getTime();
+    const target = new Date("2022-03-31T18:00:00Z").getTime();
     
     const interval = setInterval(() => {
       const now = new Date().getTime();
@@ -38,7 +38,7 @@ const timersfot = () => {
   }, []);
   return (
     <div className="timer-container">
-      {launch ? (<div className="launch">Launching now</div>) : (
+      {launch ? (<span className="launch">Launching soon <br /> Stay Tuned</span>) : (
         <>
           <div className="trade-cryptocurrency-box"
           style={{
