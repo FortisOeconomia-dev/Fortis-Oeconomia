@@ -7,11 +7,11 @@ const timersfot = () => {
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
   useEffect(() => {
-    const target = new Date("03/31/2022 21:00:00");
+    const target = new Date("2022-03-31T23:59:59Z").getTime();
     
     const interval = setInterval(() => {
-      const now = new Date();
-      const difference = target.getTime() - now.getTime();
+      const now = new Date().getTime();
+      const difference = target - now;
 
       const d = Math.floor(difference / (1000 * 60 * 60 * 24));
       setDays(d);
