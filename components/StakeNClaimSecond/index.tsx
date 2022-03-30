@@ -28,7 +28,7 @@ const TotalStaked = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     flex: 1;
     border-right: 2.05843px solid #2E0752;
     padding-right: 40px;
@@ -79,6 +79,12 @@ const MyStakedText = styled.label`
     margin: 0 !important;
 `
 
+const MyStakedDescription = styled.span`
+    width: 50% !important;
+    border-bottom: 0px !important;
+    margin: 0 !important;
+`
+
 const MaxButton = styled.button`
     margin-bottom: 20px;
     padding: 5px !important;
@@ -91,7 +97,16 @@ const MyRewardsUp = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-bottom: 56px;
+    padding-bottom: 16px;
+    border-bottom: 2.05843px solid #2E0752;
+`
+
+const MyRewardsMiddle = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 24px;
+    padding-top: 16px;
     border-bottom: 2.05843px solid #2E0752;
 `
 
@@ -145,30 +160,60 @@ const StakeNClaimSecond = ({
                         </StakedValue>
                     </TotalStakedText>
                 </div>
-                <div className='gFotCurrencyt-selection' style={{display: "flex", justifyContent: 'space-between', alignItems: 'center', gap: '10px'}}>
-                    <span className="wallet-label" style={{fontSize:'18px', height: 'unset'}}>{from}</span>
-                    <InputWithIncDec
-                        handleBurnMinus={handleBurnMinus}
-                        burnAmount={gfotStakingAmount}
-                        onBurnChange={onBurnChange}
-                        handleBurnPlus={handleBurnPlus}
-                    />
+                <div>
+                    <div className='gFotCurrencyt-selection' style={{display: "flex", justifyContent: 'space-between', alignItems: 'center', gap: '10px'}}>
+                        <span className="wallet-label" style={{fontSize:'18px', height: 'unset'}}>{from}</span>
+                        <InputWithIncDec
+                            handleBurnMinus={handleBurnMinus}
+                            burnAmount={gfotStakingAmount}
+                            onBurnChange={onBurnChange}
+                            handleBurnPlus={handleBurnPlus}
+                        />
+                    </div>
+                    <div className='gFotCurrencyt-selection' style={{display: "flex", justifyContent: 'space-between', alignItems: 'center', gap: '10px'}}>
+                        <span className="wallet-label" style={{fontSize:'18px', height: 'unset'}}>{to}</span>
+                        <InputWithIncDec
+                            handleBurnMinus={handleBurnMinus}
+                            burnAmount={gfotStakingAmount}
+                            onBurnChange={onBurnChange}
+                            handleBurnPlus={handleBurnPlus}
+                            maxW="216px"
+                        />
+                    </div>
                 </div>
-                <div className='gFotCurrencyt-selection' style={{display: "flex", justifyContent: 'space-between', alignItems: 'center', gap: '10px'}}>
-                    <span className="wallet-label" style={{fontSize:'18px', height: 'unset'}}>{to}</span>
-                    <InputWithIncDec
-                        handleBurnMinus={handleBurnMinus}
-                        burnAmount={gfotStakingAmount}
-                        onBurnChange={onBurnChange}
-                        handleBurnPlus={handleBurnPlus}
-                        maxW="216px"
-                    />
-                </div>
-                <button className={`default-btn ${!toggle && 'secondary-btn'}`} style={{marginTop: '28px'}} onClick={handleFotStaking}>Stake</button>
+                <button className={`default-btn ${!toggle && 'secondary-btn'}`} style={{marginTop: '28px'}} onClick={handleFotStaking}>Add Liquidity</button>
             </TotalStaked>
             <MyStaked>
                 <MyStakedContent className="wallet-text">
                     <MyRewardsUp>
+                        <div className='gFotCurrencyt-selection' style={{display: "flex", justifyContent: 'space-between', alignItems: 'center', gap: '10px'}}>
+                            <MyStakedDescription className="wallet-label" style={{fontSize:'18px', height: 'unset', textAlign: 'left'}}>{from}</MyStakedDescription>
+                            <InputWithIncDec
+                                handleBurnMinus={handleBurnMinus}
+                                burnAmount={gfotStakingAmount}
+                                onBurnChange={onBurnChange}
+                                handleBurnPlus={handleBurnPlus}
+                        />
+                        </div>
+                        <div className='gFotCurrencyt-selection' style={{display: "flex", justifyContent: 'space-between', alignItems: 'center', gap: '10px'}}>
+                            <MyStakedDescription className="wallet-label" style={{fontSize:'18px', height: 'unset', textAlign: 'left'}}>{to}</MyStakedDescription>
+                            <InputWithIncDec
+                                handleBurnMinus={handleBurnMinus}
+                                burnAmount={gfotStakingAmount}
+                                onBurnChange={onBurnChange}
+                                handleBurnPlus={handleBurnPlus}
+                                maxW="216px"
+                            />
+                        </div>
+                        <button
+                            className={`default-btn  ${!toggle && 'secondary-btn'}`}
+                            style={{marginTop: '36px'}}
+                            onClick={handleFotStakingUnstake}
+                        >
+                            Stake
+                        </button>
+                    </MyRewardsUp>
+                    <MyRewardsMiddle>
                         <MyStakedText className="wallet-label" style={{textAlign: 'center'}}>My Stakes</MyStakedText>
                         <MyStakedText className="wallet-label">
                             {from}
@@ -184,15 +229,12 @@ const StakeNClaimSecond = ({
                                 {0}
                             </StakedValue>
                         </MyStakedText>
-                        <button
-                            className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
-                            style={{marginTop: '36px'}}
-                            onClick={handleFotStakingUnstake}
-                        >
-                            Unstake
-                        </button>
-                    </MyRewardsUp>
-                    <div className="w-full">
+                        <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                            <button className={`default-btn ${!toggle && 'secondary-btn outlined'}`} style={{minWidth: 'unset', padding: '13px 30px'}} onClick={() => console.log('here')}>Max</button>
+                            <button className={`default-btn ${!toggle && 'secondary-btn outlined'}`} style={{minWidth: 'unset', padding: '13px 30px'}} onClick={() => console.log('here')}>Unstake</button>
+                        </div>
+                    </MyRewardsMiddle>
+                    <div className="w-full" style={{marginTop: '20px'}}>
                         <MyStakedText className="wallet-label">
                             My Rewards
                             <StakedValue>
