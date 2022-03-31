@@ -137,7 +137,7 @@ const StakeNClaimSecond = ({
         <Wrapper>
             <TotalStaked>
                 <div className="wallet-text w-full" style={{marginBottom: '28px', paddingBottom: '26px', borderBottom: '2.05843px solid #2E0752'}}>
-                    <TotalStakedText className="wallet-label" style={{textAlign: 'center'}}>Total Stakes</TotalStakedText>
+                    <TotalStakedText className="wallet-label" style={{textAlign: 'center'}}>Total Assests in Pool</TotalStakedText>
                     <TotalStakedText className="wallet-label">
                         {from}
                         <StakedValue>
@@ -153,7 +153,7 @@ const StakeNClaimSecond = ({
                         </StakedValue>
                     </TotalStakedText>
                     <TotalStakedText className="wallet-label" style={{fontSize:'18px'}}>
-                        APY
+                        DPR
                         <StakedValue>
                             {" "}
                             {APY}
@@ -185,7 +185,7 @@ const StakeNClaimSecond = ({
             </TotalStaked>
             <MyStaked>
                 <MyStakedContent className="wallet-text">
-                    <MyRewardsUp>
+{/*                     <MyRewardsUp>
                         <div className='gFotCurrencyt-selection' style={{display: "flex", justifyContent: 'space-between', alignItems: 'center', gap: '10px'}}>
                             <MyStakedDescription className="wallet-label" style={{fontSize:'18px', height: 'unset', textAlign: 'left'}}>{from}</MyStakedDescription>
                             <InputWithIncDec
@@ -212,9 +212,9 @@ const StakeNClaimSecond = ({
                         >
                             Stake
                         </button>
-                    </MyRewardsUp>
+                    </MyRewardsUp> */}
                     <MyRewardsMiddle>
-                        <MyStakedText className="wallet-label" style={{textAlign: 'center'}}>My Stakes</MyStakedText>
+                        <MyStakedText className="wallet-label" style={{textAlign: 'center'}}>My Liquidity</MyStakedText>
                         <MyStakedText className="wallet-label">
                             {from}
                             <StakedValue>
@@ -230,8 +230,15 @@ const StakeNClaimSecond = ({
                             </StakedValue>
                         </MyStakedText>
                         <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                            <button className={`default-btn ${!toggle && 'secondary-btn outlined'}`} style={{minWidth: 'unset', padding: '13px 30px'}} onClick={() => console.log('here')}>Max</button>
-                            <button className={`default-btn ${!toggle && 'secondary-btn outlined'}`} style={{minWidth: 'unset', padding: '13px 30px'}} onClick={() => console.log('here')}>Unstake</button>
+ {/*                            <button className={`default-btn ${!toggle && 'secondary-btn outlined'}`} style={{minWidth: 'unset', padding: '13px 30px'}} onClick={() => console.log('here')}>Max</button> */}
+                            <button className={`default-btn ${!toggle && 'secondary-btn outlined'}`} style={{minWidth: 'unset', padding: '3px 10px'}} onClick={() => console.log('here')}>Unstake All</button>
+                            <button
+                            className={`default-btn  ${!toggle && 'secondary-btn'}`}
+                            style={{minWidth: 'unset', padding: '3px 30px'}}
+                            onClick={handleFotStakingUnstake}
+                        >
+                            Stake All
+                        </button>
                         </div>
                     </MyRewardsMiddle>
                     <div className="w-full" style={{marginTop: '20px'}}>

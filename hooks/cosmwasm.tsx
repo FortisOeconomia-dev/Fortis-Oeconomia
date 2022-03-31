@@ -31,6 +31,7 @@ export interface ISigningCosmWasmClientContext {
   nativeBalanceStr: string,
   atomBalance: number,
   osmoBalance: number,
+  ustBalance: number,
   fotBalance: number,
   fotBalanceStr: string,
   fotTokenInfo: any,
@@ -134,6 +135,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   const [nativeBalanceStr, setNativeBalanceStr] = useState('')
   const [atomBalance, setAtomBalance] = useState(0)
   const [osmoBalance, setOsmoBalance] = useState(0)
+  const [ustBalance, setUstBalance] = useState(0)
   const [fotBalance, SetFotBalance] = useState(0)
   const [fotBalanceStr, SetFotBalanceStr] = useState('')
   const [bfotBalance, SetBfotBalance] = useState(0)
@@ -315,9 +317,12 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       //Native balance
       const objectAtom:JsonObject = await signingClient.getBalance(walletAddress, "ibc/C4CFF46FD6DE35CA4CF4CE031E643C8FDC9BA4B99AE598E9B0ED98FE3A2319F9");
       const objectOsmo:JsonObject = await signingClient.getBalance(walletAddress, "ibc/ED07A3391A112B175915CD8FAF43A2DA8E4790EDE12566649D0C2F97716B8518");
+      const objectUST:JsonObject = await signingClient.getBalance(walletAddress, "ibc/2DA4136457810BCB9DAAB620CA67BC342B17C3C70151CA70490A170DF7C9CB27");
 
       setAtomBalance(convertMicroDenomToDenom(objectAtom.amount))
       setOsmoBalance(convertMicroDenomToDenom(objectOsmo.amount))
+      setUstBalance(convertMicroDenomToDenom(objectUST.amount))
+      
       const objectNative: JsonObject = await signingClient.getBalance(walletAddress, PUBLIC_STAKING_DENOM)
       setNativeBalanceStr(`${convertMicroDenomToDenom(objectNative.amount)} ${convertFromMicroDenom(objectNative.denom)}`)
       setNativeBalance(convertMicroDenomToDenom(objectNative.amount))
@@ -964,6 +969,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     nativeBalance,
     atomBalance,
     osmoBalance,
+    ustBalance,
     nativeBalanceStr,
     fotBalance,
     fotBalanceStr,

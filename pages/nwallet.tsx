@@ -151,6 +151,7 @@ const nwallet = () => {
     nativeBalance,
     walletAddress,
     gfotBalance,
+    ustBalance,
   } = useSigningClient();
   const {toggle} = useContext(ToggleContext)
   
@@ -186,7 +187,7 @@ const nwallet = () => {
     },
     {
       label: 'UST',
-      amount: 0,
+      amount: ustBalance,
       image: '../images/ust.png'
     },
     {
