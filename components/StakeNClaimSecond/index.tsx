@@ -153,10 +153,10 @@ const StakeNClaimSecond = ({
                         </StakedValue>
                     </TotalStakedText>
                     <TotalStakedText className="wallet-label" style={{ fontSize: '18px' }}>
-                        DPR
+                        Epoch Reward
                         <StakedValue>
                             {" "}
-                            {APY} %
+                            {10000} FOT
                         </StakedValue>
                     </TotalStakedText>
                 </div>
