@@ -247,7 +247,7 @@ const StakeNClaimSecond = ({
                             <button className={`default-btn ${!toggle && 'secondary-btn outlined'}`} style={{ minWidth: 'unset', padding: '3px 10px' }} onClick={() => console.log('here')}>Unstake All</button>
 
                         </div>
-                        <MyStakedText className="wallet-label" style={{ textAlign: 'center', fontSize:"14px" }}>Unbounding period is 14 days</MyStakedText>
+                        <MyStakedText className="wallet-label" style={{ textAlign: 'center', fontSize:"16px" }}>Unbounding period is 14 days</MyStakedText>
                     </MyRewardsMiddle>
                     <div className="w-full" style={{ marginBottom: '120px' }}>
                         <MyStakedText className="wallet-label">
