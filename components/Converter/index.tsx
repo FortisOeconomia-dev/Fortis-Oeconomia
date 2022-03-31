@@ -38,7 +38,7 @@ const Converter = ({
     return (
         <Wrapper defaultChecked={wfull}>
             <FromConv 
-                from={!exchange ? from : to} 
+                from={!exchange ? from : to}
                 fromImage={!exchange ? fromImage : toImage}
                 handleBurnMinus={handleBurnMinus} 
                 burnAmount={burnAmount} 

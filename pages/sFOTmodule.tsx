@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { useEffect, MouseEvent, ChangeEvent } from "react";
-import Timer from "../components/Shared/timersfot"
 import styled from 'styled-components'
 
 import { useContext } from 'react'
@@ -148,10 +147,10 @@ const sfotmodule = () => {
       key: 'gFOT on Sale',
       value: `${convertMicroDenomToDenom2(clearanceContractInfo.gfot_amount, gfotTokenInfo.decimals)}`
     },
-/*     {
-      key: 'sFOT Price',
-      value: `${convertMicroDenomToDenom2(clearanceContractInfo.sfot_price, 6)}`
-    } */
+//    {
+//      key: 'sFOT Price',
+//      value: `${convertMicroDenomToDenom2(clearanceContractInfo.sfot_price, 6)}`
+//    } 
   ]
 
   //Stable Handling
@@ -253,7 +252,7 @@ const sfotmodule = () => {
       </AssetImageWrapper>
     </OutWrapper>
   return (
-    <Wrapper defaultChecked={toggle}>
+     <Wrapper defaultChecked={toggle}>
       {page < 2 ? 
       <>
         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-around', flexWrap:'wrap', gap: '50px'}} className="w-full">
@@ -285,14 +284,14 @@ const sfotmodule = () => {
         <Pools>
         <PoolsContent>
           <Title>Assets</Title>
-{/*            <Pool 
+{/*             <Pool 
             from="sFOT" 
             to="USDC" 
             fromImage={sFOTImage}
             toImage="/images/usdc.png"
             onClick={() => setAsset(0)}
             isActive={asset===0}
-          /> */}
+          />  */}
           <Pool
             from="sFOT" 
             to="UST" 
@@ -353,9 +352,6 @@ const sfotmodule = () => {
       </div>
       </>}
     </Wrapper>
-    // <div style={{flex: '1'}}>
-    // <Timer />
-    // </div>
   )
 }
 
