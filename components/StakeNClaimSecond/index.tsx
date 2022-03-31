@@ -153,10 +153,10 @@ const StakeNClaimSecond = ({
                         </StakedValue>
                     </TotalStakedText>
                     <TotalStakedText className="wallet-label" style={{fontSize:'18px'}}>
-                        DPR
+                        DPR 
                         <StakedValue>
                             {" "}
-                            {APY}
+                            {APY} %
                         </StakedValue>
                     </TotalStakedText>
                 </div>
@@ -181,6 +181,12 @@ const StakeNClaimSecond = ({
                         />
                     </div>
                 </div>
+                <MaxButton
+                    onClick={() => handlegFotStakingChange(gfotBalance)}
+                    className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
+                >
+                    Max
+                </MaxButton>
                 <button className={`default-btn ${!toggle && 'secondary-btn'}`} style={{marginTop: '28px'}} onClick={handleFotStaking}>Add Liquidity</button>
             </TotalStaked>
             <MyStaked>
