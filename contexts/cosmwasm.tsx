@@ -96,7 +96,19 @@ let { Provider } = (CosmWasmContext =
     handleStableGfotChange: () => {},
     executeStable: () => {},
     handleClearanceSfotChange: () => {},
-    executeClearance: () => {}
+    executeClearance: () => {},
+
+    sfotUstLpBalance: 0,
+    sfotBfotLpBalance: 0,
+    sfotUstLpTokenInfo: null,
+    sfotBfotLpTokenInfo: null,
+    sfotUstPoolInfo: null,
+    sfotBfotPoolInfo: null,
+
+    handleAddLiquidityValuesChange: () => {},
+    executeAddLiquidity: () => {},
+    executeRemoveLiquidity: () => {}
+    
   }))
 
 export const useSigningClient = (): ISigningCosmWasmClientContext =>

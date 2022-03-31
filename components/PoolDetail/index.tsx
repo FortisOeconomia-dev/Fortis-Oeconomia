@@ -1,7 +1,20 @@
 import styled from 'styled-components'
 import StakeNClaimSecond from "../StakeNClaimSecond"
-import { useContext } from 'react'
+import { useContext, useEffect, useState, ChangeEvent, MouseEvent } from 'react'
 import { ToggleContext } from "../Layout/Layout";
+import {
+    convertMicroDenomToDenom,
+    convertDenomToMicroDenom,
+    convertMicroDenomToDenom2,
+    convertDenomToMicroDenom2,
+    convertFromMicroDenom
+} from '../../util/conversion'
+import { useSigningClient } from "../../contexts/cosmwasm";
+import {
+    NotificationContainer,
+    NotificationManager,
+} from "react-notifications";
+
 const Wrapper = styled.div`
     display: flex;
     flex: 1;
@@ -28,12 +41,166 @@ const Divider = styled.div`
   background: linear-gradient(180deg,#171E0E 0%,#FFFFFF 100%);
 `
 const PoolDetail = ({
+    asset,
     from,
     to,
     fromImage,
     toImage
 }) => {
+    
     const {toggle} = useContext(ToggleContext)
+    const {
+        fotTokenInfo,
+        gfotTokenInfo,
+        gfotStakingContractInfo,
+        gfotStakingAmount,
+        gfotStakingApy,
+        gfotStakingMyStaked,
+        gfotStakingMyReward,
+        gfotBalance,
+        sfotBalance,
+        ustBalance,
+        bfotBalance,
+        sfotUstLpBalance,
+        sfotBfotLpBalance,
+        sfotUstLpTokenInfo,
+        sfotBfotLpTokenInfo,
+        sfotUstPoolInfo,
+        sfotBfotPoolInfo,
+        sfotTokenInfo,
+        bfotTokenInfo,
+        handleAddLiquidityValuesChange,
+        executeAddLiquidity,
+        executeRemoveLiquidity,
+        loading,
+        signingClient,
+        walletAddress
+    } = useSigningClient();
+
+    const [poolInfo, setPoolInfo] = useState(null)
+    const [decimals, setDecimals] = useState([10, 10])
+    
+    const [token1Balance, setToken1Balance] = useState(0)
+    const [token2Balance, setToken2Balance] = useState(0)
+
+    const [token1TotalAmount, setToken1TotalAmount] = useState(0)
+    const [token2TotalAmount, setToken2TotalAmount] = useState(0)
+
+    const [token1Amount, setToken1Amount] = useState(0)
+    const [token2Amount, setToken2Amount] = useState(0)
+
+    const [myToken1Amount, setMyToken1Amount] = useState(0)
+    const [myToken2Amount, setMyToken2Amount] = useState(0)
+
+
+    useEffect(()=> {
+        if (loading)
+            return
+        setToken1Balance(sfotBalance)
+        
+        if (asset == 0) {
+            setPoolInfo(sfotUstPoolInfo)
+            setDecimals([10, 6])
+            setToken2Balance(ustBalance)
+            
+
+        } else if (asset == 1) {
+            setPoolInfo(sfotBfotPoolInfo)
+            setDecimals([10,10])
+            setToken2Balance(bfotBalance)
+        }
+        
+        
+    }, [asset, loading])
+
+    useEffect(() => {
+        if (poolInfo == null)
+            return
+        setToken1TotalAmount(convertMicroDenomToDenom2(poolInfo.token1_reserve, decimals[0]))
+        setToken2TotalAmount(convertMicroDenomToDenom2(poolInfo.token2_reserve, decimals[1]))
+    }, [poolInfo])
+
+    const updateAmounts = async(token1:number, token2:number, fix:number)=> {
+        let ret = await handleAddLiquidityValuesChange(asset, token1, token2, fix)
+        setToken1Amount(ret.token1Amount)
+        setToken2Amount(ret.token2Amount)
+    }
+
+    const handleLiquidityMax= async () => {
+        let ret = await handleAddLiquidityValuesChange(asset, token1Balance, token2Balance, 1)
+        setToken1Amount(ret.token1Amount)
+        setToken2Amount(ret.token2Amount)
+    }
+
+    const onToken1Change = (event: ChangeEvent<HTMLInputElement>) => {
+        const { target: { value } } = event
+        console.log(value)
+        if (Number(value) > token1Balance)
+            return
+        if (Number(value) < 0)
+            return
+        updateAmounts(Number(value), token2Amount, 1)
+    }
+    const handleToken1Plus = () => {
+        if (token1Amount + 1 > token1Balance)
+          return
+        updateAmounts(token1Amount + 1, token2Amount, 1)
+    }
+    const handleToken1Minus = () => {
+        if (token1Amount - 1 < 0)
+            return
+        updateAmounts(token1Amount - 1, token2Amount, 1)
+    }
+    const onToken2Change = (event: ChangeEvent<HTMLInputElement>) => {
+        const { target: { value } } = event
+        console.log(value)
+        if (Number(value) > token2Balance)
+            return
+        if (Number(value) < 0)
+            return
+        updateAmounts(token1Amount, Number(value), 2)
+    }
+    const handleToken2Plus = () => {
+        if (token2Amount + 1 > token2Balance)
+          return
+        updateAmounts(token1Amount, token2Amount + 1, 2)
+    }
+    const handleToken2Minus = () => {
+        if (token2Amount - 1 < 0)
+            return
+        updateAmounts(token1Amount, token2Amount - 1, 2)
+    }
+
+    const handleAddLiquidity = async (event: MouseEvent<HTMLElement>) => {
+
+        if (!signingClient || walletAddress.length === 0) {
+            NotificationManager.error("Please connect wallet first");
+            return;
+        }
+        if (token1Amount == 0 || token2Amount == 0)
+            return
+        event.preventDefault()
+
+        await executeAddLiquidity(asset, token1Amount, token2Amount)
+        setToken1Amount(0)
+        setToken2Amount(0)
+    }
+    
+    const handleRemoveLiquidity = async (event: MouseEvent<HTMLElement>) => {
+
+        if (!signingClient || walletAddress.length === 0) {
+            NotificationManager.error("Please connect wallet first");
+            return;
+        }
+        event.preventDefault()
+
+        await executeRemoveLiquidity(asset)
+        setToken1Amount(0)
+        setToken2Amount(0)
+    }
+    
+
+    
     return (
         <Wrapper>
             <div className='w-full'>
@@ -46,12 +213,33 @@ const PoolDetail = ({
                     <Title>{from}-{to} Pool</Title>
                 </TitleWrapper>
                 <StakeNClaimSecond
-                    handleBurnMinus={() => console.log('hello')}
-                    onBurnChange={() => console.log('hello')}
-                    handleBurnPlus={() => console.log('hello')}
-                    handleFotStaking={() => console.log('hello')}
-                    handleFotStakingUnstake={() => console.log('hello')}
-                    handleFotStakingClaimReward={() => console.log('hello')}
+                    token1TotalAmount={token1TotalAmount}
+                    token2TotalAmount={token2TotalAmount}
+                
+                    handleToken1Minus={handleToken1Minus}
+                    handleToken1Plus={handleToken1Plus}
+                    onToken1Change={onToken1Change}
+                    token1Amount={token1Amount}
+                
+                    handleToken2Minus={handleToken2Minus}
+                    handleToken2Plus={handleToken2Plus}
+                    onToken2Change={onToken2Change}
+                    token2Amount={token2Amount}
+                
+                    handleLiquidityMax={handleLiquidityMax}
+                    handleAddLiquidity={handleAddLiquidity}
+                    handleRemoveLiquidity={handleRemoveLiquidity}
+
+                    myToken1Amount={myToken1Amount}
+                    myToken2Amount={myToken2Amount}
+
+                    handleLpStaking={() => console.log('hello')}
+                    handleLpUnstaking={() => console.log('hello')}
+                    handleLpStakingReward={() => console.log('hello')}
+                
+                    lpStakingMyReward={() => console.log('hello')}
+                    lpStakingMyStaked={() => console.log('hello')}
+                    
                     from={from}
                     to={to}
                     APY={0}

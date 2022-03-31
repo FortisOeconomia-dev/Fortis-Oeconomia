@@ -313,6 +313,7 @@ const sfotmodule = () => {
         <Divider />
       </Pools>
       <PoolDetail
+        asset={asset}
         from={assets[asset].from}
         to={assets[asset].to}
         fromImage={assets[asset].fromImage}

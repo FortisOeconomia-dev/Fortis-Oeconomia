@@ -1,15 +1,9 @@
-import { useSigningClient } from "../../contexts/cosmwasm";
-import {
-    convertMicroDenomToDenom,
-    convertDenomToMicroDenom,
-    convertMicroDenomToDenom2,
-    convertDenomToMicroDenom2,
-    convertFromMicroDenom
-} from '../../util/conversion'
 import InputWithIncDec from '../InputWithIncDec'
 import styled from 'styled-components'
 import { useContext } from 'react'
 import { ToggleContext } from "../Layout/Layout";
+
+
 
 const Wrapper = styled.div`
     padding: 50px 32px;
@@ -111,45 +105,56 @@ const MyRewardsMiddle = styled.div`
 `
 
 const StakeNClaimSecond = ({
-    handleBurnMinus,
-    onBurnChange,
-    handleBurnPlus,
-    handleFotStaking,
-    handleFotStakingUnstake,
-    handleFotStakingClaimReward,
+    token1TotalAmount,
+    token2TotalAmount,
+
+    handleToken1Minus,
+    handleToken1Plus,
+    onToken1Change,
+    token1Amount,
+
+    handleToken2Minus,
+    handleToken2Plus,
+    onToken2Change,
+    token2Amount,
+
+    handleLiquidityMax,
+    handleAddLiquidity,
+    handleRemoveLiquidity,
+
+    myToken1Amount,
+    myToken2Amount, 
+    handleLpStaking,
+    handleLpUnstaking,
+    handleLpStakingReward,
+
+    lpStakingMyReward,
+    lpStakingMyStaked,
     from,
     to,
     APY,
 }) => {
-    const {
-        fotTokenInfo,
-        gfotTokenInfo,
-        gfotStakingContractInfo,
-        gfotStakingAmount,
-        gfotStakingApy,
-        gfotStakingMyStaked,
-        gfotStakingMyReward,
-        gfotBalance,
-        handlegFotStakingChange,
-    } = useSigningClient();
+
+    
+    
     const { toggle } = useContext(ToggleContext)
     return (
         <Wrapper>
             <TotalStaked>
                 <div className="wallet-text w-full" style={{ marginBottom: '28px', paddingBottom: '26px', borderBottom: '2.05843px solid #2E0752' }}>
-                    <TotalStakedText className="wallet-label" style={{ textAlign: 'center' }}>Total Assests in Pool</TotalStakedText>
+                    <TotalStakedText className="wallet-label" style={{ textAlign: 'center' }}>Total Assets in Pool</TotalStakedText>
                     <TotalStakedText className="wallet-label">
                         {from}
                         <StakedValue>
                             {" "}
-                            {0}
+                            {token1TotalAmount}
                         </StakedValue>
                     </TotalStakedText>
                     <TotalStakedText className="wallet-label" style={{ fontSize: '18px' }}>
                         {to}
                         <StakedValue>
                             {" "}
-                            {"0"}
+                            {token2TotalAmount}
                         </StakedValue>
                     </TotalStakedText>
                     <TotalStakedText className="wallet-label" style={{ fontSize: '18px' }}>
@@ -164,30 +169,31 @@ const StakeNClaimSecond = ({
                     <div className='gFotCurrencyt-selection' style={{ display: "flex", justifyContent: 'space-between', alignItems: 'center', gap: '10px' }}>
                         <span className="wallet-label" style={{ fontSize: '18px', height: 'unset' }}>{from}</span>
                         <InputWithIncDec
-                            handleBurnMinus={handleBurnMinus}
-                            burnAmount={gfotStakingAmount}
-                            onBurnChange={onBurnChange}
-                            handleBurnPlus={handleBurnPlus}
+                            handleBurnMinus={handleToken1Minus}
+                            burnAmount={token1Amount}
+                            onBurnChange={onToken1Change}
+                            handleBurnPlus={handleToken1Plus}
                         />
                     </div>
                     <div className='gFotCurrencyt-selection' style={{ display: "flex", justifyContent: 'space-between', alignItems: 'center', gap: '10px' }}>
                         <span className="wallet-label" style={{ fontSize: '18px', height: 'unset' }}>{to}</span>
                         <InputWithIncDec
-                            handleBurnMinus={handleBurnMinus}
-                            burnAmount={gfotStakingAmount}
-                            onBurnChange={onBurnChange}
-                            handleBurnPlus={handleBurnPlus}
+                            handleBurnMinus={handleToken2Minus}
+                            burnAmount={token2Amount}
+                            onBurnChange={onToken2Change}
+                            handleBurnPlus={handleToken2Plus}
                             maxW="216px"
                         />
                     </div>
                 </div>
                 <MaxButton
-                    onClick={() => handlegFotStakingChange(gfotBalance)}
+                    onClick={handleLiquidityMax}
                     className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
                 >
                     Max
                 </MaxButton>
-                <button className={`default-btn ${!toggle && 'secondary-btn'}`} style={{ marginTop: '28px' }} onClick={handleFotStaking}>Add Liquidity</button>
+                <button className={`default-btn ${!toggle && 'secondary-btn'}`} style={{ marginTop: '28px' }} onClick={handleAddLiquidity}>Add Liquidity</button>
+                <button className={`default-btn ${!toggle && 'secondary-btn'}`} style={{ marginTop: '28px' }} onClick={handleRemoveLiquidity}>Remove All Liquidity</button>
             </TotalStaked>
             <MyStaked>
                 <MyStakedContent className="wallet-text">
@@ -225,14 +231,14 @@ const StakeNClaimSecond = ({
                             {from}
                             <StakedValue>
                                 {" "}
-                                {0}
+                                {myToken1Amount}
                             </StakedValue>
                         </MyStakedText>
                         <MyStakedText className="wallet-label">
                             {to}
                             <StakedValue>
                                 {" "}
-                                {0}
+                                {myToken2Amount}
                             </StakedValue>
                         </MyStakedText>
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -240,11 +246,11 @@ const StakeNClaimSecond = ({
                             <button
                                 className={`default-btn  ${!toggle && 'secondary-btn'}`}
                                 style={{ minWidth: 'unset', padding: '3px 30px' }}
-                                onClick={handleFotStakingUnstake}
+                                onClick={handleLpStaking}
                             >
                                 Stake All
                             </button>
-                            <button className={`default-btn ${!toggle && 'secondary-btn outlined'}`} style={{ minWidth: 'unset', padding: '3px 10px' }} onClick={() => console.log('here')}>Unstake All</button>
+                            <button className={`default-btn ${!toggle && 'secondary-btn outlined'}`} style={{ minWidth: 'unset', padding: '3px 10px' }} onClick={handleLpUnstaking}>Unstake All</button>
 
                         </div>
                         <MyStakedText className="wallet-label" style={{ textAlign: 'center', fontSize:"16px" }}>Unbounding period is 14 days</MyStakedText>
@@ -254,10 +260,10 @@ const StakeNClaimSecond = ({
                             My Rewards
                             <StakedValue>
                                 {" "}
-                                {convertMicroDenomToDenom2(gfotStakingMyReward, fotTokenInfo.decimals)}
+                                {lpStakingMyReward}
                             </StakedValue>
                         </MyStakedText>
-                        <button className={`default-btn   ${!toggle && 'secondary-btn'}`} onClick={handleFotStakingClaimReward}>Claim</button>
+                        <button className={`default-btn   ${!toggle && 'secondary-btn'}`} onClick={handleLpStakingReward}>Claim</button>
                     </div>
                 </MyStakedContent>
 
