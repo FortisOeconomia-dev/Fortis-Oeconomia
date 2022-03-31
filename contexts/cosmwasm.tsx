@@ -20,6 +20,7 @@ let { Provider } = (CosmWasmContext =
     nativeBalance: 0,
     atomBalance:0,
     osmoBalance:0,
+    ustBalance:0,
     nativeBalanceStr: '',
     fotBalance: 0,
     fotBalanceStr: '',
@@ -68,6 +69,7 @@ let { Provider } = (CosmWasmContext =
 
     bFot2Juno: 0,
     Juno2bFot: 0,
+    bFot2Ust: 0,
     poolDpr: 0,
 
     executeMonetaAirdrop: () => {},
@@ -80,6 +82,21 @@ let { Provider } = (CosmWasmContext =
     executeFetchUnstake: () => {},
     unstakeAmount: 0,
     handleUnstakeChange: () => {},
+
+    sfotBalance: 0,
+    sfotBalanceStr: '',
+    sfotTokenInfo: null,
+    stableContractInfo: null,
+    clearanceContractInfo: null,
+    stableGfotAmount: '',
+    stableExpectedSfotAmount: 0,
+    clearanceSfotAmount: '',
+    clearanceExpectedGfotAmount: 0,
+
+    handleStableGfotChange: () => {},
+    executeStable: () => {},
+    handleClearanceSfotChange: () => {},
+    executeClearance: () => {}
   }))
 
 export const useSigningClient = (): ISigningCosmWasmClientContext =>

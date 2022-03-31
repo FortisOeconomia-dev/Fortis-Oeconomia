@@ -149,8 +149,10 @@ const nwallet = () => {
     fotBalance,
     fotBalanceStr,
     nativeBalance,
+    ustBalance,
     walletAddress,
     gfotBalance,
+    sfotBalance
   } = useSigningClient();
   const {toggle} = useContext(ToggleContext)
   
@@ -179,14 +181,14 @@ const nwallet = () => {
     },
     {
       label: 'sFOT',
-      amount: 0,
+      amount: sfotBalance,
       color: '#246B51',
       background: 'linear-gradient(180deg, #85B79D 0%, #FAFDFC 100%)',
       boxShadow: '77.5316px 20.7745px 160.533px rgba(26, 30, 44, 0.338), inset -28.9451px -7.75583px 29.9662px #606CA1, inset 28.9451px 7.75583px 29.9662px #9FB4FF'
     },
     {
       label: 'UST',
-      amount: 0,
+      amount: ustBalance,
       image: '../images/ust.png'
     },
     {

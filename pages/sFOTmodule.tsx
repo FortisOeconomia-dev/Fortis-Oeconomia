@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useEffect, MouseEvent, ChangeEvent } from "react";
 import Timer from "../components/Shared/timersfot"
 import styled from 'styled-components'
 
@@ -11,6 +12,21 @@ import StatisticBox from '../components/StatisticBox'
 import Pool from "../components/Pool";
 import PoolDetail from "../components/PoolDetail"
 import RateShow from '../components/RateShow';
+
+import { useSigningClient } from "../contexts/cosmwasm";
+import { fromBase64, toBase64 } from "@cosmjs/encoding";
+import {
+  convertMicroDenomToDenom,
+  convertDenomToMicroDenom,
+  convertMicroDenomToDenom2,
+  convertDenomToMicroDenom2,
+  convertFromMicroDenom
+} from '../util/conversion'
+import {
+  NotificationContainer,
+  NotificationManager,
+} from "react-notifications";
+import "react-notifications/lib/notifications.css"
 
 //styled components
 const Wrapper = styled.div`
@@ -77,27 +93,148 @@ const Divider = styled.div`
 `
 
 const sfotmodule = () => {
+
+
+  const {
+    walletAddress,
+    signingClient,
+    
+    getBalances,
+    nativeBalanceStr,
+    nativeBalance,
+    fotBalance,
+    fotBalanceStr,
+    fotTokenInfo,
+    bfotBalance,
+    bfotBalanceStr,
+    bfotTokenInfo,
+    gfotBalance,
+    gfotBalanceStr,
+    gfotTokenInfo,
+    sfotBalance,
+    sfotBalanceStr,
+    sfotTokenInfo,
+    bFot2Ust,
+
+    stableGfotAmount,
+    stableExpectedSfotAmount,
+    clearanceSfotAmount,
+    clearanceExpectedGfotAmount,
+
+    stableContractInfo,
+    clearanceContractInfo,
+
+    handleStableGfotChange,
+    executeStable,
+    handleClearanceSfotChange,
+    executeClearance
+
+  } = useSigningClient();
+
   const {toggle, asset, setAsset, page, setPage} = useContext(ToggleContext)
   const defaultValues0 = [
     {
       key: 'sFOT Supply',
-      value: `0`
+      value: `${convertMicroDenomToDenom2(sfotTokenInfo.total_supply, sfotTokenInfo.decimals)}`
     },
     {
-      key: 'sFOT Price',
-      value: `0`
+      key: 'bFOT Price',
+      value: bFot2Ust
     }
   ]
   const defaultValues1 = [
     {
       key: 'gFOT Supply',
-      value: `0`
+      value: `${convertMicroDenomToDenom2(clearanceContractInfo.gfot_amount, gfotTokenInfo.decimals)}`
     },
     {
-      key: 'gFOT Price',
-      value: `0`
+      key: 'sFOT Price',
+      value: `${convertMicroDenomToDenom2(clearanceContractInfo.sfot_price, 6)}`
     }
   ]
+
+  //Stable Handling
+  const handleStableSubmit = async (event: MouseEvent<HTMLElement>) => {
+    if (!signingClient || walletAddress.length === 0) {
+      NotificationManager.error("Please connect wallet first");
+      return;
+    }
+    if (Number(stableGfotAmount) == 0) {
+      NotificationManager.error("Please input the GFOT amount first");
+      return;
+    }
+    if (Number(stableGfotAmount) > Number(gfotBalance)) {
+      NotificationManager.error("Please input correct GFOT amount");
+      return;
+    }
+
+    event.preventDefault();
+    executeStable();
+  };
+
+  const onStableGfotChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { target: { value } } = event
+    if (Number(value) > Number(gfotBalance))
+      return
+    if (Number(value) < 0)
+      return
+    handleStableGfotChange(Number(value))
+  }
+
+  const handleStableGfotPlus = () => {
+    if (Number(stableGfotAmount) + 1 > Number(gfotBalance))
+      return
+
+    handleStableGfotChange((Number(stableGfotAmount) + 1))
+  }
+  const handleStableGfotMinus = () => {
+    if (Number(stableGfotAmount) - 1 < 0)
+      return
+    handleStableGfotChange((Number(stableGfotAmount) - 1))
+  }
+
+
+  //Clearance Handling
+  const handleClearanceSubmit = async (event: MouseEvent<HTMLElement>) => {
+    if (!signingClient || walletAddress.length === 0) {
+      NotificationManager.error("Please connect wallet first");
+      return;
+    }
+    if (Number(clearanceSfotAmount) == 0) {
+      NotificationManager.error("Please input the SFOT amount first");
+      return;
+    }
+    if (Number(clearanceSfotAmount) > Number(sfotBalance)) {
+      NotificationManager.error("Please input correct SFOT amount");
+      return;
+    }
+
+    event.preventDefault();
+    executeClearance();
+  };
+
+  const onClearanceSfotChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { target: { value } } = event
+    if (Number(value) > Number(sfotBalance))
+      return
+    if (Number(value) < 0)
+      return
+    handleClearanceSfotChange(Number(value))
+  }
+
+  const handleClearanceSfotPlus = () => {
+    if (Number(clearanceSfotAmount) + 1 > Number(sfotBalance))
+      return
+
+    handleClearanceSfotChange((Number(clearanceSfotAmount) + 1))
+  }
+  const handleClearanceSfotMinus = () => {
+    if (Number(clearanceSfotAmount) - 1 < 0)
+      return
+    
+    handleClearanceSfotChange((Number(clearanceSfotAmount) + 1))
+  }
+
   const sFOTImage = () => 
     <OutWrapper defaultChecked={toggle} slot={`101.76px 27.2666px 210.7px rgba(26, 30, 44, 0.338), inset -37.9905px -10.1795px 39.3307px #606CA1, inset 37.9905px 10.1795px 39.3307px #9FB4FF`}>
       <AssetImageWrapper slot={`linear-gradient(180deg, #85B79D 0%, #FAFDFC 100%)`}>
@@ -115,109 +252,109 @@ const sfotmodule = () => {
       </AssetImageWrapper>
     </OutWrapper>
   return (
-//     <Wrapper defaultChecked={toggle}>
-//       {page < 2 ? 
-//       <>
-//         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-around', flexWrap:'wrap', gap: '50px'}} className="w-full">
-//           <Converter
-//             wfull={false}
-//             handleBurnMinus={() => console.log('here')}
-//             burnAmount={0}
-//             onBurnChange={() => console.log('here')}
-//             handleBurnPlus={() => console.log('here')}
-//             expectedAmount={0}
-//             convImg={() => 
-//               <svg width="127" height="70" viewBox="0 0 127 94" fill="none" xmlns="http://www.w3.org/2000/svg">
-//                   <line x1="1.23677" y1="2.15124" x2="63.3153" y2="92.6086" stroke="#171E0E" strokeWidth="3"/>
-//                   <line x1="62.7632" y1="91.6095" x2="124.841" y2="1.15126" stroke="#171E0E" strokeWidth="3"/>
-//               </svg>
-//             }
-//             from={page === 0 ? 'sFOT':'gFOT'}
-//             to={page === 0 ? 'gFOT':'sFOT'}
-//             handleSubmit={() => console.log('here')}
-//             balance={0}
-//             handleChange={() => console.log('here')}
-//             sbalance={0}
-//             submitTitle={page === 0 ? 'Mint':'Purchase'}
-//           />
-//           <StatisticBox values={page===0 ? defaultValues0: defaultValues1} page={page} setPage={setPage} />
-//         </div>
-//       </> :
-//       <>
-//         <Pools>
-//         <PoolsContent>
-//           <Title>Assets</Title>
-//{/*            <Pool 
-//             from="sFOT" 
-//             to="USDC" 
-//             fromImage={sFOTImage}
-//             toImage="/images/usdc.png"
-//             onClick={() => setAsset(0)}
-//             isActive={asset===0}
-//           /> */}
-//           <Pool
-//             from="sFOT" 
-//             to="UST" 
-//             fromImage={sFOTImage}
-//             toImage="/images/ust.png"
-//             onClick={() => setAsset(0)}
-//             isActive={asset===0}
-//           />
-//           <Pool
-//             from="sFOT" 
-//             to="bFOT" 
-//             fromImage={sFOTImage}
-//             toImage={bFOTImage}
-//             onClick={() => setAsset(1)}
-//             isActive={asset===1}
-//           />
-//         </PoolsContent>
-//         <Divider />
-//       </Pools>
-//       <PoolDetail
-//         from={assets[asset].from}
-//         to={assets[asset].to}
-//         fromImage={assets[asset].fromImage}
-//         toImage={assets[asset].toImage}
-//       />
-//       <div>
-//         <Title>Swap</Title>
-//         <Converter
-//           maxW='328px'
-//           wfull={false}
-//           handleBurnMinus={() => console.log('here')}
-//           burnAmount={0}
-//           onBurnChange={() => console.log('here')}
-//           handleBurnPlus={() => console.log('here')}
-//           expectedAmount={0}
-//           convImg={() => 
-//             <svg width="127" height="70" viewBox="0 0 127 94" fill="none" xmlns="http://www.w3.org/2000/svg">
-//                 <line x1="1.23677" y1="2.15124" x2="63.3153" y2="92.6086" stroke="#171E0E" strokeWidth="3"/>
-//                 <line x1="62.7632" y1="91.6095" x2="124.841" y2="1.15126" stroke="#171E0E" strokeWidth="3"/>
-//             </svg>
-//           }
-//           convImg2={() => 
-//             <svg width="32" height="70" viewBox="0 0 32 70" fill="none" xmlns="http://www.w3.org/2000/svg">
-//               <path d="M8.76721 1.23279C8.34349 0.809067 7.65651 0.809067 7.23279 1.23279L0.327891 8.13769C-0.0958281 8.56141 -0.0958281 9.24839 0.327891 9.67211C0.75161 10.0958 1.43859 10.0958 1.86231 9.67211L8 3.53442L14.1377 9.67211C14.5614 10.0958 15.2484 10.0958 15.6721 9.67211C16.0958 9.24839 16.0958 8.56141 15.6721 8.13769L8.76721 1.23279ZM9.085 68L9.085 2H6.915L6.915 68H9.085Z" fill="#171E0E"/>
-//               <path d="M23.2328 68.7672C23.6565 69.1909 24.3435 69.1909 24.7672 68.7672L31.6721 61.8623C32.0958 61.4386 32.0958 60.7516 31.6721 60.3279C31.2484 59.9042 30.5614 59.9042 30.1377 60.3279L24 66.4656L17.8623 60.3279C17.4386 59.9042 16.7516 59.9042 16.3279 60.3279C15.9042 60.7516 15.9042 61.4386 16.3279 61.8623L23.2328 68.7672ZM22.915 2L22.915 68H25.085L25.085 2L22.915 2Z" fill="#171E0E"/>
-//             </svg>
-//           }
-//           from={assets[asset].from}
-//           to={assets[asset].to}
-//           fromImage={assets[asset].fromImage}
-//           toImage={assets[asset].toImage}
-//           handleSubmit={() => console.log('here')}
-//           balance={0}
-//           handleChange={() => console.log('here')}
-//           sbalance={0}
-//           submitTitle="Swap"
-//         />
-//       </div>
-//       </>}
-//     </Wrapper>
-    <div style={{flex: '1'}}>
-    <Timer />
-    </div>
+    <Wrapper defaultChecked={toggle}>
+      {page < 2 ? 
+      <>
+        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-around', flexWrap:'wrap', gap: '50px'}} className="w-full">
+          <Converter
+            wfull={false}
+            handleBurnMinus={page === 0 ? handleStableGfotMinus : handleClearanceSfotMinus}
+            burnAmount={page === 0 ? stableGfotAmount : clearanceSfotAmount}
+            onBurnChange={page === 0 ? onStableGfotChange : onClearanceSfotChange}
+            handleBurnPlus={page === 0 ? handleStableGfotPlus : handleClearanceSfotPlus}
+            expectedAmount={page === 0 ? stableExpectedSfotAmount: clearanceExpectedGfotAmount}
+            convImg={() => 
+              <svg width="127" height="70" viewBox="0 0 127 94" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <line x1="1.23677" y1="2.15124" x2="63.3153" y2="92.6086" stroke="#171E0E" strokeWidth="3"/>
+                  <line x1="62.7632" y1="91.6095" x2="124.841" y2="1.15126" stroke="#171E0E" strokeWidth="3"/>
+              </svg>
+            }
+            from={page === 0 ? 'gFOT':'sFOT'}
+            to={page === 0 ? 'sFOT':'gFOT'}
+            handleSubmit={page === 0 ? handleStableSubmit : handleClearanceSubmit}
+            balance={page === 0 ? gfotBalance : sfotBalance}
+            handleChange={page === 0 ? handleStableGfotChange : handleClearanceSfotChange}
+            sbalance={page === 0 ? sfotBalance : gfotBalance}
+            submitTitle={page === 0 ? 'Mint':'Purchase'}
+          />
+          <StatisticBox values={page===0 ? defaultValues0: defaultValues1} page={page} setPage={setPage} />
+        </div>
+      </> :
+      <>
+        <Pools>
+        <PoolsContent>
+          <Title>Assets</Title>
+{/*            <Pool 
+            from="sFOT" 
+            to="USDC" 
+            fromImage={sFOTImage}
+            toImage="/images/usdc.png"
+            onClick={() => setAsset(0)}
+            isActive={asset===0}
+          /> */}
+          <Pool
+            from="sFOT" 
+            to="UST" 
+            fromImage={sFOTImage}
+            toImage="/images/ust.png"
+            onClick={() => setAsset(0)}
+            isActive={asset===0}
+          />
+          <Pool
+            from="sFOT" 
+            to="bFOT" 
+            fromImage={sFOTImage}
+            toImage={bFOTImage}
+            onClick={() => setAsset(1)}
+            isActive={asset===1}
+          />
+        </PoolsContent>
+        <Divider />
+      </Pools>
+      <PoolDetail
+        from={assets[asset].from}
+        to={assets[asset].to}
+        fromImage={assets[asset].fromImage}
+        toImage={assets[asset].toImage}
+      />
+      <div>
+        <Title>Swap</Title>
+        <Converter
+          maxW='328px'
+          wfull={false}
+          handleBurnMinus={() => console.log('here')}
+          burnAmount={0}
+          onBurnChange={() => console.log('here')}
+          handleBurnPlus={() => console.log('here')}
+          expectedAmount={0}
+          convImg={() => 
+            <svg width="127" height="70" viewBox="0 0 127 94" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="1.23677" y1="2.15124" x2="63.3153" y2="92.6086" stroke="#171E0E" strokeWidth="3"/>
+                <line x1="62.7632" y1="91.6095" x2="124.841" y2="1.15126" stroke="#171E0E" strokeWidth="3"/>
+            </svg>
+          }
+          convImg2={() => 
+            <svg width="32" height="70" viewBox="0 0 32 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8.76721 1.23279C8.34349 0.809067 7.65651 0.809067 7.23279 1.23279L0.327891 8.13769C-0.0958281 8.56141 -0.0958281 9.24839 0.327891 9.67211C0.75161 10.0958 1.43859 10.0958 1.86231 9.67211L8 3.53442L14.1377 9.67211C14.5614 10.0958 15.2484 10.0958 15.6721 9.67211C16.0958 9.24839 16.0958 8.56141 15.6721 8.13769L8.76721 1.23279ZM9.085 68L9.085 2H6.915L6.915 68H9.085Z" fill="#171E0E"/>
+              <path d="M23.2328 68.7672C23.6565 69.1909 24.3435 69.1909 24.7672 68.7672L31.6721 61.8623C32.0958 61.4386 32.0958 60.7516 31.6721 60.3279C31.2484 59.9042 30.5614 59.9042 30.1377 60.3279L24 66.4656L17.8623 60.3279C17.4386 59.9042 16.7516 59.9042 16.3279 60.3279C15.9042 60.7516 15.9042 61.4386 16.3279 61.8623L23.2328 68.7672ZM22.915 2L22.915 68H25.085L25.085 2L22.915 2Z" fill="#171E0E"/>
+            </svg>
+          }
+          from={assets[asset].from}
+          to={assets[asset].to}
+          fromImage={assets[asset].fromImage}
+          toImage={assets[asset].toImage}
+          handleSubmit={() => console.log('here')}
+          balance={0}
+          handleChange={() => console.log('here')}
+          sbalance={0}
+          submitTitle="Swap"
+        />
+      </div>
+      </>}
+    </Wrapper>
+    // <div style={{flex: '1'}}>
+    // <Timer />
+    // </div>
   )
 }
 
