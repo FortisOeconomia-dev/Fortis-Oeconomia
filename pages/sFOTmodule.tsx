@@ -145,13 +145,13 @@ const sfotmodule = () => {
   ]
   const defaultValues1 = [
     {
-      key: 'gFOT Supply',
+      key: 'gFOT on Sale',
       value: `${convertMicroDenomToDenom2(clearanceContractInfo.gfot_amount, gfotTokenInfo.decimals)}`
     },
-    {
+/*     {
       key: 'sFOT Price',
       value: `${convertMicroDenomToDenom2(clearanceContractInfo.sfot_price, 6)}`
-    }
+    } */
   ]
 
   //Stable Handling
