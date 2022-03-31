@@ -105,7 +105,7 @@ const MyRewardsMiddle = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
-    padding-bottom: 24px;
+    padding-bottom: 1px;
     padding-top: 16px;
     border-bottom: 2.05843px solid #2E0752;
 `
@@ -132,12 +132,12 @@ const StakeNClaimSecond = ({
         gfotBalance,
         handlegFotStakingChange,
     } = useSigningClient();
-    const {toggle} = useContext(ToggleContext)
+    const { toggle } = useContext(ToggleContext)
     return (
         <Wrapper>
             <TotalStaked>
-                <div className="wallet-text w-full" style={{marginBottom: '28px', paddingBottom: '26px', borderBottom: '2.05843px solid #2E0752'}}>
-                    <TotalStakedText className="wallet-label" style={{textAlign: 'center'}}>Total Assests in Pool</TotalStakedText>
+                <div className="wallet-text w-full" style={{ marginBottom: '28px', paddingBottom: '26px', borderBottom: '2.05843px solid #2E0752' }}>
+                    <TotalStakedText className="wallet-label" style={{ textAlign: 'center' }}>Total Assests in Pool</TotalStakedText>
                     <TotalStakedText className="wallet-label">
                         {from}
                         <StakedValue>
@@ -145,15 +145,15 @@ const StakeNClaimSecond = ({
                             {0}
                         </StakedValue>
                     </TotalStakedText>
-                    <TotalStakedText className="wallet-label" style={{fontSize:'18px'}}>
+                    <TotalStakedText className="wallet-label" style={{ fontSize: '18px' }}>
                         {to}
                         <StakedValue>
                             {" "}
                             {"0"}
                         </StakedValue>
                     </TotalStakedText>
-                    <TotalStakedText className="wallet-label" style={{fontSize:'18px'}}>
-                        DPR 
+                    <TotalStakedText className="wallet-label" style={{ fontSize: '18px' }}>
+                        DPR
                         <StakedValue>
                             {" "}
                             {APY} %
@@ -161,8 +161,8 @@ const StakeNClaimSecond = ({
                     </TotalStakedText>
                 </div>
                 <div>
-                    <div className='gFotCurrencyt-selection' style={{display: "flex", justifyContent: 'space-between', alignItems: 'center', gap: '10px'}}>
-                        <span className="wallet-label" style={{fontSize:'18px', height: 'unset'}}>{from}</span>
+                    <div className='gFotCurrencyt-selection' style={{ display: "flex", justifyContent: 'space-between', alignItems: 'center', gap: '10px' }}>
+                        <span className="wallet-label" style={{ fontSize: '18px', height: 'unset' }}>{from}</span>
                         <InputWithIncDec
                             handleBurnMinus={handleBurnMinus}
                             burnAmount={gfotStakingAmount}
@@ -170,8 +170,8 @@ const StakeNClaimSecond = ({
                             handleBurnPlus={handleBurnPlus}
                         />
                     </div>
-                    <div className='gFotCurrencyt-selection' style={{display: "flex", justifyContent: 'space-between', alignItems: 'center', gap: '10px'}}>
-                        <span className="wallet-label" style={{fontSize:'18px', height: 'unset'}}>{to}</span>
+                    <div className='gFotCurrencyt-selection' style={{ display: "flex", justifyContent: 'space-between', alignItems: 'center', gap: '10px' }}>
+                        <span className="wallet-label" style={{ fontSize: '18px', height: 'unset' }}>{to}</span>
                         <InputWithIncDec
                             handleBurnMinus={handleBurnMinus}
                             burnAmount={gfotStakingAmount}
@@ -187,11 +187,11 @@ const StakeNClaimSecond = ({
                 >
                     Max
                 </MaxButton>
-                <button className={`default-btn ${!toggle && 'secondary-btn'}`} style={{marginTop: '28px'}} onClick={handleFotStaking}>Add Liquidity</button>
+                <button className={`default-btn ${!toggle && 'secondary-btn'}`} style={{ marginTop: '28px' }} onClick={handleFotStaking}>Add Liquidity</button>
             </TotalStaked>
             <MyStaked>
                 <MyStakedContent className="wallet-text">
-{/*                     <MyRewardsUp>
+                    {/*                     <MyRewardsUp>
                         <div className='gFotCurrencyt-selection' style={{display: "flex", justifyContent: 'space-between', alignItems: 'center', gap: '10px'}}>
                             <MyStakedDescription className="wallet-label" style={{fontSize:'18px', height: 'unset', textAlign: 'left'}}>{from}</MyStakedDescription>
                             <InputWithIncDec
@@ -220,7 +220,7 @@ const StakeNClaimSecond = ({
                         </button>
                     </MyRewardsUp> */}
                     <MyRewardsMiddle>
-                        <MyStakedText className="wallet-label" style={{textAlign: 'center'}}>My Liquidity</MyStakedText>
+                        <MyStakedText className="wallet-label" style={{ textAlign: 'center' }}>My Liquidity</MyStakedText>
                         <MyStakedText className="wallet-label">
                             {from}
                             <StakedValue>
@@ -235,19 +235,21 @@ const StakeNClaimSecond = ({
                                 {0}
                             </StakedValue>
                         </MyStakedText>
-                        <div style={{display: 'flex', justifyContent: 'space-between'}}>
- {/*                            <button className={`default-btn ${!toggle && 'secondary-btn outlined'}`} style={{minWidth: 'unset', padding: '13px 30px'}} onClick={() => console.log('here')}>Max</button> */}
-                            <button className={`default-btn ${!toggle && 'secondary-btn outlined'}`} style={{minWidth: 'unset', padding: '3px 10px'}} onClick={() => console.log('here')}>Unstake All</button>
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            {/*<button className={`default-btn ${!toggle && 'secondary-btn outlined'}`} style={{minWidth: 'unset', padding: '13px 30px'}} onClick={() => console.log('here')}>Max</button> */}
                             <button
-                            className={`default-btn  ${!toggle && 'secondary-btn'}`}
-                            style={{minWidth: 'unset', padding: '3px 30px'}}
-                            onClick={handleFotStakingUnstake}
-                        >
-                            Stake All
-                        </button>
+                                className={`default-btn  ${!toggle && 'secondary-btn'}`}
+                                style={{ minWidth: 'unset', padding: '3px 30px' }}
+                                onClick={handleFotStakingUnstake}
+                            >
+                                Stake All
+                            </button>
+                            <button className={`default-btn ${!toggle && 'secondary-btn outlined'}`} style={{ minWidth: 'unset', padding: '3px 10px' }} onClick={() => console.log('here')}>Unstake All</button>
+
                         </div>
+                        <MyStakedText className="wallet-label" style={{ textAlign: 'center', fontSize:"14px" }}>Unbounding period is 14 days</MyStakedText>
                     </MyRewardsMiddle>
-                    <div className="w-full" style={{marginTop: '20px'}}>
+                    <div className="w-full" style={{ marginBottom: '120px' }}>
                         <MyStakedText className="wallet-label">
                             My Rewards
                             <StakedValue>
@@ -258,7 +260,7 @@ const StakeNClaimSecond = ({
                         <button className={`default-btn   ${!toggle && 'secondary-btn'}`} onClick={handleFotStakingClaimReward}>Claim</button>
                     </div>
                 </MyStakedContent>
-                
+
             </MyStaked>
         </Wrapper>
     )
