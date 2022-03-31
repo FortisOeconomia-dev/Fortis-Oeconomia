@@ -40,7 +40,7 @@ const Text = styled.span`
     color: ${props => props.defaultChecked ? '#171E0E;' : 'rgba(23, 30, 14, 0.6)'};
 `
 
-const RateShow = ({values=[], action, text="Pool Data", top=false, left=false}) => {
+const RateShow = ({values=[], action, text="Junoswap Pool Data", top=false, left=false}) => {
     const {toggle} = useContext(ToggleContext)
     return (
         <Wrapper defaultChecked={top} style={{borderRadius: left && '0 200px 200px 0', right: left && 'unset', left: left && '0', filter: toggle && 'invert(1) hue-rotate(170deg) saturate(200%) contrast(100%) brightness(90%)'}} onClick={action}>

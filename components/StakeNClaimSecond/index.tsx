@@ -140,7 +140,7 @@ const StakeNClaimSecond = ({
     const { toggle } = useContext(ToggleContext)
     return (
         <Wrapper>
-            <TotalStaked>
+            <TotalStaked style={{filter:'blur(2px)',pointerEvents:'none'}}>
                 <div className="wallet-text w-full" style={{ marginBottom: '28px', paddingBottom: '26px', borderBottom: '2.05843px solid #2E0752' }}>
                     <TotalStakedText className="wallet-label" style={{ textAlign: 'center' }}>Total Assets in Pool</TotalStakedText>
                     <TotalStakedText className="wallet-label">
@@ -158,10 +158,10 @@ const StakeNClaimSecond = ({
                         </StakedValue>
                     </TotalStakedText>
                     <TotalStakedText className="wallet-label" style={{ fontSize: '18px' }}>
-                        Epoch Reward
+                        DPR
                         <StakedValue>
-                            {" "}
-                            {10000} FOT
+                            {""}
+                            {"Infinity"} %
                         </StakedValue>
                     </TotalStakedText>
                 </div>
@@ -225,7 +225,7 @@ const StakeNClaimSecond = ({
                             Stake
                         </button>
                     </MyRewardsUp> */}
-                    <MyRewardsMiddle>
+                    <MyRewardsMiddle style={{filter:'blur(2px)', pointerEvents: 'none' }}>
                         <MyStakedText className="wallet-label" style={{ textAlign: 'center' }}>My Liquidity</MyStakedText>
                         <MyStakedText className="wallet-label">
                             {from}
@@ -255,7 +255,7 @@ const StakeNClaimSecond = ({
                         </div>
                         <MyStakedText className="wallet-label" style={{ textAlign: 'center', fontSize:"16px" }}>Unbounding period is 14 days</MyStakedText>
                     </MyRewardsMiddle>
-                    <div className="w-full" style={{ marginBottom: '120px' }}>
+                    <div className="w-full" style={{ marginBottom: '120px', filter:'blur(2px)',pointerEvents:'none' }}>
                         <MyStakedText className="wallet-label">
                             My Rewards
                             <StakedValue>
