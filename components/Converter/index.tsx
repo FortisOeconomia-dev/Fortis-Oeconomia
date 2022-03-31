@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import styled from 'styled-components'
 import { ToggleContext } from '../Layout/Layout'
 
@@ -34,24 +34,25 @@ const Converter = ({
     submitTitle="Burn",
 }) => {
     const {toggle} = useContext(ToggleContext)
+    const [exchange, setExchange] = useState(false)
     return (
         <Wrapper defaultChecked={wfull}>
             <FromConv 
-                from={from} 
-                fromImage={fromImage}
+                from={!exchange ? from : to} 
+                fromImage={!exchange ? fromImage : toImage}
                 handleBurnMinus={handleBurnMinus} 
                 burnAmount={burnAmount} 
                 onBurnChange={onBurnChange}
                 handleBurnPlus={handleBurnPlus}
-                balance={balance}
+                balance={!exchange ? balance : sbalance}
                 handleChange={handleChange}
                 maxW={maxW}
             />
             <div style={{marginBottom: '58px', display: 'flex', gap: '16px'}}>
                 {typeof convImg === 'string' ? <img src={convImg} /> : convImg()}
-                {convImg2 && convImg2()}
+                {convImg2 && convImg2(() => setExchange(!exchange))}
             </div>
-            <ToConv to={to} toImage={toImage} expectedAmount={expectedAmount} sbalance={sbalance} maxW={maxW} />
+            <ToConv to={!exchange ? to : from} toImage={!exchange ? toImage : fromImage} expectedAmount={expectedAmount} sbalance={!exchange ? sbalance : balance} maxW={maxW} />
             <button className={`default-btn ${!toggle && from !== 'FOT' ? 'secondary-btn' : ''}`} onClick={handleSubmit}>{submitTitle}</button>
         </Wrapper>
     )
