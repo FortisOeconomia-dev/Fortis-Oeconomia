@@ -10,6 +10,7 @@ import {
   convertDenomToMicroDenom2,
   convertFromMicroDenom,
 } from '../util/conversion'
+import { StdFee, isDeliverTxFailure } from '@cosmjs/stargate'
 import { toUtf8 } from '@cosmjs/encoding'
 import { coin } from '@cosmjs/launchpad'
 import { NotificationContainer, NotificationManager } from 'react-notifications'
@@ -1295,22 +1296,25 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       let token1 = convertDenomToMicroDenom2(token1Amount, decimals[0])
       let token2 = convertDenomToMicroDenom2(token2Amount, decimals[1])
       
+      let msglist = []
+
+      let jsonmsg = {
+        increase_allowance: {
+          amount: `${token1}`,
+          spender: `${contract}`,
+        },
+      }
+      let msg: MsgExecuteContractEncodeObject = {
+        typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
+        value: MsgExecuteContract.fromPartial({
+          sender: walletAddress,
+          contract: PUBLIC_SFOT_CONTRACT,
+          msg: toUtf8(JSON.stringify(jsonmsg)),
+          funds: [],
+        }),
+      }
+      msglist.push(msg)
       
-      // token2 = convertDenomToMicroDenom2(token2Amount * slip, decimals[1])
-      await signingClient?.execute(
-        walletAddress, // sender address
-        PUBLIC_SFOT_CONTRACT, // token sale contract
-        {
-          "increase_allowance": {
-            "amount": token1,
-            "spender": contract,
-            "msg": ""
-          }
-        }, // msg
-        defaultFee,
-        undefined,
-        []
-      )
       let funds = []
       
       if (asset == 0) {
@@ -1319,38 +1323,54 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         let token2_contract = ''
         if (asset == 1)
           token2_contract = PUBLIC_BFOT_CONTRACT
-
-        await signingClient?.execute(
-          walletAddress, // sender address
-          token2_contract, // token sale contract
-          {
-            "increase_allowance": {
-              "amount": token2,
-              "spender": contract,
-              "msg": ""
-            }
-          }, // msg
-          defaultFee,
-          undefined,
-          []
-        )
+        
+        let jsonmsg = {
+          increase_allowance: {
+            amount: `${token2}`,
+            spender: `${contract}`,
+          },
+        }
+        let msg: MsgExecuteContractEncodeObject = {
+          typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
+          value: MsgExecuteContract.fromPartial({
+            sender: walletAddress,
+            contract: token2_contract,
+            msg: toUtf8(JSON.stringify(jsonmsg)),
+            funds: [],
+          }),
+        }
+        msglist.push(msg)
       }
 
-      await signingClient?.execute(
-        walletAddress, // sender address
-        contract, // token sale contract
-        {
-          "add_liquidity": {
-            "token1_amount": token1,
-            "max_token2": token2,
-            "min_liquidity": "1"
-          }
-        }, // msg
-        defaultFee,
-        undefined,
-        funds
+      
+      let jsonmsg1 = {
+        add_liquidity: {
+          token1_amount: `${token1}`,
+          max_token2: `${token2}`,
+          min_liquidity: `1`
+        }
+      }
+      const msg1: MsgExecuteContractEncodeObject = {
+        typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
+        value: MsgExecuteContract.fromPartial({
+          sender: walletAddress,
+          contract: contract,
+          msg: toUtf8(JSON.stringify(jsonmsg1)),
+          funds,
+        }),
+      }
+      msglist.push(msg1)
+      
+      let result = await signingClient?.signAndBroadcast(
+        walletAddress,
+        msglist,
+        defaultFee
       )
-
+      if (isDeliverTxFailure(result)) {
+        throw new Error(
+          `Error when broadcasting tx ${result.transactionHash} at height ${result.height}. Code: ${result.code}; Raw log: ${result.rawLog}`
+        )
+      }
       setLoading(false)
       getBalances()
       if (showNotification)
@@ -1395,34 +1415,48 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     // lpbalance *= 0.7
 
     try {
-      await signingClient?.execute(
-        walletAddress, // sender address
-        lpcontract, // token sale contract
-        {
-          "increase_allowance": {
-            "amount": `${lpbalance}`,
-            "spender": contract,
-            "msg": ""
-          }
-        }, // msg
-        defaultFee,
-        undefined,
-        []
-      )
+      let msglist = []
+      let jsonmsg1 = {
+        increase_allowance: {
+          amount: `${lpbalance}`,
+          spender: `${contract}`,
+        },
+      }
+      const msg1: MsgExecuteContractEncodeObject = {
+        typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
+        value: MsgExecuteContract.fromPartial({
+          sender: walletAddress,
+          contract: lpcontract,
+          msg: toUtf8(JSON.stringify(jsonmsg1)),
+          funds: [],
+        }),
+      }
+      msglist.push(msg1)
       
-      await signingClient?.execute(
-        walletAddress, // sender address
-        contract, // token sale contract
-        {
-          "remove_liquidity": {
-            "amount": `${lpbalance}`,
-            "min_token1": "0",
-            "min_token2": "0"
-          }
-        }, // msg
-        defaultFee,
-        undefined,
-        []
+      let jsonmsg2 = {
+        remove_liquidity: {
+          amount: `${lpbalance}`,
+          min_token1: `0`,
+          min_token2: `0`
+        },
+      }
+      const msg2: MsgExecuteContractEncodeObject = {
+        typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
+        value: MsgExecuteContract.fromPartial({
+          sender: walletAddress,
+          contract: contract,
+          msg: toUtf8(JSON.stringify(jsonmsg2)),
+          funds: [],
+        }),
+      }
+      msglist.push(msg2)
+      
+      
+
+      let result = await signingClient?.signAndBroadcast(
+        walletAddress,
+        msglist,
+        defaultFee
       )
 
       setLoading(false)
@@ -1526,95 +1560,54 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     let token1 = convertDenomToMicroDenom2(swapAmount, decimals[0])
     
     let token2 = convertDenomToMicroDenom2(expectedToken2Amount, decimals[1])
-    console.log(expectedToken2Amount)
-    console.log(token1)
-    console.log(token2)
+    // console.log(expectedToken2Amount)
+    // console.log(token1)
+    // console.log(token2)
     try {
-      // let funds = []
-
-      // const msg1 = {
-      //   increase_allowance: {
-      //     amount: `${input.amount}`,
-      //     spender: `${input.swapAddress}`,
-      //   },
-      // }
-
-      // const executeContractMsg1: MsgExecuteContractEncodeObject = {
-      //   typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
-      //   value: MsgExecuteContract.fromPartial({
-      //     sender: walletAddress,
-      //     contract: PUBLIC_SFOT_CONTRACT,
-      //     msg: toUtf8(JSON.stringify(msg1)),
-      //     funds: [],
-      //   }),
-      // }
-  
-      // const executeContractMsg2: MsgExecuteContractEncodeObject = {
-      //   typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
-      //   value: MsgExecuteContract.fromPartial({
-      //     sender: input.senderAddress,
-      //     contract: input.swapAddress,
-      //     msg: toUtf8(JSON.stringify(add_liquidity_msg)),
-      //     funds: [coin(input.maxToken, input.tokenDenom)],
-      //   }),
-      // }
-      // let msgs = [executeContractMsg1, executeContractMsg2]
-      // let result = await signingClient?.signAndBroadcast(
-      //   walletAddress,
-      //   msgs,
-      //   defaultFee
-      // )
-
-      if (asset == 0) {
-        if (swapToken1) {
-          await signingClient?.execute(
-            walletAddress, // sender address
-            PUBLIC_SFOT_CONTRACT, // token sale contract
-            {
-              "increase_allowance": {
-                "amount": `${token1}`,
-                "spender": contract,
-                "msg": ""
-              }
-            }, // msg
-            defaultFee,
-            undefined,
-            []
-          )
-        } else {
-          funds = [coin(token1, ust_denom)]
+      let msglist = []
+      let funds = []
+      if (asset == 0 && !swapToken1) {
+        funds = [coin(token1, ust_denom)]
+      } else {
+        const jsonmsg = {
+          increase_allowance: {
+            amount: `${token1}`,
+            spender: `${contract}`,
+          },
         }
-      } else if (asset == 1) {
-        await signingClient?.execute(
-          walletAddress, // sender address
-          swapToken1 ? PUBLIC_SFOT_CONTRACT : PUBLIC_BFOT_CONTRACT, 
-          {
-            "increase_allowance": {
-              "amount": `${token1}`,
-              "spender": contract,
-              "msg": ""
-            }
-          }, // msg
-          defaultFee,
-          undefined,
-          []
-        )
-      
+        const msg: MsgExecuteContractEncodeObject = {
+          typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
+          value: MsgExecuteContract.fromPartial({
+            sender: walletAddress,
+            contract: swapToken1 ? PUBLIC_SFOT_CONTRACT : PUBLIC_BFOT_CONTRACT,
+            msg: toUtf8(JSON.stringify(jsonmsg)),
+            funds: [],
+          }),
+        }
+        msglist.push(msg)
       }
-
-      await signingClient?.execute(
-        walletAddress, // sender address
-        contract, // token sale contract
-        { 
-          swap: {
-              input_token: `${swapToken1 ? "Token1" : "Token2"}`,
-              input_amount: `${token1}`,
-              min_output: `${token2}`
-          }
-        },
-        defaultFee,
-        undefined,
-        funds
+      
+      const jsonmsg = {
+        swap: {
+          input_token: `${swapToken1 ? "Token1" : "Token2"}`,
+          input_amount: `${token1}`,
+          min_output: `${token2}`
+        }
+      }
+      const msg: MsgExecuteContractEncodeObject = {
+        typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
+        value: MsgExecuteContract.fromPartial({
+          sender: walletAddress,
+          contract: contract,
+          msg: toUtf8(JSON.stringify(jsonmsg)),
+          funds,
+        }),
+      }
+      msglist.push(msg)
+      let result = await signingClient?.signAndBroadcast(
+        walletAddress,
+        msglist,
+        defaultFee
       )
       
       setLoading(false)
