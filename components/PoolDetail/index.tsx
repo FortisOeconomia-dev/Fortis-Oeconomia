@@ -76,6 +76,14 @@ const PoolDetail = ({
         signingClient,
         walletAddress,
         bFot2Ust,
+
+        sfotUstLpStakingContractInfo,
+        sfotBfotLpStakingContractInfo,
+        getLpStakingInfo,
+        executeLpStakeAll,
+        executeLpClaimReward,
+        executeLpCreateUnstake,
+        executeLpFetchUnstake,
     } = useSigningClient();
 
     const [poolInfo, setPoolInfo] = useState(null)
@@ -95,8 +103,8 @@ const PoolDetail = ({
     const [myToken1Amount, setMyToken1Amount] = useState(0)
     const [myToken2Amount, setMyToken2Amount] = useState(0)
     const [myLpBalance, setMayLpBalance] = useState(0)
-
-    useEffect(()=> {
+    const [lpStakingInfo, setLpStakingInfo] = useState(null)
+    useEffect(() => {
         if (loading)
             return
         setToken1Balance(sfotBalance)
@@ -121,8 +129,12 @@ const PoolDetail = ({
 
             setMayLpBalance(sfotBfotLpBalance)
         }
-        
-        
+        getLpStakingInfo(asset).then((response:any) => {
+            setLpStakingMyReward(convertMicroDenomToDenom2(response.staked_reward, fotTokenInfo.decimals))
+            setLpStakingMyStaked(convertMicroDenomToDenom2(response.staked_amount, 6))
+            setLpStakingMyUnstaking(response.unstaking_amount)
+            setLpStakingMyDeadline(response.deadline)
+        })
     }, [asset, loading])
 
     useEffect(() => {
@@ -132,6 +144,7 @@ const PoolDetail = ({
         setToken2TotalAmount(convertMicroDenomToDenom2(poolInfo.token2_reserve, decimals[1]))
     }, [poolInfo])
 
+    
     const updateAmounts = async(token1:number, token2:number, fix:number)=> {
         console.log(token1 + ":" + token2)
         let ret = await handleAddLiquidityValuesChange(asset, token1, token2, fix)
@@ -213,8 +226,15 @@ const PoolDetail = ({
         setToken2Amount(0)
     }
     
-
+    const [lpStakingMyReward, setLpStakingMyReward] = useState(0)
+    const [lpStakingMyStaked, setLpStakingMyStaked] = useState(0)
+    const [lpStakingMyUnstaking, setLpStakingMyUnstaking] = useState(0)
+    const [lpStakingMyDeadline, setLpStakingMyDeadline] = useState(0)
     
+    const handleLpStaking = async () => { await executeLpStakeAll(asset)}
+    const handleLpCreateUnstake = async () => {executeLpCreateUnstake(asset)}
+    const handleLpStakingReward = async () => {executeLpClaimReward(asset)}
+    const handleLpFetchUnstake = async () => {executeLpFetchUnstake(asset)}
     return (
         <Wrapper>
             <div className='w-full'>
@@ -248,12 +268,16 @@ const PoolDetail = ({
                     myToken1Amount={myToken1Amount}
                     myToken2Amount={myToken2Amount}
 
-                    handleLpStaking={() => console.log('hello')}
-                    handleLpUnstaking={() => console.log('hello')}
-                    handleLpStakingReward={() => console.log('hello')}
+                    handleLpStaking={handleLpStaking}
+                    handleLpCreateUnstake={handleLpCreateUnstake}
+                    handleLpStakingReward={handleLpStakingReward}
+                    handleLpFetchUnstake={handleLpFetchUnstake}
                 
-                    lpStakingMyReward={() => console.log('hello')}
-                    lpStakingMyStaked={() => console.log('hello')}
+                    lpStakingMyReward={lpStakingMyReward}
+                    lpStakingMyStaked={lpStakingMyStaked}
+                    lpStakingMyUnstaking={lpStakingMyUnstaking}
+                    lpStakingMyDeadline={lpStakingMyDeadline}
+                    lpAmount={myLpBalance}
                     
                     from={from}
                     to={to}

@@ -115,7 +115,16 @@ let { Provider } = (CosmWasmContext =
     setSwapAmount: () => {},
     expectedToken2Amount: 0,
     executeSwap: () => {},
-    calcExpectedSwapAmount: () => {}
+    calcExpectedSwapAmount: () => {},
+
+    sfotUstLpStakingContractInfo: null,
+    sfotBfotLpStakingContractInfo: null,
+    getLpStakingInfo: () => {},
+    executeLpStakeAll: () => {},
+    executeLpClaimReward: () => {},
+    executeLpCreateUnstake: () => {},
+    executeLpFetchUnstake: () => {},
+    lpStakingInfo: null
     
   }))
 

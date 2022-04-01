@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { useContext, useState } from 'react'
 import {Range, getTrackBackground} from 'react-range'
 import { ToggleContext } from "../Layout/Layout";
+import moment from "moment"
 
 const Wrapper = styled.div`
     padding: 50px 32px;
@@ -124,10 +125,14 @@ const StakeNClaimSecond = ({
     myToken1Amount,
     myToken2Amount, 
     handleLpStaking,
-    handleLpUnstaking,
+    handleLpCreateUnstake,
+    handleLpFetchUnstake,
     handleLpStakingReward,
     lpStakingMyReward,
     lpStakingMyStaked,
+    lpStakingMyUnstaking,
+    lpStakingMyDeadline,
+    lpAmount,
     from,
     to,
     APY,
@@ -309,36 +314,75 @@ const StakeNClaimSecond = ({
                         </button>
                     </MyRewardsUp> */}
                     <MyRewardsMiddle>
-                        <MyStakedText className="wallet-label" style={{ textAlign: 'center' }}>My Liquidity</MyStakedText>
-                        <MyStakedText className="wallet-label">
-                            {from}
-                            <StakedValue>
-                                {" "}
-                                {myToken1Amount}
-                            </StakedValue>
-                        </MyStakedText>
-                        <MyStakedText className="wallet-label">
-                            {to}
-                            <StakedValue>
-                                {" "}
-                                {myToken2Amount}
-                            </StakedValue>
-                        </MyStakedText>
-                        <div style={{ display: 'flex', justifyContent: 'space-between',filter:'blur(2px)', pointerEvents: 'none', marginBottom:'20px'}}>
+                        <div>
+                            <MyStakedText className="wallet-label" style={{ textAlign: 'center' }}>My Liquidity</MyStakedText>
+                            <MyStakedText className="wallet-label">
+                                {from}
+                                <StakedValue>
+                                    {" "}
+                                    {myToken1Amount}
+                                </StakedValue>
+                            </MyStakedText>
+                            <MyStakedText className="wallet-label">
+                                {to}
+                                <StakedValue>
+                                    {" "}
+                                    {myToken2Amount}
+                                </StakedValue>
+                            </MyStakedText>
+                        </div>
+                        <div
+                            style={{
+                                display: "flex",
+                                justifyContent: "center",
+                                flexWrap: "wrap",
+                                marginTop: "2em",
+                                width: "100%"
+                            }}
+                        ></div>
+                        <div>
+                            <MyStakedText className="wallet-label">
+                                {"Staked LP Amount"}
+                                <StakedValue>
+                                    {" "}
+                                    {lpStakingMyStaked}
+                                </StakedValue>
+                            </MyStakedText>
+                        </div>
+                        <div>
                             {/*<button className={`default-btn ${!toggle && 'secondary-btn outlined'}`} style={{minWidth: 'unset', padding: '13px 30px'}} onClick={() => console.log('here')}>Max</button> */}
                             <button
                                 className={`default-btn  ${!toggle && 'secondary-btn'}`}
                                 style={{ minWidth: 'unset', padding: '3px 30px' }}
                                 onClick={handleLpStaking}
+                                disabled={lpStakingMyStaked > 0 || lpAmount == 0}
                             >
                                 Stake All
                             </button>
-                            <button className={`default-btn ${!toggle && 'secondary-btn outlined'}`} style={{ minWidth: 'unset', padding: '3px 10px' }} onClick={handleLpUnstaking}>Unstake All</button>
+                            <button className={`default-btn ${!toggle && 'secondary-btn outlined'}`} style={{ minWidth: 'unset', padding: '3px 10px' }} onClick={handleLpCreateUnstake}>Unstake All</button>
 
                         </div>
+                        <div style={{overflowY:"auto"}}>
+                        <table className="w-full">
+                            {lpStakingMyUnstaking > 0 && <tr>
+                                <th>{moment(new Date(Number(lpStakingMyDeadline) * 1000)).format('YYYY/MM/DD HH:mm:ss')}</th>
+                                <th>
+                                    <button
+                                        className={`default-btn  ${!toggle && 'secondary-btn'}`}
+                                        style={{ minWidth: 'unset', padding: '3px 30px' }}
+                                        onClick={handleLpFetchUnstake}
+                                        
+                                    >
+                                        Fetch Unstake
+                                    </button>
+                                </th>
+                            </tr>}
+                            
+                        </table>
+                    </div>
 {/*                         <MyStakedText className="wallet-label" style={{ textAlign: 'center', fontSize:"16px" }}>Unbonding period is 14 days</MyStakedText> */}
                     </MyRewardsMiddle>
-                    <div className="w-full" style={{ marginBottom: '120px', filter:'blur(2px)',pointerEvents:'none' }}>
+                    <div className="w-full" >
                         <MyStakedText className="wallet-label">
                             My Rewards
                             <StakedValue>

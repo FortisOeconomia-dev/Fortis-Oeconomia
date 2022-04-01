@@ -137,7 +137,18 @@ export interface ISigningCosmWasmClientContext {
   setSwapAmount: Function,
   expectedToken2Amount: number,
   executeSwap: Function,
-  calcExpectedSwapAmount: Function
+  calcExpectedSwapAmount: Function,
+
+  //LP Staking
+  sfotUstLpStakingContractInfo: any,
+  sfotBfotLpStakingContractInfo: any,
+  getLpStakingInfo: Function,
+  executeLpStakeAll: Function,
+  executeLpClaimReward: Function,
+  executeLpCreateUnstake: Function,
+  executeLpFetchUnstake: Function,
+  lpStakingInfo: any
+
 
 
   
@@ -165,6 +176,9 @@ export const PUBLIC_UST_JUNO_POOL_CONTRACT = process.env.NEXT_PUBLIC_UST_JUNO_PO
 
 export const PUBLIC_SFOT_UST_POOL_CONTRACT = process.env.NEXT_PUBLIC_SFOT_UST_POOL_CONTRACT || ''
 export const PUBLIC_SFOT_BFOT_POOL_CONTRACT = process.env.NEXT_PUBLIC_SFOT_BFOT_POOL_CONTRACT || ''
+
+export const PUBLIC_SFOT_UST_STAKING_CONTRACT = process.env.NEXT_PUBLIC_SFOT_UST_STAKING_CONTRACT || ''
+export const PUBLIC_SFOT_BFOT_STAKING_CONTRACT = process.env.NEXT_PUBLIC_SFOT_BFOT_STAKING_CONTRACT || ''
 
 export const defaultFee = {
   amount: [],
@@ -211,12 +225,15 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   
   const [fotBurnContractInfo, setFotBurnContractInfo] = useState({ owner: '', fot_burn_amount: 0, bfot_sent_amount: 0, bfot_current_amount: 0 })
   const [bfotBurnContractInfo, setbFotBurnContractInfo] = useState({ owner: '', bfot_burn_amount: 0, gfot_sent_amount: 0, gfot_current_amount: 0 })
-  const [gfotStakingContractInfo, setgFotStakingContractInfo] = useState({ owner: '', fot_amount: 0, gfot_amount: 0, last_time: 0, apy_prefix: 0 })
+  const [gfotStakingContractInfo, setgFotStakingContractInfo] = useState({ owner: '', fot_amount: 0, gfot_amount: 0, apy_prefix: 0 })
   const [stableContractInfo, setStableContractInfo] = useState({ owner: '', sfot_mint_amount: 0, gfot_sent_amount: 0, bfot_price: 0 })
   const [clearanceContractInfo, setClearanceContractInfo] = useState({ owner: '', gfot_amount: 0, gfot_sell_amount: 0, sfot_burn_amount: 0, sfot_price: 0 })
   const [sfotUstPoolInfo, setSfotUstPoolInfo] = useState({ token1_reserve: 0, token2_reserve: 0, lp_token_supply: 0, lp_token_address: '' })
   const [sfotBfotPoolInfo, setSfotBfotPoolInfo] = useState({ token1_reserve: 0, token2_reserve: 0, lp_token_supply: 0, lp_token_address: '' })
-  
+  const [sfotUstLpStakingContractInfo, setSfotUstLpStakingContractInfo] = useState({ owner: '', fot_amount: 0, gfot_amount: 0, apy_prefix: 0 })
+  const [sfotBfotLpStakingContractInfo, setSfotBfotLpStakingContractInfo] = useState({ owner: '', fot_amount: 0, gfot_amount: 0, apy_prefix: 0 })
+
+  const [lpStakingInfo, setLpStakingInfo] = useState([])
 
   /////////////////////////////////////////////////////////////////////
   /////////////////////  Airdrop Variables   //////////////////////////
@@ -279,14 +296,17 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   //////////////////////////////////////////////////////////////////////
   /////////////////////  Pool Variables   //////////////////////////////
   //////////////////////////////////////////////////////////////////////
-  const [token1Amount, setToken1Amount] = useState('')
-  const [token2Amount, setToken2Amount] = useState('')
-  const [sfotSwapAmount, setSfotSwapAmount] = useState('')
-  const [expectedSwapAmount, setExpectedSwapAmount] = useState(0)
     
   const [swapToken1, setSwapToken1] = useState(true)
   const [swapAmount, setSwapAmount] = useState(0)
   const [expectedToken2Amount, setExpectedToken2Amount] = useState(0)
+  //////////////////////////////////////////////////////////////////////
+  /////////////////////  LP Staking Variables   ////////////////////////
+  //////////////////////////////////////////////////////////////////////
+  const [lpStakingAmount, setLpStakingAmount] = useState('')
+  const [lpStakingMyStaked, setLpStakingMyStaked] = useState(0)
+  const [lpStakingMyReward, setLpStakingMyReward] = useState(0)
+
   ////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////
   ///////////////////////    connect & disconnect   //////////////////////
@@ -624,6 +644,28 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       setClearanceContractInfo(clearanceContractInfo)
 
 
+      //Lp Staking contract Info
+      //SFOT-UST Contract Info
+      const sfotUstLpStakingContractInfo = await signingClient.queryContractSmart(PUBLIC_SFOT_UST_STAKING_CONTRACT, {
+        config: {},
+      })
+      setSfotUstLpStakingContractInfo(sfotUstLpStakingContractInfo)
+
+      //SFOT-BFOT Contract Info
+      const sfotBfotLpStakingContractInfo = await signingClient.queryContractSmart(PUBLIC_SFOT_BFOT_STAKING_CONTRACT, {
+        config: {},
+      })
+      setSfotBfotLpStakingContractInfo(sfotBfotLpStakingContractInfo)
+
+      //Lp Staking info
+      // let lpStakingArr = []
+      // for (let i = 0; i < 2; i ++)
+      //   lpStakingArr.push(getLpStakingInfo(i))
+      
+      // setLpStakingInfo(lpStakingArr)
+
+
+
       setLoading(false)
       if (showNotification)
         NotificationManager.info(`Successfully got balances`)
@@ -729,7 +771,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
   ////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////
-  ///////////////////////    Moneta airdrop Functions   /////////////////////////
+  ///////////////////////    Moneta airdrop Functions   //////////////////
   ////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////
 
@@ -1570,7 +1612,193 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     
   }
   
-  
+  ////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////
+  ////////////////////    Lpstaking Functions   ////////////////////////
+  ////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////
+
+  const getLpStakingInfo = async (asset) => {
+    let lp_token_address = ''
+    let staking_contract = ''
+    let staked_amount = 0
+    let deadline = 0
+    let unstaking_amount = 0
+    let lp_amount = 0
+    let staked_reward = 0
+    let lpStakingInfo = null
+    switch (asset) {
+      case 0:
+        lp_token_address = sfotUstPoolInfo.lp_token_address
+        staking_contract = PUBLIC_SFOT_UST_STAKING_CONTRACT
+        lp_amount = sfotUstLpBalance
+        lpStakingInfo = sfotUstLpStakingContractInfo
+        break
+      case 1:
+        lp_token_address = sfotBfotPoolInfo.lp_token_address
+        staking_contract = PUBLIC_SFOT_BFOT_STAKING_CONTRACT
+        lp_amount = sfotBfotLpBalance
+        lpStakingInfo = sfotBfotLpStakingContractInfo
+        break
+    }
+    const response: JsonObject = await signingClient.queryContractSmart(staking_contract, {
+      staker: {
+        address: walletAddress
+      },
+    })
+    staked_amount = Number(response.amount)
+    staked_reward = Number(response.reward)
+    const response2: JsonObject = await signingClient.queryContractSmart(staking_contract, {
+      unstaking: {
+        address: walletAddress
+      },
+    })
+    if (response2.length > 0) {
+      unstaking_amount = Number(response2[0][0])
+      deadline = Number(response2[0][1])
+    }
+
+    if (lpStakingInfo.gfot_amount > 0 && deadline > 0) {
+      let delay = Math.floor((new Date().getTime() / 1000) / 86400) - Math.floor(deadline / 86400)
+      staked_reward += (delay > 0 ? delay : 0) * lpStakingInfo.daily_fot_amount * staked_amount /  lpStakingInfo.gfot_amount
+    }
+      
+    
+    return {lp_token_address, staking_contract, staked_amount, deadline, unstaking_amount, lp_amount, staked_reward}
+  }
+
+  const executeLpStakeAll = async (asset) => {
+
+    let lpstate = await getLpStakingInfo(asset)
+    if (lpstate.lp_amount == 0 || lpstate.staked_amount > 0 || lpstate.unstaking_amount > 0)
+      return
+    setLoading(true)
+    try {
+      await signingClient?.execute(
+        walletAddress, // sender address
+        lpstate.lp_token_address, 
+        {
+          "send": {
+            "amount": `${lpstate.lp_amount}`,
+            "contract": `${lpstate.staking_contract}`,
+            "msg": ``
+          }
+        }, // msg
+        defaultFee,
+        undefined,
+        []
+      )
+      setLoading(false)
+      getBalances()
+      if (showNotification)
+        NotificationManager.success('Successfully staked')
+    } catch (error) {
+      setLoading(false)
+      console.log(error);
+      //if (showNotification) {
+        NotificationManager.error(`Stakemodule error : ${error}`)
+        console.log(error.toString())
+      //}
+    }
+  }
+
+  const executeLpClaimReward = async (asset) => {
+
+    let lpstate = await getLpStakingInfo(asset)
+    
+    setLoading(true)
+    
+    try {
+      await signingClient?.execute(
+        walletAddress, // sender address
+        lpstate.staking_contract, 
+        {
+          "claim_reward": {}
+        }, // msg
+        defaultFee,
+        undefined,
+        []
+      )
+
+      setLoading(false)
+      getBalances()
+      if (showNotification)
+        NotificationManager.success('Successfully clamied reward')
+    } catch (error) {
+      setLoading(false)
+      //if (showNotification) {
+        NotificationManager.error(`Stakemodule claim error : ${error}`)
+        console.log(error.toString())
+      //}
+    }
+  }
+
+  const executeLpCreateUnstake = async (asset) => {
+
+    let lpstate = await getLpStakingInfo(asset)
+    if (lpstate.staked_amount == 0)
+      return
+    setLoading(true)
+    
+    try {
+      await signingClient?.execute(
+        walletAddress, // sender address
+        lpstate.staking_contract, 
+        {
+          "create_unstake": {
+            "unstake_amount": `${lpstate.staked_amount}`
+          }
+        }, // msg
+        defaultFee,
+        undefined,
+        []
+      )
+
+      setLoading(false)
+      getBalances()
+      if (showNotification)
+        NotificationManager.success('Successfully unstaked')
+    } catch (error) {
+      setLoading(false)
+      if (showNotification) {
+        NotificationManager.error(`Stakemodule unstake error : ${error}`)
+        console.log(error.toString())
+      }
+    }
+  }
+
+  const executeLpFetchUnstake = async (asset:number) => {
+    let lpstate = await getLpStakingInfo(asset)
+    if (lpstate.unstaking_amount == 0 || lpstate.deadline > (new Date().getTime() / 1000 + 60))
+      return
+    setLoading(true)
+    
+    try {
+      await signingClient?.execute(
+        walletAddress, // sender address
+        lpstate.staking_contract, 
+        {
+          "fetch_unstake": {
+            index: 0
+          }
+        }, // msg
+        defaultFee,
+        undefined,
+        []
+      )
+
+      setLoading(false)
+      getBalances()
+      if (showNotification)
+        NotificationManager.success('Successfully unstaked')
+    } catch (error) {
+      setLoading(false)
+      if (showNotification) {
+        NotificationManager.error(`Stakemodule unstake error : ${error}`)
+        console.log(error.toString())
+      }
+    }
+  }
 
   return {
     walletAddress,
@@ -1681,6 +1909,15 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     setSwapAmount,
     expectedToken2Amount,
     executeSwap,
-    calcExpectedSwapAmount
+    calcExpectedSwapAmount,
+
+    sfotUstLpStakingContractInfo,
+    sfotBfotLpStakingContractInfo,
+    getLpStakingInfo,
+    executeLpStakeAll,
+    executeLpClaimReward,
+    executeLpCreateUnstake,
+    executeLpFetchUnstake,
+    lpStakingInfo
   }
 }
