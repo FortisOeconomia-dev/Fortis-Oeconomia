@@ -133,9 +133,11 @@ const PoolDetail = ({
     }, [poolInfo])
 
     const updateAmounts = async(token1:number, token2:number, fix:number)=> {
+        console.log(token1 + ":" + token2)
         let ret = await handleAddLiquidityValuesChange(asset, token1, token2, fix)
         setToken1Amount(ret.token1Amount)
         setToken2Amount(ret.token2Amount)
+        console.log(ret.token1Amount, ret.token2Amount)
     }
 
     const handleLiquidityMax= async () => {
