@@ -251,7 +251,7 @@ const StakeNClaimSecond = ({
                                 {myToken2Amount}
                             </StakedValue>
                         </MyStakedText>
-                        <div style={{ display: 'flex', justifyContent: 'space-between',filter:'blur(2px)', pointerEvents: 'none'}}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between',filter:'blur(2px)', pointerEvents: 'none', marginBottom:'20px'}}>
                             {/*<button className={`default-btn ${!toggle && 'secondary-btn outlined'}`} style={{minWidth: 'unset', padding: '13px 30px'}} onClick={() => console.log('here')}>Max</button> */}
                             <button
                                 className={`default-btn  ${!toggle && 'secondary-btn'}`}
@@ -263,7 +263,7 @@ const StakeNClaimSecond = ({
                             <button className={`default-btn ${!toggle && 'secondary-btn outlined'}`} style={{ minWidth: 'unset', padding: '3px 10px' }} onClick={handleLpUnstaking}>Unstake All</button>
 
                         </div>
-                        <MyStakedText className="wallet-label" style={{ textAlign: 'center', fontSize:"16px" }}>Unbonding period is 14 days</MyStakedText>
+{/*                         <MyStakedText className="wallet-label" style={{ textAlign: 'center', fontSize:"16px" }}>Unbonding period is 14 days</MyStakedText> */}
                     </MyRewardsMiddle>
                     <div className="w-full" style={{ marginBottom: '120px', filter:'blur(2px)',pointerEvents:'none' }}>
                         <MyStakedText className="wallet-label">
