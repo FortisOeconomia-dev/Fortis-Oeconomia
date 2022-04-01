@@ -1418,11 +1418,138 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     }
   }
   
-  const calcExpectedSwapAmount = async () => {
+  const calcExpectedSwapAmount = async (asset) => {
+    // console.log(swapToken1)
+    
+    let contract = ""
+    let decimals = [10, 10]
+    switch (asset) {
+      case 0:
+        contract = PUBLIC_SFOT_UST_POOL_CONTRACT;
+        decimals = [10, 6]
+        break;
+      case 1:
+        contract = PUBLIC_SFOT_BFOT_POOL_CONTRACT;
+        break;
+      default:
+        return;
+    }
+
+    const price1to2 = await signingClient.queryContractSmart(contract, {
+      token1_for_token2_price: { token1_amount: `${Math.pow(10, decimals[0])}` },
+    })
+    
+    const price2to1 = await signingClient.queryContractSmart(contract, {
+      token2_for_token1_price: { token2_amount: `${Math.pow(10, decimals[1])}` },
+    })
+
+    
+    let expectedAmount = 0
+    if (swapToken1) {
+      expectedAmount = swapAmount * Number(convertMicroDenomToDenom2(price1to2.token2_amount, decimals[1])) / slip
+    } else {
+      expectedAmount = swapAmount * Number(convertMicroDenomToDenom2(price2to1.token1_amount, decimals[0])) / slip
+    }
+    console.log(expectedAmount)
+    setExpectedToken2Amount(expectedAmount)
+  }
+
+  const executeSwap = async (asset) => {
+    // console.log(swapToken1)
+    
+    let contract = ""
+    let decimals = [10, 10]
+    switch (asset) {
+      case 0:
+        contract = PUBLIC_SFOT_UST_POOL_CONTRACT;
+        decimals = [10, 6]
+        break;
+      case 1:
+        contract = PUBLIC_SFOT_BFOT_POOL_CONTRACT;
+        break;
+      default:
+        return;
+    }
+    if (!swapToken1) {
+      decimals = [decimals[1], decimals[0]]
+    }
+
+    let funds = []
+    let token1 = convertDenomToMicroDenom2(swapAmount, decimals[0])
+    
+    let token2 = convertDenomToMicroDenom2(expectedToken2Amount, decimals[1])
+    console.log(expectedToken2Amount)
+    console.log(token1)
+    console.log(token2)
+    try {
+      // let funds = []
+      if (asset == 0) {
+        if (swapToken1) {
+          await signingClient?.execute(
+            walletAddress, // sender address
+            PUBLIC_SFOT_CONTRACT, // token sale contract
+            {
+              "increase_allowance": {
+                "amount": `${token1}`,
+                "spender": contract,
+                "msg": ""
+              }
+            }, // msg
+            defaultFee,
+            undefined,
+            []
+          )
+        } else {
+          funds = [coin(token1, ust_denom)]
+        }
+      } else if (asset == 1) {
+        await signingClient?.execute(
+          walletAddress, // sender address
+          swapToken1 ? PUBLIC_SFOT_CONTRACT : PUBLIC_BFOT_CONTRACT, 
+          {
+            "increase_allowance": {
+              "amount": `${token1}`,
+              "spender": contract,
+              "msg": ""
+            }
+          }, // msg
+          defaultFee,
+          undefined,
+          []
+        )
+      
+      }
+
+      await signingClient?.execute(
+        walletAddress, // sender address
+        contract, // token sale contract
+        { 
+          swap: {
+              input_token: `${swapToken1 ? "Token1" : "Token2"}`,
+              input_amount: `${token1}`,
+              min_output: `${token2}`
+          }
+        },
+        defaultFee,
+        undefined,
+        funds
+      )
+      
+      setLoading(false)
+      getBalances()
+      if (showNotification)
+        NotificationManager.success('Successfully swapped')
+    } catch (error) {
+      setLoading(false)
+      //if (showNotification) {
+        NotificationManager.error(`Swap error : ${error}`)
+        console.log(error.toString())
+      //}
+    }
     
   }
   
-  const executeSwap = async () => {
+  // const executeSwap = async () => {
     // setLoading(true)
     // let contract = ""
     // let lpcontract = ""
@@ -1494,7 +1621,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     //     console.log(error.toString())
     //   //}
     // }
-  }
+  // }
   
 
   return {

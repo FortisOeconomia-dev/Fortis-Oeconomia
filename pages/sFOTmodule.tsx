@@ -133,7 +133,9 @@ const sfotmodule = () => {
     setSwapToken1,
     expectedToken2Amount,
     executeSwap,
-    calcExpectedSwapAmount
+    calcExpectedSwapAmount,
+    swapAmount,
+    setSwapAmount,
 
 
 
@@ -247,7 +249,6 @@ const sfotmodule = () => {
   //swap
   ///////////////////////////////////////////////////////////////////////
   const [swapBalance, setSwapBalance] = useState(sfotBalance)
-  const [swapAmount, setSwapAmount] = useState(0)
   
   //Clearance Handling
   const handleSwapSubmit = async (event: MouseEvent<HTMLElement>) => {
@@ -286,10 +287,14 @@ const sfotmodule = () => {
   }
 
   const handleSwapMax = () => {
-    console.log(swapBalance)
     setSwapAmount(swapBalance)
   }
 
+  const handleSwap =() => {
+    executeSwap(asset)
+  }
+
+  const [swapBalances, setSwapBalances] = useState([0,0])
   useEffect(() => {
     let balances = []
     setSwapAmount(0)
@@ -299,14 +304,20 @@ const sfotmodule = () => {
     else if (asset == 1)
       balances = [sfotBalance, bfotBalance]
 
-    if (swapToken1)
+    setSwapBalances(balances)
+    if (swapToken1) {
       setSwapBalance(balances[0])
-    else 
+    } else {
       setSwapBalance(balances[1])
-    
-    calcExpectedSwapAmount
-
+    }
   }, [sfotBalance,swapToken1])
+
+  useEffect(() => {
+    if (!signingClient || walletAddress == '')
+      return
+    
+    calcExpectedSwapAmount(asset)
+  }, [swapAmount, signingClient, walletAddress])
 
   
 
@@ -403,7 +414,7 @@ const sfotmodule = () => {
           burnAmount={swapAmount}
           onBurnChange={onSwapAmountChange}
           handleBurnPlus={handleSwapAmountPlus}
-          expectedAmount={0}
+          expectedAmount={expectedToken2Amount}
           convImg={() => 
             <svg width="127" height="70" viewBox="0 0 127 94" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <line x1="1.23677" y1="2.15124" x2="63.3153" y2="92.6086" stroke="#171E0E" strokeWidth="3"/>
@@ -423,10 +434,10 @@ const sfotmodule = () => {
           to={assets[asset].to}
           fromImage={assets[asset].fromImage}
           toImage={assets[asset].toImage}
-          handleSubmit={() => console.log('here')}
-          balance={0}
+          handleSubmit={handleSwap}
+          balance={swapBalances[0]}
           handleChange={handleSwapMax}
-          sbalance={0}
+          sbalance={swapBalances[1]}
           submitTitle="Swap"
         />
       </div>
