@@ -126,7 +126,17 @@ export interface ISigningCosmWasmClientContext {
 
   handleAddLiquidityValuesChange: Function,
   executeAddLiquidity: Function,
-  executeRemoveLiquidity: Function
+  executeRemoveLiquidity: Function,
+
+  swapToken1: boolean,
+  setSwapToken1: Function,
+  swapAmount: number,
+  setSwapAmount: Function,
+  expectedToken2Amount: number,
+  executeSwap: Function,
+  calcExpectedSwapAmount: Function
+
+
   
 }
 
@@ -271,7 +281,9 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   const [sfotSwapAmount, setSfotSwapAmount] = useState('')
   const [expectedSwapAmount, setExpectedSwapAmount] = useState(0)
     
-  
+  const [swapToken1, setSwapToken1] = useState(true)
+  const [swapAmount, setSwapAmount] = useState(0)
+  const [expectedToken2Amount, setExpectedToken2Amount] = useState(0)
   ////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////
   ///////////////////////    connect & disconnect   //////////////////////
@@ -1406,6 +1418,84 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     }
   }
   
+  const calcExpectedSwapAmount = async () => {
+    
+  }
+  
+  const executeSwap = async () => {
+    // setLoading(true)
+    // let contract = ""
+    // let lpcontract = ""
+    // let lpbalance = 0
+    // let lptot = 0
+    // let token1 = 0
+    // let token2 = 0
+    // switch (asset) {
+    //   case 0:
+    //     contract = PUBLIC_SFOT_UST_POOL_CONTRACT
+    //     lpcontract = sfotUstPoolInfo.lp_token_address
+    //     lpbalance = sfotUstLpBalance
+    //     lptot = sfotUstLpTokenInfo.total_supply
+    //     token1 = sfotUstPoolInfo.token1_reserve * lpbalance / lptot
+    //     token2 = sfotUstPoolInfo.token2_reserve * lpbalance / lptot
+    //     break;
+    //   case 1:
+    //     contract = PUBLIC_SFOT_BFOT_POOL_CONTRACT
+    //     lpcontract = sfotBfotPoolInfo.lp_token_address
+    //     lpbalance = sfotBfotLpBalance
+    //     lptot = sfotBfotLpTokenInfo.total_supply
+    //     token1 = sfotBfotPoolInfo.token1_reserve * lpbalance / lptot
+    //     token2 = sfotBfotPoolInfo.token2_reserve * lpbalance / lptot
+    //     break;
+    //   default:
+    //     return;
+    // }
+    // // lpbalance *= 0.7
+
+    // try {
+    //   await signingClient?.execute(
+    //     walletAddress, // sender address
+    //     lpcontract, // token sale contract
+    //     {
+    //       "increase_allowance": {
+    //         "amount": `${lpbalance}`,
+    //         "spender": contract,
+    //         "msg": ""
+    //       }
+    //     }, // msg
+    //     defaultFee,
+    //     undefined,
+    //     []
+    //   )
+      
+    //   await signingClient?.execute(
+    //     walletAddress, // sender address
+    //     contract, // token sale contract
+    //     {
+    //       "remove_liquidity": {
+    //         "amount": `${lpbalance}`,
+    //         "min_token1": "0",
+    //         "min_token2": "0"
+    //       }
+    //     }, // msg
+    //     defaultFee,
+    //     undefined,
+    //     []
+    //   )
+
+    //   setLoading(false)
+    //   getBalances()
+    //   if (showNotification)
+    //     NotificationManager.success('Successfully removed liquidity')
+    // } catch (error) {
+    //   setLoading(false)
+    //   //if (showNotification) {
+    //     NotificationManager.error(`Remove Liquidity error : ${error}`)
+    //     console.log(error.toString())
+    //   //}
+    // }
+  }
+  
 
   return {
     walletAddress,
@@ -1508,6 +1598,14 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
     handleAddLiquidityValuesChange,
     executeAddLiquidity,
-    executeRemoveLiquidity
+    executeRemoveLiquidity,
+
+    swapToken1,
+    setSwapToken1,
+    swapAmount,
+    setSwapAmount,
+    expectedToken2Amount,
+    executeSwap,
+    calcExpectedSwapAmount
   }
 }

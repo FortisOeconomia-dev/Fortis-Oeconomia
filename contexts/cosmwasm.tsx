@@ -107,7 +107,15 @@ let { Provider } = (CosmWasmContext =
 
     handleAddLiquidityValuesChange: () => {},
     executeAddLiquidity: () => {},
-    executeRemoveLiquidity: () => {}
+    executeRemoveLiquidity: () => {},
+
+    swapToken1: true,
+    setSwapToken1: () => {},
+    swapAmount: 0,
+    setSwapAmount: () => {},
+    expectedToken2Amount: 0,
+    executeSwap: () => {},
+    calcExpectedSwapAmount: () => {}
     
   }))
 

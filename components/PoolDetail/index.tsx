@@ -91,7 +91,7 @@ const PoolDetail = ({
 
     const [myToken1Amount, setMyToken1Amount] = useState(0)
     const [myToken2Amount, setMyToken2Amount] = useState(0)
-
+    const [myLpBalance, setMayLpBalance] = useState(0)
 
     useEffect(()=> {
         if (loading)
@@ -103,11 +103,19 @@ const PoolDetail = ({
             setDecimals([10, 6])
             setToken2Balance(ustBalance)
             
+            setMyToken1Amount(sfotUstLpBalance * token1TotalAmount / sfotUstLpTokenInfo.total_supply)
+            setMyToken2Amount(sfotUstLpBalance * token2TotalAmount / sfotUstLpTokenInfo.total_supply)
 
+            setMayLpBalance(sfotUstLpBalance)
         } else if (asset == 1) {
             setPoolInfo(sfotBfotPoolInfo)
             setDecimals([10,10])
             setToken2Balance(bfotBalance)
+
+            setMyToken1Amount(sfotBfotLpBalance * token1TotalAmount / sfotBfotLpTokenInfo.total_supply)
+            setMyToken2Amount(sfotBfotLpBalance * token2TotalAmount / sfotBfotLpTokenInfo.total_supply)
+
+            setMayLpBalance(sfotBfotLpBalance)
         }
         
         

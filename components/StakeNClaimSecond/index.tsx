@@ -140,7 +140,7 @@ const StakeNClaimSecond = ({
     const { toggle } = useContext(ToggleContext)
     return (
         <Wrapper>
-            <TotalStaked style={{filter:'blur(2px)',pointerEvents:'none'}}>
+            <TotalStaked>
                 <div className="wallet-text w-full" style={{ marginBottom: '28px', paddingBottom: '26px', borderBottom: '2.05843px solid #2E0752' }}>
                     <TotalStakedText className="wallet-label" style={{ textAlign: 'center' }}>Total Assets in Pool</TotalStakedText>
                     <TotalStakedText className="wallet-label">

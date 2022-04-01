@@ -251,6 +251,7 @@ const gfotmodule = () => {
             balance={bfotBalance}
             handleChange={handlebFotChange}
             sbalance={gfotBalance}
+            
           />
         </LeftPart>
         <RightPart>

@@ -4,7 +4,7 @@ import { ToggleContext } from '../Layout/Layout'
 
 import FromConv from './FromConv'
 import ToConv from './ToConv'
-
+import { useSigningClient } from "../../contexts/cosmwasm";
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
@@ -31,8 +31,16 @@ const Converter = ({
     balance,
     handleChange,
     sbalance,
-    submitTitle="Burn",
+    submitTitle="Burn"
+    
 }) => {
+    const {
+ 
+        swapToken1,
+        setSwapToken1
+    
+    
+      } = useSigningClient();
     const {toggle} = useContext(ToggleContext)
     const [exchange, setExchange] = useState(false)
     return (
@@ -50,7 +58,7 @@ const Converter = ({
             />
             <div style={{marginBottom: '58px', display: 'flex', gap: '16px'}}>
                 {typeof convImg === 'string' ? <img src={convImg} /> : convImg()}
-                {convImg2 && convImg2(() => setExchange(!exchange))}
+                {convImg2 && convImg2(() => {setSwapToken1(exchange);setExchange(!exchange); })}
             </div>
             <ToConv to={!exchange ? to : from} toImage={!exchange ? toImage : fromImage} expectedAmount={expectedAmount} sbalance={!exchange ? sbalance : balance} maxW={maxW} />
             <button className={`default-btn ${!toggle && from !== 'FOT' ? 'secondary-btn' : ''}`} onClick={handleSubmit}>{submitTitle}</button>
