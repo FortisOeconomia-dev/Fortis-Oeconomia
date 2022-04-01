@@ -363,7 +363,7 @@ const StakeNClaimSecond = ({
                                 className={`default-btn  ${!toggle && 'secondary-btn'}`}
                                 style={{ minWidth: 'unset', padding: '3px 30px' }}
                                 onClick={handleLpStaking}
-                                disabled={lpStakingMyStaked > 0 || lpAmount == 0}
+                                
                             >
                                 Stake All
                             </button>
