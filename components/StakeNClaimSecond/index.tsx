@@ -127,12 +127,12 @@ const StakeNClaimSecond = ({
     handleLpStaking,
     handleLpUnstaking,
     handleLpStakingReward,
-
     lpStakingMyReward,
     lpStakingMyStaked,
     from,
     to,
     APY,
+    sfotbfotdpr,
 }) => {
 
     
@@ -161,7 +161,7 @@ const StakeNClaimSecond = ({
                         DPR
                         <StakedValue>
                             {""}
-                            {"Infinity"} %
+                            {sfotbfotdpr} %
                         </StakedValue>
                     </TotalStakedText>
                 </div>
@@ -192,8 +192,10 @@ const StakeNClaimSecond = ({
                 >
                     Max
                 </MaxButton>
-                <button className={`default-btn ${!toggle && 'secondary-btn'}`} style={{ marginTop: '28px' }} onClick={handleAddLiquidity}>Add Liquidity</button>
-                <button className={`default-btn ${!toggle && 'secondary-btn'}`} style={{ marginTop: '28px' }} onClick={handleRemoveLiquidity}>Remove All Liquidity</button>
+                <div style={{ display: 'flex', justifyContent: 'space-between',gap:'30px'}}>
+                <button className={`default-btn ${!toggle && 'secondary-btn'}`} style={{ marginTop: '28px',minWidth: 'unset', padding: '1px 30px', fontSize:'14px'}} onClick={handleAddLiquidity}>Add Liquidity</button>
+                <button className={`default-btn ${!toggle && 'secondary-btn'}`} style={{ marginTop: '28px',minWidth: 'unset', padding: '1px 30px', fontSize:'14px' }} onClick={handleRemoveLiquidity}>Remove All Liquidity</button>
+                </div>
             </TotalStaked>
             <MyStaked>
                 <MyStakedContent className="wallet-text">
@@ -225,7 +227,7 @@ const StakeNClaimSecond = ({
                             Stake
                         </button>
                     </MyRewardsUp> */}
-                    <MyRewardsMiddle style={{filter:'blur(2px)', pointerEvents: 'none' }}>
+                    <MyRewardsMiddle>
                         <MyStakedText className="wallet-label" style={{ textAlign: 'center' }}>My Liquidity</MyStakedText>
                         <MyStakedText className="wallet-label">
                             {from}
@@ -241,7 +243,7 @@ const StakeNClaimSecond = ({
                                 {myToken2Amount}
                             </StakedValue>
                         </MyStakedText>
-                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between',filter:'blur(2px)', pointerEvents: 'none'}}>
                             {/*<button className={`default-btn ${!toggle && 'secondary-btn outlined'}`} style={{minWidth: 'unset', padding: '13px 30px'}} onClick={() => console.log('here')}>Max</button> */}
                             <button
                                 className={`default-btn  ${!toggle && 'secondary-btn'}`}
@@ -253,7 +255,7 @@ const StakeNClaimSecond = ({
                             <button className={`default-btn ${!toggle && 'secondary-btn outlined'}`} style={{ minWidth: 'unset', padding: '3px 10px' }} onClick={handleLpUnstaking}>Unstake All</button>
 
                         </div>
-                        <MyStakedText className="wallet-label" style={{ textAlign: 'center', fontSize:"16px" }}>Unbounding period is 14 days</MyStakedText>
+                        <MyStakedText className="wallet-label" style={{ textAlign: 'center', fontSize:"16px" }}>Unbonding period is 14 days</MyStakedText>
                     </MyRewardsMiddle>
                     <div className="w-full" style={{ marginBottom: '120px', filter:'blur(2px)',pointerEvents:'none' }}>
                         <MyStakedText className="wallet-label">
