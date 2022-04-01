@@ -38,6 +38,7 @@
     "react-owl-carousel3": "^2.2.5",
     "react-paginate": "^7.1.2",
     "react-query": "^3.34.12",
+    "react-range": "^1.8.12",
     "react-redux": "^7.2.6",
     "react-select": "^5.2.2",
     "recoil": "^0.6.1",
