@@ -310,7 +310,7 @@ const sfotmodule = () => {
     } else {
       setSwapBalance(balances[1])
     }
-  }, [sfotBalance,swapToken1])
+  }, [asset, sfotBalance, swapToken1, sfotBalance, ustBalance, bfotBalance])
 
   useEffect(() => {
     if (!signingClient || walletAddress == '')

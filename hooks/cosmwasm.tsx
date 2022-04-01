@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { connectKeplr } from '../services/keplr'
-import { SigningCosmWasmClient, CosmWasmClient, JsonObject, cosmWasmTypes } from '@cosmjs/cosmwasm-stargate'
+import { SigningCosmWasmClient, CosmWasmClient, JsonObject, cosmWasmTypes, MsgExecuteContractEncodeObject } from '@cosmjs/cosmwasm-stargate'
+import { MsgExecuteContract } from 'cosmjs-types/cosmwasm/wasm/v1/tx'
 import { fromBase64, toBase64 } from '@cosmjs/encoding'
 import {
   convertMicroDenomToDenom,
@@ -9,6 +10,7 @@ import {
   convertDenomToMicroDenom2,
   convertFromMicroDenom,
 } from '../util/conversion'
+import { toUtf8 } from '@cosmjs/encoding'
 import { coin } from '@cosmjs/launchpad'
 import { NotificationContainer, NotificationManager } from 'react-notifications'
 import { create } from 'ipfs-http-client'
@@ -1197,36 +1199,45 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   ////////////////////////////////////////////////////////////////////////
   //slip default : 1.004008990478986
   let slip = 1.004009
+
+  function get_token2_amount_required(token1_amount:number, token2_reserve:number, token1_reserve:number) {
+    return token1_amount * token2_reserve / token1_reserve
+    
+  }
   const handleAddLiquidityValuesChange = async (asset:number, token1Amount:number, token2Amount:number, fix:number) => {
     let contract = ""
     let decimals = [10, 10]
     let token1Balance = sfotBalance
     let token2Balance:number
+    let poolInfo
     switch (asset) {
       case 0:
         contract = PUBLIC_SFOT_UST_POOL_CONTRACT;
         decimals = [10, 6]
         token2Balance = ustBalance
+        poolInfo = sfotUstPoolInfo
         break;
       case 1:
         contract = PUBLIC_SFOT_BFOT_POOL_CONTRACT;
         token2Balance = bfotBalance
+        poolInfo = sfotBfotPoolInfo
         break;
       default:
         return;
     }
     // console.log("handleLiquidityChange")
     
-    const price1to2 = await signingClient.queryContractSmart(contract, {
-      token1_for_token2_price: { token1_amount: `${Math.pow(10, decimals[0])}` },
-    })
+    // const price1to2 = await signingClient.queryContractSmart(contract, {
+    //   token1_for_token2_price: { token1_amount: `${Math.pow(10, decimals[0])}` },
+    // })
     
-    // console.log("price1to2: " + price1to2.token2_amount)
+    // // console.log("price1to2: " + price1to2.token2_amount)
     
-    //This is the token1 amount of 1 token2 
-    const price2to1 = await signingClient.queryContractSmart(contract, {
-      token2_for_token1_price: { token2_amount: `${Math.pow(10, decimals[1])}` },
-    })
+    // //This is the token1 amount of 1 token2 
+    // const price2to1 = await signingClient.queryContractSmart(contract, {
+    //   token2_for_token1_price: { token2_amount: `${Math.pow(10, decimals[1])}` },
+    // })
+    
     
     // console.log("price2to1: " + price2to1.token1_amount)
 
@@ -1236,24 +1247,33 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     // console.log("token2")
     // console.log(token2Amount)
     // console.log(token1Amount * Number(convertMicroDenomToDenom2(price1to2.token2_amount, decimals[1])))
-
+    let token1 = Number(convertDenomToMicroDenom2(token1Amount, decimals[0]))
+    let token2 = Number(convertDenomToMicroDenom2(token2Amount, decimals[1]))
+    let token1max = Number(convertDenomToMicroDenom2(token1Balance, decimals[0]))
+    let token2max = Number(convertDenomToMicroDenom2(token2Balance, decimals[1]))
+    console.log("token1: " + token1)
+    console.log("token2: " + token2)
+    console.log("token1max: " + token1max)
+    console.log("token2max: " + token2max)
     if (fix == 1) {
       //changed token1amount
-      token2Amount = slip * token1Amount * Number(convertMicroDenomToDenom2(price1to2.token2_amount, decimals[1]))
-      if (token2Amount > token2Balance) {
-        token2Amount = token2Balance
-        token1Amount = token2Amount * Number(convertMicroDenomToDenom2(price2to1.token1_amount, decimals[0])
-        ) / slip
+      let new_token2 = token1 * poolInfo.token2_reserve / poolInfo.token1_reserve
+      console.log("new_token2: " + new_token2)
+      if (new_token2 > token2max) {
+        new_token2 = token2max
+        token1 = new_token2 * poolInfo.token1_reserve / poolInfo.token2_reserve
       }
+      token2 = new_token2 + 1
     } else {
-      token1Amount = token2Amount * Number(convertMicroDenomToDenom2(price2to1.token1_amount, decimals[0])) / slip
-      if (token1Amount > token1Balance) {
-        token1Amount = token1Balance
-        token2Amount = slip * token1Amount * Number(convertMicroDenomToDenom2(price1to2.token2_amount, decimals[1]))
+      let new_token1 = token2 * poolInfo.token1_reserve / poolInfo.token2_reserve
+      if (new_token1 > token1max) {
+        new_token1 = token1max
+        token2 = new_token1 * poolInfo.token2_reserve / poolInfo.token1_reserve
       }
+      token1 = new_token1 - 1
     }
 
-    return {token1Amount, token2Amount}
+    return {token1Amount: convertMicroDenomToDenom2(token1, decimals[0]), token2Amount: convertMicroDenomToDenom2(token2, decimals[1])}
   }
 
   const executeAddLiquidity = async (asset:number, token1Amount:number, token2Amount:number) => {
@@ -1423,18 +1443,24 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     
     let contract = ""
     let decimals = [10, 10]
+    let poolInfo = null;
     switch (asset) {
       case 0:
         contract = PUBLIC_SFOT_UST_POOL_CONTRACT;
         decimals = [10, 6]
+        poolInfo = sfotUstPoolInfo
         break;
       case 1:
         contract = PUBLIC_SFOT_BFOT_POOL_CONTRACT;
+        poolInfo = sfotBfotPoolInfo
         break;
       default:
         return;
     }
 
+    if (!swapToken1) {
+      decimals = [decimals[1], decimals[0]]
+    }
     const price1to2 = await signingClient.queryContractSmart(contract, {
       token1_for_token2_price: { token1_amount: `${Math.pow(10, decimals[0])}` },
     })
@@ -1442,16 +1468,38 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     const price2to1 = await signingClient.queryContractSmart(contract, {
       token2_for_token1_price: { token2_amount: `${Math.pow(10, decimals[1])}` },
     })
+    let input_amount_with_fee = Number(convertDenomToMicroDenom2(swapAmount, decimals[0])) * 995.0
+    let numerator = input_amount_with_fee * (swapToken1 ? poolInfo.token2_reserve : poolInfo.token1_reserve)
+    let denominator = (swapToken1 ? poolInfo.token1_reserve : poolInfo.token2_reserve) * 1000.0 + input_amount_with_fee
+    let out_amount = convertMicroDenomToDenom2(numerator / denominator, decimals[1])
+    setExpectedToken2Amount(out_amount)
+    {
+    //   let input_amount_with_fee = input_amount
+    //     .checked_mul(Uint128::new(997))
+    //     .map_err(StdError::overflow)?;
+    // let numerator = input_amount_with_fee
+    //     .checked_mul(output_reserve)
+    //     .map_err(StdError::overflow)?;
+    // let denominator = input_reserve
+    //     .checked_mul(Uint128::new(1000))
+    //     .map_err(StdError::overflow)?
+    //     .checked_add(input_amount_with_fee)
+    //     .map_err(StdError::overflow)?;
 
-    
-    let expectedAmount = 0
-    if (swapToken1) {
-      expectedAmount = swapAmount * Number(convertMicroDenomToDenom2(price1to2.token2_amount, decimals[1])) / slip
-    } else {
-      expectedAmount = swapAmount * Number(convertMicroDenomToDenom2(price2to1.token1_amount, decimals[0])) / slip
+    // numerator
+    //     .checked_div(denominator)
+    //     .map_err(StdError::divide_by_zero)
     }
-    console.log(expectedAmount)
-    setExpectedToken2Amount(expectedAmount)
+    // let expectedAmount = 0
+    // // let slip = slip * Math.pow(slip, )
+    // let swapslip = 1.05
+    // if (swapToken1) {
+    //   expectedAmount = swapAmount * Number(convertMicroDenomToDenom2(price1to2.token2_amount, decimals[1])) / swapslip
+    // } else {
+    //   expectedAmount = swapAmount * Number(convertMicroDenomToDenom2(price2to1.token1_amount, decimals[0])) / swapslip
+    // }
+    // console.log(expectedAmount)
+    // setExpectedToken2Amount(expectedAmount)
   }
 
   const executeSwap = async (asset) => {
@@ -1483,6 +1531,40 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     console.log(token2)
     try {
       // let funds = []
+
+      // const msg1 = {
+      //   increase_allowance: {
+      //     amount: `${input.amount}`,
+      //     spender: `${input.swapAddress}`,
+      //   },
+      // }
+
+      // const executeContractMsg1: MsgExecuteContractEncodeObject = {
+      //   typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
+      //   value: MsgExecuteContract.fromPartial({
+      //     sender: walletAddress,
+      //     contract: PUBLIC_SFOT_CONTRACT,
+      //     msg: toUtf8(JSON.stringify(msg1)),
+      //     funds: [],
+      //   }),
+      // }
+  
+      // const executeContractMsg2: MsgExecuteContractEncodeObject = {
+      //   typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
+      //   value: MsgExecuteContract.fromPartial({
+      //     sender: input.senderAddress,
+      //     contract: input.swapAddress,
+      //     msg: toUtf8(JSON.stringify(add_liquidity_msg)),
+      //     funds: [coin(input.maxToken, input.tokenDenom)],
+      //   }),
+      // }
+      // let msgs = [executeContractMsg1, executeContractMsg2]
+      // let result = await signingClient?.signAndBroadcast(
+      //   walletAddress,
+      //   msgs,
+      //   defaultFee
+      // )
+
       if (asset == 0) {
         if (swapToken1) {
           await signingClient?.execute(
@@ -1549,79 +1631,6 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     
   }
   
-  // const executeSwap = async () => {
-    // setLoading(true)
-    // let contract = ""
-    // let lpcontract = ""
-    // let lpbalance = 0
-    // let lptot = 0
-    // let token1 = 0
-    // let token2 = 0
-    // switch (asset) {
-    //   case 0:
-    //     contract = PUBLIC_SFOT_UST_POOL_CONTRACT
-    //     lpcontract = sfotUstPoolInfo.lp_token_address
-    //     lpbalance = sfotUstLpBalance
-    //     lptot = sfotUstLpTokenInfo.total_supply
-    //     token1 = sfotUstPoolInfo.token1_reserve * lpbalance / lptot
-    //     token2 = sfotUstPoolInfo.token2_reserve * lpbalance / lptot
-    //     break;
-    //   case 1:
-    //     contract = PUBLIC_SFOT_BFOT_POOL_CONTRACT
-    //     lpcontract = sfotBfotPoolInfo.lp_token_address
-    //     lpbalance = sfotBfotLpBalance
-    //     lptot = sfotBfotLpTokenInfo.total_supply
-    //     token1 = sfotBfotPoolInfo.token1_reserve * lpbalance / lptot
-    //     token2 = sfotBfotPoolInfo.token2_reserve * lpbalance / lptot
-    //     break;
-    //   default:
-    //     return;
-    // }
-    // // lpbalance *= 0.7
-
-    // try {
-    //   await signingClient?.execute(
-    //     walletAddress, // sender address
-    //     lpcontract, // token sale contract
-    //     {
-    //       "increase_allowance": {
-    //         "amount": `${lpbalance}`,
-    //         "spender": contract,
-    //         "msg": ""
-    //       }
-    //     }, // msg
-    //     defaultFee,
-    //     undefined,
-    //     []
-    //   )
-      
-    //   await signingClient?.execute(
-    //     walletAddress, // sender address
-    //     contract, // token sale contract
-    //     {
-    //       "remove_liquidity": {
-    //         "amount": `${lpbalance}`,
-    //         "min_token1": "0",
-    //         "min_token2": "0"
-    //       }
-    //     }, // msg
-    //     defaultFee,
-    //     undefined,
-    //     []
-    //   )
-
-    //   setLoading(false)
-    //   getBalances()
-    //   if (showNotification)
-    //     NotificationManager.success('Successfully removed liquidity')
-    // } catch (error) {
-    //   setLoading(false)
-    //   //if (showNotification) {
-    //     NotificationManager.error(`Remove Liquidity error : ${error}`)
-    //     console.log(error.toString())
-    //   //}
-    // }
-  // }
   
 
   return {
