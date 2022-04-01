@@ -127,12 +127,12 @@ const StakeNClaimSecond = ({
     handleLpStaking,
     handleLpUnstaking,
     handleLpStakingReward,
-
     lpStakingMyReward,
     lpStakingMyStaked,
     from,
     to,
     APY,
+    sfotbfotdpr,
 }) => {
 
     
@@ -158,10 +158,10 @@ const StakeNClaimSecond = ({
                         </StakedValue>
                     </TotalStakedText>
                     <TotalStakedText className="wallet-label" style={{ fontSize: '18px' }}>
-                        Epoch Reward
+                        DPR
                         <StakedValue>
                             {""}
-                            {"10000"} FOT
+                            {sfotbfotdpr} %
                         </StakedValue>
                     </TotalStakedText>
                 </div>

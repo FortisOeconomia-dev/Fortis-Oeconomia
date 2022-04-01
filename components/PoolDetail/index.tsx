@@ -74,7 +74,8 @@ const PoolDetail = ({
         executeRemoveLiquidity,
         loading,
         signingClient,
-        walletAddress
+        walletAddress,
+        bFot2Ust,
     } = useSigningClient();
 
     const [poolInfo, setPoolInfo] = useState(null)
@@ -85,6 +86,8 @@ const PoolDetail = ({
 
     const [token1TotalAmount, setToken1TotalAmount] = useState(0)
     const [token2TotalAmount, setToken2TotalAmount] = useState(0)
+    const [sfotbfotdpr, setsfotbfotdpr] = useState(0)
+//    const[sfotbfotdpr1, setsfotbfotdpr1] = useState(0)
 
     const [token1Amount, setToken1Amount] = useState(0)
     const [token2Amount, setToken2Amount] = useState(0)
@@ -105,7 +108,7 @@ const PoolDetail = ({
             
             setMyToken1Amount(sfotUstLpBalance * token1TotalAmount / sfotUstLpTokenInfo.total_supply)
             setMyToken2Amount(sfotUstLpBalance * token2TotalAmount / sfotUstLpTokenInfo.total_supply)
-
+            setsfotbfotdpr(5000000 * bFot2Ust / token1TotalAmount)
             setMayLpBalance(sfotUstLpBalance)
         } else if (asset == 1) {
             setPoolInfo(sfotBfotPoolInfo)
@@ -114,6 +117,7 @@ const PoolDetail = ({
 
             setMyToken1Amount(sfotBfotLpBalance * token1TotalAmount / sfotBfotLpTokenInfo.total_supply)
             setMyToken2Amount(sfotBfotLpBalance * token2TotalAmount / sfotBfotLpTokenInfo.total_supply)
+            setsfotbfotdpr(5000000/token2TotalAmount)
 
             setMayLpBalance(sfotBfotLpBalance)
         }
@@ -223,6 +227,7 @@ const PoolDetail = ({
                 <StakeNClaimSecond
                     token1TotalAmount={token1TotalAmount}
                     token2TotalAmount={token2TotalAmount}
+                    sfotbfotdpr={sfotbfotdpr}
                 
                     handleToken1Minus={handleToken1Minus}
                     handleToken1Plus={handleToken1Plus}
