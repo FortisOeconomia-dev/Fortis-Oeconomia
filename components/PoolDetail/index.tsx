@@ -226,9 +226,9 @@ const PoolDetail = ({
     const [lpStakingMyDeadline, setLpStakingMyDeadline] = useState(0)
     
     const handleLpStaking = async () => { await executeLpStakeAll(asset)}
-    const handleLpCreateUnstake = async () => {executeLpCreateUnstake(asset)}
-    const handleLpStakingReward = async () => {executeLpClaimReward(asset)}
-    const handleLpFetchUnstake = async () => {executeLpFetchUnstake(asset)}
+    const handleLpCreateUnstake = async () => {await executeLpCreateUnstake(asset)}
+    const handleLpStakingReward = async () => {await executeLpClaimReward(asset)}
+    const handleLpFetchUnstake = async () => {await executeLpFetchUnstake(asset)}
     return (
         <Wrapper>
             <div className='w-full'>

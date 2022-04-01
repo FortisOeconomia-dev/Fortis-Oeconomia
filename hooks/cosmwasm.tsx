@@ -1664,7 +1664,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   const executeLpStakeAll = async (asset) => {
 
     let lpstate = await getLpStakingInfo(asset)
-    if (lpstate.lp_amount == 0 || lpstate.staked_amount > 0 || lpstate.unstaking_amount > 0)
+    if (lpstate.lp_amount == 0)
       return
     setLoading(true)
     try {
