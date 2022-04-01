@@ -216,11 +216,11 @@ const Navbar = ({
                     <a className="nav-link" style={{whiteSpace:"nowrap"}}>Legionnaire Coins</a>
                   </Link>
                 </li>*/}
-                {/* <li className="nav-item">
+                <li className="nav-item">
                   <Link href="/info" activeClassName="active">
                     <NavLink className="nav-link" slot={pathname} defaultChecked={toggle}>Info</NavLink>
                   </Link>
-                </li> */}
+                </li>
                 <li className="nav-item">
                   <Link href="/nwallet" activeClassName="active">
                     <NavLink className="nav-link" slot={pathname} defaultChecked={toggle}>Wallet</NavLink>

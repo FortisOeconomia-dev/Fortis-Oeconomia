@@ -1226,40 +1226,14 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       default:
         return;
     }
-    // console.log("handleLiquidityChange")
-    
-    // const price1to2 = await signingClient.queryContractSmart(contract, {
-    //   token1_for_token2_price: { token1_amount: `${Math.pow(10, decimals[0])}` },
-    // })
-    
-    // // console.log("price1to2: " + price1to2.token2_amount)
-    
-    // //This is the token1 amount of 1 token2 
-    // const price2to1 = await signingClient.queryContractSmart(contract, {
-    //   token2_for_token1_price: { token2_amount: `${Math.pow(10, decimals[1])}` },
-    // })
-    
-    
-    // console.log("price2to1: " + price2to1.token1_amount)
-
-    // console.log("token1")
-    // console.log(token1Amount)
-    // console.log(token2Amount * Number(convertMicroDenomToDenom2(price2to1.token1_amount, decimals[0])))
-    // console.log("token2")
-    // console.log(token2Amount)
-    // console.log(token1Amount * Number(convertMicroDenomToDenom2(price1to2.token2_amount, decimals[1])))
     let token1 = Number(convertDenomToMicroDenom2(token1Amount, decimals[0]))
     let token2 = Number(convertDenomToMicroDenom2(token2Amount, decimals[1]))
     let token1max = Number(convertDenomToMicroDenom2(token1Balance, decimals[0]))
     let token2max = Number(convertDenomToMicroDenom2(token2Balance, decimals[1]))
-    console.log("token1: " + token1)
-    console.log("token2: " + token2)
-    console.log("token1max: " + token1max)
-    console.log("token2max: " + token2max)
+
     if (fix == 1) {
       //changed token1amount
       let new_token2 = token1 * poolInfo.token2_reserve / poolInfo.token1_reserve
-      console.log("new_token2: " + new_token2)
       if (new_token2 > token2max) {
         new_token2 = token2max
         token1 = new_token2 * poolInfo.token1_reserve / poolInfo.token2_reserve
@@ -1451,8 +1425,6 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       }
       msglist.push(msg2)
       
-      
-
       let result = await signingClient?.signAndBroadcast(
         walletAddress,
         msglist,
@@ -1507,33 +1479,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     let denominator = (swapToken1 ? poolInfo.token1_reserve : poolInfo.token2_reserve) * 1000.0 + input_amount_with_fee
     let out_amount = convertMicroDenomToDenom2(numerator / denominator, decimals[1])
     setExpectedToken2Amount(out_amount)
-    {
-    //   let input_amount_with_fee = input_amount
-    //     .checked_mul(Uint128::new(997))
-    //     .map_err(StdError::overflow)?;
-    // let numerator = input_amount_with_fee
-    //     .checked_mul(output_reserve)
-    //     .map_err(StdError::overflow)?;
-    // let denominator = input_reserve
-    //     .checked_mul(Uint128::new(1000))
-    //     .map_err(StdError::overflow)?
-    //     .checked_add(input_amount_with_fee)
-    //     .map_err(StdError::overflow)?;
-
-    // numerator
-    //     .checked_div(denominator)
-    //     .map_err(StdError::divide_by_zero)
-    }
-    // let expectedAmount = 0
-    // // let slip = slip * Math.pow(slip, )
-    // let swapslip = 1.05
-    // if (swapToken1) {
-    //   expectedAmount = swapAmount * Number(convertMicroDenomToDenom2(price1to2.token2_amount, decimals[1])) / swapslip
-    // } else {
-    //   expectedAmount = swapAmount * Number(convertMicroDenomToDenom2(price2to1.token1_amount, decimals[0])) / swapslip
-    // }
-    // console.log(expectedAmount)
-    // setExpectedToken2Amount(expectedAmount)
+    
   }
 
   const executeSwap = async (asset) => {
