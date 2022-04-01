@@ -204,6 +204,8 @@ const StakeNClaimSecond = ({
                 >
                     Max
                 </MaxButton>
+                <button className={`default-btn ${!toggle && 'secondary-btn'}`} style={{ minWidth: 'unset', padding: '8px 30px' }} onClick={handleAddLiquidity}>Add Liquidity</button>
+                
                 <div
                     style={{
                         display: "flex",
@@ -278,10 +280,9 @@ const StakeNClaimSecond = ({
                         {values[0].toFixed(1)}
                     </output>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', gap:'30px'}}>
-                    <button className={`default-btn ${!toggle && 'secondary-btn'}`} style={{ marginTop: '28px',minWidth: 'unset', padding: '1px 30px', fontSize:'14px'}} onClick={handleAddLiquidity}>Add Liquidity</button>
-                    <button className={`default-btn ${!toggle && 'secondary-btn'}`} style={{ marginTop: '28px',minWidth: 'unset', padding: '1px 30px', fontSize:'14px' }} onClick={() => handleRemoveLiquidity(values[0])}>Remove All Liquidity</button>
-                </div>
+                    
+                <button className={`default-btn ${!toggle && 'secondary-btn'}`} style={{ minWidth: 'unset', padding: '8px 30px' }} onClick={() => handleRemoveLiquidity(values[0])}>Remove Liquidity</button>
+                
             </TotalStaked>
             <MyStaked>
                 <MyStakedContent className="wallet-text">
@@ -397,7 +398,7 @@ const StakeNClaimSecond = ({
                                 {lpStakingMyReward}
                             </StakedValue>
                         </MyStakedText>
-                        <button className={`default-btn   ${!toggle && 'secondary-btn'}`} onClick={handleLpStakingReward}>Claim</button>
+                        <button className={`default-btn ${!toggle && 'secondary-btn'}`} onClick={handleLpStakingReward}>Claim</button>
                     </div>
                 </MyStakedContent>
 
