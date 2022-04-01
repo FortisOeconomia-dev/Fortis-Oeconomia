@@ -146,11 +146,9 @@ const PoolDetail = ({
 
     
     const updateAmounts = async(token1:number, token2:number, fix:number)=> {
-        console.log(token1 + ":" + token2)
         let ret = await handleAddLiquidityValuesChange(asset, token1, token2, fix)
         setToken1Amount(ret.token1Amount)
         setToken2Amount(ret.token2Amount)
-        console.log(ret.token1Amount, ret.token2Amount)
     }
 
     const handleLiquidityMax= async () => {
@@ -161,7 +159,6 @@ const PoolDetail = ({
 
     const onToken1Change = (event: ChangeEvent<HTMLInputElement>) => {
         const { target: { value } } = event
-        console.log(value)
         if (Number(value) > token1Balance)
             return
         if (Number(value) < 0)
@@ -180,7 +177,6 @@ const PoolDetail = ({
     }
     const onToken2Change = (event: ChangeEvent<HTMLInputElement>) => {
         const { target: { value } } = event
-        console.log(value)
         if (Number(value) > token2Balance)
             return
         if (Number(value) < 0)
@@ -213,17 +209,15 @@ const PoolDetail = ({
         setToken2Amount(0)
     }
     
-    const handleRemoveLiquidity = async (event: MouseEvent<HTMLElement>) => {
+    const handleRemoveLiquidity = async (value:number) => {
 
         if (!signingClient || walletAddress.length === 0) {
             NotificationManager.error("Please connect wallet first");
             return;
         }
-        event.preventDefault()
-
-        await executeRemoveLiquidity(asset)
-        setToken1Amount(0)
-        setToken2Amount(0)
+        await executeRemoveLiquidity(asset, value)
+        // setToken1Amount(0)
+        // setToken2Amount(0)
     }
     
     const [lpStakingMyReward, setLpStakingMyReward] = useState(0)
@@ -277,7 +271,7 @@ const PoolDetail = ({
                     lpStakingMyStaked={lpStakingMyStaked}
                     lpStakingMyUnstaking={lpStakingMyUnstaking}
                     lpStakingMyDeadline={lpStakingMyDeadline}
-                    lpAmount={myLpBalance}
+                    lpAmount={convertMicroDenomToDenom2(myLpBalance, 6)}
                     
                     from={from}
                     to={to}

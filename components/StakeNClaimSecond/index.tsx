@@ -280,7 +280,7 @@ const StakeNClaimSecond = ({
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', gap:'30px'}}>
                     <button className={`default-btn ${!toggle && 'secondary-btn'}`} style={{ marginTop: '28px',minWidth: 'unset', padding: '1px 30px', fontSize:'14px'}} onClick={handleAddLiquidity}>Add Liquidity</button>
-                    <button className={`default-btn ${!toggle && 'secondary-btn'}`} style={{ marginTop: '28px',minWidth: 'unset', padding: '1px 30px', fontSize:'14px' }} onClick={handleRemoveLiquidity}>Remove All Liquidity</button>
+                    <button className={`default-btn ${!toggle && 'secondary-btn'}`} style={{ marginTop: '28px',minWidth: 'unset', padding: '1px 30px', fontSize:'14px' }} onClick={() => handleRemoveLiquidity(values[0])}>Remove All Liquidity</button>
                 </div>
             </TotalStaked>
             <MyStaked>
@@ -341,6 +341,13 @@ const StakeNClaimSecond = ({
                             }}
                         ></div>
                         <div>
+                            <MyStakedText className="wallet-label">
+                                {"LP Amount"}
+                                <StakedValue>
+                                    {" "}
+                                    {lpAmount}
+                                </StakedValue>
+                            </MyStakedText>
                             <MyStakedText className="wallet-label">
                                 {"Staked LP Amount"}
                                 <StakedValue>

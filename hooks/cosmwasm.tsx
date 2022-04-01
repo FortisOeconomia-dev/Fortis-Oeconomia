@@ -1240,13 +1240,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   ///////////////////////    Pool Related Functions   ////////////////////
   ////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////
-  //slip default : 1.004008990478986
-  let slip = 1.004009
-
-  function get_token2_amount_required(token1_amount:number, token2_reserve:number, token1_reserve:number) {
-    return token1_amount * token2_reserve / token1_reserve
-    
-  }
+  
   const handleAddLiquidityValuesChange = async (asset:number, token1Amount:number, token2Amount:number, fix:number) => {
     let contract = ""
     let decimals = [10, 10]
@@ -1285,9 +1279,9 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       let new_token1 = token2 * poolInfo.token1_reserve / poolInfo.token2_reserve
       if (new_token1 > token1max) {
         new_token1 = token1max
-        token2 = new_token1 * poolInfo.token2_reserve / poolInfo.token1_reserve
+        token2 = new_token1 * poolInfo.token2_reserve / poolInfo.token1_reserve + 1
       }
-      token1 = new_token1 - 1
+      token1 = new_token1
     }
 
     return {token1Amount: convertMicroDenomToDenom2(token1, decimals[0]), token2Amount: convertMicroDenomToDenom2(token2, decimals[1])}
@@ -1400,7 +1394,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     }
   }
 
-  const executeRemoveLiquidity = async (asset:number) => {
+  const executeRemoveLiquidity = async (asset:number, rate:number) => {
     setLoading(true)
     let contract = ""
     let lpcontract = ""
@@ -1428,7 +1422,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       default:
         return;
     }
-    // lpbalance *= 0.7
+    lpbalance = Math.floor(lpbalance * rate / 100.0)
 
     try {
       let msglist = []
