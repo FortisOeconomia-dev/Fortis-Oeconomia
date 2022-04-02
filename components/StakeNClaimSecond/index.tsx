@@ -398,7 +398,7 @@ const StakeNClaimSecond = ({
                                 {lpStakingMyReward}
                             </StakedValue>
                         </MyStakedText>
-                        <button className={`default-btn ${!toggle && 'secondary-btn'}`} onClick={handleLpStakingReward}>Claim</button>
+                        <button className={`default-btn ${!toggle && 'secondary-btn'}`} /* onClick={handleLpStakingReward} */>Claim</button>
                     </div>
                 </MyStakedContent>
 
