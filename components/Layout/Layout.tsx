@@ -102,7 +102,7 @@ const Layout = ({ children }) => {
       getBalances()
     }
     interval = setInterval(() => {
-      setSeconds(seconds => (seconds + 1) % 5);
+      setSeconds(seconds => (seconds + 1) % 10);
     }, 1000);
     return () => clearInterval(interval);
   }, [seconds])

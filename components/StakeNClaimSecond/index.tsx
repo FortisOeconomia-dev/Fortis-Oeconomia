@@ -388,7 +388,7 @@ const StakeNClaimSecond = ({
                             
                         </table>
                     </div>
-{/*                         <MyStakedText className="wallet-label" style={{ textAlign: 'center', fontSize:"16px" }}>Unbonding period is 14 days</MyStakedText> */}
+                        <MyStakedText className="wallet-label" style={{ textAlign: 'center', fontSize:"16px" }}>Unbonding period is 14 days</MyStakedText>
                     </MyRewardsMiddle>
                     <div className="w-full" >
                         <MyStakedText className="wallet-label">
@@ -398,7 +398,7 @@ const StakeNClaimSecond = ({
                                 {lpStakingMyReward}
                             </StakedValue>
                         </MyStakedText>
-                        <button className={`default-btn ${!toggle && 'secondary-btn'}`} /* onClick={handleLpStakingReward} */>Claim</button>
+                        <button className={`default-btn ${!toggle && 'secondary-btn'}`}  onClick={handleLpStakingReward} >Claim</button>
                     </div>
                 </MyStakedContent>
 
