@@ -124,7 +124,14 @@ let { Provider } = (CosmWasmContext =
     executeLpClaimReward: () => {},
     executeLpCreateUnstake: () => {},
     executeLpFetchUnstake: () => {},
-    lpStakingInfo: null
+    lpStakingInfo: null,
+    getAirdropBalances:  () => {},
+    getBfotBalances:  () => {},
+    getGfotBalances:  () => {},
+    getSfotBalances:  () => {},
+    getCommonBalances:  () => {},
+    getWalletBalances: () => {},
+    updateInterval: 0
     
   }))
 

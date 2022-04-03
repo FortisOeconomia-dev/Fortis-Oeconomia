@@ -139,7 +139,7 @@ const CreateWork = () => {
     airdropAmount,
     airdropAmountDenom,
     merkleProof,
-
+    getAirdropBalances,
     getMyAirdropAmount,
     GetAlreadyAirdropped,
     executeAirdrop,
@@ -154,6 +154,7 @@ const CreateWork = () => {
     }
     getMyAirdropAmount();
     GetAlreadyAirdropped();
+    getAirdropBalances()
   }, [signingClient, walletAddress]);
 
   useEffect(() => {

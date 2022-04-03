@@ -91,8 +91,29 @@ const gfotmodule = () => {
     executegFotClaimReward,
     bFot2Juno,
     Juno2bFot,
-    poolDpr
+    poolDpr,
+    getGfotBalances,
+    updateInterval
   } = useSigningClient();
+  useEffect(() => {
+    if (!signingClient || walletAddress.length === 0) {
+      return;
+    }
+    getGfotBalances()
+  }, [signingClient, walletAddress]);
+
+  const [seconds, setSeconds] = useState(0)
+  useEffect(() => {
+    let interval = null;
+    if (seconds === 0) {
+       getGfotBalances()
+    }
+    interval = setInterval(() => {
+      setSeconds(seconds => (seconds + 1) % updateInterval);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [seconds])
+
   const defaultValues = [
     {
       key: 'bFOT Supply',
