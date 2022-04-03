@@ -72,6 +72,7 @@ const CreateWork = () => {
     getMyAirdropAmount,
     GetAlreadyAirdropped,
     executeAirdrop,
+    getAirdropBalances
   } = useSigningClient();
 
   useEffect(() => {
@@ -80,6 +81,7 @@ const CreateWork = () => {
     }
     getMyAirdropAmount();
     GetAlreadyAirdropped();
+    getAirdropBalances()
   }, [signingClient, walletAddress]);
 
   useEffect(() => {

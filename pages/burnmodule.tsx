@@ -84,8 +84,29 @@ const burnmodule = () => {
     expectedBfotAmount,
 
     handleFotChange,
-    executeFotBurn
+    executeFotBurn,
+    getBfotBalances,
+    updateInterval
   } = useSigningClient();
+
+  useEffect(() => {
+    if (!signingClient || walletAddress.length === 0) {
+      return;
+    }
+    getBfotBalances()
+  }, [signingClient, walletAddress]);
+
+  const [seconds, setSeconds] = useState(0)
+  useEffect(() => {
+    let interval = null;
+    if (seconds === 0) {
+       getBfotBalances()
+    }
+    interval = setInterval(() => {
+      setSeconds(seconds => (seconds + 1) % updateInterval);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [seconds])
 
   const defaultValues = [
     {

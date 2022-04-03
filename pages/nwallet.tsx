@@ -152,10 +152,24 @@ const nwallet = () => {
     ustBalance,
     walletAddress,
     gfotBalance,
-    sfotBalance
+    sfotBalance,
+    getWalletBalances,
+    signingClient,
+    updateInterval,
+    getCommonBalances
   } = useSigningClient();
   const {toggle} = useContext(ToggleContext)
   
+  useEffect(() => {
+    if (!signingClient || walletAddress.length === 0) {
+      return;
+    }
+    getCommonBalances()
+    getWalletBalances()
+  }, [signingClient, walletAddress]);
+
+
+
   const assetData = [
     {
       label: 'FOT',

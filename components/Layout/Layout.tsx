@@ -88,21 +88,23 @@ export const ToggleContext = createContext({toggle: false, asset: 0, setAsset: n
 const Layout = ({ children }) => {
   const {
     bFot2Juno,
-    getBalances,
+    getCommonBalances,
     monetaAirdropCount,
     Juno2bFot,
-    poolDpr
+    poolDpr,
+    updateInterval
   } = useSigningClient();
-  const [seconds, setSeconds] = useState(0)
+  
   const [rateShow, setRateShow] = useState([])
   const [page, setPage] = useState(0)
+  const [seconds, setSeconds] = useState(0)
   useEffect(() => {
     let interval = null;
     if (seconds === 0) {
-      getBalances()
+      //  getCommonBalances()
     }
     interval = setInterval(() => {
-      setSeconds(seconds => (seconds + 1) % 20);
+      setSeconds(seconds => (seconds + 1) % updateInterval);
     }, 1000);
     return () => clearInterval(interval);
   }, [seconds])

@@ -84,7 +84,24 @@ const PoolDetail = ({
         executeLpClaimReward,
         executeLpCreateUnstake,
         executeLpFetchUnstake,
+        getSfotBalances,
+        updateInterval,
+        getCommonBalances
     } = useSigningClient();
+
+
+    const [seconds, setSeconds] = useState(0)
+    useEffect(() => {
+        let interval = null;
+        if (seconds === 0) {
+            getCommonBalances()
+        getSfotBalances()
+        }
+        interval = setInterval(() => {
+        setSeconds(seconds => (seconds + 1) % updateInterval);
+        }, 1000);
+        return () => clearInterval(interval);
+    }, [seconds])
 
     const [poolInfo, setPoolInfo] = useState(null)
     const [decimals, setDecimals] = useState([10, 10])
