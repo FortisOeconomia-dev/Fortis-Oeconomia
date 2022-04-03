@@ -1642,14 +1642,14 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     })
     staked_amount = Number(response.amount)
     staked_reward = Number(response.reward)
-    const response2: JsonObject = await signingClient.queryContractSmart(staking_contract, {
+    const unstakingList: JsonObject = await signingClient.queryContractSmart(staking_contract, {
       unstaking: {
         address: walletAddress
       },
     })
-    if (response2.length > 0) {
-      unstaking_amount = Number(response2[0][0])
-      deadline = Number(response2[0][1])
+    if (unstakingList.length > 0) {
+      // unstaking_amount = Number(response2[0][0])
+      // deadline = Number(response2[0][1])
     }
 
     if (lpStakingInfo.gfot_amount > 0 && deadline > 0) {
@@ -1658,7 +1658,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     }
       
     
-    return {lp_token_address, staking_contract, staked_amount, deadline, unstaking_amount, lp_amount, staked_reward}
+    return {lp_token_address, staking_contract, staked_amount, unstakingList, lp_amount, staked_reward}
   }
 
   const executeLpStakeAll = async (asset) => {
@@ -1761,8 +1761,8 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     }
   }
 
-  const executeLpFetchUnstake = async (asset:number) => {
-    let lpstate = await getLpStakingInfo(asset)
+  const executeLpFetchUnstake = async (lpstate:any) => {
+    // let lpstate = await getLpStakingInfo(asset)
     if (lpstate.unstaking_amount == 0 || lpstate.deadline > (new Date().getTime() / 1000 + 60))
       return
     setLoading(true)

@@ -132,8 +132,8 @@ const PoolDetail = ({
         getLpStakingInfo(asset).then((response:any) => {
             setLpStakingMyReward(convertMicroDenomToDenom2(response.staked_reward, fotTokenInfo.decimals))
             setLpStakingMyStaked(convertMicroDenomToDenom2(response.staked_amount, 6))
-            setLpStakingMyUnstaking(response.unstaking_amount)
-            setLpStakingMyDeadline(response.deadline)
+            setLpStakingMyUnstakingList(response.unstakingList)
+            // setLpStakingMyDeadline(response.deadline)
         })
     }, [asset, loading])
 
@@ -222,7 +222,7 @@ const PoolDetail = ({
     
     const [lpStakingMyReward, setLpStakingMyReward] = useState(0)
     const [lpStakingMyStaked, setLpStakingMyStaked] = useState(0)
-    const [lpStakingMyUnstaking, setLpStakingMyUnstaking] = useState(0)
+    const [lpStakingMyUnstakingList, setLpStakingMyUnstakingList] = useState([])
     const [lpStakingMyDeadline, setLpStakingMyDeadline] = useState(0)
     
     const handleLpStaking = async () => { await executeLpStakeAll(asset)}
@@ -269,8 +269,8 @@ const PoolDetail = ({
                 
                     lpStakingMyReward={lpStakingMyReward}
                     lpStakingMyStaked={lpStakingMyStaked}
-                    lpStakingMyUnstaking={lpStakingMyUnstaking}
-                    lpStakingMyDeadline={lpStakingMyDeadline}
+                    lpStakingMyUnstakingList={lpStakingMyUnstakingList}
+                    // lpStakingMyDeadline={lpStakingMyDeadline}
                     lpAmount={convertMicroDenomToDenom2(myLpBalance, 6)}
                     
                     from={from}

@@ -1,7 +1,7 @@
 import InputWithIncDec from '../InputWithIncDec'
 import styled from 'styled-components'
 import { useContext, useState } from 'react'
-import {Range, getTrackBackground} from 'react-range'
+import { Range, getTrackBackground } from 'react-range'
 import { ToggleContext } from "../Layout/Layout";
 import moment from "moment"
 
@@ -123,15 +123,15 @@ const StakeNClaimSecond = ({
     handleRemoveLiquidity,
 
     myToken1Amount,
-    myToken2Amount, 
+    myToken2Amount,
     handleLpStaking,
     handleLpCreateUnstake,
     handleLpFetchUnstake,
     handleLpStakingReward,
     lpStakingMyReward,
     lpStakingMyStaked,
-    lpStakingMyUnstaking,
-    lpStakingMyDeadline,
+    lpStakingMyUnstakingList,
+    // lpStakingMyDeadline,
     lpAmount,
     from,
     to,
@@ -139,7 +139,7 @@ const StakeNClaimSecond = ({
     sfotbfotdpr,
 }) => {
 
-    
+
     const [values, setValues] = useState([50])
     const { toggle } = useContext(ToggleContext)
     return (
@@ -147,7 +147,7 @@ const StakeNClaimSecond = ({
             <TotalStaked>
                 <div className="wallet-text w-full" style={{ marginBottom: '28px', paddingBottom: '26px', borderBottom: '2.05843px solid #2E0752' }}>
                     <TotalStakedText className="wallet-label" style={{ textAlign: 'center' }}>Total Assets in Pool</TotalStakedText>
-                    <TotalStakedText className="wallet-label" style={{ fontSize:'18px' }}>
+                    <TotalStakedText className="wallet-label" style={{ fontSize: '18px' }}>
                         Epoch Reward
                         <StakedValue>
                             {" "}
@@ -205,7 +205,7 @@ const StakeNClaimSecond = ({
                     Max
                 </MaxButton>
                 <button className={`default-btn ${!toggle && 'secondary-btn'}`} style={{ minWidth: 'unset', padding: '8px 30px' }} onClick={handleAddLiquidity}>Add Liquidity</button>
-                
+
                 <div
                     style={{
                         display: "flex",
@@ -223,56 +223,56 @@ const StakeNClaimSecond = ({
                         onChange={(values) => setValues(values)}
                         renderTrack={({ props, children }) => (
                             <div
-                            onMouseDown={props.onMouseDown}
-                            onTouchStart={props.onTouchStart}
-                            style={{
-                                ...props.style,
-                                height: "36px",
-                                display: "flex",
-                                width: "100%"
-                            }}
-                            >
-                            <div
-                                ref={props.ref}
+                                onMouseDown={props.onMouseDown}
+                                onTouchStart={props.onTouchStart}
                                 style={{
-                                height: "5px",
-                                width: "100%",
-                                borderRadius: "4px",
-                                background: getTrackBackground({
-                                    values: values,
-                                    colors: ["#548BF4", "#ccc"],
-                                    min: 0,
-                                    max: 100
-                                }),
-                                alignSelf: "center"
+                                    ...props.style,
+                                    height: "36px",
+                                    display: "flex",
+                                    width: "100%"
                                 }}
                             >
-                                {children}
-                            </div>
+                                <div
+                                    ref={props.ref}
+                                    style={{
+                                        height: "5px",
+                                        width: "100%",
+                                        borderRadius: "4px",
+                                        background: getTrackBackground({
+                                            values: values,
+                                            colors: ["#548BF4", "#ccc"],
+                                            min: 0,
+                                            max: 100
+                                        }),
+                                        alignSelf: "center"
+                                    }}
+                                >
+                                    {children}
+                                </div>
                             </div>
                         )}
                         renderThumb={({ props, isDragged }) => (
                             <div
-                            {...props}
-                            style={{
-                                ...props.style,
-                                height: "42px",
-                                width: "42px",
-                                borderRadius: "4px",
-                                backgroundColor: "#FFF",
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                boxShadow: "0px 2px 6px #AAA"
-                            }}
-                            >
-                            <div
+                                {...props}
                                 style={{
-                                height: "16px",
-                                width: "5px",
-                                backgroundColor: isDragged ? "#548BF4" : "#CCC"
+                                    ...props.style,
+                                    height: "42px",
+                                    width: "42px",
+                                    borderRadius: "4px",
+                                    backgroundColor: "#FFF",
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    boxShadow: "0px 2px 6px #AAA"
                                 }}
-                            />
+                            >
+                                <div
+                                    style={{
+                                        height: "16px",
+                                        width: "5px",
+                                        backgroundColor: isDragged ? "#548BF4" : "#CCC"
+                                    }}
+                                />
                             </div>
                         )}
                     />
@@ -280,9 +280,9 @@ const StakeNClaimSecond = ({
                         {values[0].toFixed(1)}
                     </output>
                 </div>
-                    
+
                 <button className={`default-btn ${!toggle && 'secondary-btn'}`} style={{ minWidth: 'unset', padding: '8px 30px' }} onClick={() => handleRemoveLiquidity(values[0])}>Remove Liquidity</button>
-                
+
             </TotalStaked>
             <MyStaked>
                 <MyStakedContent className="wallet-text">
@@ -363,32 +363,55 @@ const StakeNClaimSecond = ({
                                 className={`default-btn  ${!toggle && 'secondary-btn'}`}
                                 style={{ minWidth: 'unset', padding: '3px 30px' }}
                                 onClick={handleLpStaking}
-                                
+
                             >
                                 Stake All
                             </button>
                             <button className={`default-btn ${!toggle && 'secondary-btn outlined'}`} style={{ minWidth: 'unset', padding: '3px 10px' }} onClick={handleLpCreateUnstake}>Unstake All</button>
 
                         </div>
-                        <div style={{overflowY:"auto"}}>
-                        <table className="w-full">
-                            {lpStakingMyUnstaking > 0 && <tr>
-                                <th>{moment(new Date(Number(lpStakingMyDeadline) * 1000)).format('YYYY/MM/DD HH:mm:ss')}</th>
-                                <th>
-                                    <button
-                                        className={`default-btn  ${!toggle && 'secondary-btn'}`}
-                                        style={{ minWidth: 'unset', padding: '3px 30px' }}
-                                        onClick={handleLpFetchUnstake}
-                                        
-                                    >
-                                        Fetch Unstake
-                                    </button>
-                                </th>
-                            </tr>}
-                            
-                        </table>
-                    </div>
-{/*                         <MyStakedText className="wallet-label" style={{ textAlign: 'center', fontSize:"16px" }}>Unbonding period is 14 days</MyStakedText> */}
+                        <div style={{ overflowY: "auto" }}>
+                            <table className="w-full">
+                                {lpStakingMyUnstakingList.length > 0 && <tr>
+                                    {/* <th>Amount</th> */}
+                                    <th>Release date</th>
+                                    <th>Action</th>
+                                </tr>}
+                                {lpStakingMyUnstakingList.map((d, idx) =>
+                                    <tr key={`${idx}-unstakelp`}>
+                                        {/* <td>{convertMicroDenomToDenom2(d[0], gfotTokenInfo.decimals)}</td> */}
+                                        <td>{moment(new Date(Number(d[1]) * 1000)).format('YYYY/MM/DD HH:mm:ss')}</td>
+                                        <td>
+                                            <button
+                                                className={`default-btn  ${!toggle && 'secondary-btn'}`}
+                                                style={{ minWidth: 'unset', padding: '3px 30px' }}
+                                                onClick={() => handleLpFetchUnstake(d)}
+
+                                            >
+                                                Fetch Unstake
+                                            </button>
+                                        </td>
+                                    </tr>
+                                )}
+                            </table>
+                            {/* <table className="w-full">
+                                {lpStakingMyUnstakingList > 0 && <tr>
+                                    <th>{moment(new Date(Number(lpStakingMyUnstakingList) * 1000)).format('YYYY/MM/DD HH:mm:ss')}</th>
+                                    <th>
+                                        <button
+                                            className={`default-btn  ${!toggle && 'secondary-btn'}`}
+                                            style={{ minWidth: 'unset', padding: '3px 30px' }}
+                                            onClick={handleLpFetchUnstake}
+
+                                        >
+                                            Fetch Unstake
+                                        </button>
+                                    </th>
+                                </tr>}
+
+                            </table> */}
+                        </div>
+                        {/*                         <MyStakedText className="wallet-label" style={{ textAlign: 'center', fontSize:"16px" }}>Unbonding period is 14 days</MyStakedText> */}
                     </MyRewardsMiddle>
                     <div className="w-full" >
                         <MyStakedText className="wallet-label">
