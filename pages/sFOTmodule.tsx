@@ -370,7 +370,7 @@ const sfotmodule = () => {
       <>
         <Pools>
         <PoolsContent>
-          <Title>Assets</Title>
+          <Title>Pools</Title>
 {/*             <Pool 
             from="sFOT" 
             to="USDC" 
@@ -395,6 +395,10 @@ const sfotmodule = () => {
             onClick={() => setAsset(1)}
             isActive={asset===1}
           />
+
+        
+          <img src='../images/gate1.png' style={{width:'50%',height:'50%',margin:'auto', WebkitFilter: 'drop-shadow(16px 16px 20px) invert(0) hue-rotate(-170deg)', filter: 'drop-shadow(16px 16px 20px) invert(0) hue-rotate(-170deg)', cursor:'pointer'}} />
+        
         </PoolsContent>
         <Divider />
       </Pools>

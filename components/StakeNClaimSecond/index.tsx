@@ -361,7 +361,7 @@ const StakeNClaimSecond = ({
                             {/*<button className={`default-btn ${!toggle && 'secondary-btn outlined'}`} style={{minWidth: 'unset', padding: '13px 30px'}} onClick={() => console.log('here')}>Max</button> */}
                             <button
                                 className={`default-btn  ${!toggle && 'secondary-btn'}`}
-                                style={{ minWidth: 'unset', padding: '3px 30px' }}
+                                style={{ minWidth: 'unset', padding: '3px 20px',marginRight:'20px' }}
                                 onClick={handleLpStaking}
                                 
                             >
@@ -395,7 +395,7 @@ const StakeNClaimSecond = ({
                             My Rewards
                             <StakedValue>
                                 {" "}
-                                {lpStakingMyReward}
+                                {" "}
                             </StakedValue>
                         </MyStakedText>
                         <button className={`default-btn ${!toggle && 'secondary-btn'}`}  onClick={handleLpStakingReward} >Claim</button>
