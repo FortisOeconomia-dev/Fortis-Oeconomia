@@ -63,10 +63,13 @@ const PoolDetail = ({
         bfotBalance,
         sfotUstLpBalance,
         sfotBfotLpBalance,
+        sfotGfotLpBalance,
         sfotUstLpTokenInfo,
         sfotBfotLpTokenInfo,
+        sfotGfotLpTokenInfo,
         sfotUstPoolInfo,
         sfotBfotPoolInfo,
+        sfotGfotPoolInfo,
         sfotTokenInfo,
         bfotTokenInfo,
         handleAddLiquidityValuesChange,
@@ -145,7 +148,18 @@ const PoolDetail = ({
             setsfotbfotdpr(5000000/token2TotalAmount)
 
             setMayLpBalance(sfotBfotLpBalance)
+        } else if (asset == 2) {
+            setPoolInfo(sfotGfotPoolInfo)
+            setDecimals([10,10])
+            setToken2Balance(gfotBalance)
+
+            setMyToken1Amount(sfotGfotLpBalance * token1TotalAmount / sfotGfotLpTokenInfo.total_supply)
+            setMyToken2Amount(sfotGfotLpBalance * token2TotalAmount / sfotGfotLpTokenInfo.total_supply)
+            setsfotbfotdpr(5000000/((Math.floor(gfotBalance) + 10000) * token2TotalAmount))
+
+            setMayLpBalance(sfotGfotLpBalance)
         }
+
         getLpStakingInfo(asset).then((response:any) => {
             setLpStakingMyReward(convertMicroDenomToDenom2(response.staked_reward, fotTokenInfo.decimals))
             setLpStakingMyStaked(convertMicroDenomToDenom2(response.staked_amount, 6))
@@ -245,7 +259,7 @@ const PoolDetail = ({
     const handleLpStaking = async () => { await executeLpStakeAll(asset)}
     const handleLpCreateUnstake = async () => {await executeLpCreateUnstake(asset)}
     const handleLpStakingReward = async () => {await executeLpClaimReward(asset)}
-    const handleLpFetchUnstake = async () => {await executeLpFetchUnstake(asset)}
+    const handleLpFetchUnstake = async (lpState) => {await executeLpFetchUnstake(lpState)}
     return (
         <Wrapper>
             <div className='w-full'>
