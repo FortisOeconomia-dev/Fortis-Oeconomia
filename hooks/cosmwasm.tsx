@@ -1984,7 +1984,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         contract = PUBLIC_SFOT_GFOT_POOL_CONTRACT;
         poolInfo = sfotGfotPoolInfo
         break;
-      
+
       default:
         return;
     }
@@ -2042,7 +2042,24 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       let funds = []
       if (asset == 0 && !swapToken1) {
         funds = [coin(token1, ust_denom)]
-      } else {
+      } else if (asset == 1) {
+        const jsonmsg = {
+          increase_allowance: {
+            amount: `${token1}`,
+            spender: `${contract}`,
+          },
+        }
+        const msg: MsgExecuteContractEncodeObject = {
+          typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
+          value: MsgExecuteContract.fromPartial({
+            sender: walletAddress,
+            contract: swapToken1 ? PUBLIC_SFOT_CONTRACT : PUBLIC_BFOT_CONTRACT,
+            msg: toUtf8(JSON.stringify(jsonmsg)),
+            funds: [],
+          }),
+        }
+        msglist.push(msg)
+      } else if (asset == 2) {
         const jsonmsg = {
           increase_allowance: {
             amount: `${token1}`,
