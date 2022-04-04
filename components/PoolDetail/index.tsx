@@ -273,8 +273,8 @@ const PoolDetail = ({
     const handleLpStaking = async () => { await executeLpStakeAll(asset)}
     const handleLpCreateUnstake = async () => {await executeLpCreateUnstake(asset)}
     const handleLpStakingReward = async () => {
-        if (asset == 2)
-            return
+        // if (asset == 2)
+        //     return
         await executeLpClaimReward(asset)
     }
     const handleLpFetchUnstake = async (lpState) => {await executeLpFetchUnstake(lpState)}
