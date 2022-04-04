@@ -1999,7 +1999,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     const price2to1 = await signingClient.queryContractSmart(contract, {
       token2_for_token1_price: { token2_amount: `${Math.pow(10, decimals[1])}` },
     })
-    let input_amount_with_fee = Number(convertDenomToMicroDenom2(swapAmount, decimals[0])) * 995.0
+    let input_amount_with_fee = Number(convertDenomToMicroDenom2(swapAmount, decimals[0])) * 950.0
     let numerator = input_amount_with_fee * (swapToken1 ? poolInfo.token2_reserve : poolInfo.token1_reserve)
     let denominator = (swapToken1 ? poolInfo.token1_reserve : poolInfo.token2_reserve) * 1000.0 + input_amount_with_fee
     let out_amount = convertMicroDenomToDenom2(numerator / denominator, decimals[1])
@@ -2030,7 +2030,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       decimals = [decimals[1], decimals[0]]
     }
 
-    let funds = []
+    
     let token1 = convertDenomToMicroDenom2(swapAmount, decimals[0])
 
     let token2 = convertDenomToMicroDenom2(expectedToken2Amount, decimals[1])
@@ -2040,8 +2040,28 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     try {
       let msglist = []
       let funds = []
-      if (asset == 0 && !swapToken1) {
-        funds = [coin(token1, ust_denom)]
+      if (asset == 0) {
+        if (!swapToken1)
+          funds = [coin(token1, ust_denom)]
+        else {
+          const jsonmsg = {
+            increase_allowance: {
+              amount: `${token1}`,
+              spender: `${contract}`,
+            },
+          }
+          const msg: MsgExecuteContractEncodeObject = {
+            typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
+            value: MsgExecuteContract.fromPartial({
+              sender: walletAddress,
+              contract: PUBLIC_SFOT_CONTRACT,
+              msg: toUtf8(JSON.stringify(jsonmsg)),
+              funds: [],
+            }),
+          }
+          msglist.push(msg)
+        }
+
       } else if (asset == 1) {
         const jsonmsg = {
           increase_allowance: {
