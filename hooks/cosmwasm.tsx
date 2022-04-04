@@ -1999,7 +1999,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     const price2to1 = await signingClient.queryContractSmart(contract, {
       token2_for_token1_price: { token2_amount: `${Math.pow(10, decimals[1])}` },
     })
-    let input_amount_with_fee = Number(convertDenomToMicroDenom2(swapAmount, decimals[0])) * 997.0
+    let input_amount_with_fee = Number(convertDenomToMicroDenom2(swapAmount, decimals[0])) * 995.0
     let numerator = input_amount_with_fee * (swapToken1 ? poolInfo.token2_reserve : poolInfo.token1_reserve)
     let denominator = (swapToken1 ? poolInfo.token1_reserve : poolInfo.token2_reserve) * 1000.0 + input_amount_with_fee
     let out_amount = convertMicroDenomToDenom2(numerator / denominator, decimals[1])
@@ -2053,7 +2053,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
           typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
           value: MsgExecuteContract.fromPartial({
             sender: walletAddress,
-            contract: swapToken1 ? PUBLIC_SFOT_CONTRACT : PUBLIC_BFOT_CONTRACT,
+            contract: swapToken1 ? PUBLIC_SFOT_CONTRACT : PUBLIC_GFOT_CONTRACT,
             msg: toUtf8(JSON.stringify(jsonmsg)),
             funds: [],
           }),
