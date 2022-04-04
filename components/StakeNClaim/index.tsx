@@ -179,7 +179,7 @@ const StakeNClaim = ({
                         Current Epoch Reward
                         <StakedValue>
                             {" "}
-                            {"20000FOT"}
+                            {"40000FOT"}
                             {/* {(gfotStakingApy / 10000000000.0).toFixed(10)} % */}
                         </StakedValue>
                     </TotalStakedText>
