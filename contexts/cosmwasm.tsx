@@ -100,10 +100,13 @@ let { Provider } = (CosmWasmContext =
 
     sfotUstLpBalance: 0,
     sfotBfotLpBalance: 0,
+    sfotGfotLpBalance: 0,
     sfotUstLpTokenInfo: null,
     sfotBfotLpTokenInfo: null,
+    sfotGfotLpTokenInfo: null,
     sfotUstPoolInfo: null,
     sfotBfotPoolInfo: null,
+    sfotGfotPoolInfo: null,
 
     handleAddLiquidityValuesChange: () => {},
     executeAddLiquidity: () => {},
