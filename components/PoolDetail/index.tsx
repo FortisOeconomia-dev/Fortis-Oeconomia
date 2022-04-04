@@ -122,42 +122,34 @@ const PoolDetail = ({
 
     const [myToken1Amount, setMyToken1Amount] = useState(0)
     const [myToken2Amount, setMyToken2Amount] = useState(0)
-    const [myLpBalance, setMayLpBalance] = useState(0)
+    const [myLpBalance, setMyLpBalance] = useState(0)
     const [lpStakingInfo, setLpStakingInfo] = useState(null)
+
+    const [lpTokenInfo, setLpTokenInfo] = useState({ name: '', symbol: '', decimals: 6, total_supply: 0 })
+
     useEffect(() => {
-        if (loading)
-            return
+        // if (loading)
+        //     return
         setToken1Balance(sfotBalance)
         
         if (asset == 0) {
             setPoolInfo(sfotUstPoolInfo)
             setDecimals([10, 6])
             setToken2Balance(ustBalance)
-            
-            setMyToken1Amount(sfotUstLpBalance * token1TotalAmount / sfotUstLpTokenInfo.total_supply)
-            setMyToken2Amount(sfotUstLpBalance * token2TotalAmount / sfotUstLpTokenInfo.total_supply)
-            setsfotbfotdpr(5000000 * bFot2Ust / token1TotalAmount)
-            setMayLpBalance(sfotUstLpBalance)
+            setLpTokenInfo(sfotUstLpTokenInfo)
+            setMyLpBalance(sfotUstLpBalance)
         } else if (asset == 1) {
             setPoolInfo(sfotBfotPoolInfo)
             setDecimals([10,10])
             setToken2Balance(bfotBalance)
-
-            setMyToken1Amount(sfotBfotLpBalance * token1TotalAmount / sfotBfotLpTokenInfo.total_supply)
-            setMyToken2Amount(sfotBfotLpBalance * token2TotalAmount / sfotBfotLpTokenInfo.total_supply)
-            setsfotbfotdpr(5000000/token2TotalAmount)
-
-            setMayLpBalance(sfotBfotLpBalance)
+            setLpTokenInfo(sfotBfotLpTokenInfo)
+            setMyLpBalance(sfotBfotLpBalance)
         } else if (asset == 2) {
             setPoolInfo(sfotGfotPoolInfo)
             setDecimals([10,10])
             setToken2Balance(gfotBalance)
-
-            setMyToken1Amount(sfotGfotLpBalance * token1TotalAmount / sfotGfotLpTokenInfo.total_supply)
-            setMyToken2Amount(sfotGfotLpBalance * token2TotalAmount / sfotGfotLpTokenInfo.total_supply)
-            setsfotbfotdpr(5000000/((Math.floor(gfotBalance) + 10000) * token2TotalAmount))
-
-            setMayLpBalance(sfotGfotLpBalance)
+            setLpTokenInfo(sfotGfotLpTokenInfo)
+            setMyLpBalance(sfotGfotLpBalance)
         }
 
         getLpStakingInfo(asset).then((response:any) => {
@@ -167,6 +159,28 @@ const PoolDetail = ({
             // setLpStakingMyDeadline(response.deadline)
         })
     }, [asset, loading])
+
+    // update dpr 
+    useEffect(() => {
+        if (token1TotalAmount == 0 || token2TotalAmount == 0)
+            return
+
+        if (asset == 0) {            
+            setsfotbfotdpr(5000000 * bFot2Ust / token1TotalAmount)
+        } else if (asset == 1) {
+            setsfotbfotdpr(5000000/token2TotalAmount)
+        } else if (asset == 2) {
+            setsfotbfotdpr(5000000/((Math.floor(gfotTokenInfo.total_supply / 10000000000) + 10000) * token2TotalAmount))
+        }
+    }, [bFot2Ust, gfotTokenInfo, token1TotalAmount, token2TotalAmount])
+
+    // update my token balance
+    useEffect(() => {
+        if (lpTokenInfo.total_supply == 0)
+            return
+        setMyToken1Amount(myLpBalance * token1TotalAmount / lpTokenInfo.total_supply)
+        setMyToken2Amount(myLpBalance * token2TotalAmount / lpTokenInfo.total_supply)
+    }, [myLpBalance, lpTokenInfo, token1TotalAmount, token2TotalAmount])
 
     useEffect(() => {
         if (poolInfo == null)
