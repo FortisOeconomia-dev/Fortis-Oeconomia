@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import RateShow from "../../components/RateShow";
 import { useSigningClient } from "../../contexts/cosmwasm";
 import ProgressBar from '../../components/ProgressBar'
+import { moneta_voters } from '../../monetaairdrop.json'
 
 //navbar
 import Navbar from './Navbar';
@@ -106,7 +107,8 @@ const Layout = ({ children }) => {
     monetaAirdropCount,
     Juno2bFot,
     poolDpr,
-    updateInterval
+    updateInterval,
+    walletAddress
   } = useSigningClient();
 
   const [rateShow, setRateShow] = useState([])
@@ -191,7 +193,7 @@ const Layout = ({ children }) => {
       }} /> : <></>}
       {page === 1 && <RateShow text="Clearance Sale" action={() => setPage(0)} top={true} />}
       {page === 2 && <RateShow text="Stable Module (sFOT)" action={() => setPage(0)} left={true} />}
-      {pathname === '/airdrop' && <ProgressBar claimedPercent={monetaAirdropCount * 5} />}
+      {pathname === '/airdrop' && moneta_voters.filter(d => d.address === walletAddress).length > 0 && <ProgressBar claimedPercent={monetaAirdropCount * 5} />}
       <Wrapper defaultChecked={toggle} slot={pathname} style={{ filter: toggle && 'drop-shadow(16px 16px 20px) invert(90) hue-rotate(170deg) saturate(200%) contrast(100%) brightness(90%)' }}>
         {/* {pathname === '/' && <Background slot={`../images/HomePageBackground/${index%4 + 1}.png`}></Background>} */}
         <Head>
