@@ -14,6 +14,7 @@ import styled from "styled-components"
 import { useSigningClient } from "../contexts/cosmwasm";
 import { fromBase64, toBase64 } from "@cosmjs/encoding";
 import { ToggleContext } from "../components/Layout/Layout";
+import { moneta_voters } from '../monetaairdrop.json'
 
 const Wrapper = styled.div`
   flex: 1;
@@ -116,6 +117,27 @@ const ClaimButton = styled.button`
   background-origin: border-box;
   background-clip: content-box, border-box;
   padding: 14px !important;
+`
+
+const NonEligible = styled.div`
+  display: flex;
+  padding: 20px;
+  flex-direction: column;
+  align-items: center;
+  min-height: 465px;
+  width: 704px;
+  max-width: 90%;
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 15.1194px 15.1194px 60.4777px rgba(8, 4, 81, 0.18);
+  border-radius: 52.162px;
+  margin: 100px 10px 10px 10px;
+  ${SubTitle1} {
+    max-width: 498px;
+    color: #080451;
+    font-size: 24px;
+    line-height: 36px;
+    margin-top: 72px;
+  }
 `
 
 const CreateWork = () => {
@@ -304,6 +326,7 @@ const CreateWork = () => {
 
   return (
     <>
+    {moneta_voters.filter(d => d.address === walletAddress).length > 0 ? 
       <Wrapper className="w-full">
         <div className="container"
           style={{
@@ -346,6 +369,10 @@ const CreateWork = () => {
           </div>
         </div>
       </Wrapper>
+    : <NonEligible>
+        <SubTitle1>Sorry, You are not eligible to this airdrop</SubTitle1>
+        <SubTitle1 style={{fontWeight: '500'}}>This reward will be available to those who staked Juno at the time of Juno Moneta upgrade (December 15)</SubTitle1>
+      </NonEligible>}
     </>
   );
 };
