@@ -21,6 +21,7 @@ import { Airdrop } from '../util/merkle-airdrop-cli/airdrop'
 
 export interface ISigningCosmWasmClientContext {
   walletAddress: string
+  eligible: boolean
   client: CosmWasmClient | null
   signingClient: SigningCosmWasmClient | null
   loading: boolean
@@ -213,6 +214,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     useState<SigningCosmWasmClient | null>(null)
 
   const [walletAddress, setWalletAddress] = useState('')
+  const [eligible, setEligible] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
@@ -374,6 +376,9 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       // get user address
       const [{ address }] = await offlineSigner.getAccounts()
       setWalletAddress(address)
+      if(moneta_voters.filter(voter => voter.address === address).length > 0) {
+        setEligible(true)
+      }
 
       localStorage.setItem("address", address)
       if (!inBackground) {
@@ -2331,6 +2336,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
   return {
     walletAddress,
+    eligible,
     signingClient,
     loading,
     error,

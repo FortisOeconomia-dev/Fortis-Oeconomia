@@ -14,7 +14,6 @@ import styled from "styled-components"
 import { useSigningClient } from "../contexts/cosmwasm";
 import { fromBase64, toBase64 } from "@cosmjs/encoding";
 import { ToggleContext } from "../components/Layout/Layout";
-import { moneta_voters } from '../monetaairdrop.json'
 
 const Wrapper = styled.div`
   flex: 1;
@@ -144,6 +143,7 @@ const CreateWork = () => {
   const {toggle} = useContext(ToggleContext)
   const {
     walletAddress,
+    eligible,
     signingClient,
     loading,
     error,
@@ -326,7 +326,7 @@ const CreateWork = () => {
 
   return (
     <>
-    {moneta_voters.filter(d => d.address === walletAddress).length > 0 ? 
+    {eligible ? 
       <Wrapper className="w-full">
         <div className="container"
           style={{
