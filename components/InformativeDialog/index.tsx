@@ -1,8 +1,8 @@
-import { useContext } from "react";
-import "react-notifications/lib/notifications.css";
-import styled from "styled-components";
+import { useContext } from 'react'
+import 'react-notifications/lib/notifications.css'
+import styled from 'styled-components'
 
-import { ToggleContext } from "../Layout/Layout";
+import { ToggleContext } from '../Layout/Layout'
 
 const AcceptButton = styled.button`
   background: 
@@ -10,7 +10,7 @@ const AcceptButton = styled.button`
   background-origin: border-box;
   background-clip: content-box, border-box;
   padding: 14px !important;
-`;
+`
 
 const Information = styled.span`
   font-weight: 600;
@@ -18,7 +18,7 @@ const Information = styled.span`
   line-height: 54px;
   color: #171e0e;
   align-self: center;
-`;
+`
 
 const Dialog = styled.div`
   display: flex;
@@ -44,53 +44,42 @@ const Dialog = styled.div`
       margin: 20px 0 72px;
     }
   }
-`;
+`
 
 const InformativeDialog = ({ onAcceptInformativeDialog }) => {
   const handleSubmit = () => {
-    onAcceptInformativeDialog();
-  };
-  const { toggle } = useContext(ToggleContext);
+    onAcceptInformativeDialog()
+  }
+  const { toggle } = useContext(ToggleContext)
 
   return (
     <>
       <Dialog>
         <Information>Welcome to Fortis Oeconomia</Information>
-        <Information style={{ fontWeight: "500" }}>
-          Fortis Oeconomia is an experimental decentralized financial instrument
-          protocol that allows people to use Cosmos-SDK-based tokens and coins
-          unprecedentedly. Fortis Oeconomia protocol is made up of free, public,
-          and decentralized. Users should review the relevant documentation to
-          understand how the Fortis Oeconomia protocol works and the sub-systems
-          they use in the Fortis Oeconomia protocol. You are responsible for
-          doing your own diligence on those interfaces to understand the fees
-          and risks they present.
+        <Information style={{ fontWeight: '500' }}>
+          Fortis Oeconomia is an experimental decentralized financial instrument protocol that allows people to use
+          Cosmos-SDK-based tokens and coins unprecedentedly. Fortis Oeconomia protocol is made up of free, public, and
+          decentralized. Users should review the relevant documentation to understand how the Fortis Oeconomia protocol
+          works and the sub-systems they use in the Fortis Oeconomia protocol. You are responsible for doing your own
+          diligence on those interfaces to understand the fees and risks they present.
         </Information>
-        <Information style={{ fontWeight: "500" }}>
-          THE FORTIS OECONOMIA PROTOCOL IS PROVIDED “AS IS " AT YOUR OWN RISK
-          AND WITHOUT WARRANTIES OF ANY KIND. Fortis Oeconomia protocol
-          development teams do not provide, own, or control the Fortis Oeconomia
-          protocol. No developer or entity involved in creating the Fortis
-          Oeconomia protocol will be liable for any claims or damages whatsoever
-          associated with your use, inability to use, or your interaction with
-          other users of the Fortis Oeconomia protocol, including any direct,
-          indirect, incidental, special, exemplary, punitive or consequential
-          damages, or loss of profits, cryptocurrencies, tokens, or anything
-          else of value.
+        <Information style={{ fontWeight: '500' }}>
+          THE FORTIS OECONOMIA PROTOCOL IS PROVIDED “AS IS " AT YOUR OWN RISK AND WITHOUT WARRANTIES OF ANY KIND. Fortis
+          Oeconomia protocol development teams do not provide, own, or control the Fortis Oeconomia protocol. No
+          developer or entity involved in creating the Fortis Oeconomia protocol will be liable for any claims or
+          damages whatsoever associated with your use, inability to use, or your interaction with other users of the
+          Fortis Oeconomia protocol, including any direct, indirect, incidental, special, exemplary, punitive or
+          consequential damages, or loss of profits, cryptocurrencies, tokens, or anything else of value.
         </Information>
-        <AcceptButton
-          onClick={handleSubmit}
-          className={`default-btn ${!toggle && "secondary-btn outlined"}`}
-        >
+        <AcceptButton onClick={handleSubmit} className={`default-btn ${!toggle && 'secondary-btn outlined'}`}>
           Accept
         </AcceptButton>
-        <Information style={{ fontWeight: "500" }}>
-          Clicking the 'Accept' button means that you have read and accepted all
-          the information written above.
+        <Information style={{ fontWeight: '500' }}>
+          Clicking the 'Accept' button means that you have read and accepted all the information written above.
         </Information>
       </Dialog>
     </>
-  );
-};
+  )
+}
 
-export default InformativeDialog;
+export default InformativeDialog

@@ -17,9 +17,7 @@ export const connectKeplr = async () => {
     alert('Please install keplr extension')
   } else {
     if (window.keplr.experimentalSuggestChain) {
-      const stakingDenom = convertFromMicroDenom(
-        process.env.NEXT_PUBLIC_STAKING_DENOM || 'ujuno'
-      )
+      const stakingDenom = convertFromMicroDenom(process.env.NEXT_PUBLIC_STAKING_DENOM || 'ujuno')
 
       try {
         // Keplr v0.6.4 introduces an experimental feature that supports the feature to suggests the chain from a webpage.
