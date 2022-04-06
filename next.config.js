@@ -1,11 +1,11 @@
 module.exports = {
-  "plugins": [
+  plugins: [
     [
-      "babel-plugin-styled-components",
+      'babel-plugin-styled-components',
       {
-        "ssr": false
-      }
-    ]
+        ssr: false,
+      },
+    ],
   ],
   trailingSlash: true,
   webpack: (config, { isServer }) => {
@@ -13,10 +13,10 @@ module.exports = {
     if (!isServer) {
       config.node = {
         fs: 'empty',
-        net: 'empty'
+        net: 'empty',
       }
     }
 
     return config
-  }
+  },
 }

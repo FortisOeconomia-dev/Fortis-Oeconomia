@@ -39,14 +39,10 @@ const reducer = (state = initialState, action) => {
 }
 
 function initStore(preloadedState = initialState) {
-  return createStore(
-    reducer,
-    preloadedState,
-    composeWithDevTools(applyMiddleware())
-  )
+  return createStore(reducer, preloadedState, composeWithDevTools(applyMiddleware()))
 }
 
-export const initializeStore = (preloadedState) => {
+export const initializeStore = preloadedState => {
   let _store = store ?? initStore(preloadedState)
 
   // After navigating to a page with an initial Redux state, merge that state

@@ -1,38 +1,38 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 
 const GoTop = () => {
-  const [isVisible, setisVisible] = useState(false);
+  const [isVisible, setisVisible] = useState(false)
 
   useEffect(() => {
     document.addEventListener('scroll', function (e) {
-      toggleVisibility();
-    });
-  }, []);
+      toggleVisibility()
+    })
+  }, [])
 
   const toggleVisibility = () => {
     if (window.pageYOffset > 300) {
-      setisVisible(true);
+      setisVisible(true)
     } else {
-      setisVisible(false);
+      setisVisible(false)
     }
-  };
+  }
 
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
-    });
-  };
+    })
+  }
 
   return (
     <>
       {isVisible && (
-        <div className='go-top active' onClick={() => scrollToTop()}>
-          <i className='bx bx-chevron-up'></i>
+        <div className="go-top active" onClick={() => scrollToTop()}>
+          <i className="bx bx-chevron-up"></i>
         </div>
       )}
     </>
-  );
-};
+  )
+}
 
-export default GoTop;
+export default GoTop

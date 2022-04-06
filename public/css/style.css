@@ -54,23 +54,23 @@ This files table contents are outlined below>>>>>
 /*================================================
 Default CSS
 =================================================*/
-@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&family=Quicksand&display=swap');
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
 :root {
-  --fontFamily: "Quicksand", sans-serif;
-  --fontFamily2: "Quicksand", sans-serif;
+  --fontFamily: 'Quicksand', sans-serif;
+  --fontFamily2: 'Quicksand', sans-serif;
   --mainColor: #5466f9;
   --optionalColor: #00a79d;
   --whiteColor: #ffffff;
   --blackColor: #000000;
   --paragraphColor: #666666;
-  --optionalColor2: radial-gradient(207.29% 1467.58% at 50% 50%, #3b55ca 0%, #110f58 45.83%, #A8A4F7 100%);
+  --optionalColor2: radial-gradient(207.29% 1467.58% at 50% 50%, #3b55ca 0%, #110f58 45.83%, #a8a4f7 100%);
   --fontSize: 16px;
   --transition: 0.5s;
 }
-.launch{
+.launch {
   background: rgba(251, 252, 253, 0.3);
   box-shadow: 15.1194px 15.1194px 60.4777px rgba(8, 4, 81, 0.18);
   border-radius: 52.162px;
@@ -87,7 +87,7 @@ Default CSS
   padding: 2rem;
   font-size: 4rem;
 }
-.timer-wrapper{
+.timer-wrapper {
   background-color: rgba(0, 0, 0, 0.8);
   padding: 2rem;
   border: solid 2px white;
@@ -96,13 +96,12 @@ Default CSS
   width: fit-content;
 }
 
-.timer-inner{
+.timer-inner {
   display: flex;
   padding: 2rem;
-  
 }
 
-.timer-segment{
+.timer-segment {
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -113,17 +112,17 @@ Default CSS
   width: 100%;
 }
 
-.divider{
+.divider {
   padding: 0 2rem;
   font-size: 4rem;
 }
 
-.timer-label{
+.timer-label {
   font-size: 2rem;
 }
 
-.currencyt-box{
-  background: linear-gradient(225deg, #f2efff 0%, #8394DD 100%);
+.currencyt-box {
+  background: linear-gradient(225deg, #f2efff 0%, #8394dd 100%);
   box-shadow: 15.1194px 15.1194px 60.4777px rgba(8, 4, 81, 0.18);
   border-radius: 52.162px;
   overflow: hidden;
@@ -140,16 +139,16 @@ Default CSS
   position: relative;
   top: 0;
 }
-.currencyt-selection{
+.currencyt-selection {
   position: relative;
   text-align: center;
 }
-.currencyt-selection .wallet-title{
-  background: radial-gradient(207.29% 1467.58% at 50% 50%, #3b55ca 0%, #110f58 45.83%, #A8A4F7 100%);
+.currencyt-selection .wallet-title {
+  background: radial-gradient(207.29% 1467.58% at 50% 50%, #3b55ca 0%, #110f58 45.83%, #a8a4f7 100%);
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.currencyt-selection .wallet-label{
+.currencyt-selection .wallet-label {
   color: #ffffff;
   position: relative;
   display: block;
@@ -162,7 +161,7 @@ Default CSS
   align-items: center;
 }
 
-.wallet-text .wallet-label{
+.wallet-text .wallet-label {
   font-size: 20px;
   margin-left: 20px;
   margin-bottom: 70px;
@@ -175,21 +174,21 @@ Default CSS
   align-items: center;
   text-indent: 15px;
   margin-top: 25px;
-  border-bottom:  2px solid #22053D;
+  border-bottom: 2px solid #22053d;
   padding-bottom: 27px;
 }
-.wallet-text .wallet-label .wallet-span{
+.wallet-text .wallet-label .wallet-span {
   margin: 0;
-  padding-right: 10px ;
+  padding-right: 10px;
   font-size: 20px;
-  display: block,;
+  display: block;
   float: right;
 }
 /*================================================
 gFOT style
 =================================================*/
 
-.gFotCurrencyt-box{
+.gFotCurrencyt-box {
   overflow: hidden;
   display: block;
   flex-direction: row;
@@ -202,28 +201,27 @@ gFOT style
   height: 30%;
   position: relative;
   top: 120px;
-
 }
-.gFotCurrencyt-selection{
+.gFotCurrencyt-selection {
   position: relative;
   text-align: center;
   filter: drop-shadow(0px 4px 16px rgba(34, 40, 95, 0.24));
   max-width: 453px;
   width: 100%;
 }
-.pool{
+.pool {
   position: fixed;
 }
 
-.gFotCurrencyt-selection .wallet-title{
-  background-color: #22053D;
+.gFotCurrencyt-selection .wallet-title {
+  background-color: #22053d;
   font-weight: 800;
   margin-top: 10px;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.gFotCurrencyt-selection .wallet-label{
-  color: #22053D;
+.gFotCurrencyt-selection .wallet-label {
+  color: #22053d;
   font-weight: 800;
   position: relative;
   display: block;
@@ -237,9 +235,9 @@ gFOT style
   padding-bottom: 20px;
 }
 
-.gFotCurrencyt-selection .wallet-text .wallet-label{
-  color: #22053D;
-  border-bottom:  3px solid #22053D;
+.gFotCurrencyt-selection .wallet-text .wallet-label {
+  color: #22053d;
+  border-bottom: 3px solid #22053d;
   padding-bottom: 20px;
   position: relative;
   display: block;
@@ -253,9 +251,9 @@ gFOT style
   text-indent: 15px;
   margin-top: 45px;
 }
-.gFotCurrencyt-selection .wallet-text .wallet-label .wallet-span{
+.gFotCurrencyt-selection .wallet-text .wallet-label .wallet-span {
   white-space: nowrap;
-  color: #22053D;
+  color: #22053d;
   font-size: 37px;
   font-weight: 600;
   top: 5px;
@@ -264,10 +262,9 @@ gFOT style
   text-align: center;
   position: relative;
   background-clip: text;
-  
 }
 
-.gFotCurrencyt-selection button{
+.gFotCurrencyt-selection button {
   color: #fbfcfd;
   margin-left: auto;
   margin-right: auto;
@@ -286,7 +283,7 @@ gFOT style
   margin-top: 35px;
   text-indent: 8px;
   align-self: center;
-  background: linear-gradient(97.62deg, #2B064D 0%, #4D0C8B 100%);
+  background: linear-gradient(97.62deg, #2b064d 0%, #4d0c8b 100%);
   box-shadow: 0px 4px 16px 0px rgba(34, 40, 95, 0.24);
 }
 
@@ -298,10 +295,8 @@ gFOT style
 
 .gFotCurrencyt-selection button:hover {
   transform: translateY(-1px);
-  background: linear-gradient(97.62deg, #4D0C8B 0%, #2B064D 100%);
+  background: linear-gradient(97.62deg, #4d0c8b 0%, #2b064d 100%);
 }
-
-
 
 body {
   margin: 0;
@@ -309,7 +304,7 @@ body {
   color: var(--blackColor);
   font-size: var(--fontSize);
   font-family: var(--fontFamily);
-  background: linear-gradient(180deg, #8394DD 0%, #FFFFFF 100%);
+  background: linear-gradient(180deg, #8394dd 0%, #ffffff 100%);
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -338,18 +333,18 @@ h6 {
   width: fit-content;
 }
 .juno-load {
-    position: absolute;
-    display: flex;
-    justify-content: space-between;
-    right: 8%;
-    top: 99%;
-    text-align:right;
-    align-items: flex-start;
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  right: 8%;
+  top: 99%;
+  text-align: right;
+  align-items: flex-start;
 }
-.juno-load i{
+.juno-load i {
   align-items: right;
 }
-.currency-selection .airdrop-span{
+.currency-selection .airdrop-span {
   text-align: center;
   align-items: center;
   width: fit-content;
@@ -482,17 +477,21 @@ p:last-child {
 }
 
 @keyframes example {
-  from {opacity: 0;}
-  to {background-color: 1;}
+  from {
+    opacity: 0;
+  }
+  to {
+    background-color: 1;
+  }
 }
 
 .secondary-btn {
-  background: linear-gradient(97.62deg, #2B064D 0%, #4D0C8B 100%);
+  background: linear-gradient(97.62deg, #2b064d 0%, #4d0c8b 100%);
   border-radius: 10px;
 }
 
 .secondary-btn.outlined {
-  color: #2B064D;
+  color: #2b064d;
   background: rgba(255, 255, 255, 0.6);
   border: 3.29px solid;
   border-radius: 8.23373px;
@@ -639,8 +638,8 @@ Navbar Area CSS
 }
 
 .navbar-area .navbar .navbar-nav {
- margin-left: auto;
- margin-right: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .navbar-area .navbar .navbar-nav .nav-item {
@@ -661,16 +660,15 @@ Navbar Area CSS
   padding-right: 20px;
   padding-top: 50px;
   padding-bottom: 30px;
-
 }
 
-.navbar-area .navbar .navbar-nav .nav-item a:hover{
-  background: radial-gradient(207.29% 1467.58% at 50% 50%, #3b55ca 0%, #110f58 45.83%, #A8A4F7 100%);
+.navbar-area .navbar .navbar-nav .nav-item a:hover {
+  background: radial-gradient(207.29% 1467.58% at 50% 50%, #3b55ca 0%, #110f58 45.83%, #a8a4f7 100%);
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 .navbar-area .navbar .navbar-nav .nav-item a.active {
-  color: black
+  color: black;
 }
 
 .navbar-area .navbar .navbar-nav .nav-item .dropdown-toggle {
@@ -683,7 +681,7 @@ Navbar Area CSS
 
 .navbar-area .navbar .navbar-nav .nav-item .dropdown-toggle::before {
   position: absolute;
-  content: "\e9ac";
+  content: '\e9ac';
   line-height: 1;
   right: -2px;
   top: 35px;
@@ -743,13 +741,7 @@ Navbar Area CSS
   color: var(--mainColor);
 }
 
-.navbar-area
-  .navbar
-  .navbar-nav
-  .nav-item
-  .dropdown-menu
-  li
-  a.dropdown-toggle::before {
+.navbar-area .navbar .navbar-nav .nav-item .dropdown-menu li a.dropdown-toggle::before {
   top: 50%;
   right: 10px;
   -webkit-transform: translateY(-50%);
@@ -764,153 +756,55 @@ Navbar Area CSS
   visibility: hidden;
 }
 
-.navbar-area
-  .navbar
-  .navbar-nav
-  .nav-item
-  .dropdown-menu
-  li
-  .dropdown-menu
-  li
-  a {
+.navbar-area .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li a {
   color: var(--blackColor);
   padding-left: 20px;
 }
 
-.navbar-area
-  .navbar
-  .navbar-nav
-  .nav-item
-  .dropdown-menu
-  li
-  .dropdown-menu
-  li
-  a:hover {
+.navbar-area .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li a:hover {
   color: var(--mainColor);
   padding-left: 25px;
 }
 
-.navbar-area
-  .navbar
-  .navbar-nav
-  .nav-item
-  .dropdown-menu
-  li
-  .dropdown-menu
-  li
-  a.active {
+.navbar-area .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li a.active {
   color: var(--mainColor);
 }
 
-.navbar-area
-  .navbar
-  .navbar-nav
-  .nav-item
-  .dropdown-menu
-  li
-  .dropdown-menu
-  li
-  .dropdown-menu {
+.navbar-area .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu {
   top: 0;
   opacity: 0;
   left: 250px;
   visibility: hidden;
 }
 
-.navbar-area
-  .navbar
-  .navbar-nav
-  .nav-item
-  .dropdown-menu
-  li
-  .dropdown-menu
-  li
-  .dropdown-menu
-  li
-  a {
+.navbar-area .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li a {
   color: var(--blackColor);
   padding-left: 20px;
 }
 
-.navbar-area
-  .navbar
-  .navbar-nav
-  .nav-item
-  .dropdown-menu
-  li
-  .dropdown-menu
-  li
-  .dropdown-menu
-  li
-  a:hover {
+.navbar-area .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li a:hover {
   padding-left: 25px;
   color: var(--mainColor);
 }
 
-.navbar-area
-  .navbar
-  .navbar-nav
-  .nav-item
-  .dropdown-menu
-  li
-  .dropdown-menu
-  li
-  .dropdown-menu
-  li
-  a.active {
+.navbar-area .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li a.active {
   color: var(--mainColor);
 }
 
-.navbar-area
-  .navbar
-  .navbar-nav
-  .nav-item
-  .dropdown-menu
-  li
-  .dropdown-menu
-  li
-  .dropdown-menu
-  li.active
-  a {
+.navbar-area .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li.active a {
   color: var(--mainColor);
 }
 
-.navbar-area
-  .navbar
-  .navbar-nav
-  .nav-item
-  .dropdown-menu
-  li
-  .dropdown-menu
-  li
-  .dropdown-menu
-  li:hover
-  .dropdown-menu {
+.navbar-area .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li:hover .dropdown-menu {
   opacity: 1;
   visibility: visible;
 }
 
-.navbar-area
-  .navbar
-  .navbar-nav
-  .nav-item
-  .dropdown-menu
-  li
-  .dropdown-menu
-  li.active
-  a {
+.navbar-area .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li.active a {
   color: var(--mainColor);
 }
 
-.navbar-area
-  .navbar
-  .navbar-nav
-  .nav-item
-  .dropdown-menu
-  li
-  .dropdown-menu
-  li:hover
-  .dropdown-menu {
+.navbar-area .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li:hover .dropdown-menu {
   opacity: 1;
   visibility: visible;
 }
@@ -919,13 +813,7 @@ Navbar Area CSS
   color: var(--mainColor);
 }
 
-.navbar-area
-  .navbar
-  .navbar-nav
-  .nav-item
-  .dropdown-menu
-  li:hover
-  .dropdown-menu {
+.navbar-area .navbar .navbar-nav .nav-item .dropdown-menu li:hover .dropdown-menu {
   opacity: 1;
   margin-top: 0;
   visibility: visible;
@@ -940,13 +828,7 @@ Navbar Area CSS
   padding: 0;
 }
 
-.navbar-area
-  .navbar
-  .navbar-nav
-  .nav-item.megamenu
-  .dropdown-menu
-  .nav-item
-  .nav-link {
+.navbar-area .navbar .navbar-nav .nav-item.megamenu .dropdown-menu .nav-item .nav-link {
   position: relative;
   border-bottom: 1px solid #eeeeee;
   padding-top: 18px;
@@ -954,14 +836,7 @@ Navbar Area CSS
   padding-bottom: 18px;
 }
 
-.navbar-area
-  .navbar
-  .navbar-nav
-  .nav-item.megamenu
-  .dropdown-menu
-  .nav-item
-  .nav-link
-  img {
+.navbar-area .navbar .navbar-nav .nav-item.megamenu .dropdown-menu .nav-item .nav-link img {
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
   position: absolute;
@@ -971,14 +846,7 @@ Navbar Area CSS
   background-color: #000000;
 }
 
-.navbar-area
-  .navbar
-  .navbar-nav
-  .nav-item.megamenu
-  .dropdown-menu
-  .nav-item
-  .nav-link
-  i {
+.navbar-area .navbar .navbar-nav .nav-item.megamenu .dropdown-menu .nav-item .nav-link i {
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
   position: absolute;
@@ -988,13 +856,7 @@ Navbar Area CSS
   top: 50%;
 }
 
-.navbar-area
-  .navbar
-  .navbar-nav
-  .nav-item.megamenu
-  .dropdown-menu
-  .nav-item:last-child
-  .nav-link {
+.navbar-area .navbar .navbar-nav .nav-item.megamenu .dropdown-menu .nav-item:last-child .nav-link {
   border-bottom: none;
 }
 
@@ -1129,32 +991,16 @@ Navbar Area CSS
     font-size: 15px;
     border: none !important;
   }
-  .raimo-responsive-nav
-    .raimo-responsive-menu.mean-container
-    .mean-nav
-    ul
-    li
-    a {
+  .raimo-responsive-nav .raimo-responsive-menu.mean-container .mean-nav ul li a {
     border-top-color: #dbeefd;
     color: var(--blackColor);
     text-transform: unset;
     font-weight: 600;
   }
-  .raimo-responsive-nav
-    .raimo-responsive-menu.mean-container
-    .mean-nav
-    ul
-    li
-    a
-    i {
+  .raimo-responsive-nav .raimo-responsive-menu.mean-container .mean-nav ul li a i {
     display: none;
   }
-  .raimo-responsive-nav
-    .raimo-responsive-menu.mean-container
-    .mean-nav
-    ul
-    li
-    a.mean-expand {
+  .raimo-responsive-nav .raimo-responsive-menu.mean-container .mean-nav ul li a.mean-expand {
     width: 50%;
     height: 28px;
     text-align: right;
@@ -1163,40 +1009,16 @@ Navbar Area CSS
     border-left: none !important;
     border-bottom: none !important;
   }
-  .raimo-responsive-nav
-    .raimo-responsive-menu.mean-container
-    .mean-nav
-    ul
-    li
-    a.active {
+  .raimo-responsive-nav .raimo-responsive-menu.mean-container .mean-nav ul li a.active {
     color: var(--mainColor);
   }
-  .raimo-responsive-nav
-    .raimo-responsive-menu.mean-container
-    .mean-nav
-    ul
-    li
-    li
-    a {
+  .raimo-responsive-nav .raimo-responsive-menu.mean-container .mean-nav ul li li a {
     font-size: 14px;
   }
-  .raimo-responsive-nav
-    .raimo-responsive-menu.mean-container
-    .mean-nav
-    ul
-    li.megamenu
-    li
-    a {
+  .raimo-responsive-nav .raimo-responsive-menu.mean-container .mean-nav ul li.megamenu li a {
     padding-left: 75px;
   }
-  .raimo-responsive-nav
-    .raimo-responsive-menu.mean-container
-    .mean-nav
-    ul
-    li.megamenu
-    li
-    a
-    img {
+  .raimo-responsive-nav .raimo-responsive-menu.mean-container .mean-nav ul li.megamenu li a img {
     top: 50%;
     left: 29px;
     position: absolute;
@@ -1204,14 +1026,7 @@ Navbar Area CSS
     transform: translateY(-50%);
     background-color: red;
   }
-  .raimo-responsive-nav
-    .raimo-responsive-menu.mean-container
-    .mean-nav
-    ul
-    li.megamenu
-    li
-    a
-    i {
+  .raimo-responsive-nav .raimo-responsive-menu.mean-container .mean-nav ul li.megamenu li a i {
     display: inline-block;
     font-size: 35px;
     line-height: 1;
@@ -1462,20 +1277,11 @@ Main Banner Area CSS
   font-family: var(--fontFamily2);
 }
 
-.main-banner-box
-  .currency-selection
-  .dropdown
-  .dropdown-menu
-  .dropdown-item:last-child {
+.main-banner-box .currency-selection .dropdown .dropdown-menu .dropdown-item:last-child {
   margin-bottom: 0;
 }
 
-.main-banner-box
-  .currency-selection
-  .dropdown
-  .dropdown-menu
-  .dropdown-item
-  img {
+.main-banner-box .currency-selection .dropdown .dropdown-menu .dropdown-item img {
   position: absolute;
   left: 0;
   top: 50%;
@@ -1483,11 +1289,7 @@ Main Banner Area CSS
   transform: translateY(-50%);
 }
 
-.main-banner-box
-  .currency-selection
-  .dropdown
-  .dropdown-menu
-  .dropdown-item:hover {
+.main-banner-box .currency-selection .dropdown .dropdown-menu .dropdown-item:hover {
   color: var(--mainColor);
 }
 
@@ -1526,7 +1328,7 @@ Main Banner Area CSS
 }
 
 .main-banner-box .features-list li::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 12px;
   top: 0;
@@ -1709,11 +1511,7 @@ Main Banner Area CSS
   top: 0;
 }
 
-.banner-content
-  .cryptocurrency-search-box
-  .currency-selection
-  .dropdown
-  .dropdown-toggle {
+.banner-content .cryptocurrency-search-box .currency-selection .dropdown .dropdown-toggle {
   border: none;
   height: 70px;
   -webkit-transition: var(--transition);
@@ -1728,12 +1526,7 @@ Main Banner Area CSS
   font-size: 17px;
 }
 
-.banner-content
-  .cryptocurrency-search-box
-  .currency-selection
-  .dropdown
-  .dropdown-toggle
-  img {
+.banner-content .cryptocurrency-search-box .currency-selection .dropdown .dropdown-toggle img {
   width: 35px;
   position: absolute;
   left: 30px;
@@ -1742,36 +1535,20 @@ Main Banner Area CSS
   transform: translateY(-50%);
 }
 
-.banner-content
-  .cryptocurrency-search-box
-  .currency-selection
-  .dropdown
-  .dropdown-toggle::after {
+.banner-content .cryptocurrency-search-box .currency-selection .dropdown .dropdown-toggle::after {
   display: none;
 }
 
-.banner-content
-  .cryptocurrency-search-box
-  .currency-selection
-  .dropdown
-  .dropdown-toggle.show {
+.banner-content .cryptocurrency-search-box .currency-selection .dropdown .dropdown-toggle.show {
   background-color: #f9f9f9;
 }
 
-.banner-content
-  .cryptocurrency-search-box
-  .currency-selection
-  .dropdown
-  .dropdown-toggle.show::before {
+.banner-content .cryptocurrency-search-box .currency-selection .dropdown .dropdown-toggle.show::before {
   -webkit-transform: translateY(-50%) rotate(180deg);
   transform: translateY(-50%) rotate(180deg);
 }
 
-.banner-content
-  .cryptocurrency-search-box
-  .currency-selection
-  .dropdown
-  .dropdown-menu {
+.banner-content .cryptocurrency-search-box .currency-selection .dropdown .dropdown-menu {
   position: absolute;
   display: block;
   width: 100%;
@@ -1798,31 +1575,16 @@ Main Banner Area CSS
   border-radius: 0 5px 0 0;
 }
 
-.banner-content
-  .cryptocurrency-search-box
-  .currency-selection
-  .dropdown
-  .dropdown-menu
-  li {
+.banner-content .cryptocurrency-search-box .currency-selection .dropdown .dropdown-menu li {
   border-bottom: 1px solid #eeeeee;
   padding: 20px 15px;
 }
 
-.banner-content
-  .cryptocurrency-search-box
-  .currency-selection
-  .dropdown
-  .dropdown-menu
-  li:last-child {
+.banner-content .cryptocurrency-search-box .currency-selection .dropdown .dropdown-menu li:last-child {
   border-bottom: none;
 }
 
-.banner-content
-  .cryptocurrency-search-box
-  .currency-selection
-  .dropdown
-  .dropdown-menu
-  .dropdown-item {
+.banner-content .cryptocurrency-search-box .currency-selection .dropdown .dropdown-menu .dropdown-item {
   cursor: pointer;
   position: relative;
   color: var(--blackColor);
@@ -1836,22 +1598,11 @@ Main Banner Area CSS
   font-family: var(--fontFamily2);
 }
 
-.banner-content
-  .cryptocurrency-search-box
-  .currency-selection
-  .dropdown
-  .dropdown-menu
-  .dropdown-item:last-child {
+.banner-content .cryptocurrency-search-box .currency-selection .dropdown .dropdown-menu .dropdown-item:last-child {
   margin-bottom: 0;
 }
 
-.banner-content
-  .cryptocurrency-search-box
-  .currency-selection
-  .dropdown
-  .dropdown-menu
-  .dropdown-item
-  img {
+.banner-content .cryptocurrency-search-box .currency-selection .dropdown .dropdown-menu .dropdown-item img {
   position: absolute;
   left: 0;
   top: 50%;
@@ -1859,20 +1610,11 @@ Main Banner Area CSS
   transform: translateY(-50%);
 }
 
-.banner-content
-  .cryptocurrency-search-box
-  .currency-selection
-  .dropdown
-  .dropdown-menu
-  .dropdown-item:hover {
+.banner-content .cryptocurrency-search-box .currency-selection .dropdown .dropdown-menu .dropdown-item:hover {
   color: var(--mainColor);
 }
 
-.banner-content
-  .cryptocurrency-search-box
-  .currency-selection
-  .dropdown
-  .dropdown-menu.show {
+.banner-content .cryptocurrency-search-box .currency-selection .dropdown .dropdown-menu.show {
   opacity: 1;
   visibility: visible;
   margin-top: 0 !important;
@@ -1998,9 +1740,7 @@ Main Banner Area CSS
   transition: var(--transition);
 }
 
-.banner-wrapper-content
-  form
-  .input-newsletter:focus::-webkit-input-placeholder {
+.banner-wrapper-content form .input-newsletter:focus::-webkit-input-placeholder {
   color: transparent;
 }
 
@@ -2159,29 +1899,21 @@ About Area CSS
   flex-direction: row-reverse;
 }
 
-.history-timeline.timeline
-  .timeline-event:nth-child(2n + 1)
-  .timeline-event-icon {
+.history-timeline.timeline .timeline-event:nth-child(2n + 1) .timeline-event-icon {
   margin-right: 0;
   margin-left: 20px;
 }
 
-.history-timeline.timeline
-  .timeline-event:nth-child(2n + 1)
-  .timeline-event-icon:after {
+.history-timeline.timeline .timeline-event:nth-child(2n + 1) .timeline-event-icon:after {
   left: auto;
   right: 100%;
 }
 
-.history-timeline.timeline
-  .timeline-event:nth-child(2n + 1)
-  .timeline-event-date {
+.history-timeline.timeline .timeline-event:nth-child(2n + 1) .timeline-event-date {
   border-radius: 0 5px 5px 0;
 }
 
-.history-timeline.timeline
-  .timeline-event:nth-child(2n + 1)
-  .timeline-event-content {
+.history-timeline.timeline .timeline-event:nth-child(2n + 1) .timeline-event-content {
   border-radius: 5px 0 0 5px;
 }
 
@@ -2189,15 +1921,11 @@ About Area CSS
   margin-bottom: 0;
 }
 
-.history-timeline.timeline
-  .timeline-event:last-child
-  .timeline-event-icon:before {
+.history-timeline.timeline .timeline-event:last-child .timeline-event-icon:before {
   display: none;
 }
 
-.history-timeline.timeline
-  .timeline-event:last-child
-  .timeline-event-icon:after {
+.history-timeline.timeline .timeline-event:last-child .timeline-event-icon:after {
   display: none;
 }
 
@@ -2273,7 +2001,7 @@ About Area CSS
   top: 100%;
   width: 2px;
   z-index: -1;
-  content: "";
+  content: '';
   height: 100%;
   position: absolute;
   background: #eeeeee;
@@ -2284,7 +2012,7 @@ About Area CSS
 .history-timeline.timeline .timeline-event-icon:after {
   top: 50%;
   left: 100%;
-  content: "";
+  content: '';
   width: 100%;
   height: 2px;
   z-index: -1;
@@ -2603,7 +2331,7 @@ Cryptocurrency Platform Area CSS
   margin-top: 0;
 }
 
-.cryptocurrency-platform-slides .owl-nav [class*="owl-"] {
+.cryptocurrency-platform-slides .owl-nav [class*='owl-'] {
   background-color: transparent !important;
   margin: 0;
   position: absolute;
@@ -2616,12 +2344,12 @@ Cryptocurrency Platform Area CSS
   font-size: 31px !important;
 }
 
-.cryptocurrency-platform-slides .owl-nav [class*="owl-"].owl-next {
+.cryptocurrency-platform-slides .owl-nav [class*='owl-'].owl-next {
   left: auto;
   right: 0;
 }
 
-.cryptocurrency-platform-slides .owl-nav [class*="owl-"]:hover {
+.cryptocurrency-platform-slides .owl-nav [class*='owl-']:hover {
   color: var(--mainColor) !important;
 }
 
@@ -2857,10 +2585,7 @@ Cryptocurrency Details Area CSS
   font-family: var(--fontFamily2);
 }
 
-.cryptocurrency-details-sidebar
-  .buy-cryptocurrency
-  .currency-selection
-  .cryptocurrency {
+.cryptocurrency-details-sidebar .buy-cryptocurrency .currency-selection .cryptocurrency {
   position: absolute;
   right: 0;
   top: 0;
@@ -2879,11 +2604,7 @@ Cryptocurrency Details Area CSS
   font-size: 17px;
 }
 
-.cryptocurrency-details-sidebar
-  .buy-cryptocurrency
-  .currency-selection
-  .cryptocurrency
-  img {
+.cryptocurrency-details-sidebar .buy-cryptocurrency .currency-selection .cryptocurrency img {
   width: 30px;
   position: absolute;
   left: 20px;
@@ -2921,7 +2642,7 @@ Cryptocurrency Details Area CSS
 }
 
 .cryptocurrency-details-sidebar .buy-cryptocurrency .features-list li::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 12px;
   top: 0;
@@ -2931,33 +2652,19 @@ Cryptocurrency Details Area CSS
   z-index: -1;
 }
 
-.cryptocurrency-details-sidebar
-  .buy-cryptocurrency
-  .features-list
-  li:nth-child(1) {
+.cryptocurrency-details-sidebar .buy-cryptocurrency .features-list li:nth-child(1) {
   padding-bottom: 12px;
 }
 
-.cryptocurrency-details-sidebar
-  .buy-cryptocurrency
-  .features-list
-  li:nth-child(2) {
+.cryptocurrency-details-sidebar .buy-cryptocurrency .features-list li:nth-child(2) {
   padding-top: 0;
 }
 
-.cryptocurrency-details-sidebar
-  .buy-cryptocurrency
-  .features-list
-  li
-  .second-span {
+.cryptocurrency-details-sidebar .buy-cryptocurrency .features-list li .second-span {
   margin-left: 20px;
 }
 
-.cryptocurrency-details-sidebar
-  .buy-cryptocurrency
-  .features-list
-  li
-  .first-span {
+.cryptocurrency-details-sidebar .buy-cryptocurrency .features-list li .first-span {
   width: 130px;
 }
 
@@ -3234,7 +2941,7 @@ Best Seller Cryptocurrency Area CSS
   margin-top: 0;
 }
 
-.cryptocurrency-slides .owl-nav [class*="owl-"] {
+.cryptocurrency-slides .owl-nav [class*='owl-'] {
   background-color: transparent !important;
   margin: 0;
   position: absolute;
@@ -3247,12 +2954,12 @@ Best Seller Cryptocurrency Area CSS
   font-size: 25px !important;
 }
 
-.cryptocurrency-slides .owl-nav [class*="owl-"].owl-next {
+.cryptocurrency-slides .owl-nav [class*='owl-'].owl-next {
   left: auto;
   right: -5px;
 }
 
-.cryptocurrency-slides .owl-nav [class*="owl-"]:hover {
+.cryptocurrency-slides .owl-nav [class*='owl-']:hover {
   color: var(--whiteColor) !important;
 }
 
@@ -3492,14 +3199,14 @@ Feedback Area CSS
 }
 
 .single-feedback-box::before {
-  content: "\edd8";
+  content: '\edd8';
   line-height: 1;
   color: var(--blackColor);
   opacity: 0.04;
   position: absolute;
   right: -10px;
   top: -20px;
-  font-family: "boxicons";
+  font-family: 'boxicons';
   font-size: 120px;
 }
 
@@ -3553,14 +3260,14 @@ Feedback Area CSS
 }
 
 .single-feedback-item::before {
-  content: "\edd8";
+  content: '\edd8';
   line-height: 1;
   color: var(--blackColor);
   opacity: 0.04;
   position: absolute;
   right: -10px;
   top: -20px;
-  font-family: "boxicons";
+  font-family: 'boxicons';
   font-size: 120px;
 }
 
@@ -3572,7 +3279,7 @@ Feedback Area CSS
   margin-top: 0;
 }
 
-.feedback-slides .owl-nav [class*="owl-"] {
+.feedback-slides .owl-nav [class*='owl-'] {
   background-color: transparent !important;
   margin: 0;
   position: absolute;
@@ -3585,12 +3292,12 @@ Feedback Area CSS
   font-size: 31px !important;
 }
 
-.feedback-slides .owl-nav [class*="owl-"].owl-next {
+.feedback-slides .owl-nav [class*='owl-'].owl-next {
   left: auto;
   right: 0;
 }
 
-.feedback-slides .owl-nav [class*="owl-"]:hover {
+.feedback-slides .owl-nav [class*='owl-']:hover {
   color: var(--mainColor) !important;
 }
 
@@ -3694,7 +3401,7 @@ Tokens Area CSS
 }
 
 .tokens-content #countdown ul li::before {
-  content: ":";
+  content: ':';
   position: absolute;
   top: 50%;
   -webkit-transform: translateY(-50%);
@@ -3819,7 +3526,7 @@ Portfolio Area CSS
 }
 
 .portfolio-area.bg-f9f9f9::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   right: 0;
@@ -3830,7 +3537,7 @@ Portfolio Area CSS
 }
 
 .portfolio-area.bg-f9f9f9::after {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   right: 0;
@@ -3846,7 +3553,7 @@ Portfolio Area CSS
 }
 
 .portfolio-area.bg-fff0ee::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   right: 0;
@@ -3857,7 +3564,7 @@ Portfolio Area CSS
 }
 
 .portfolio-area.bg-fff0ee::after {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   right: 0;
@@ -3874,7 +3581,7 @@ Portfolio Area CSS
 }
 
 .portfolio-area.bg-main-color::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   right: 0;
@@ -3885,7 +3592,7 @@ Portfolio Area CSS
 }
 
 .portfolio-area.bg-main-color::after {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   right: 0;
@@ -3908,14 +3615,11 @@ Portfolio Area CSS
   color: var(--whiteColor);
 }
 
-.single-portfolio-item.color-white .content-slides .owl-nav [class*="owl-"] {
+.single-portfolio-item.color-white .content-slides .owl-nav [class*='owl-'] {
   color: #bebebe !important;
 }
 
-.single-portfolio-item.color-white
-  .content-slides
-  .owl-nav
-  [class*="owl-"]:hover {
+.single-portfolio-item.color-white .content-slides .owl-nav [class*='owl-']:hover {
   color: var(--whiteColor) !important;
 }
 
@@ -3923,16 +3627,8 @@ Portfolio Area CSS
   background-color: #bebebe;
 }
 
-.single-portfolio-item.color-white
-  .content-slides
-  .owl-dots
-  .owl-dot:hover
-  span,
-.single-portfolio-item.color-white
-  .content-slides
-  .owl-dots
-  .owl-dot.active
-  span {
+.single-portfolio-item.color-white .content-slides .owl-dots .owl-dot:hover span,
+.single-portfolio-item.color-white .content-slides .owl-dots .owl-dot.active span {
   background-color: var(--whiteColor);
 }
 
@@ -3951,7 +3647,7 @@ Portfolio Area CSS
   position: relative;
 }
 
-.content-slides .owl-nav [class*="owl-"] {
+.content-slides .owl-nav [class*='owl-'] {
   background-color: transparent !important;
   margin: 0;
   position: absolute;
@@ -3964,12 +3660,12 @@ Portfolio Area CSS
   font-size: 31px !important;
 }
 
-.content-slides .owl-nav [class*="owl-"].owl-next {
+.content-slides .owl-nav [class*='owl-'].owl-next {
   left: auto;
   right: -5px;
 }
 
-.content-slides .owl-nav [class*="owl-"]:hover {
+.content-slides .owl-nav [class*='owl-']:hover {
   color: var(--mainColor) !important;
 }
 
@@ -4230,7 +3926,7 @@ App Download Area CSS
 }
 
 .app-download-area::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   right: 0;
@@ -4241,7 +3937,7 @@ App Download Area CSS
 }
 
 .app-download-area::after {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   right: 0;
@@ -4929,7 +4625,7 @@ Reigster Area CSS
 .cta-image::before {
   left: 0;
   right: 0;
-  content: "";
+  content: '';
   opacity: 0.1;
   width: 590px;
   z-index: -1;
@@ -5144,11 +4840,7 @@ Data Table Area CSS
   display: inline-block;
 }
 
-.cryptocurrency-data-table
-  .dataTables_wrapper
-  .dataTables_paginate
-  span
-  .paginate_button {
+.cryptocurrency-data-table .dataTables_wrapper .dataTables_paginate span .paginate_button {
   -webkit-transition: var(--transition);
   transition: var(--transition);
   width: 35px;
@@ -5168,30 +4860,19 @@ Data Table Area CSS
   margin-right: 3px;
 }
 
-.cryptocurrency-data-table
-  .dataTables_wrapper
-  .dataTables_paginate
-  span
-  .paginate_button:hover {
+.cryptocurrency-data-table .dataTables_wrapper .dataTables_paginate span .paginate_button:hover {
   border-color: #eceff1;
   background: transparent;
   color: var(--mainColor) !important;
 }
 
-.cryptocurrency-data-table
-  .dataTables_wrapper
-  .dataTables_paginate
-  span
-  .paginate_button.current {
+.cryptocurrency-data-table .dataTables_wrapper .dataTables_paginate span .paginate_button.current {
   background: var(--mainColor);
   color: var(--whiteColor) !important;
   border-color: var(--mainColor) !important;
 }
 
-.cryptocurrency-data-table
-  .dataTables_wrapper
-  .dataTables_paginate
-  .paginate_button.previous {
+.cryptocurrency-data-table .dataTables_wrapper .dataTables_paginate .paginate_button.previous {
   font-size: 0;
   width: 35px;
   position: relative;
@@ -5204,29 +4885,20 @@ Data Table Area CSS
   transition: var(--transition);
 }
 
-.cryptocurrency-data-table
-  .dataTables_wrapper
-  .dataTables_paginate
-  .paginate_button.previous:hover {
+.cryptocurrency-data-table .dataTables_wrapper .dataTables_paginate .paginate_button.previous:hover {
   background: transparent;
   color: var(--mainColor) !important;
   border-color: #eceff1;
 }
 
-.cryptocurrency-data-table
-  .dataTables_wrapper
-  .dataTables_paginate
-  .paginate_button.previous.disabled {
+.cryptocurrency-data-table .dataTables_wrapper .dataTables_paginate .paginate_button.previous.disabled {
   pointer-events: none;
   opacity: 0.5 !important;
 }
 
-.cryptocurrency-data-table
-  .dataTables_wrapper
-  .dataTables_paginate
-  .paginate_button.previous::before {
-  content: "\e9af";
-  font-family: "boxicons";
+.cryptocurrency-data-table .dataTables_wrapper .dataTables_paginate .paginate_button.previous::before {
+  content: '\e9af';
+  font-family: 'boxicons';
   position: absolute;
   left: 0;
   font-size: 22px;
@@ -5236,10 +4908,7 @@ Data Table Area CSS
   transform: translateY(-50%);
 }
 
-.cryptocurrency-data-table
-  .dataTables_wrapper
-  .dataTables_paginate
-  .paginate_button.next {
+.cryptocurrency-data-table .dataTables_wrapper .dataTables_paginate .paginate_button.next {
   font-size: 0;
   width: 35px;
   height: 35px;
@@ -5252,29 +4921,20 @@ Data Table Area CSS
   transition: var(--transition);
 }
 
-.cryptocurrency-data-table
-  .dataTables_wrapper
-  .dataTables_paginate
-  .paginate_button.next:hover {
+.cryptocurrency-data-table .dataTables_wrapper .dataTables_paginate .paginate_button.next:hover {
   background: transparent;
   color: var(--mainColor) !important;
   border-color: #eceff1;
 }
 
-.cryptocurrency-data-table
-  .dataTables_wrapper
-  .dataTables_paginate
-  .paginate_button.next.disabled {
+.cryptocurrency-data-table .dataTables_wrapper .dataTables_paginate .paginate_button.next.disabled {
   pointer-events: none;
   opacity: 0.5 !important;
 }
 
-.cryptocurrency-data-table
-  .dataTables_wrapper
-  .dataTables_paginate
-  .paginate_button.next::before {
-  content: "\e9b2";
-  font-family: "boxicons";
+.cryptocurrency-data-table .dataTables_wrapper .dataTables_paginate .paginate_button.next::before {
+  content: '\e9b2';
+  font-family: 'boxicons';
   position: absolute;
   left: 0;
   font-size: 22px;
@@ -5336,13 +4996,7 @@ Earn Money Area CSS
 Page Title Area CSS
 =================================================*/
 .page-title-area {
-  background: -webkit-gradient(
-    linear,
-    left bottom,
-    left top,
-    from(#0062ff),
-    to(#081587)
-  );
+  background: -webkit-gradient(linear, left bottom, left top, from(#0062ff), to(#081587));
   background: linear-gradient(0deg, #0062ff, #081587);
   position: relative;
   z-index: 1;
@@ -5403,7 +5057,7 @@ Page Title Area CSS
   left: 0;
   top: -50%;
   width: 100%;
-  content: "";
+  content: '';
   height: 15vh;
   display: block;
   position: absolute;
@@ -5421,12 +5075,7 @@ Page Title Area CSS
     color-stop(75%, var(--whiteColor)),
     to(var(--whiteColor))
   );
-  background: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0) 0%,
-    var(--whiteColor) 75%,
-    var(--whiteColor) 100%
-  );
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, var(--whiteColor) 75%, var(--whiteColor) 100%);
 }
 
 .lines .line:nth-child(1) {
@@ -5487,13 +5136,7 @@ Page Title Area CSS
 Buy Cryptocurrency Area CSS
 =================================================*/
 .buy-cryptocurrency-area {
-  background: -webkit-gradient(
-    linear,
-    left bottom,
-    left top,
-    from(#0062ff),
-    to(#081587)
-  );
+  background: -webkit-gradient(linear, left bottom, left top, from(#0062ff), to(#081587));
   background: linear-gradient(0deg, #0062ff, #081587);
   position: relative;
   z-index: 1;
@@ -5615,7 +5258,7 @@ Buy Cryptocurrency Area CSS
 }
 
 .buy-cryptocurrency-box .currency-selection .dropdown .dropdown-toggle::before {
-  content: "\e9ac";
+  content: '\e9ac';
   color: var(--mainColor);
   position: absolute;
   right: 22px;
@@ -5625,7 +5268,7 @@ Buy Cryptocurrency Area CSS
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
   font-weight: normal;
-  font-family: "boxicons";
+  font-family: 'boxicons';
   font-size: 30px;
 }
 
@@ -5633,10 +5276,7 @@ Buy Cryptocurrency Area CSS
   background-color: #f9f9f9;
 }
 
-.buy-cryptocurrency-box
-  .currency-selection
-  .dropdown
-  .dropdown-toggle.show::before {
+.buy-cryptocurrency-box .currency-selection .dropdown .dropdown-toggle.show::before {
   -webkit-transform: translateY(-50%) rotate(180deg);
   transform: translateY(-50%) rotate(180deg);
 }
@@ -5673,19 +5313,11 @@ Buy Cryptocurrency Area CSS
   padding: 20px 15px;
 }
 
-.buy-cryptocurrency-box
-  .currency-selection
-  .dropdown
-  .dropdown-menu
-  li:last-child {
+.buy-cryptocurrency-box .currency-selection .dropdown .dropdown-menu li:last-child {
   border-bottom: none;
 }
 
-.buy-cryptocurrency-box
-  .currency-selection
-  .dropdown
-  .dropdown-menu
-  .dropdown-item {
+.buy-cryptocurrency-box .currency-selection .dropdown .dropdown-menu .dropdown-item {
   cursor: pointer;
   position: relative;
   color: var(--blackColor);
@@ -5699,20 +5331,11 @@ Buy Cryptocurrency Area CSS
   font-family: var(--fontFamily2);
 }
 
-.buy-cryptocurrency-box
-  .currency-selection
-  .dropdown
-  .dropdown-menu
-  .dropdown-item:last-child {
+.buy-cryptocurrency-box .currency-selection .dropdown .dropdown-menu .dropdown-item:last-child {
   margin-bottom: 0;
 }
 
-.buy-cryptocurrency-box
-  .currency-selection
-  .dropdown
-  .dropdown-menu
-  .dropdown-item
-  img {
+.buy-cryptocurrency-box .currency-selection .dropdown .dropdown-menu .dropdown-item img {
   position: absolute;
   left: 0;
   top: 50%;
@@ -5720,11 +5343,7 @@ Buy Cryptocurrency Area CSS
   transform: translateY(-50%);
 }
 
-.buy-cryptocurrency-box
-  .currency-selection
-  .dropdown
-  .dropdown-menu
-  .dropdown-item:hover {
+.buy-cryptocurrency-box .currency-selection .dropdown .dropdown-menu .dropdown-item:hover {
   color: var(--mainColor);
 }
 
@@ -5763,7 +5382,7 @@ Buy Cryptocurrency Area CSS
 }
 
 .buy-cryptocurrency-box .features-list li::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 12px;
   top: 0;
@@ -5949,10 +5568,7 @@ Sell Cryptocurrency Area CSS
   background-color: #f9f9f9;
 }
 
-.sell-cryptocurrency-box
-  .currency-selection
-  .dropdown
-  .dropdown-toggle.show::before {
+.sell-cryptocurrency-box .currency-selection .dropdown .dropdown-toggle.show::before {
   -webkit-transform: translateY(-50%) rotate(180deg);
   transform: translateY(-50%) rotate(180deg);
 }
@@ -5989,19 +5605,11 @@ Sell Cryptocurrency Area CSS
   padding: 20px 15px;
 }
 
-.sell-cryptocurrency-box
-  .currency-selection
-  .dropdown
-  .dropdown-menu
-  li:last-child {
+.sell-cryptocurrency-box .currency-selection .dropdown .dropdown-menu li:last-child {
   border-bottom: none;
 }
 
-.sell-cryptocurrency-box
-  .currency-selection
-  .dropdown
-  .dropdown-menu
-  .dropdown-item {
+.sell-cryptocurrency-box .currency-selection .dropdown .dropdown-menu .dropdown-item {
   cursor: pointer;
   position: relative;
   color: var(--blackColor);
@@ -6015,20 +5623,11 @@ Sell Cryptocurrency Area CSS
   font-family: var(--fontFamily2);
 }
 
-.sell-cryptocurrency-box
-  .currency-selection
-  .dropdown
-  .dropdown-menu
-  .dropdown-item:last-child {
+.sell-cryptocurrency-box .currency-selection .dropdown .dropdown-menu .dropdown-item:last-child {
   margin-bottom: 0;
 }
 
-.sell-cryptocurrency-box
-  .currency-selection
-  .dropdown
-  .dropdown-menu
-  .dropdown-item
-  img {
+.sell-cryptocurrency-box .currency-selection .dropdown .dropdown-menu .dropdown-item img {
   position: absolute;
   left: 0;
   top: 50%;
@@ -6036,11 +5635,7 @@ Sell Cryptocurrency Area CSS
   transform: translateY(-50%);
 }
 
-.sell-cryptocurrency-box
-  .currency-selection
-  .dropdown
-  .dropdown-menu
-  .dropdown-item:hover {
+.sell-cryptocurrency-box .currency-selection .dropdown .dropdown-menu .dropdown-item:hover {
   color: var(--mainColor);
 }
 
@@ -6079,7 +5674,7 @@ Sell Cryptocurrency Area CSS
 }
 
 .sell-cryptocurrency-box .features-list li::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 12px;
   top: 0;
@@ -6243,7 +5838,7 @@ Trade Cryptocurrency Area CSS
   align-items: center;
   text-align: center;
   position: relative;
-  background: radial-gradient(207.29% 1467.58% at 50% 50%, #3d94d1 0%, #201ba3 45.83%, #A8A4F7 100%);
+  background: radial-gradient(207.29% 1467.58% at 50% 50%, #3d94d1 0%, #201ba3 45.83%, #a8a4f7 100%);
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -6254,7 +5849,6 @@ nav {
   text-align: center;
 }
 @media only screen and (max-width: 960px) {
-
   nav {
     display: flex;
 
@@ -6302,10 +5896,7 @@ nav {
   transform: translateY(-50%);
 }
 
-.trade-cryptocurrency-box
-  .currency-selection
-  .dropdown
-  .dropdown-toggle::after {
+.trade-cryptocurrency-box .currency-selection .dropdown .dropdown-toggle::after {
   display: none;
 }
 
@@ -6313,10 +5904,7 @@ nav {
   background-color: #f9f9f9;
 }
 
-.trade-cryptocurrency-box
-  .currency-selection
-  .dropdown
-  .dropdown-toggle.show::before {
+.trade-cryptocurrency-box .currency-selection .dropdown .dropdown-toggle.show::before {
   -webkit-transform: translateY(-50%) rotate(180deg);
   transform: translateY(-50%) rotate(180deg);
 }
@@ -6353,19 +5941,11 @@ nav {
   padding: 20px 15px;
 }
 
-.trade-cryptocurrency-box
-  .currency-selection
-  .dropdown
-  .dropdown-menu
-  li:last-child {
+.trade-cryptocurrency-box .currency-selection .dropdown .dropdown-menu li:last-child {
   border-bottom: none;
 }
 
-.trade-cryptocurrency-box
-  .currency-selection
-  .dropdown
-  .dropdown-menu
-  .dropdown-item {
+.trade-cryptocurrency-box .currency-selection .dropdown .dropdown-menu .dropdown-item {
   cursor: pointer;
   position: relative;
   color: var(--blackColor);
@@ -6379,20 +5959,11 @@ nav {
   font-family: var(--fontFamily2);
 }
 
-.trade-cryptocurrency-box
-  .currency-selection
-  .dropdown
-  .dropdown-menu
-  .dropdown-item:last-child {
+.trade-cryptocurrency-box .currency-selection .dropdown .dropdown-menu .dropdown-item:last-child {
   margin-bottom: 0;
 }
 
-.trade-cryptocurrency-box
-  .currency-selection
-  .dropdown
-  .dropdown-menu
-  .dropdown-item
-  img {
+.trade-cryptocurrency-box .currency-selection .dropdown .dropdown-menu .dropdown-item img {
   position: absolute;
   left: 0;
   top: 50%;
@@ -6400,11 +5971,7 @@ nav {
   transform: translateY(-50%);
 }
 
-.trade-cryptocurrency-box
-  .currency-selection
-  .dropdown
-  .dropdown-menu
-  .dropdown-item:hover {
+.trade-cryptocurrency-box .currency-selection .dropdown .dropdown-menu .dropdown-item:hover {
   color: var(--mainColor);
 }
 
@@ -6443,7 +6010,7 @@ nav {
 }
 
 .trade-cryptocurrency-box .features-list li::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 12px;
   top: 0;
@@ -6576,11 +6143,7 @@ Profile Authentication Area CSS
   margin-top: 5px;
 }
 
-.login-form
-  form
-  .remember-me-wrap
-  .form-check
-  .form-check-input[type="checkbox"] {
+.login-form form .remember-me-wrap .form-check .form-check-input[type='checkbox'] {
   border-radius: 0;
   -webkit-box-shadow: unset;
   box-shadow: unset;
@@ -6614,7 +6177,7 @@ Profile Authentication Area CSS
 .login-form form .lost-your-password-wrap a::before {
   left: 0;
   bottom: 0;
-  content: "";
+  content: '';
   width: 100%;
   height: 1px;
   position: absolute;
@@ -6627,7 +6190,7 @@ Profile Authentication Area CSS
   left: 0;
   width: 0;
   bottom: 0;
-  content: "";
+  content: '';
   height: 1px;
   position: absolute;
   -webkit-transition: var(--transition);
@@ -6850,25 +6413,14 @@ Blog Area CSS
 }
 
 .single-blog-post .post-content h3 a {
-  -webkit-transition: background-size 0.25s
-    cubic-bezier(0.785, 0.135, 0.15, 0.86) 0s;
+  -webkit-transition: background-size 0.25s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0s;
   transition: background-size 0.25s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0s;
   position: relative;
   padding: 0.1% 0px;
   display: inline;
   color: inherit;
-  background-image: -webkit-gradient(
-    linear,
-    left top,
-    right top,
-    from(currentColor),
-    to(currentColor)
-  );
-  background-image: linear-gradient(
-    to right,
-    currentColor 0%,
-    currentColor 100%
-  );
+  background-image: -webkit-gradient(linear, left top, right top, from(currentColor), to(currentColor));
+  background-image: linear-gradient(to right, currentColor 0%, currentColor 100%);
   background-size: 0px 2px;
   background-position: 0px 95%;
   background-repeat: no-repeat;
@@ -7086,14 +6638,7 @@ Blog Details Area CSS
 }
 
 .blog-details-desc .article-content .social-links li a.instagram {
-  background: radial-gradient(
-    circle at 30% 107%,
-    #fdf497 0%,
-    #fdf497 5%,
-    #fd5949 45%,
-    #d6249f 60%,
-    #285aeb 90%
-  );
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
 }
 
 .blog-details-desc .article-content .social-links li a:hover {
@@ -7185,58 +6730,31 @@ Blog Details Area CSS
   margin-top: 10px;
 }
 
-.blog-details-desc
-  .comment-respond
-  .comment-form
-  .form-check
-  .form-check-label {
+.blog-details-desc .comment-respond .comment-form .form-check .form-check-label {
   color: var(--paragraphColor);
 }
 
-.blog-details-desc
-  .comment-respond
-  .comment-form
-  .form-check
-  .form-check-label
-  a {
+.blog-details-desc .comment-respond .comment-form .form-check .form-check-label a {
   color: var(--mainColor);
   font-weight: 500;
 }
 
-.blog-details-desc
-  .comment-respond
-  .comment-form
-  .form-check
-  .form-check-label
-  a:hover {
+.blog-details-desc .comment-respond .comment-form .form-check .form-check-label a:hover {
   text-decoration: underline;
 }
 
-.blog-details-desc
-  .comment-respond
-  .comment-form
-  .form-check
-  .form-check-label
-  strong {
+.blog-details-desc .comment-respond .comment-form .form-check .form-check-label strong {
   font-weight: 600;
   color: var(--blackColor);
 }
 
-.blog-details-desc
-  .comment-respond
-  .comment-form
-  .form-check
-  .form-check-input[type="checkbox"] {
+.blog-details-desc .comment-respond .comment-form .form-check .form-check-input[type='checkbox'] {
   border-radius: 0;
   -webkit-box-shadow: unset !important;
   box-shadow: unset !important;
 }
 
-.blog-details-desc
-  .comment-respond
-  .comment-form
-  .form-check
-  .form-check-input[type="checkbox"]:checked {
+.blog-details-desc .comment-respond .comment-form .form-check .form-check-input[type='checkbox']:checked {
   background-color: var(--mainColor);
   border-color: var(--mainColor);
 }
@@ -7278,7 +6796,7 @@ blockquote cite::before,
   top: 50%;
   width: 20px;
   height: 2px;
-  content: "";
+  content: '';
   position: absolute;
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
@@ -7529,7 +7047,7 @@ FAQ Area CSS
 }
 
 .faq-accordion .tab-pane .accordion-item .accordion-button.collapsed::before {
-  content: "\e9ac";
+  content: '\e9ac';
 }
 
 .faq-accordion .tab-pane .accordion-item .accordion-collapse {
@@ -7621,18 +7139,11 @@ Pagination CSS
   color: var(--paragraphColor);
   -webkit-transition: var(--transition);
   transition: var(--transition);
-  background: -webkit-gradient(
-    linear,
-    left top,
-    left bottom,
-    from(#ffffff),
-    to(#eaeef3)
-  );
+  background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#eaeef3));
   background: linear-gradient(180deg, #ffffff 0%, #eaeef3 100%);
-  -webkit-box-shadow: 0 5px 15px 0 rgba(107, 124, 147, 0.15),
-    0 2px 4px 0 rgba(107, 124, 147, 0.2), inset 0 -2px 0 0 #c2cfde;
-  box-shadow: 0 5px 15px 0 rgba(107, 124, 147, 0.15),
-    0 2px 4px 0 rgba(107, 124, 147, 0.2), inset 0 -2px 0 0 #c2cfde;
+  -webkit-box-shadow: 0 5px 15px 0 rgba(107, 124, 147, 0.15), 0 2px 4px 0 rgba(107, 124, 147, 0.2),
+    inset 0 -2px 0 0 #c2cfde;
+  box-shadow: 0 5px 15px 0 rgba(107, 124, 147, 0.15), 0 2px 4px 0 rgba(107, 124, 147, 0.2), inset 0 -2px 0 0 #c2cfde;
   font-size: 16px;
   font-weight: 700;
   margin-left: 5px;
@@ -7793,14 +7304,7 @@ Contact Area CSS
 }
 
 .contact-info .social-links li a.instagram {
-  background: radial-gradient(
-    circle at 30% 107%,
-    #fdf497 0%,
-    #fdf497 5%,
-    #fd5949 45%,
-    #d6249f 60%,
-    #285aeb 90%
-  );
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
 }
 
 .contact-info .social-links li:last-child {
@@ -7863,13 +7367,13 @@ Contact Area CSS
   margin-right: 5px;
 }
 
-.contact-form .form-check .form-check-input[type="checkbox"] {
+.contact-form .form-check .form-check-input[type='checkbox'] {
   border-radius: 0;
   -webkit-box-shadow: unset !important;
   box-shadow: unset !important;
 }
 
-.contact-form .form-check .form-check-input[type="checkbox"]:checked {
+.contact-form .form-check .form-check-input[type='checkbox']:checked {
   background-color: var(--mainColor);
   border-color: var(--mainColor);
 }
@@ -7920,7 +7424,7 @@ Footer Area CSS
 .single-footer-widget h3::before {
   left: 0;
   bottom: 0;
-  content: "";
+  content: '';
   width: 44px;
   height: 2px;
   position: absolute;
@@ -7952,28 +7456,19 @@ Footer Area CSS
   padding-left: 15px;
 }
 
-.single-footer-widget
-  .newsletter-form
-  form
-  .input-newsletter::-webkit-input-placeholder {
+.single-footer-widget .newsletter-form form .input-newsletter::-webkit-input-placeholder {
   color: #a7a7a7;
   -webkit-transition: var(--transition);
   transition: var(--transition);
 }
 
-.single-footer-widget
-  .newsletter-form
-  form
-  .input-newsletter:-ms-input-placeholder {
+.single-footer-widget .newsletter-form form .input-newsletter:-ms-input-placeholder {
   color: #a7a7a7;
   -webkit-transition: var(--transition);
   transition: var(--transition);
 }
 
-.single-footer-widget
-  .newsletter-form
-  form
-  .input-newsletter::-ms-input-placeholder {
+.single-footer-widget .newsletter-form form .input-newsletter::-ms-input-placeholder {
   color: #a7a7a7;
   -webkit-transition: var(--transition);
   transition: var(--transition);
@@ -7985,31 +7480,19 @@ Footer Area CSS
   transition: var(--transition);
 }
 
-.single-footer-widget
-  .newsletter-form
-  form
-  .input-newsletter:focus::-webkit-input-placeholder {
+.single-footer-widget .newsletter-form form .input-newsletter:focus::-webkit-input-placeholder {
   color: transparent;
 }
 
-.single-footer-widget
-  .newsletter-form
-  form
-  .input-newsletter:focus:-ms-input-placeholder {
+.single-footer-widget .newsletter-form form .input-newsletter:focus:-ms-input-placeholder {
   color: transparent;
 }
 
-.single-footer-widget
-  .newsletter-form
-  form
-  .input-newsletter:focus::-ms-input-placeholder {
+.single-footer-widget .newsletter-form form .input-newsletter:focus::-ms-input-placeholder {
   color: transparent;
 }
 
-.single-footer-widget
-  .newsletter-form
-  form
-  .input-newsletter:focus::placeholder {
+.single-footer-widget .newsletter-form form .input-newsletter:focus::placeholder {
   color: transparent;
 }
 
@@ -8108,14 +7591,7 @@ Footer Area CSS
 }
 
 .single-footer-widget .social-links li a.instagram {
-  background: radial-gradient(
-    circle at 30% 107%,
-    #fdf497 0%,
-    #fdf497 5%,
-    #fd5949 45%,
-    #d6249f 60%,
-    #285aeb 90%
-  );
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
 }
 
 .single-footer-widget .social-links li:last-child {
@@ -8415,11 +7891,7 @@ Go Top CSS
   font-weight: 500;
 }
 
-.cryptocurrency-data-table
-  .dataTables_wrapper
-  .dataTables_paginate
-  span
-  .paginate_button.current {
+.cryptocurrency-data-table .dataTables_wrapper .dataTables_paginate span .paginate_button.current {
   background: var(--mainColor);
   color: var(--whiteColor) !important;
   border-color: var(--mainColor) !important;
@@ -8431,11 +7903,11 @@ Go Top CSS
   border-color: var(--mainColor) !important;
 }
 
-.cryptocurrency-platform-slides .owl-nav [class*="owl-"] {
+.cryptocurrency-platform-slides .owl-nav [class*='owl-'] {
   margin-top: 6px;
 }
 
-.content-slides .owl-nav [class*="owl-"] {
+.content-slides .owl-nav [class*='owl-'] {
   top: -14px;
 }
 
@@ -8444,7 +7916,7 @@ Go Top CSS
   z-index: 999;
 }
 
-.cryptocurrency-slides .owl-nav [class*="owl-"] {
+.cryptocurrency-slides .owl-nav [class*='owl-'] {
   top: -1px;
 }
 
@@ -8453,7 +7925,7 @@ Go Top CSS
   border-radius: 50%;
 }
 
-.feedback-slides .owl-nav [class*="owl-"] {
+.feedback-slides .owl-nav [class*='owl-'] {
   top: 6px;
 }
 
@@ -8466,135 +7938,133 @@ Go Top CSS
 }
 /*# sourceMappingURL=style.css.map */
 
-
 /* Toggle Switch CSS */
 :root {
-	--gray-5:#010101; /*dark*/
-	--gray-10:#040404;
-	--gray-15:#070808;
-	--gray-20:#0D0D0E;
-	--gray-25:#141516;
-	--gray-30:#1E2022;
-	--gray-35:#2D2F31;
-	--gray-40:#404346;
-	--gray-45:#5B5E62;
-	--gray-50:#7C8084;
-	--gray-55:#9DA1A5;
-	--gray-60:#B9BDC1;
-	--gray-65:#CDD1D5;
-	--gray-70:#DCE0E3;
-	--gray-75:#E7EAED;
-	--gray-80:#EFF2F5;
-	--gray-85:#F4F7FA;
-	--gray-90:#F7FAFD;
-	--gray-95:#FCFEFE; /*light*/
-	--animate:200ms;
+  --gray-5: #010101; /*dark*/
+  --gray-10: #040404;
+  --gray-15: #070808;
+  --gray-20: #0d0d0e;
+  --gray-25: #141516;
+  --gray-30: #1e2022;
+  --gray-35: #2d2f31;
+  --gray-40: #404346;
+  --gray-45: #5b5e62;
+  --gray-50: #7c8084;
+  --gray-55: #9da1a5;
+  --gray-60: #b9bdc1;
+  --gray-65: #cdd1d5;
+  --gray-70: #dce0e3;
+  --gray-75: #e7eaed;
+  --gray-80: #eff2f5;
+  --gray-85: #f4f7fa;
+  --gray-90: #f7fafd;
+  --gray-95: #fcfefe; /*light*/
+  --animate: 200ms;
 }
 .mode-toggle {
-	display:inline-flex;
-	flex-direction:row;
-	align-items:center;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
 }
 .toggle-switch {
-	margin:0;
-	padding:0;
-	width:48px;
-	height:28px;
-	border:none;
-	outline:none;
-	overflow:hidden;
-	position:relative;
-	border-radius:14px;
-	display:inline-block;
-	background:var(--gray-40);
+  margin: 0;
+  padding: 0;
+  width: 48px;
+  height: 28px;
+  border: none;
+  outline: none;
+  overflow: hidden;
+  position: relative;
+  border-radius: 14px;
+  display: inline-block;
+  background: var(--gray-40);
 }
 .mode-toggle.dark .toggle-switch {
-	width:48px;
+  width: 48px;
 }
 .toggle-switch,
 .toggle-switch:before,
 .toggle-switch:after {
-	transition:all var(--animate) ease-in-out;
+  transition: all var(--animate) ease-in-out;
 }
 .mode-toggle.dark .toggle-switch {
-	background:var(--gray-70);
+  background: var(--gray-70);
 }
 .toggle-switch:before {
-	top:4px;
-	left:24px;
-	content:"";
-	width:20px;
-	height:20px;
-	display:block;
-	position:absolute;
-	border-radius:12px;
-	background:var(--gray-70);
+  top: 4px;
+  left: 24px;
+  content: '';
+  width: 20px;
+  height: 20px;
+  display: block;
+  position: absolute;
+  border-radius: 12px;
+  background: var(--gray-70);
 }
 .mode-toggle.dark .toggle-switch:before {
-	left:4px;
-	background:var(--gray-35);
+  left: 4px;
+  background: var(--gray-35);
 }
 .toggle-switch:after {
-	content:"";
-	top:14px;
-	right:2px;
-	width:1px;
-	height:1px;
-	display:block;
-	position:absolute;
-	border-radius:0.5px;
-	background:var(--gray-40);
+  content: '';
+  top: 14px;
+  right: 2px;
+  width: 1px;
+  height: 1px;
+  display: block;
+  position: absolute;
+  border-radius: 0.5px;
+  background: var(--gray-40);
 }
 .mode-toggle.dark .toggle-switch:after {
-	top:-2px;
-	right:2px;
-	width:32px;
-	height:32px;
-	border-radius:16px;
-	background:var(--gray-70);
+  top: -2px;
+  right: 2px;
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  background: var(--gray-70);
 }
 .toggle-switch:hover,
 .toggle-switch:hover:after {
-	background:var(--gray-35);
+  background: var(--gray-35);
 }
 .toggle-switch:focus,
 .toggle-switch:active,
 .toggle-switch:active:after {
-	background:var(--gray-25);
+  background: var(--gray-25);
 }
 .mode-toggle.dark .toggle-switch:hover,
 .mode-toggle.dark .toggle-switch:hover:after {
-	background:var(--gray-95);
+  background: var(--gray-95);
 }
 .mode-toggle.dark .toggle-switch:focus,
 .mode-toggle.dark .toggle-switch:active,
 .mode-toggle.dark .toggle-switch:active:after {
-	background:var(--gray-65);
+  background: var(--gray-65);
 }
 .noselect {
-	user-select:none;
-	-ms-user-select:none;
-	-moz-user-select:none;
-	-webkit-user-select:none;
+  user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
 }
 .disableEasingTemporarily,
 .disableEasingTemporarily:after,
 .disableEasingTemporarily:before {
-  -o-transition-property:none!important;
-  -moz-transition-property:none!important;
-  -ms-transition-property:none!important;
-  -webkit-transition-property:none!important;
-  transition-property:none!important;
-  -o-transform:none!important;
-  -moz-transform:none!important;
-  -ms-transform:none!important;
-  -webkit-transform:none!important;
-  transform:none!important;
-  -webkit-animation:none!important;
-  -moz-animation:none!important;
-  -o-animation:none!important;
-  -ms-animation:none!important;
-  animation:none!important;
+  -o-transition-property: none !important;
+  -moz-transition-property: none !important;
+  -ms-transition-property: none !important;
+  -webkit-transition-property: none !important;
+  transition-property: none !important;
+  -o-transform: none !important;
+  -moz-transform: none !important;
+  -ms-transform: none !important;
+  -webkit-transform: none !important;
+  transform: none !important;
+  -webkit-animation: none !important;
+  -moz-animation: none !important;
+  -o-animation: none !important;
+  -ms-animation: none !important;
+  animation: none !important;
 }
 /* end */
-

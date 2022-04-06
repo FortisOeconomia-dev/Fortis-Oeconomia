@@ -6,7 +6,7 @@
   p {
     font-size: 20px;
   }
-  
+
   .ptb-100 {
     padding-top: 60px;
     padding-bottom: 60px;
@@ -51,11 +51,10 @@
     margin: 0 auto;
     z-index: 999;
   }
-  .navbar-area .navbar .navbar-nav .nav-item a{
+  .navbar-area .navbar .navbar-nav .nav-item a {
     padding-left: 30px;
-    
   }
-  .navbar{
+  .navbar {
     position: relative;
     left: 0;
   }
@@ -91,10 +90,10 @@
   .navbar-area .hide-menu {
     display: none !important;
   }
-  
-  .navbar .container{
+
+  .navbar .container {
     display: flex;
-    
+
     flex-direction: column;
     width: 100%;
     height: 90vh;
@@ -103,12 +102,12 @@
     left: 0;
     opacity: 1;
     transition: all 0.5s ease;
-    background:linear-gradient(180deg, #A8A4F7 100%, #8394DD 10%);
+    background: linear-gradient(180deg, #a8a4f7 100%, #8394dd 10%);
   }
 
   .navbar-area .navbar .others-option {
     display: none;
-    background:linear-gradient(180deg, #A8A4F7 100%, #8394DD 10%);
+    background: linear-gradient(180deg, #a8a4f7 100%, #8394dd 10%);
   }
   .navbar-area .navbar .navbar-nav .nav-item .dropdown-menu {
     width: 94%;
@@ -125,7 +124,7 @@
     margin-top: 0;
     visibility: visible;
   }
-  
+
   .navbar-area .navbar .navbar-nav .nav-item .dropdown-menu li {
     width: 93%;
     margin: 0 auto;
@@ -133,8 +132,8 @@
   .navbar-expand-md .navbar-nav {
     -webkit-box-orient: vertical !important;
     -webkit-box-direction: normal !important;
-        -ms-flex-direction: column !important;
-            flex-direction: column !important;
+    -ms-flex-direction: column !important;
+    flex-direction: column !important;
   }
   .navbar-area .navbar .navbar-nav::-webkit-scrollbar {
     width: 7px;
@@ -152,8 +151,8 @@
   .count-pagination {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
   }
   .contact-form {
     margin-top: 80px;
@@ -161,11 +160,11 @@
   .price-filter {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
     -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
   }
   .crypto-search {
     margin-top: 10px;
@@ -287,7 +286,7 @@
     text-align: center;
     top: 0;
     -webkit-transform: unset;
-            transform: unset;
+    transform: unset;
     margin-bottom: 30px;
   }
   .banner-content h1 {
@@ -388,7 +387,11 @@
   .banner-wrapper-image {
     margin-top: 30px;
   }
-  .shape1, .shape2, .shape3, .shape4, .shape5 {
+  .shape1,
+  .shape2,
+  .shape3,
+  .shape4,
+  .shape5 {
     display: none;
   }
   .single-funfacts-box .icon {
@@ -439,13 +442,13 @@
   }
   .buy-sell-cryptocurrency-area .col-xl-6:nth-child(1) {
     -webkit-box-ordinal-group: 3;
-        -ms-flex-order: 2;
-            order: 2;
+    -ms-flex-order: 2;
+    order: 2;
   }
   .buy-sell-cryptocurrency-area .col-xl-6:nth-child(2) {
     -webkit-box-ordinal-group: 2;
-        -ms-flex-order: 1;
-            order: 1;
+    -ms-flex-order: 1;
+    order: 1;
   }
   .buy-sell-cryptocurrency-content {
     margin-bottom: 0;
@@ -478,7 +481,9 @@
   .single-buy-sell-item h3 {
     font-size: 16px;
   }
-  .shape13, .shape14, .shape11 {
+  .shape13,
+  .shape14,
+  .shape11 {
     display: none;
   }
   .account-create-process-content .section-title {
@@ -503,13 +508,13 @@
   }
   .best-seller-area .col-xl-4 {
     -webkit-box-ordinal-group: 3;
-        -ms-flex-order: 2;
-            order: 2;
+    -ms-flex-order: 2;
+    order: 2;
   }
   .best-seller-area .col-xl-8 {
     -webkit-box-ordinal-group: 2;
-        -ms-flex-order: 1;
-            order: 1;
+    -ms-flex-order: 1;
+    order: 1;
   }
   .best-seller-content {
     top: 0;
@@ -528,8 +533,8 @@
   }
   .single-cryptocurrency-box .d-flex {
     -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
   }
   .single-cryptocurrency-box .title {
     text-align: start;
@@ -547,15 +552,15 @@
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
   }
-  .cryptocurrency-slides .owl-nav [class*=owl-] {
+  .cryptocurrency-slides .owl-nav [class*='owl-'] {
     top: 0;
     left: 0;
     position: relative;
   }
-  .cryptocurrency-slides .owl-nav [class*=owl-].owl-next {
+  .cryptocurrency-slides .owl-nav [class*='owl-'].owl-next {
     right: 0;
   }
   .cryptocurrency-slides .owl-dots {
@@ -574,7 +579,7 @@
     max-width: 100%;
     border-radius: 0;
     -webkit-transform: unset;
-            transform: unset;
+    transform: unset;
     position: relative;
     padding: 20px 15px;
     opacity: 1 !important;
@@ -599,20 +604,20 @@
   }
   .cryptocurrency-platform-slides .owl-nav {
     max-width: 100%;
-    line-height: .01;
+    line-height: 0.01;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
   }
-  .cryptocurrency-platform-slides .owl-nav [class*=owl-] {
+  .cryptocurrency-platform-slides .owl-nav [class*='owl-'] {
     position: relative;
     margin-left: 2px;
     margin-right: 2px;
   }
-  .cryptocurrency-platform-slides .owl-nav [class*=owl-].owl-next {
+  .cryptocurrency-platform-slides .owl-nav [class*='owl-'].owl-next {
     left: 0;
   }
   .single-feedback-box {
@@ -638,8 +643,8 @@
   }
   .single-feedback-box .client-info .d-flex {
     -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
   }
   .single-feedback-box .client-info .title {
     text-align: start;
@@ -670,8 +675,8 @@
   }
   .single-feedback-item .client-info .d-flex {
     -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
   }
   .single-feedback-item .client-info .title {
     text-align: start;
@@ -690,15 +695,15 @@
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
   }
-  .feedback-slides .owl-nav [class*=owl-] {
+  .feedback-slides .owl-nav [class*='owl-'] {
     top: 0;
     left: 0;
     position: relative;
   }
-  .feedback-slides .owl-nav [class*=owl-].owl-next {
+  .feedback-slides .owl-nav [class*='owl-'].owl-next {
     right: 0;
   }
   .feedback-slides .owl-dots {
@@ -708,21 +713,24 @@
     padding-top: 60px;
     padding-bottom: 60px;
   }
-  .portfolio-area.bg-f9f9f9::before, .portfolio-area.bg-f9f9f9::after {
+  .portfolio-area.bg-f9f9f9::before,
+  .portfolio-area.bg-f9f9f9::after {
     display: none;
   }
   .portfolio-area.bg-main-color {
     padding-top: 60px;
     padding-bottom: 60px;
   }
-  .portfolio-area.bg-main-color::before, .portfolio-area.bg-main-color::after {
+  .portfolio-area.bg-main-color::before,
+  .portfolio-area.bg-main-color::after {
     display: none;
   }
   .portfolio-area.bg-fff0ee {
     padding-top: 60px;
     padding-bottom: 60px;
   }
-  .portfolio-area.bg-fff0ee::before, .portfolio-area.bg-fff0ee::after {
+  .portfolio-area.bg-fff0ee::before,
+  .portfolio-area.bg-fff0ee::after {
     display: none;
   }
   .content-slides {
@@ -736,15 +744,15 @@
   }
   .content-slides .owl-nav {
     max-width: 100%;
-    line-height: .01;
+    line-height: 0.01;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
   }
-  .content-slides .owl-nav [class*=owl-] {
+  .content-slides .owl-nav [class*='owl-'] {
     font-size: 30px !important;
     position: relative;
     left: 0;
@@ -752,7 +760,7 @@
     margin-left: 2px;
     margin-right: 2px;
   }
-  .content-slides .owl-nav [class*=owl-].owl-next {
+  .content-slides .owl-nav [class*='owl-'].owl-next {
     right: 0;
     left: 0;
   }
@@ -851,8 +859,8 @@
   }
   .tokens-content .payment-methods {
     -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
   }
   .single-advisor-box .image {
     padding: 10px;
@@ -867,12 +875,13 @@
     padding-top: 60px;
     padding-bottom: 60px;
   }
-  .app-download-area::before, .app-download-area::after {
+  .app-download-area::before,
+  .app-download-area::after {
     display: none;
   }
   .app-download-image img {
     -webkit-animation: unset;
-            animation: unset;
+    animation: unset;
   }
   .app-download-content {
     text-align: center;
@@ -962,7 +971,12 @@
   .account-register-content .default-btn {
     margin-top: 0;
   }
-  .shape6, .shape7, .shape8, .shape9, .shape15, .shape12 {
+  .shape6,
+  .shape7,
+  .shape8,
+  .shape9,
+  .shape15,
+  .shape12 {
     display: none;
   }
   .cta-content {
@@ -1242,8 +1256,8 @@
   }
   .single-cryptocurrency-item .d-flex {
     -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
   }
   .single-cryptocurrency-item .title {
     text-align: start;
@@ -1310,8 +1324,8 @@
   }
   .cryptocurrency-data-table .dataTables_wrapper .dataTables_paginate {
     -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
   }
   .faq-accordion .nav-tabs {
     margin-bottom: 30px;
@@ -1467,17 +1481,17 @@
   .history-timeline.timeline .timeline-event {
     text-align: center;
     -ms-flex-item-align: unset;
-        -ms-grid-row-align: unset;
-        align-self: unset;
+    -ms-grid-row-align: unset;
+    align-self: unset;
     display: block;
   }
-  .history-timeline.timeline .timeline-event:nth-child(2n+1) {
+  .history-timeline.timeline .timeline-event:nth-child(2n + 1) {
     -webkit-box-orient: unset;
     -webkit-box-direction: unset;
-        -ms-flex-direction: unset;
-            flex-direction: unset;
+    -ms-flex-direction: unset;
+    flex-direction: unset;
   }
-  .history-timeline.timeline .timeline-event:nth-child(2n+1) .timeline-event-icon {
+  .history-timeline.timeline .timeline-event:nth-child(2n + 1) .timeline-event-icon {
     margin-left: auto;
     margin-right: auto;
   }
@@ -1506,7 +1520,7 @@
     display: block !important;
     height: 100%;
     -webkit-transform: translateX(-50%);
-            transform: translateX(-50%);
+    transform: translateX(-50%);
   }
   .history-timeline.timeline .timeline-event-content {
     padding: 20px 15px;
@@ -1610,8 +1624,8 @@
   }
   .blog-details-header .content .post-author-meta .d-flex {
     -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
   }
   .blog-details-header .content .post-author-meta img {
     width: 55px;
@@ -1638,7 +1652,7 @@
     padding: 20px;
     max-width: 100%;
     -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
   }
   .blog-details-desc .article-content .social-links {
     display: none;
@@ -1679,12 +1693,14 @@
   .blog-details-desc .comment-respond .comment-form .form-check {
     margin-top: 20px;
   }
-  blockquote, .blockquote {
+  blockquote,
+  .blockquote {
     padding: 20px !important;
     margin-top: 20px;
     margin-bottom: 20px;
   }
-  blockquote p, .blockquote p {
+  blockquote p,
+  .blockquote p {
     font-size: 15px !important;
   }
   .profile-authentication-area {
@@ -1828,7 +1844,7 @@
   .value-trade-area .container {
     max-width: 540px;
   }
-  
+
   /* .trade-cryptocurrency-box .currency-selection{
     background-color: red;
   } */
@@ -1926,8 +1942,8 @@
   .navbar-expand-md .navbar-nav {
     -webkit-box-orient: vertical !important;
     -webkit-box-direction: normal !important;
-        -ms-flex-direction: column !important;
-            flex-direction: column !important;
+    -ms-flex-direction: column !important;
+    flex-direction: column !important;
   }
   .navbar-area .navbar .navbar-nav::-webkit-scrollbar {
     width: 7px;
@@ -1951,8 +1967,8 @@
   .count-pagination {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
   }
   .crypto-price-search {
     margin-right: 69px;
@@ -2059,7 +2075,7 @@
     top: 0;
     left: 0;
     -webkit-transform: unset;
-            transform: unset;
+    transform: unset;
     text-align: center;
     position: relative;
   }
@@ -2078,8 +2094,8 @@
   }
   .banner-content .cryptocurrency-search-box .row {
     -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
   }
   .banner-content .cryptocurrency-search-box .col-lg-2 {
     width: 100%;
@@ -2143,7 +2159,15 @@
   .banner-wrapper-image {
     margin-top: 30px;
   }
-  .shape1, .shape2, .shape3, .shape4, .shape5, .shape14, .shape13, .shape11, .shape12 {
+  .shape1,
+  .shape2,
+  .shape3,
+  .shape4,
+  .shape5,
+  .shape14,
+  .shape13,
+  .shape11,
+  .shape12 {
     display: none;
   }
   .value-trade-area .container {
@@ -2184,13 +2208,13 @@
   }
   .buy-sell-cryptocurrency-area .col-xl-6:nth-child(1) {
     -webkit-box-ordinal-group: 3;
-        -ms-flex-order: 2;
-            order: 2;
+    -ms-flex-order: 2;
+    order: 2;
   }
   .buy-sell-cryptocurrency-area .col-xl-6:nth-child(2) {
     -webkit-box-ordinal-group: 2;
-        -ms-flex-order: 1;
-            order: 1;
+    -ms-flex-order: 1;
+    order: 1;
   }
   .buy-sell-cryptocurrency-content {
     margin-bottom: 0;
@@ -2243,7 +2267,7 @@
     max-width: 100%;
     border-radius: 0;
     -webkit-transform: unset;
-            transform: unset;
+    transform: unset;
     padding: 25px 15px;
     position: relative;
     margin-top: 0 !important;
@@ -2307,13 +2331,16 @@
     padding-top: 80px;
     padding-bottom: 80px;
   }
-  .portfolio-area.bg-f9f9f9::after, .portfolio-area.bg-f9f9f9::before {
+  .portfolio-area.bg-f9f9f9::after,
+  .portfolio-area.bg-f9f9f9::before {
     display: none;
   }
-  .portfolio-area.bg-main-color::after, .portfolio-area.bg-main-color::before {
+  .portfolio-area.bg-main-color::after,
+  .portfolio-area.bg-main-color::before {
     display: none;
   }
-  .portfolio-area.bg-fff0ee::after, .portfolio-area.bg-fff0ee::before {
+  .portfolio-area.bg-fff0ee::after,
+  .portfolio-area.bg-fff0ee::before {
     display: none;
   }
   .content-slides {
@@ -2363,13 +2390,13 @@
   }
   .best-seller-area .col-xl-4 {
     -webkit-box-ordinal-group: 3;
-        -ms-flex-order: 2;
-            order: 2;
+    -ms-flex-order: 2;
+    order: 2;
   }
   .best-seller-area .col-xl-8 {
     -webkit-box-ordinal-group: 2;
-        -ms-flex-order: 1;
-            order: 1;
+    -ms-flex-order: 1;
+    order: 1;
   }
   .best-seller-content {
     top: 0;
@@ -2458,14 +2485,15 @@
   }
   .tokens-content .payment-methods {
     -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
   }
   .app-download-area {
     padding-top: 80px;
     padding-bottom: 80px;
   }
-  .app-download-area::before, .app-download-area::after {
+  .app-download-area::before,
+  .app-download-area::after {
     display: none;
   }
   .app-download-image {
@@ -2473,7 +2501,7 @@
   }
   .app-download-image img {
     -webkit-animation: unset;
-            animation: unset;
+    animation: unset;
   }
   .app-download-content {
     top: 0;
@@ -2535,7 +2563,10 @@
   .shape10 {
     width: 500px;
   }
-  .cta-area .shape6, .cta-area .shape7, .cta-area .shape8, .cta-area .shape9 {
+  .cta-area .shape6,
+  .cta-area .shape7,
+  .cta-area .shape8,
+  .cta-area .shape9 {
     display: none;
   }
   .cta-content {
@@ -2602,7 +2633,7 @@
   .trade-cryptocurrency-content p {
     font-size: 15px;
   }
-  .trade-cryptocurrency-box{
+  .trade-cryptocurrency-box {
     overflow: hidden;
     display: block;
     opacity: 0.8;
@@ -2841,8 +2872,8 @@
   }
   .blog-details-header .content .post-author-meta .d-flex {
     -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
   }
   .blog-details-header .content .post-author-meta .title {
     text-align: start;
@@ -2873,10 +2904,12 @@
   .blog-details-desc .article-content .social-links {
     right: -65px;
   }
-  blockquote, .blockquote {
+  blockquote,
+  .blockquote {
     padding: 40px !important;
   }
-  blockquote p, .blockquote p {
+  blockquote p,
+  .blockquote p {
     font-size: 18px !important;
   }
   .profile-authentication-area {
@@ -2960,7 +2993,7 @@
   .navbar-area .container {
     max-width: 992px;
     overflow: hidden;
-    font-size:small;
+    font-size: small;
   }
   .navbar-area .container-fluid {
     max-width: 960px;
@@ -3002,7 +3035,7 @@
     max-width: 460px;
     padding: 42px 20px;
     -webkit-transform: translateY(0);
-            transform: translateY(0);
+    transform: translateY(0);
   }
   .main-banner-box .currency-selection label {
     left: 20px;
@@ -3016,7 +3049,11 @@
   .banner-area .container {
     max-width: 960px;
   }
-  .banner-area .shape1, .banner-area .shape2, .banner-area .shape3, .banner-area .shape4, .banner-area .shape5 {
+  .banner-area .shape1,
+  .banner-area .shape2,
+  .banner-area .shape3,
+  .banner-area .shape4,
+  .banner-area .shape5 {
     display: block;
   }
   .banner-area .shape1 {
@@ -3068,18 +3105,22 @@
     margin-top: 20px;
     max-width: 90%;
   }
-  .shape1, .shape2, .shape3, .shape4, .shape5 {
+  .shape1,
+  .shape2,
+  .shape3,
+  .shape4,
+  .shape5 {
     display: none;
   }
   .buy-sell-cryptocurrency-area .col-lg-12:nth-child(1) {
     -webkit-box-ordinal-group: 3;
-        -ms-flex-order: 2;
-            order: 2;
+    -ms-flex-order: 2;
+    order: 2;
   }
   .buy-sell-cryptocurrency-area .col-lg-12:nth-child(2) {
     -webkit-box-ordinal-group: 2;
-        -ms-flex-order: 1;
-            order: 1;
+    -ms-flex-order: 1;
+    order: 1;
   }
   .buy-sell-cryptocurrency-content {
     margin-bottom: 0;
@@ -3106,7 +3147,7 @@
     position: relative;
     top: 0;
     -webkit-transform: unset;
-            transform: unset;
+    transform: unset;
     opacity: 1 !important;
     visibility: visible !important;
     margin-top: 0 !important;
@@ -3148,21 +3189,24 @@
     padding-top: 100px;
     padding-bottom: 100px;
   }
-  .portfolio-area.bg-f9f9f9::after, .portfolio-area.bg-f9f9f9::before {
+  .portfolio-area.bg-f9f9f9::after,
+  .portfolio-area.bg-f9f9f9::before {
     display: none;
   }
   .portfolio-area.bg-main-color {
     padding-top: 100px;
     padding-bottom: 100px;
   }
-  .portfolio-area.bg-main-color::after, .portfolio-area.bg-main-color::before {
+  .portfolio-area.bg-main-color::after,
+  .portfolio-area.bg-main-color::before {
     display: none;
   }
   .portfolio-area.bg-fff0ee {
     padding-top: 100px;
     padding-bottom: 100px;
   }
-  .portfolio-area.bg-fff0ee::after, .portfolio-area.bg-fff0ee::before {
+  .portfolio-area.bg-fff0ee::after,
+  .portfolio-area.bg-fff0ee::before {
     display: none;
   }
   .tokens-image {
@@ -3190,13 +3234,13 @@
   }
   .best-seller-area .col-xl-4 {
     -webkit-box-ordinal-group: 3;
-        -ms-flex-order: 2;
-            order: 2;
+    -ms-flex-order: 2;
+    order: 2;
   }
   .best-seller-area .col-xl-8 {
     -webkit-box-ordinal-group: 2;
-        -ms-flex-order: 1;
-            order: 1;
+    -ms-flex-order: 1;
+    order: 1;
   }
   .best-seller-content {
     top: 0;
@@ -3230,7 +3274,8 @@
     padding-top: 100px;
     padding-bottom: 100px;
   }
-  .app-download-area::before, .app-download-area::after {
+  .app-download-area::before,
+  .app-download-area::after {
     display: none;
   }
   .app-download-content {
@@ -3265,7 +3310,7 @@
   .trade-cryptocurrency-content p {
     font-size: 16px;
   }
-  .trade-cryptocurrency-box{
+  .trade-cryptocurrency-box {
     overflow: hidden;
     display: block;
     opacity: 0.8;
@@ -3375,7 +3420,7 @@
     padding: 30px;
     max-width: 500px;
     -webkit-transform: translateY(-50%);
-            transform: translateY(-50%);
+    transform: translateY(-50%);
     background-color: rgba(255, 255, 255, 0.95);
   }
   .banner-area .container {
@@ -3456,7 +3501,7 @@
     padding-left: 0;
     padding-right: 0;
   }
-  .trade-cryptocurrency-box{
+  .trade-cryptocurrency-box {
     overflow: hidden;
     display: block;
     opacity: 0.8;
@@ -3500,7 +3545,8 @@
     padding-top: 100px;
     padding-bottom: 100px;
   }
-  .app-download-area::before, .app-download-area::after {
+  .app-download-area::before,
+  .app-download-area::after {
     display: none;
   }
   .app-download-content {

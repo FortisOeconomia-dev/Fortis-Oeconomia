@@ -7,7 +7,7 @@ const Wrapper = styled.label`
   margin-bottom: 20px;
   display: flex;
   flex-direction: row;
-  max-width: ${props => props.slot ? props.slot : 'unset'}
+  max-width: ${props => (props.slot ? props.slot : 'unset')};
 `
 
 const DecButton = styled.button`
@@ -31,7 +31,7 @@ const IncButton = styled.button`
   margin-left: 0px !important;
   margin-right: 16px !important;
   margin-top: 16px !important;
-  margin-bottom: 15px !important;  
+  margin-bottom: 15px !important;
 `
 
 const IncDecInput = styled.input`
@@ -46,26 +46,14 @@ const IncDecInput = styled.input`
   line-height: 32px;
 `
 
-const InputWithIncDec = ({
-  handleBurnMinus,
-  burnAmount,
-  onBurnChange,
-  handleBurnPlus,
-  maxW=null
-}) => {
-    return (
-      <Wrapper slot={maxW}>
-        <DecButton className="fa fa-minus" onClick={handleBurnMinus} />
-        <IncDecInput 
-          type="number" 
-          value={burnAmount}
-          onChange={onBurnChange}
-          step=".01"
-          min="1"
-        />
-        <IncButton className="fa fa-plus" onClick={handleBurnPlus} />
-      </Wrapper>
-    )
+const InputWithIncDec = ({ handleBurnMinus, burnAmount, onBurnChange, handleBurnPlus, maxW = null }) => {
+  return (
+    <Wrapper slot={maxW}>
+      <DecButton className="fa fa-minus" onClick={handleBurnMinus} />
+      <IncDecInput type="number" value={burnAmount} onChange={onBurnChange} step=".01" min="1" />
+      <IncButton className="fa fa-plus" onClick={handleBurnPlus} />
+    </Wrapper>
+  )
 }
 
 export default InputWithIncDec

@@ -18,11 +18,11 @@ export function convertFromMicroDenom(denom: string) {
   return denom?.substring(1).toUpperCase()
 }
 
-export function convertMicroDenomToDenom2(amount: number | string, decimals:number) {
+export function convertMicroDenomToDenom2(amount: number | string, decimals: number) {
   if (typeof amount === 'string') {
     amount = Number(amount)
   }
-  
+
   amount = amount / Math.pow(10, decimals)
   return isNaN(amount) ? 0 : amount
 }
@@ -34,7 +34,6 @@ export function convertDenomToMicroDenom2(amount: number | string, decimals: num
   amount = Math.round(amount * Math.pow(10, decimals))
   return isNaN(amount) ? '0' : String(amount)
 }
-
 
 export function convertToFixedDecimals(amount: number | string): string {
   if (typeof amount === 'string') {
