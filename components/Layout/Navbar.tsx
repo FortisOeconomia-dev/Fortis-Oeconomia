@@ -169,10 +169,9 @@ const Navbar = ({ toggle, setToggle }) => {
                       <li
                         style={{
                           background: '#FBFCFD',
+                          borderBottom: '1px solid',
                           borderTop: '1px solid',
-                          borderRadius: '0px 0px 13px 13px',
-                          //    borderBottom: '1px solid',
-                          //    borderColor: '#080451'
+                          borderColor: '#080451'
                         }}
                       >
                         <Link href="/votedrops" activeClassName="active">
@@ -186,16 +185,16 @@ const Navbar = ({ toggle, setToggle }) => {
                           </SubLink>
                         </Link>
                       </li>
-                      {/*                     <li style={{
-                      background: '#FBFCFD',
-                      borderRadius: '0px 0px 13px 13px',
-                    }}>
-                      <Link href="/junoswap" activeClassName="active">
-                        <SubLink 
-                          onClick={() => setDropsMenu(!dropsMenu)}
-                          className="nav-link" slot={pathname} defaultChecked={toggle}>Junoswap LP'ers</SubLink>
-                      </Link>
-                    </li> */}
+                      <li style={{
+                        background: '#FBFCFD',
+                        borderRadius: '0px 0px 13px 13px',
+                      }}>
+                        <Link href="/junoswap" activeClassName="active">
+                          <SubLink 
+                            onClick={() => setDropsMenu(!dropsMenu)}
+                            className="nav-link" slot={pathname} defaultChecked={toggle}>Junoswap LP'ers</SubLink>
+                        </Link>
+                      </li>
                     </ul>
                   )}
                 </li>
