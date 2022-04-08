@@ -2301,8 +2301,8 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       // deadline = Number(response2[0][1])
     }
 
-    if (lpStakingInfo.gfot_amount > 0 && deadline > 0) {
-      let delay = Math.floor(new Date().getTime() / 1000 / 86400) - Math.floor(deadline / 86400)
+    if (lpStakingInfo.gfot_amount > 0 && response.last_time > 0) {
+      let delay = Math.floor(new Date().getTime() / 1000 / 86400) - Math.floor(response.last_time / 86400)
       staked_reward +=
         ((delay > 0 ? delay : 0) * lpStakingInfo.daily_fot_amount * staked_amount) / lpStakingInfo.gfot_amount
     }

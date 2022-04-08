@@ -96,6 +96,7 @@ const PoolDetail = ({ asset, from, to, fromImage, toImage }) => {
     if (seconds === 0) {
       getCommonBalances()
       getSfotBalances()
+    //   getLpStakingInfo(asset)
     }
     interval = setInterval(() => {
       setSeconds(seconds => (seconds + 1) % updateInterval)

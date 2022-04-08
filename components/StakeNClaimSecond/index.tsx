@@ -105,203 +105,203 @@ const MyRewardsMiddle = styled.div`
 `
 
 const StakeNClaimSecond = ({
-  token1TotalAmount,
-  token2TotalAmount,
+    token1TotalAmount,
+    token2TotalAmount,
 
-  handleToken1Minus,
-  handleToken1Plus,
-  onToken1Change,
-  token1Amount,
+    handleToken1Minus,
+    handleToken1Plus,
+    onToken1Change,
+    token1Amount,
 
-  handleToken2Minus,
-  handleToken2Plus,
-  onToken2Change,
-  token2Amount,
+    handleToken2Minus,
+    handleToken2Plus,
+    onToken2Change,
+    token2Amount,
 
-  handleLiquidityMax,
-  handleAddLiquidity,
-  handleRemoveLiquidity,
+    handleLiquidityMax,
+    handleAddLiquidity,
+    handleRemoveLiquidity,
 
-  myToken1Amount,
-  myToken2Amount,
-  handleLpStaking,
-  handleLpCreateUnstake,
-  handleLpFetchUnstake,
-  handleLpStakingReward,
-  lpStakingMyReward,
-  lpStakingMyStaked,
-  lpStakingMyUnstakingList,
-  // lpStakingMyDeadline,
-  lpAmount,
-  from,
-  to,
-  APY,
-  sfotbfotdpr,
+    myToken1Amount,
+    myToken2Amount,
+    handleLpStaking,
+    handleLpCreateUnstake,
+    handleLpFetchUnstake,
+    handleLpStakingReward,
+    lpStakingMyReward,
+    lpStakingMyStaked,
+    lpStakingMyUnstakingList,
+    // lpStakingMyDeadline,
+    lpAmount,
+    from,
+    to,
+    APY,
+    sfotbfotdpr,
 }) => {
-  const [values, setValues] = useState([50])
-  const { toggle } = useContext(ToggleContext)
-  return (
-    <Wrapper>
-      <TotalStaked>
-        <div
-          className="wallet-text w-full"
-          style={{ marginBottom: '28px', paddingBottom: '26px', borderBottom: '2.05843px solid #2E0752' }}
-        >
-          <TotalStakedText className="wallet-label" style={{ textAlign: 'center' }}>
-            Total Assets in Pool
-          </TotalStakedText>
-          <TotalStakedText className="wallet-label" style={{ fontSize: '18px' }}>
-            Epoch Reward
-            <StakedValue> {10000}</StakedValue>
-          </TotalStakedText>
-
-          <TotalStakedText className="wallet-label">
-            {from}
-            <StakedValue> {token1TotalAmount}</StakedValue>
-          </TotalStakedText>
-          <TotalStakedText className="wallet-label" style={{ fontSize: '18px' }}>
-            {to}
-            <StakedValue> {token2TotalAmount}</StakedValue>
-          </TotalStakedText>
-          <TotalStakedText className="wallet-label" style={{ fontSize: '18px' }}>
-            DPR
-            <StakedValue>
-              {''}
-              {sfotbfotdpr} %
-            </StakedValue>
-          </TotalStakedText>
-        </div>
-        <div>
-          <div
-            className="gFotCurrencyt-selection"
-            style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '10px' }}
-          >
-            <span className="wallet-label" style={{ fontSize: '18px', height: 'unset' }}>
-              {from}
-            </span>
-            <InputWithIncDec
-              handleBurnMinus={handleToken1Minus}
-              burnAmount={token1Amount}
-              onBurnChange={onToken1Change}
-              handleBurnPlus={handleToken1Plus}
-            />
-          </div>
-          <div
-            className="gFotCurrencyt-selection"
-            style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '10px' }}
-          >
-            <span className="wallet-label" style={{ fontSize: '18px', height: 'unset' }}>
-              {to}
-            </span>
-            <InputWithIncDec
-              handleBurnMinus={handleToken2Minus}
-              burnAmount={token2Amount}
-              onBurnChange={onToken2Change}
-              handleBurnPlus={handleToken2Plus}
-              maxW="216px"
-            />
-          </div>
-        </div>
-        <MaxButton onClick={handleLiquidityMax} className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}>
-          Max
-        </MaxButton>
-        <button
-          className={`default-btn ${!toggle && 'secondary-btn'}`}
-          style={{ minWidth: 'unset', padding: '8px 30px' }}
-          onClick={handleAddLiquidity}
-        >
-          Add Liquidity
-        </button>
-
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            flexWrap: 'wrap',
-            marginTop: '2em',
-            width: '100%',
-          }}
-        >
-          <Range
-            values={values}
-            step={0.1}
-            min={0}
-            max={100}
-            onChange={values => setValues(values)}
-            renderTrack={({ props, children }) => (
-              <div
-                onMouseDown={props.onMouseDown}
-                onTouchStart={props.onTouchStart}
-                style={{
-                  ...props.style,
-                  height: '36px',
-                  display: 'flex',
-                  width: '100%',
-                }}
-              >
+    const [values, setValues] = useState([50])
+    const { toggle } = useContext(ToggleContext)
+    return (
+        <Wrapper>
+            <TotalStaked>
                 <div
-                  ref={props.ref}
-                  style={{
-                    height: '5px',
-                    width: '100%',
-                    borderRadius: '4px',
-                    background: getTrackBackground({
-                      values: values,
-                      colors: ['#548BF4', '#ccc'],
-                      min: 0,
-                      max: 100,
-                    }),
-                    alignSelf: 'center',
-                  }}
+                    className="wallet-text w-full"
+                    style={{ marginBottom: '28px', paddingBottom: '26px', borderBottom: '2.05843px solid #2E0752' }}
                 >
-                  {children}
-                </div>
-              </div>
-            )}
-            renderThumb={({ props, isDragged }) => (
-              <div
-                {...props}
-                style={{
-                  ...props.style,
-                  height: '42px',
-                  width: '42px',
-                  borderRadius: '4px',
-                  backgroundColor: '#FFF',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  boxShadow: '0px 2px 6px #AAA',
-                }}
-              >
-                <div
-                  style={{
-                    height: '16px',
-                    width: '5px',
-                    backgroundColor: isDragged ? '#548BF4' : '#CCC',
-                  }}
-                />
-              </div>
-            )}
-          />
-          <output
-            style={{ marginTop: '10px', color: '#080451', fontSize: '19.761px', fontWeight: '600', lineHeight: '30px' }}
-            id="output"
-          >
-            {values[0].toFixed(1)}
-          </output>
-        </div>
+                    <TotalStakedText className="wallet-label" style={{ textAlign: 'center' }}>
+                        Total Assets in Pool
+                    </TotalStakedText>
+                    <TotalStakedText className="wallet-label" style={{ fontSize: '18px' }}>
+                        Epoch Reward
+                        <StakedValue> {10000}</StakedValue>
+                    </TotalStakedText>
 
-        <button
-          className={`default-btn ${!toggle && 'secondary-btn'}`}
-          style={{ minWidth: 'unset', padding: '8px 30px' }}
-          onClick={() => handleRemoveLiquidity(values[0])}
-        >
-          Remove Liquidity
-        </button>
-      </TotalStaked>
-      <MyStaked>
-        <MyStakedContent className="wallet-text">
-          {/*                     <MyRewardsUp>
+                    <TotalStakedText className="wallet-label">
+                        {from}
+                        <StakedValue> {token1TotalAmount}</StakedValue>
+                    </TotalStakedText>
+                    <TotalStakedText className="wallet-label" style={{ fontSize: '18px' }}>
+                        {to}
+                        <StakedValue> {token2TotalAmount}</StakedValue>
+                    </TotalStakedText>
+                    <TotalStakedText className="wallet-label" style={{ fontSize: '18px' }}>
+                        DPR
+                        <StakedValue>
+                            {''}
+                            {sfotbfotdpr} %
+                        </StakedValue>
+                    </TotalStakedText>
+                </div>
+                <div>
+                    <div
+                        className="gFotCurrencyt-selection"
+                        style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '10px' }}
+                    >
+                        <span className="wallet-label" style={{ fontSize: '18px', height: 'unset' }}>
+                            {from}
+                        </span>
+                        <InputWithIncDec
+                            handleBurnMinus={handleToken1Minus}
+                            burnAmount={token1Amount}
+                            onBurnChange={onToken1Change}
+                            handleBurnPlus={handleToken1Plus}
+                        />
+                    </div>
+                    <div
+                        className="gFotCurrencyt-selection"
+                        style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '10px' }}
+                    >
+                        <span className="wallet-label" style={{ fontSize: '18px', height: 'unset' }}>
+                            {to}
+                        </span>
+                        <InputWithIncDec
+                            handleBurnMinus={handleToken2Minus}
+                            burnAmount={token2Amount}
+                            onBurnChange={onToken2Change}
+                            handleBurnPlus={handleToken2Plus}
+                            maxW="216px"
+                        />
+                    </div>
+                </div>
+                <MaxButton onClick={handleLiquidityMax} className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}>
+                    Max
+                </MaxButton>
+                <button
+                    className={`default-btn ${!toggle && 'secondary-btn'}`}
+                    style={{ minWidth: 'unset', padding: '8px 30px' }}
+                    onClick={handleAddLiquidity}
+                >
+                    Add Liquidity
+                </button>
+
+                <div
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        flexWrap: 'wrap',
+                        marginTop: '2em',
+                        width: '100%',
+                    }}
+                >
+                    <Range
+                        values={values}
+                        step={0.1}
+                        min={0}
+                        max={100}
+                        onChange={values => setValues(values)}
+                        renderTrack={({ props, children }) => (
+                            <div
+                                onMouseDown={props.onMouseDown}
+                                onTouchStart={props.onTouchStart}
+                                style={{
+                                    ...props.style,
+                                    height: '36px',
+                                    display: 'flex',
+                                    width: '100%',
+                                }}
+                            >
+                                <div
+                                    ref={props.ref}
+                                    style={{
+                                        height: '5px',
+                                        width: '100%',
+                                        borderRadius: '4px',
+                                        background: getTrackBackground({
+                                            values: values,
+                                            colors: ['#548BF4', '#ccc'],
+                                            min: 0,
+                                            max: 100,
+                                        }),
+                                        alignSelf: 'center',
+                                    }}
+                                >
+                                    {children}
+                                </div>
+                            </div>
+                        )}
+                        renderThumb={({ props, isDragged }) => (
+                            <div
+                                {...props}
+                                style={{
+                                    ...props.style,
+                                    height: '42px',
+                                    width: '42px',
+                                    borderRadius: '4px',
+                                    backgroundColor: '#FFF',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    boxShadow: '0px 2px 6px #AAA',
+                                }}
+                            >
+                                <div
+                                    style={{
+                                        height: '16px',
+                                        width: '5px',
+                                        backgroundColor: isDragged ? '#548BF4' : '#CCC',
+                                    }}
+                                />
+                            </div>
+                        )}
+                    />
+                    <output
+                        style={{ marginTop: '10px', color: '#080451', fontSize: '19.761px', fontWeight: '600', lineHeight: '30px' }}
+                        id="output"
+                    >
+                        {values[0].toFixed(1)}
+                    </output>
+                </div>
+
+                <button
+                    className={`default-btn ${!toggle && 'secondary-btn'}`}
+                    style={{ minWidth: 'unset', padding: '8px 30px' }}
+                    onClick={() => handleRemoveLiquidity(values[0])}
+                >
+                    Remove Liquidity
+                </button>
+            </TotalStaked>
+            <MyStaked>
+                <MyStakedContent className="wallet-text">
+                    {/*                     <MyRewardsUp>
                         <div className='gFotCurrencyt-selection' style={{display: "flex", justifyContent: 'space-between', alignItems: 'center', gap: '10px'}}>
                             <MyStakedDescription className="wallet-label" style={{fontSize:'18px', height: 'unset', textAlign: 'left'}}>{from}</MyStakedDescription>
                             <InputWithIncDec
@@ -329,82 +329,82 @@ const StakeNClaimSecond = ({
                             Stake
                         </button>
                     </MyRewardsUp> */}
-          <MyRewardsMiddle>
-            <div>
-              <MyStakedText className="wallet-label" style={{ textAlign: 'center' }}>
-                My Liquidity
-              </MyStakedText>
-              <MyStakedText className="wallet-label">
-                {from}
-                <StakedValue> {myToken1Amount}</StakedValue>
-              </MyStakedText>
-              <MyStakedText className="wallet-label">
-                {to}
-                <StakedValue> {myToken2Amount}</StakedValue>
-              </MyStakedText>
-            </div>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                flexWrap: 'wrap',
-                marginTop: '2em',
-                width: '100%',
-              }}
-            ></div>
-            <div>
-              <MyStakedText className="wallet-label">
-                {'LP Amount'}
-                <StakedValue> {lpAmount}</StakedValue>
-              </MyStakedText>
-              <MyStakedText className="wallet-label">
-                {'Staked LP Amount'}
-                <StakedValue> {lpStakingMyStaked}</StakedValue>
-              </MyStakedText>
-            </div>
-            <div>
-              {/*<button className={`default-btn ${!toggle && 'secondary-btn outlined'}`} style={{minWidth: 'unset', padding: '13px 30px'}} onClick={() => console.log('here')}>Max</button> */}
-              <button
-                className={`default-btn  ${!toggle && 'secondary-btn'}`}
-                style={{ minWidth: 'unset', padding: '3px 20px', marginRight: '20px' }}
-                onClick={handleLpStaking}
-              >
-                Stake All
-              </button>
-              <button
-                className={`default-btn ${!toggle && 'secondary-btn outlined'}`}
-                style={{ minWidth: 'unset', padding: '3px 10px' }}
-                onClick={handleLpCreateUnstake}
-              >
-                Unstake All
-              </button>
-            </div>
-            <div style={{ overflowY: 'auto' }}>
-              <table className="w-full">
-                {lpStakingMyUnstakingList.length > 0 && (
-                  <tr>
-                    {/* <th>Amount</th> */}
-                    <th>Release date</th>
-                    <th>Action</th>
-                  </tr>
-                )}
-                {lpStakingMyUnstakingList.map((d, idx) => (
-                  <tr key={`${idx}-unstakelp`}>
-                    {/* <td>{convertMicroDenomToDenom2(d[0], gfotTokenInfo.decimals)}</td> */}
-                    <td>{moment(new Date(Number(d[1]) * 1000)).format('YYYY/MM/DD HH:mm:ss')}</td>
-                    <td>
-                      <button
-                        className={`default-btn  ${!toggle && 'secondary-btn'}`}
-                        style={{ minWidth: 'unset', padding: '3px 30px' }}
-                        onClick={() => handleLpFetchUnstake(d)}
-                      >
-                        Fetch Unstake
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </table>
-              {/* <table className="w-full">
+                    <MyRewardsMiddle>
+                        <div>
+                            <MyStakedText className="wallet-label" style={{ textAlign: 'center' }}>
+                                My Liquidity
+                            </MyStakedText>
+                            <MyStakedText className="wallet-label">
+                                {from}
+                                <StakedValue> {myToken1Amount}</StakedValue>
+                            </MyStakedText>
+                            <MyStakedText className="wallet-label">
+                                {to}
+                                <StakedValue> {myToken2Amount}</StakedValue>
+                            </MyStakedText>
+                        </div>
+                        <div
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                flexWrap: 'wrap',
+                                marginTop: '2em',
+                                width: '100%',
+                            }}
+                        ></div>
+                        <div>
+                            <MyStakedText className="wallet-label">
+                                {'LP Amount'}
+                                <StakedValue> {lpAmount}</StakedValue>
+                            </MyStakedText>
+                            <MyStakedText className="wallet-label">
+                                {'Staked LP Amount'}
+                                <StakedValue> {lpStakingMyStaked}</StakedValue>
+                            </MyStakedText>
+                        </div>
+                        <div>
+                            {/*<button className={`default-btn ${!toggle && 'secondary-btn outlined'}`} style={{minWidth: 'unset', padding: '13px 30px'}} onClick={() => console.log('here')}>Max</button> */}
+                            <button
+                                className={`default-btn  ${!toggle && 'secondary-btn'}`}
+                                style={{ minWidth: 'unset', padding: '3px 20px', marginRight: '20px' }}
+                                onClick={handleLpStaking}
+                            >
+                                Stake All
+                            </button>
+                            <button
+                                className={`default-btn ${!toggle && 'secondary-btn outlined'}`}
+                                style={{ minWidth: 'unset', padding: '3px 10px' }}
+                                onClick={handleLpCreateUnstake}
+                            >
+                                Unstake All
+                            </button>
+                        </div>
+                        <div style={{ overflowY: 'auto' }}>
+                            <table className="w-full">
+                                {lpStakingMyUnstakingList.length > 0 && (
+                                    <tr>
+                                        {/* <th>Amount</th> */}
+                                        <th>Release date</th>
+                                        <th>Action</th>
+                                    </tr>
+                                )}
+                                {lpStakingMyUnstakingList.map((d, idx) => (
+                                    <tr key={`${idx}-unstakelp`}>
+                                        {/* <td>{convertMicroDenomToDenom2(d[0], gfotTokenInfo.decimals)}</td> */}
+                                        <td>{moment(new Date(Number(d[1]) * 1000)).format('YYYY/MM/DD HH:mm:ss')}</td>
+                                        <td>
+                                            <button
+                                                className={`default-btn  ${!toggle && 'secondary-btn'}`}
+                                                style={{ minWidth: 'unset', padding: '3px 30px' }}
+                                                onClick={() => handleLpFetchUnstake(d)}
+                                            >
+                                                Fetch Unstake
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </table>
+                            {/* <table className="w-full">
                                 {lpStakingMyUnstakingList > 0 && <tr>
                                     <th>{moment(new Date(Number(lpStakingMyUnstakingList) * 1000)).format('YYYY/MM/DD HH:mm:ss')}</th>
                                     <th>
@@ -420,25 +420,25 @@ const StakeNClaimSecond = ({
                                 </tr>}
 
                             </table> */}
-            </div>
-            {/*                         <MyStakedText className="wallet-label" style={{ textAlign: 'center', fontSize:"16px" }}>Unbonding period is 14 days</MyStakedText> */}
-          </MyRewardsMiddle>
-          <div className="w-full">
-            {/* <MyStakedText className="wallet-label">
+                        </div>
+                        {/*                         <MyStakedText className="wallet-label" style={{ textAlign: 'center', fontSize:"16px" }}>Unbonding period is 14 days</MyStakedText> */}
+                    </MyRewardsMiddle>
+                    <div className="w-full">
+                        <MyStakedText className="wallet-label">
                             My Rewards
                             <StakedValue>
                                 {" "}
-                                {" "}
+                                {lpStakingMyReward}
                             </StakedValue>
-                        </MyStakedText> */}
-            <button className={`default-btn ${!toggle && 'secondary-btn'}`} onClick={handleLpStakingReward}>
-              Claim
-            </button>
-          </div>
-        </MyStakedContent>
-      </MyStaked>
-    </Wrapper>
-  )
+                        </MyStakedText>
+                        <button className={`default-btn ${!toggle && 'secondary-btn'}`} onClick={handleLpStakingReward}>
+                            Claim
+                        </button>
+                    </div>
+                </MyStakedContent>
+            </MyStaked>
+        </Wrapper>
+    )
 }
 
 export default StakeNClaimSecond
