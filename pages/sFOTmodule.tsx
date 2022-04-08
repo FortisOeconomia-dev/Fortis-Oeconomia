@@ -98,6 +98,7 @@ const sfotmodule = () => {
     getBalances,
     nativeBalanceStr,
     nativeBalance,
+    atomBalance,
     fotBalance,
     fotBalanceStr,
     fotTokenInfo,
@@ -307,6 +308,8 @@ const sfotmodule = () => {
     if (asset == 0) balances = [sfotBalance, ustBalance]
     else if (asset == 1) balances = [sfotBalance, bfotBalance]
     else if (asset == 2) balances = [sfotBalance, gfotBalance]
+    else if (asset == 3) balances = [sfotBalance, nativeBalance]
+    else if (asset == 4) balances = [sfotBalance, atomBalance]
 
     setSwapBalances(balances)
     if (swapToken1) {
@@ -314,7 +317,7 @@ const sfotmodule = () => {
     } else {
       setSwapBalance(balances[1])
     }
-  }, [asset, sfotBalance, swapToken1, sfotBalance, ustBalance, bfotBalance, gfotBalance])
+  }, [asset, sfotBalance, swapToken1, sfotBalance, ustBalance, bfotBalance, gfotBalance, atomBalance, nativeBalance])
 
   useEffect(() => {
     if (!signingClient || walletAddress == '') return
@@ -441,6 +444,22 @@ const sfotmodule = () => {
                 toImage={gFOTImage}
                 onClick={() => setAsset(2)}
                 isActive={asset === 2}
+              />
+              <Pool
+                from="sFOT"
+                to="Juno"
+                fromImage={sFOTImage}
+                toImage="/images/juno.png"
+                onClick={() => setAsset(3)}
+                isActive={asset === 3}
+              />
+              <Pool
+                from="sFOT"
+                to="Atom"
+                fromImage={sFOTImage}
+                toImage="/images/atom.png"
+                onClick={() => setAsset(4)}
+                isActive={asset === 4}
               />
 
               <img

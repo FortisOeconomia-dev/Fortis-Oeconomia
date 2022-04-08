@@ -50,16 +50,24 @@ const PoolDetail = ({ asset, from, to, fromImage, toImage }) => {
     gfotBalance,
     sfotBalance,
     ustBalance,
+    nativeBalance,
+    atomBalance,
     bfotBalance,
     sfotUstLpBalance,
     sfotBfotLpBalance,
     sfotGfotLpBalance,
+    sfotJunoLpBalance,
+    sfotAtomLpBalance,
     sfotUstLpTokenInfo,
     sfotBfotLpTokenInfo,
     sfotGfotLpTokenInfo,
+    sfotJunoLpTokenInfo,
+    sfotAtomLpTokenInfo,
     sfotUstPoolInfo,
     sfotBfotPoolInfo,
     sfotGfotPoolInfo,
+    sfotJunoPoolInfo,
+    sfotAtomPoolInfo,
     sfotTokenInfo,
     bfotTokenInfo,
     handleAddLiquidityValuesChange,
@@ -139,7 +147,20 @@ const PoolDetail = ({ asset, from, to, fromImage, toImage }) => {
       setToken2Balance(gfotBalance)
       setLpTokenInfo(sfotGfotLpTokenInfo)
       setMyLpBalance(sfotGfotLpBalance)
+    } else if (asset == 3) {
+      setPoolInfo(sfotJunoPoolInfo)
+      setDecimals([10, 6])
+      setToken2Balance(nativeBalance)
+      setLpTokenInfo(sfotJunoLpTokenInfo)
+      setMyLpBalance(sfotJunoLpBalance)
+    } else if (asset == 4) {
+      setPoolInfo(sfotAtomPoolInfo)
+      setDecimals([10, 6])
+      setToken2Balance(atomBalance)
+      setLpTokenInfo(sfotAtomLpTokenInfo)
+      setMyLpBalance(sfotAtomLpBalance)
     }
+    
 
     getLpStakingInfo(asset).then((response: any) => {
       setLpStakingMyReward(convertMicroDenomToDenom2(response.staked_reward, fotTokenInfo.decimals))
@@ -159,6 +180,10 @@ const PoolDetail = ({ asset, from, to, fromImage, toImage }) => {
       setsfotbfotdpr(5000000 / token2TotalAmount)
     } else if (asset == 2) {
       setsfotbfotdpr(5000000 / ((Math.floor(gfotTokenInfo.total_supply / 10000000000) + 10000) * token2TotalAmount))
+    } else if (asset == 3) {
+      setsfotbfotdpr(5000000 / token2TotalAmount)
+    } else if (asset == 4) {
+      setsfotbfotdpr(5000000 / token2TotalAmount)
     }
   }, [bFot2Ust, gfotTokenInfo, token1TotalAmount, token2TotalAmount])
 

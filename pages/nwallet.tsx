@@ -149,6 +149,7 @@ const nwallet = () => {
     fotBalanceStr,
     nativeBalance,
     ustBalance,
+    atomBalance,
     walletAddress,
     gfotBalance,
     sfotBalance,
@@ -204,6 +205,11 @@ const nwallet = () => {
       label: 'UST',
       amount: ustBalance,
       image: '../images/ust.png',
+    },
+    {
+      label: 'Atom',
+      amount: atomBalance,
+      image: '../images/atom.png',
     },
     {
       label: 'JUNO',

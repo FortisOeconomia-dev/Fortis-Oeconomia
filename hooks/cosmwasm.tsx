@@ -128,12 +128,18 @@ export interface ISigningCosmWasmClientContext {
   sfotUstLpBalance: number
   sfotBfotLpBalance: number
   sfotGfotLpBalance: number
+  sfotJunoLpBalance: number
+  sfotAtomLpBalance: number
   sfotUstLpTokenInfo: any
   sfotBfotLpTokenInfo: any
   sfotGfotLpTokenInfo: any
+  sfotJunoLpTokenInfo: any
+  sfotAtomLpTokenInfo: any
   sfotUstPoolInfo: any
   sfotBfotPoolInfo: any
   sfotGfotPoolInfo: any
+  sfotJunoPoolInfo: any
+  sfotAtomPoolInfo: any
 
   handleAddLiquidityValuesChange: Function
   executeAddLiquidity: Function
@@ -189,10 +195,14 @@ export const PUBLIC_UST_JUNO_POOL_CONTRACT = process.env.NEXT_PUBLIC_UST_JUNO_PO
 export const PUBLIC_SFOT_UST_POOL_CONTRACT = process.env.NEXT_PUBLIC_SFOT_UST_POOL_CONTRACT || ''
 export const PUBLIC_SFOT_BFOT_POOL_CONTRACT = process.env.NEXT_PUBLIC_SFOT_BFOT_POOL_CONTRACT || ''
 export const PUBLIC_SFOT_GFOT_POOL_CONTRACT = process.env.NEXT_PUBLIC_SFOT_GFOT_POOL_CONTRACT || ''
+export const PUBLIC_SFOT_JUNO_POOL_CONTRACT = process.env.NEXT_PUBLIC_SFOT_JUNO_POOL_CONTRACT || ''
+export const PUBLIC_SFOT_ATOM_POOL_CONTRACT = process.env.NEXT_PUBLIC_SFOT_ATOM_POOL_CONTRACT || ''
 
 export const PUBLIC_SFOT_UST_STAKING_CONTRACT = process.env.NEXT_PUBLIC_SFOT_UST_STAKING_CONTRACT || ''
 export const PUBLIC_SFOT_BFOT_STAKING_CONTRACT = process.env.NEXT_PUBLIC_SFOT_BFOT_STAKING_CONTRACT || ''
 export const PUBLIC_SFOT_GFOT_STAKING_CONTRACT = process.env.NEXT_PUBLIC_SFOT_GFOT_STAKING_CONTRACT || ''
+export const PUBLIC_SFOT_JUNO_STAKING_CONTRACT = process.env.NEXT_PUBLIC_SFOT_JUNO_STAKING_CONTRACT || ''
+export const PUBLIC_SFOT_ATOM_STAKING_CONTRACT = process.env.NEXT_PUBLIC_SFOT_ATOM_STAKING_CONTRACT || ''
 
 export const defaultFee = {
   amount: [],
@@ -220,6 +230,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   const [atomBalance, setAtomBalance] = useState(0)
   const [osmoBalance, setOsmoBalance] = useState(0)
   const [ustBalance, setUstBalance] = useState(0)
+  const [junoBalance, setJunoBalance] = useState(0)
   const [fotBalance, SetFotBalance] = useState(0)
   const [fotBalanceStr, SetFotBalanceStr] = useState('')
   const [bfotBalance, SetBfotBalance] = useState(0)
@@ -231,6 +242,8 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   const [sfotUstLpBalance, SetSfotUstLpBalance] = useState(0)
   const [sfotBfotLpBalance, SetSfotBfotLpBalance] = useState(0)
   const [sfotGfotLpBalance, SetSfotGfotLpBalance] = useState(0)
+  const [sfotJunoLpBalance, SetSfotJunoLpBalance] = useState(0)
+  const [sfotAtomLpBalance, SetSfotAtomLpBalance] = useState(0)
 
   const [fotTokenInfo, setFotTokenInfo] = useState({ name: '', symbol: '', decimals: 10, total_supply: 0 })
   const [bfotTokenInfo, setBfotTokenInfo] = useState({ name: '', symbol: '', decimals: 6, total_supply: 0 })
@@ -239,6 +252,8 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   const [sfotUstLpTokenInfo, setSfotUstLpTokenInfo] = useState({ name: '', symbol: '', decimals: 6, total_supply: 0 })
   const [sfotBfotLpTokenInfo, setSfotBfotLpTokenInfo] = useState({ name: '', symbol: '', decimals: 6, total_supply: 0 })
   const [sfotGfotLpTokenInfo, setSfotGfotLpTokenInfo] = useState({ name: '', symbol: '', decimals: 6, total_supply: 0 })
+  const [sfotJunoLpTokenInfo, setSfotJunoLpTokenInfo] = useState({ name: '', symbol: '', decimals: 6, total_supply: 0 })
+  const [sfotAtomLpTokenInfo, setSfotAtomLpTokenInfo] = useState({ name: '', symbol: '', decimals: 6, total_supply: 0 })
 
   const [fotBurnContractInfo, setFotBurnContractInfo] = useState({
     owner: '',
@@ -290,6 +305,20 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     lp_token_address: '',
   })
 
+  const [sfotJunoPoolInfo, setSfotJunoPoolInfo] = useState({
+    token1_reserve: 0,
+    token2_reserve: 0,
+    lp_token_supply: 0,
+    lp_token_address: '',
+  })
+
+  const [sfotAtomPoolInfo, setSfotAtomPoolInfo] = useState({
+    token1_reserve: 0,
+    token2_reserve: 0,
+    lp_token_supply: 0,
+    lp_token_address: '',
+  })
+
   const [sfotUstLpStakingContractInfo, setSfotUstLpStakingContractInfo] = useState({
     owner: '',
     fot_amount: 0,
@@ -303,6 +332,20 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     apy_prefix: 0,
   })
   const [sfotGfotLpStakingContractInfo, setSfotGfotLpStakingContractInfo] = useState({
+    owner: '',
+    fot_amount: 0,
+    gfot_amount: 0,
+    apy_prefix: 0,
+  })
+
+  const [sfotJunoLpStakingContractInfo, setSfotJunoLpStakingContractInfo] = useState({
+    owner: '',
+    fot_amount: 0,
+    gfot_amount: 0,
+    apy_prefix: 0,
+  })
+
+  const [sfotAtomLpStakingContractInfo, setSfotAtomLpStakingContractInfo] = useState({
     owner: '',
     fot_amount: 0,
     gfot_amount: 0,
@@ -763,6 +806,19 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       })
       setSfotGfotLpStakingContractInfo(sfotGfotLpStakingContractInfo)
 
+      //SFOT-JUNO Contract Info
+      const sfotJunoLpStakingContractInfo = await signingClient.queryContractSmart(PUBLIC_SFOT_JUNO_STAKING_CONTRACT, {
+        config: {},
+      })
+      setSfotJunoLpStakingContractInfo(sfotJunoLpStakingContractInfo)
+
+      //SFOT-ATOM Contract Info
+      const sfotAtomLpStakingContractInfo = await signingClient.queryContractSmart(PUBLIC_SFOT_ATOM_STAKING_CONTRACT, {
+        config: {},
+      })
+      setSfotAtomLpStakingContractInfo(sfotAtomLpStakingContractInfo)
+
+
       const bFot2JunoPriceInfo = await signingClient.queryContractSmart(PUBLIC_BFOT_JUNO_POOL_CONTRACT, {
         token2_for_token1_price: { token2_amount: '10000000000' },
       })
@@ -828,6 +884,36 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       })
       SetSfotGfotLpBalance(sfotGfotLpBalance.balance)
 
+      //SFOT-JUNO
+      const sfotJunoPoolInfo = await signingClient.queryContractSmart(PUBLIC_SFOT_JUNO_POOL_CONTRACT, {
+        info: {},
+      })
+      setSfotJunoPoolInfo(sfotJunoPoolInfo)
+      const sfotJunoLpTokenInfo = await signingClient.queryContractSmart(sfotJunoPoolInfo.lp_token_address, {
+        token_info: {},
+      })
+      setSfotJunoLpTokenInfo(sfotJunoLpTokenInfo)
+
+      const sfotJunoLpBalance = await signingClient.queryContractSmart(sfotJunoPoolInfo.lp_token_address, {
+        balance: { address: walletAddress },
+      })
+      SetSfotJunoLpBalance(sfotJunoLpBalance.balance)
+
+      //SFOT-ATOM
+      const sfotAtomPoolInfo = await signingClient.queryContractSmart(PUBLIC_SFOT_ATOM_POOL_CONTRACT, {
+        info: {},
+      })
+      setSfotAtomPoolInfo(sfotAtomPoolInfo)
+      const sfotAtomLpTokenInfo = await signingClient.queryContractSmart(sfotAtomPoolInfo.lp_token_address, {
+        token_info: {},
+      })
+      setSfotAtomLpTokenInfo(sfotAtomLpTokenInfo)
+
+      const sfotAtomLpBalance = await signingClient.queryContractSmart(sfotAtomPoolInfo.lp_token_address, {
+        balance: { address: walletAddress },
+      })
+      SetSfotAtomLpBalance(sfotAtomLpBalance.balance)
+
       setLoading(false)
       if (showNotification) NotificationManager.info(`Successfully got balances`)
     } catch (error) {
@@ -851,7 +937,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         `${convertMicroDenomToDenom(objectNative.amount)} ${convertFromMicroDenom(objectNative.denom)}`,
       )
       setNativeBalance(convertMicroDenomToDenom(objectNative.amount))
-
+      
       setLoading(false)
       if (showNotification) NotificationManager.info(`Successfully got balances`)
     } catch (error) {
@@ -1707,6 +1793,18 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         token2Balance = gfotBalance
         poolInfo = sfotGfotPoolInfo
         break
+      case 3:
+        contract = PUBLIC_SFOT_JUNO_POOL_CONTRACT
+        decimals = [10, 6]
+        token2Balance = nativeBalance
+        poolInfo = sfotJunoPoolInfo
+        break
+      case 4:
+        contract = PUBLIC_SFOT_ATOM_POOL_CONTRACT
+        decimals = [10, 6]
+        token2Balance = atomBalance
+        poolInfo = sfotAtomPoolInfo
+        break              
       default:
         return
     }
@@ -1753,6 +1851,14 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       case 2:
         contract = PUBLIC_SFOT_GFOT_POOL_CONTRACT
         break
+      case 3:
+        contract = PUBLIC_SFOT_JUNO_POOL_CONTRACT
+        decimals = [10, 6]
+        break
+      case 4:
+        contract = PUBLIC_SFOT_ATOM_POOL_CONTRACT
+        decimals = [10, 6]
+        break
       default:
         return
     }
@@ -1783,6 +1889,10 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
       if (asset == 0) {
         funds = [coin(token2, ust_denom)]
+      } else if (asset == 3) {
+        funds = [coin(token2, 'ujuno')]
+      } else if (asset == 4) {
+        funds = [coin(token2, atom_denom)]
       } else {
         let token2_contract = ''
         if (asset == 1) token2_contract = PUBLIC_BFOT_CONTRACT
@@ -1875,6 +1985,23 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         token1 = (sfotGfotPoolInfo.token1_reserve * lpbalance) / lptot
         token2 = (sfotGfotPoolInfo.token2_reserve * lpbalance) / lptot
         break
+      case 3:
+        contract = PUBLIC_SFOT_JUNO_POOL_CONTRACT
+        lpcontract = sfotJunoPoolInfo.lp_token_address
+        lpbalance = sfotJunoLpBalance
+        lptot = sfotJunoLpTokenInfo.total_supply
+        token1 = (sfotJunoPoolInfo.token1_reserve * lpbalance) / lptot
+        token2 = (sfotJunoPoolInfo.token2_reserve * lpbalance) / lptot
+        break
+      case 4:
+        contract = PUBLIC_SFOT_ATOM_POOL_CONTRACT
+        lpcontract = sfotAtomPoolInfo.lp_token_address
+        lpbalance = sfotAtomLpBalance
+        lptot = sfotAtomLpTokenInfo.total_supply
+        token1 = (sfotAtomPoolInfo.token1_reserve * lpbalance) / lptot
+        token2 = (sfotAtomPoolInfo.token2_reserve * lpbalance) / lptot
+        break
+    
       default:
         return
     }
@@ -1951,6 +2078,16 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         contract = PUBLIC_SFOT_GFOT_POOL_CONTRACT
         poolInfo = sfotGfotPoolInfo
         break
+      case 3:
+        contract = PUBLIC_SFOT_JUNO_POOL_CONTRACT
+        decimals = [10, 6]
+        poolInfo = sfotJunoPoolInfo
+        break
+      case 4:
+        contract = PUBLIC_SFOT_ATOM_POOL_CONTRACT
+        decimals = [10, 6]
+        poolInfo = sfotAtomPoolInfo
+        break        
 
       default:
         return
@@ -1988,6 +2125,14 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         break
       case 2:
         contract = PUBLIC_SFOT_GFOT_POOL_CONTRACT
+        break
+      case 3:
+        contract = PUBLIC_SFOT_JUNO_POOL_CONTRACT
+        decimals = [10, 6]
+        break
+      case 4:
+        contract = PUBLIC_SFOT_ATOM_POOL_CONTRACT
+        decimals = [10, 6]
         break
       default:
         return
@@ -2125,6 +2270,18 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         staking_contract = PUBLIC_SFOT_GFOT_STAKING_CONTRACT
         lp_amount = sfotGfotLpBalance
         lpStakingInfo = sfotGfotLpStakingContractInfo
+        break
+      case 3:
+        lp_token_address = sfotJunoPoolInfo.lp_token_address
+        staking_contract = PUBLIC_SFOT_JUNO_STAKING_CONTRACT
+        lp_amount = sfotJunoLpBalance
+        lpStakingInfo = sfotJunoLpStakingContractInfo
+        break
+      case 4:
+        lp_token_address = sfotAtomPoolInfo.lp_token_address
+        staking_contract = PUBLIC_SFOT_ATOM_STAKING_CONTRACT
+        lp_amount = sfotAtomLpBalance
+        lpStakingInfo = sfotAtomLpStakingContractInfo
         break
     }
     const response: JsonObject = await signingClient.queryContractSmart(staking_contract, {
@@ -2371,12 +2528,18 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     sfotUstLpBalance,
     sfotBfotLpBalance,
     sfotGfotLpBalance,
+    sfotJunoLpBalance,
+    sfotAtomLpBalance,
     sfotUstLpTokenInfo,
     sfotBfotLpTokenInfo,
     sfotGfotLpTokenInfo,
+    sfotJunoLpTokenInfo,
+    sfotAtomLpTokenInfo,
     sfotUstPoolInfo,
     sfotBfotPoolInfo,
     sfotGfotPoolInfo,
+    sfotJunoPoolInfo,
+    sfotAtomPoolInfo,
 
     handleAddLiquidityValuesChange,
     executeAddLiquidity,

@@ -117,9 +117,15 @@ export const assets = [
   },
   {
     from: 'sFOT',
-    to: 'USDC',
+    to: 'Juno',
     fromImage: sFOTImage,
-    toImage: '/images/usdc.png',
+    toImage: '/images/juno.png',
+  },
+  {
+    from: 'sFOT',
+    to: 'Atom',
+    fromImage: sFOTImage,
+    toImage: '/images/atom.png',
   },
 ]
 export const ToggleContext = createContext({ toggle: false, asset: 0, setAsset: null, page: 0, setPage: null })
