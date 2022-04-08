@@ -2150,8 +2150,15 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     try {
       let msglist = []
       let funds = []
-      if (asset == 0) {
-        if (!swapToken1) funds = [coin(token1, ust_denom)]
+      if (asset == 0 || asset == 3 || asset == 4) {
+        if (!swapToken1) {
+          if (asset == 0)
+            funds = [coin(token1, ust_denom)]
+          else if (asset == 3)
+            funds = [coin(token1, 'ujuno')]
+          else if (asset == 4)
+            funds = [coin(token1, atom_denom)]
+        }
         else {
           const jsonmsg = {
             increase_allowance: {
