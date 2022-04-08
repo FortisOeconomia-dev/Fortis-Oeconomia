@@ -189,11 +189,11 @@ const Navbar = ({ toggle, setToggle }) => {
                         background: '#FBFCFD',
                         borderRadius: '0px 0px 13px 13px',
                       }}>
-                        <Link href="/junoswap" activeClassName="active">
+                        {/* <Link href="/junoswap" activeClassName="active">
                           <SubLink 
                             onClick={() => setDropsMenu(!dropsMenu)}
                             className="nav-link" slot={pathname} defaultChecked={toggle}>Junoswap LP'ers</SubLink>
-                        </Link>
+                        </Link> */}
                       </li>
                     </ul>
                   )}

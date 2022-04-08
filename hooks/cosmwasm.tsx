@@ -1595,6 +1595,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   }
 
   const executeStable = async () => {
+    return
     setLoading(true)
     try {
       await signingClient?.execute(
@@ -1640,6 +1641,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   }
 
   const executeClearance = async () => {
+    
     setLoading(true)
     try {
       await signingClient?.execute(
