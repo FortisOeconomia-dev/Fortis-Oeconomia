@@ -182,9 +182,9 @@ const PoolDetail = ({ asset, from, to, fromImage, toImage }) => {
     } else if (asset == 2) {
       setsfotbfotdpr(5000000 / ((Math.floor(gfotTokenInfo.total_supply / 10000000000) + 10000) * token2TotalAmount))
     } else if (asset == 3) {
-      setsfotbfotdpr(5000000 / token2TotalAmount)
+      setsfotbfotdpr((5000000 * bFot2Ust) / ( token1TotalAmount * 2))
     } else if (asset == 4) {
-      setsfotbfotdpr(5000000 / token2TotalAmount)
+      setsfotbfotdpr((5000000 * bFot2Ust) / ( token1TotalAmount * 2))
     }
   }, [bFot2Ust, gfotTokenInfo, token1TotalAmount, token2TotalAmount])
 
