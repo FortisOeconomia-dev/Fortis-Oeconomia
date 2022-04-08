@@ -169,7 +169,7 @@ const PoolDetail = ({ asset, from, to, fromImage, toImage }) => {
       setLpStakingMyUnstakingList(response.unstakingList)
       // setLpStakingMyDeadline(response.deadline)
     })
-  }, [asset, loading])
+  }, [asset, loading, sfotUstPoolInfo, sfotBfotPoolInfo, sfotGfotPoolInfo, sfotJunoPoolInfo, sfotAtomPoolInfo])
 
   // update dpr
   useEffect(() => {
