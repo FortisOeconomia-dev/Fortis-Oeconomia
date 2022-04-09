@@ -1599,6 +1599,8 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   }
 
   const createUnstake = async () => {
+    if (unstakeAmount == 0)
+      return
     setLoading(true)
 
     try {
