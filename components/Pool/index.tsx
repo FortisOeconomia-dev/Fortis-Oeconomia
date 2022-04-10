@@ -30,18 +30,25 @@ const Images = styled.div`
   width: 100%;
 `
 
-const Pool = ({ from, to, fromImage, toImage, onClick, isActive }) => {
+const Pool = ({ from, to, fromImage, toImage, onClick, isActive, imagesPosition = 'bottom', level = null }) => {
   const { toggle } = useContext(ToggleContext)
+
+  const renderImages = () => (
+    <Images defaultChecked={toggle}>
+      {typeof fromImage === 'string' ? <img src={fromImage} /> : fromImage(toggle)}
+      {typeof toImage === 'string' ? <img src={toImage} /> : toImage(toggle)}
+    </Images>
+  )
+
   return (
     <OutWrapper defaultChecked={isActive}>
       <Wrapper onClick={onClick}>
+        {imagesPosition === 'top' && renderImages()}
         <Title>
           {from} - {to}
+          {!!level && ` (Level ${level})`}
         </Title>
-        <Images defaultChecked={toggle}>
-          {typeof fromImage === 'string' ? <img src={fromImage} /> : fromImage(toggle)}
-          {typeof toImage === 'string' ? <img src={toImage} /> : toImage(toggle)}
-        </Images>
+        {imagesPosition === 'bottom' && renderImages()}
       </Wrapper>
     </OutWrapper>
   )

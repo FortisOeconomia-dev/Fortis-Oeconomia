@@ -35,12 +35,13 @@ const FromConv = ({
   balance,
   handleChange,
   maxW,
+  showBalance,
 }) => {
   const router = useRouter()
   const { pathname } = router
   const { walletAddress } = useSigningClient()
-
   const { toggle } = useContext(ToggleContext)
+
   return (
     <div className="gFotCurrencyt-selection" style={{ maxWidth: maxW }}>
       <WalletTitle slot={pathname} className="wallet-title" defaultChecked={fromImage}>
@@ -52,9 +53,7 @@ const FromConv = ({
         onBurnChange={onBurnChange}
         handleBurnPlus={handleBurnPlus}
       />
-      {walletAddress.length == 0 ? (
-        <></>
-      ) : (
+      {showBalance && walletAddress.length != 0 && (
         <div className="banner-wrapper-content" style={{ height: 'fit-content', textAlign: 'right' }}>
           <span className="sub-title ms-2" style={{ background: '#83B8DD' }}>
             Balance {balance}

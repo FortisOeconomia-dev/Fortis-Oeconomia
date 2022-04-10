@@ -36,11 +36,12 @@ const ExpectedVal = styled.span`
   margin-top: 20px;
 `
 
-const ToConv = ({ to, expectedAmount, sbalance, maxW, toImage }) => {
+const ToConv = ({ to, expectedAmount, sbalance, maxW, toImage, showBalance }) => {
   const router = useRouter()
   const { pathname } = router
   const { toggle } = useContext(ToggleContext)
   const { walletAddress } = useSigningClient()
+
   return (
     <div className="gFotCurrencyt-selection">
       <WalletTitle slot={pathname} className="wallet-title">
@@ -49,9 +50,7 @@ const ToConv = ({ to, expectedAmount, sbalance, maxW, toImage }) => {
       <ExpectedValWrapper className="wallet-label" slot={maxW}>
         <ExpectedVal>{expectedAmount}</ExpectedVal>
       </ExpectedValWrapper>
-      {walletAddress.length == 0 ? (
-        <></>
-      ) : (
+      {showBalance && walletAddress.length != 0 && (
         <div className="banner-wrapper-content" style={{ height: 'fit-content', textAlign: 'right' }}>
           <span className="sub-title ms-2" style={{ background: '#83B8DD', marginTop: '10px', marginBottom: '32px' }}>
             Balance {sbalance}

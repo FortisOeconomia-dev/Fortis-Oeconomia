@@ -60,6 +60,7 @@ const Navbar = ({ toggle, setToggle }) => {
   }, [walletAddress, signingClient])
 
   const [dropsMenu, setDropsMenu] = useState(false)
+  const [modulesMenu, setModulesMenu] = useState(false)
   const [showMenu, setshowMenu] = useState(false)
   const toggleMenu = () => {
     setshowMenu(!showMenu)
@@ -205,32 +206,94 @@ const Navbar = ({ toggle, setToggle }) => {
                     </ul>
                   )}
                 </li>
+
+                <li className="dropdown">
+                  <Link href="#" activeClassName="active">
+                    <NavLink
+                      className="nav-link"
+                      style={{ display: 'flex', gap: '10px', fontWeight: '600' }}
+                      onClick={e => {
+                        e.preventDefault()
+                        setModulesMenu(!modulesMenu)
+                      }}
+                      slot={pathname}
+                      defaultChecked={toggle}
+                    >
+                      Modules
+                      <div style={{ transform: 'rotate(90deg)', fontFamily: 'cursive' }}>{`>`}</div>
+                    </NavLink>
+                  </Link>
+                  {modulesMenu && (
+                    <ul
+                      style={{
+                        position: 'absolute',
+                        minWidth: '180px',
+                        marginTop: '10px',
+                        border: '1px solid #080451',
+                        borderRadius: '13px',
+                      }}
+                    >
+                      <li
+                        style={{
+                          background: '#FBFCFD',
+                          borderRadius: '13px 13px 0px 0px',
+                        }}
+                      >
+                        <Link href="/burnmodule" activeClassName="active">
+                          <SubLink
+                            className="nav-link"
+                            slot={pathname}
+                            defaultChecked={toggle}
+                            onClick={() => setModulesMenu(!modulesMenu)}
+                          >
+                            Burn Module (bFOT)
+                          </SubLink>
+                        </Link>
+                      </li>
+                      <li
+                        style={{
+                          background: '#FBFCFD',
+                          borderBottom: '1px solid',
+                          borderTop: '1px solid',
+                          borderColor: '#080451',
+                        }}
+                      >
+                        <Link href="/gFOTmodule" activeClassName="active">
+                          <SubLink
+                            onClick={() => setModulesMenu(!modulesMenu)}
+                            className="nav-link"
+                            slot={pathname}
+                            defaultChecked={toggle}
+                          >
+                            Grand Module (gFOT)
+                          </SubLink>
+                        </Link>
+                      </li>
+                      <li
+                        style={{
+                          background: '#FBFCFD',
+                          borderRadius: '0px 0px 13px 13px',
+                        }}
+                      >
+                        <Link href="/sFOTmodule" activeClassName="active">
+                          <SubLink
+                            onClick={() => setModulesMenu(!modulesMenu)}
+                            className="nav-link"
+                            slot={pathname}
+                            defaultChecked={toggle}
+                          >
+                            Stable Module (sFOT)
+                          </SubLink>
+                        </Link>
+                      </li>
+                    </ul>
+                  )}
+                </li>
                 {/*<li className="nav-item">
                   <Link href="/publicsale" activeClassName="active">
                     <a className="nav-link">Public Sale</a>
                   </Link>
                   </li>*/}
-                <li className="nav-item">
-                  <Link href="/burnmodule" activeClassName="active">
-                    <NavLink className="nav-link" slot={pathname} defaultChecked={toggle}>
-                      Burn Module (bFOT)
-                    </NavLink>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link href="/gFOTmodule" activeClassName="active">
-                    <NavLink className="nav-link" slot={pathname} defaultChecked={toggle}>
-                      Grand Module (gFOT)
-                    </NavLink>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link href="/sFOTmodule" activeClassName="active">
-                    <NavLink className="nav-link" slot={pathname} defaultChecked={toggle}>
-                      Stable Module (sFOT)
-                    </NavLink>
-                  </Link>
-                </li>
                 {/*<li className="nav-item">
                   <Link href="/burntostake" activeClassName="active">
                     <a className="nav-link" style={{whiteSpace:"nowrap"}}>Burn to Stake</a>
@@ -246,6 +309,13 @@ const Navbar = ({ toggle, setToggle }) => {
                     <NavLink className="nav-link" slot={pathname} defaultChecked={toggle}>Info</NavLink>
                   </Link>
                 </li> */}
+                <li className="nav-item">
+                  <Link href="/fortisDungeon" activeClassName="active">
+                    <NavLink className="nav-link" slot={pathname} defaultChecked={toggle}>
+                      Fortis Dungeon
+                    </NavLink>
+                  </Link>
+                </li>
                 <li className="nav-item">
                   <Link href="/nwallet" activeClassName="active">
                     <NavLink className="nav-link" slot={pathname} defaultChecked={toggle}>

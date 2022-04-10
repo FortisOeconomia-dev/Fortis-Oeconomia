@@ -32,10 +32,12 @@ const Converter = ({
   handleChange,
   sbalance,
   submitTitle = 'Burn',
+  showBalance = true,
 }) => {
   const { swapToken1, setSwapToken1 } = useSigningClient()
   const { toggle } = useContext(ToggleContext)
   const [exchange, setExchange] = useState(false)
+
   return (
     <Wrapper defaultChecked={wfull}>
       <FromConv
@@ -48,6 +50,7 @@ const Converter = ({
         balance={!exchange ? balance : sbalance}
         handleChange={handleChange}
         maxW={maxW}
+        showBalance={showBalance}
       />
       <div style={{ marginBottom: '58px', display: 'flex', gap: '16px' }}>
         {typeof convImg === 'string' ? <img src={convImg} /> : convImg()}
@@ -63,6 +66,7 @@ const Converter = ({
         expectedAmount={expectedAmount}
         sbalance={!exchange ? sbalance : balance}
         maxW={maxW}
+        showBalance={showBalance}
       />
       <button className={`default-btn ${!toggle && from !== 'FOT' ? 'secondary-btn' : ''}`} onClick={handleSubmit}>
         {submitTitle}
