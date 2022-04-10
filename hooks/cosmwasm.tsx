@@ -1231,6 +1231,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   ////////////////////////////////////////////////////////////////////////
 
   const getMyAirdropAmount = async () => {
+    return
     if (walletAddress == '') return
     setLoading(true)
     var amount = 0
@@ -1252,6 +1253,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   }
 
   const GetAlreadyAirdropped = async () => {
+    return
     if (walletAddress == '') return
     setLoading(true)
     try {
@@ -1271,6 +1273,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   }
 
   const executeAirdrop = async () => {
+    return
     if (alreadyAirdropped) {
       if (showNotification) NotificationManager.warning('Already airdropped')
     }
@@ -1343,6 +1346,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   // }
 
   const executeMonetaAirdrop = async () => {
+    return
     // if (alreadyAirdropped) {
     //   if (showNotification)
     //     NotificationManager.warning('Already airdropped')
