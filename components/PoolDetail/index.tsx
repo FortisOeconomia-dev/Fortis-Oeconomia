@@ -33,11 +33,22 @@ const Title = styled.p`
   text-align: center;
 `
 
-const Divider = styled.div`
-  width: 2.06px;
-  background: linear-gradient(180deg, #171e0e 0%, #ffffff 100%);
-`
-const PoolDetail = ({ asset, from, to, fromImage, toImage }) => {
+const PoolDetail = ({
+  asset,
+  from,
+  to,
+  fromImage,
+  toImage,
+  level = null,
+  showEpochReward,
+  showDPRInfoIcon,
+  showLpAmount,
+  maxWidth,
+  showStakeForm,
+  showMaxButtonInLiquidityForm,
+  showStakeAllButton,
+  unstakeButtonText,
+}) => {
   const { toggle } = useContext(ToggleContext)
   const {
     fotTokenInfo,
@@ -96,7 +107,7 @@ const PoolDetail = ({ asset, from, to, fromImage, toImage }) => {
     if (seconds === 0) {
       getCommonBalances()
       getSfotBalances()
-    //   getLpStakingInfo(asset)
+      //   getLpStakingInfo(asset)
     }
     interval = setInterval(() => {
       setSeconds(seconds => (seconds + 1) % updateInterval)
@@ -161,7 +172,6 @@ const PoolDetail = ({ asset, from, to, fromImage, toImage }) => {
       setLpTokenInfo(sfotAtomLpTokenInfo)
       setMyLpBalance(sfotAtomLpBalance)
     }
-    
 
     getLpStakingInfo(asset).then((response: any) => {
       setLpStakingMyReward(convertMicroDenomToDenom2(response.staked_reward, fotTokenInfo.decimals))
@@ -182,9 +192,9 @@ const PoolDetail = ({ asset, from, to, fromImage, toImage }) => {
     } else if (asset == 2) {
       setsfotbfotdpr(5000000 / ((Math.floor(gfotTokenInfo.total_supply / 10000000000) + 10000) * token2TotalAmount))
     } else if (asset == 3) {
-      setsfotbfotdpr((5000000 * bFot2Ust) / ( token1TotalAmount * 2))
+      setsfotbfotdpr((5000000 * bFot2Ust) / (token1TotalAmount * 2))
     } else if (asset == 4) {
-      setsfotbfotdpr((5000000 * bFot2Ust) / ( token1TotalAmount * 2))
+      setsfotbfotdpr((5000000 * bFot2Ust) / (token1TotalAmount * 2))
     }
   }, [bFot2Ust, gfotTokenInfo, token1TotalAmount, token2TotalAmount])
 
@@ -293,12 +303,12 @@ const PoolDetail = ({ asset, from, to, fromImage, toImage }) => {
       <div className="w-full">
         <TitleWrapper>
           <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-            {fromImage(toggle)}
+            {typeof fromImage === 'string' ? <img src={`${fromImage}`} /> : fromImage(toggle)}
             <span>-</span>
             {typeof toImage === 'string' ? <img src={`${toImage}`} /> : toImage(toggle)}
           </div>
           <Title>
-            {from}-{to} Pool
+            {from}-{to} Pool {!!level && ` (Level ${level})`}
           </Title>
         </TitleWrapper>
         <StakeNClaimSecond
@@ -330,9 +340,16 @@ const PoolDetail = ({ asset, from, to, fromImage, toImage }) => {
           from={from}
           to={to}
           APY={0}
+          showEpochReward={showEpochReward}
+          showDPRInfoIcon={showDPRInfoIcon}
+          showLpAmount={showLpAmount}
+          maxWidth={maxWidth}
+          showStakeForm={showStakeForm}
+          showMaxButtonInLiquidityForm={showMaxButtonInLiquidityForm}
+          showStakeAllButton={showStakeAllButton}
+          unstakeButtonText={unstakeButtonText}
         />
       </div>
-      <Divider />
     </Wrapper>
   )
 }
