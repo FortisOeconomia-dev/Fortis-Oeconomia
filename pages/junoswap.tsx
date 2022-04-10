@@ -163,7 +163,7 @@ const CreateWork = () => {
                     </svg>
                   </AssetImageWrapper>
                 </OutWrapper>
-                <Title>Junoswap LP'ers Drop</Title>
+                <Title>Junoswap LP Retroactive Rewards</Title>
               </TitleWrapper>
               <div className="trade-cryptocurrency-box">
                 <Ellipse2 />
@@ -171,14 +171,15 @@ const CreateWork = () => {
                 <CurrencySelection className="currency-selection">
                   <label style={{ alignItems: 'center', textAlign: 'center', height: 'fit-content' }}>
                     {' '}
-                    {alreadyAirdropped ? 0 : airdropAmountDenom}
+                    {/* {alreadyAirdropped ? 0 : airdropAmountDenom} */}
+                    {'...'}
                   </label>
                 </CurrencySelection>
 
                 <button type="submit" onClick={handleSubmit} disabled={alreadyAirdropped}>
-                  {alreadyAirdropped ? `Already Claimed` : `Claim`}
+                  {alreadyAirdropped ? `Not Claimable Yet` : `Not Claimable Yet`}
                 </button>
-                {walletAddress.length == 0 ? (
+{/*                 {walletAddress.length == 0 ? (
                   <></>
                 ) : (
                   <div className="banner-wrapper-content" style={{ marginRight: '0' }}>
@@ -186,7 +187,7 @@ const CreateWork = () => {
                       {fotBalanceStr}
                     </span>
                   </div>
-                )}
+                )} */}
               </div>
             </div>
           </div>

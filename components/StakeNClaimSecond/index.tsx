@@ -150,10 +150,10 @@ const StakeNClaimSecond = ({
                     <TotalStakedText className="wallet-label" style={{ textAlign: 'center' }}>
                         Total Assets in Pool
                     </TotalStakedText>
-                    <TotalStakedText className="wallet-label" style={{ fontSize: '18px' }}>
+{/*                     <TotalStakedText className="wallet-label" style={{ fontSize: '18px' }}>
                         Epoch Reward
                         <StakedValue> {10000}</StakedValue>
-                    </TotalStakedText>
+                    </TotalStakedText> */}
 
                     <TotalStakedText className="wallet-label">
                         {from}
