@@ -40,14 +40,14 @@ const PoolDetail = ({
   fromImage,
   toImage,
   level = null,
-  showEpochReward,
-  showDPRInfoIcon,
-  showLpAmount,
-  maxWidth,
-  showStakeForm,
-  showMaxButtonInLiquidityForm,
-  showStakeAllButton,
-  unstakeButtonText,
+  showEpochReward = false,
+  showDPRInfoIcon = false,
+  showLpAmount = true,
+  maxWidth = '770px',
+  showStakeForm = false,
+  showMaxButtonInLiquidityForm = false,
+  showStakeAllButton = true,
+  unstakeButtonText = 'Unstake All',
 }) => {
   const { toggle } = useContext(ToggleContext)
   const {

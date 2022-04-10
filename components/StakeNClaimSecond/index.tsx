@@ -6,7 +6,7 @@ import { ToggleContext } from '../Layout/Layout'
 import moment from 'moment'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 
-const Wrapper = styled.div`
+const Wrapper = styled('div')<{ maxWidth: string }>`
   padding: 50px 32px;
   background: rgba(255, 255, 255, 0.25);
   box-shadow: 2.74846px 5.49692px 57.0305px rgba(161, 164, 176, 0.25);
@@ -87,7 +87,7 @@ const MaxButton = styled.button`
   min-width: unset !important;
 `
 
-const MyRewardsUp = styled.div`
+const MyRewardsUp = styled('div')<{ visible: boolean }>`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -139,14 +139,14 @@ const StakeNClaimSecond = ({
   to,
   APY,
   sfotbfotdpr,
-  showEpochReward = false,
-  showDPRInfoIcon = false,
-  showLpAmount = true,
-  maxWidth = '770px',
-  showStakeForm = false,
-  showMaxButtonInLiquidityForm = false,
-  showStakeAllButton = true,
-  unstakeButtonText = 'Unstake All',
+  showEpochReward,
+  showDPRInfoIcon,
+  showLpAmount,
+  maxWidth,
+  showStakeForm,
+  showMaxButtonInLiquidityForm,
+  showStakeAllButton,
+  unstakeButtonText,
 }) => {
   const [values, setValues] = useState([50])
   const { toggle } = useContext(ToggleContext)
