@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import RateShow from '../../components/RateShow'
 import { useSigningClient } from '../../contexts/cosmwasm'
 import ProgressBar from '../../components/ProgressBar'
+import InformativeDialog from '../InformativeDialog'
 
 //navbar
 import Navbar from './Navbar'
@@ -217,6 +218,17 @@ const Layout = ({ children }) => {
     setPage(0)
   }, [pathname])
 
+  const [shouldShowInformativeDialog, setShouldShowInformativeDialog] = useState('false')
+
+  useEffect(() => {
+    setShouldShowInformativeDialog(typeof window !== 'undefined' && localStorage.getItem('shouldShowInformativeDialog'))
+  }, [])
+
+  const handleAcceptInformativeDialog = () => {
+    localStorage.setItem('shouldShowInformativeDialog', 'false')
+    setShouldShowInformativeDialog('false')
+  }
+
   return (
     <ToggleContext.Provider value={{ toggle, asset, setAsset, page, setPage }}>
       {rateShow.length > 0 ? (
@@ -241,33 +253,28 @@ const Layout = ({ children }) => {
             'drop-shadow(16px 16px 20px) invert(90) hue-rotate(170deg) saturate(200%) contrast(100%) brightness(90%)',
         }}
       >
-        {/* {pathname === '/' && <Background slot={`../images/HomePageBackground/${index%4 + 1}.png`}></Background>} */}
         <Head>
           <title>Fortis Oeconomia</title>
           <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
           <meta name="description" content="Innovative Financial Toolkit" />
           <meta name="og:title" property="og:title" content="Innovative Financial Toolkit"></meta>
           <meta name="twitter:card" content="Innovative Financial Toolkit"></meta>
-          {/* <link rel='canonical' href='https://novis-react.envytheme.com'></link> */}
         </Head>
-
-        {/* {pathname === '/' ? <TopHeader /> : ''} */}
-        {
-          <Navbar
-            toggle={toggle}
-            setToggle={toggle => {
-              localStorage.setItem('toggle', toggle.toString())
-              setToggle(toggle)
-            }}
-          />
-        }
-
-        {/* <button className={`default-btn wallet-btn ${pathname==='/gFOTmodule'?'secondary-btn':''}`}>
-          <img src="../images/wallet.png" />
-        </button> */}
-        {children}
-
-        {/* <Footer /> */}
+        {!shouldShowInformativeDialog && (
+          <InformativeDialog onAcceptInformativeDialog={handleAcceptInformativeDialog} />
+        )}
+        {shouldShowInformativeDialog == 'false' && (
+          <>
+            <Navbar
+              toggle={toggle}
+              setToggle={toggle => {
+                localStorage.setItem('toggle', toggle.toString())
+                setToggle(toggle)
+              }}
+            />
+            {children}
+          </>
+        )}
       </Wrapper>
     </ToggleContext.Provider>
   )
