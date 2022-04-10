@@ -3,13 +3,11 @@ import { useEffect, ChangeEvent } from 'react'
 import styled from 'styled-components'
 import { useContext } from 'react'
 import { ToggleContext } from '../components/Layout/Layout'
-import { assets, dungeonAssets } from '../components/Layout/Layout'
 import Converter from '../components/Converter'
 import Pool from '../components/Pool'
 import PoolDetail from '../components/PoolDetail'
 import { useSigningClient } from '../contexts/cosmwasm'
 import 'react-notifications/lib/notifications.css'
-import LpImage2 from '../images/lp2.svg'
 
 //styled components
 const Wrapper = styled.div`
