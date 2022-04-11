@@ -112,6 +112,8 @@ const MyRewardsMiddle = styled('div')<{ visible: boolean }>`
   padding-bottom: 1px;
   padding-top: 16px;
   border-bottom: ${props => (props.visible ? '2.05843px solid #2e0752' : '0')};
+  padding-bottom: 20px;
+  border-bottom: ${props => (props.visible ? '2.05843px solid #2e0752' : '0')};
 `
 
 const StakeNClaimSecond = ({
