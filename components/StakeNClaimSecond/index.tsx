@@ -44,6 +44,14 @@ const TotalStakedText = styled.label`
   margin: 0 !important;
   font-size: 16px;
 `
+const DPRText = styled('label')<{ visible: boolean }>`
+  width: unset !important;
+  border-bottom: 0px !important;
+  margin: 0 !important;
+  font-size: 16px;
+  visibility: ${props => (props.visible ? 'initial' : 'hidden')};
+  height: ${props => (props.visible ? 'initial' : '0')}
+`
 
 const StakedValue = styled.span`
   font-size: 16px;
@@ -65,7 +73,6 @@ const MyStakedContent = styled.div`
   align-items: center;
   flex-direction: column;
   height: 100%;
-  justify-content: space-between;
 `
 
 const MyStakedText = styled.label`
@@ -113,7 +120,14 @@ const MyRewardsMiddle = styled('div')<{ visible: boolean }>`
   padding-top: 16px;
   border-bottom: ${props => (props.visible ? '2.05843px solid #2e0752' : '0')};
   padding-bottom: 20px;
-  border-bottom: ${props => (props.visible ? '2.05843px solid #2e0752' : '0')};
+`
+const Tourch = styled('img')<{ visible: boolean}>`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 10px;
+  visibility: ${props => (props.visible ? 'initial' : 'hidden')};
+  height: ${props => (props.visible ? 'initial' : '0')};
 `
 
 const StakeNClaimSecond = ({
@@ -151,6 +165,7 @@ const StakeNClaimSecond = ({
   sfotbfotdpr,
   showEpochReward,
   showDPRInfoIcon,
+  showDPR,
   showLpAmount,
   maxWidth,
   showStakeForm,
@@ -159,6 +174,7 @@ const StakeNClaimSecond = ({
   showUnstakeAllButton,
   unstakeButtonText,
   showClaimForm,
+  showTorch,
 }) => {
   const [values, setValues] = useState([50])
   const { toggle } = useContext(ToggleContext)
@@ -172,12 +188,12 @@ const StakeNClaimSecond = ({
           <TotalStakedText className="wallet-label" style={{ textAlign: 'center' }}>
             Total Assets in Pool
           </TotalStakedText>
-          {showEpochReward && (
+{/*           {showEpochReward && (
             <TotalStakedText className="wallet-label" style={{ fontSize: '18px' }}>
               Epoch Reward
               <StakedValue> {0}</StakedValue>
             </TotalStakedText>
-          )}
+          )} */}
           <TotalStakedText className="wallet-label">
             {from}
             <StakedValue> {token1TotalAmount}</StakedValue>
@@ -186,7 +202,7 @@ const StakeNClaimSecond = ({
             {to}
             <StakedValue> {token2TotalAmount}</StakedValue>
           </TotalStakedText>
-          <TotalStakedText className="wallet-label" style={{ fontSize: '18px' }}>
+          <DPRText visible={showDPR} className="wallet-label" style={{ fontSize: '18px' }}>
             DPR
             {showDPRInfoIcon ? (
               <>
@@ -196,7 +212,7 @@ const StakeNClaimSecond = ({
             ) : (
               <StakedValue>{sfotbfotdpr} %</StakedValue>
             )}
-          </TotalStakedText>
+          </DPRText>
         </div>
         <div>
           <div
@@ -470,6 +486,7 @@ const StakeNClaimSecond = ({
             </div>
             {/*                         <MyStakedText className="wallet-label" style={{ textAlign: 'center', fontSize:"16px" }}>Unbonding period is 14 days</MyStakedText> */}
           </MyRewardsMiddle>
+          <Tourch visible={showTorch} src={`/images/torch.png`}/>
           <MyReward visible={showClaimForm} className="w-full">
             <MyStakedText className="wallet-label">
               My Rewards
