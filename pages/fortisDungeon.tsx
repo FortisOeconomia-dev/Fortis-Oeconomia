@@ -38,8 +38,7 @@ const Wrapper = styled.div`
   background-repeat: no-repeat;
   background-size: 50% 100%;
   img {
-    filter: ${props =>
-      props.defaultChecked ? 'drop-shadow(16px 16px 20px) invert(1) hue-rotate(-170deg)' : 'hue-rotate(-240deg)'};
+    filter: ${props => props.defaultChecked && 'drop-shadow(16px 16px 20px) invert(1) hue-rotate(-170deg) '};
   }
 `
 const Title = styled.p`
@@ -192,6 +191,7 @@ const fortisDungeon = () => {
       showStakeForm: true,
       showMaxButton: true,
       showUnstakeAllButton: true,
+      showClaimForm: true,
       level: 3
     },
     {
@@ -238,8 +238,9 @@ const fortisDungeon = () => {
       showStakeForm: true,
       showMaxButton: true,
       showUnstakeAllButton: true,
+      showClaimForm: true,
       level: 8
-    },
+   },
   ]
 
   return (
@@ -272,6 +273,7 @@ const fortisDungeon = () => {
         showLpAmount={false}
         maxWidth={'none'}
         showStakeForm={assets[asset].showStakeForm}
+        showClaimForm={assets[asset].showClaimForm}
         showMaxButtonInLiquidityForm={assets[asset].showMaxButton}
         showStakeAllButton={false}
         showUnstakeAllButton={assets[asset].showUnstakeAllButton}

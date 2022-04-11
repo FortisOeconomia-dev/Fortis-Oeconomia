@@ -73,6 +73,13 @@ const MyStakedText = styled.label`
   border-bottom: 0px !important;
   margin: 0 !important;
 `
+const MyReward = styled('div')<{ visible: boolean }>`
+  width: 100% !important;
+  border-bottom: 0px !important;
+  margin: 0 !important;
+  visibility: ${props => (props.visible ? 'initial' : 'hidden')};
+  height: ${props => (props.visible ? 'initial' : '0')}
+`
 
 const MyStakedDescription = styled.span`
   width: 50% !important;
@@ -95,16 +102,18 @@ const MyRewardsUp = styled('div')<{ visible: boolean }>`
   padding-bottom: 16px;
   border-bottom: 2.05843px solid #2e0752;
   visibility: ${props => (props.visible ? 'initial' : 'hidden')};
+  height: ${props => (props.visible ? 'initial' : '0')}
 `
 
-const MyRewardsMiddle = styled.div`
+const MyRewardsMiddle = styled('div')<{ visible: boolean }>`
   width: 100%;
   display: flex;
   flex-direction: column;
   padding-bottom: 1px;
   padding-top: 16px;
-  border-bottom: 2.05843px solid #2e0752;
+  border-bottom: ${props => (props.visible ? '2.05843px solid #2e0752' : '0')};
   padding-bottom: 20px;
+  border-bottom: ${props => (props.visible ? '2.05843px solid #2e0752' : '0')};
 `
 
 const StakeNClaimSecond = ({
@@ -149,6 +158,7 @@ const StakeNClaimSecond = ({
   showStakeAllButton,
   showUnstakeAllButton,
   unstakeButtonText,
+  showClaimForm,
 }) => {
   const [values, setValues] = useState([50])
   const { toggle } = useContext(ToggleContext)
@@ -347,11 +357,21 @@ const StakeNClaimSecond = ({
                 handleBurnPlus={null}
               />
             </div>
-            <button className={`default-btn  ${!toggle && 'secondary-btn'}`} style={{ marginTop: '36px' }}>
+            {showMaxButtonInLiquidityForm && (
+                <button
+                  className={`default-btn ${!toggle && 'secondary-btn outlined'}`}
+                  style={{ minWidth: 'unset', padding: '8px 30px',}}
+                  onClick={() => console.log('here')}
+                >
+                  Max
+                </button>
+              )}
+            <button className={`default-btn  ${!toggle && 'secondary-btn'}`} style={{ marginTop: '36px'}}>
               Stake
             </button>
+
           </MyRewardsUp>
-          <MyRewardsMiddle>
+          <MyRewardsMiddle visible={showClaimForm}>
             <div>
               <MyStakedText className="wallet-label" style={{ textAlign: 'center' }}>
                 My Liquidity
@@ -386,16 +406,7 @@ const StakeNClaimSecond = ({
                 </MyStakedText>
               </div>
             )}
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              {showMaxButtonInLiquidityForm && (
-                <button
-                  className={`default-btn ${!toggle && 'secondary-btn outlined'}`}
-                  style={{ minWidth: 'unset', padding: '3px 30px' }}
-                  onClick={() => console.log('here')}
-                >
-                  Max
-                </button>
-              )}
+            <div style={{marginLeft:'auto', marginRight:'auto', marginBottom:'20px'}}>
               {showStakeAllButton && (
                 <button
                   className={`default-btn  ${!toggle && 'secondary-btn'}`}
@@ -459,15 +470,15 @@ const StakeNClaimSecond = ({
             </div>
             {/*                         <MyStakedText className="wallet-label" style={{ textAlign: 'center', fontSize:"16px" }}>Unbonding period is 14 days</MyStakedText> */}
           </MyRewardsMiddle>
-          <div className="w-full">
+          <MyReward visible={showClaimForm} className="w-full">
             <MyStakedText className="wallet-label">
               My Rewards
               <StakedValue> {lpStakingMyReward}</StakedValue>
             </MyStakedText>
-            <button className={`default-btn ${!toggle && 'secondary-btn'}`} onClick={handleLpStakingReward}>
+            <button className={`default-btn ${!toggle && 'secondary-btn'}`} onClick={handleLpStakingReward} style={{display: 'flex', justifyContent:'center', margin:'auto'}}>
               Claim
             </button>
-          </div>
+          </MyReward>
         </MyStakedContent>
       </MyStaked>
     </Wrapper>
