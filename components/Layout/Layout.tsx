@@ -19,6 +19,8 @@ const Wrapper = styled.div`
   background: ${props =>
     !props.defaultChecked && props.slot === '/gFOTmodule'
       ? 'white'
+      : props.slot === '/fortisDungeon'
+      ? `linear-gradient(180deg, #FFCD5E 0%, #FBBF5A 100%)`
       : `linear-gradient(180deg, #8394DD 0%, #FFFFFF 100%)`};
   min-height: 100vh;
   display: flex;

@@ -146,6 +146,7 @@ const StakeNClaimSecond = ({
   showStakeForm,
   showMaxButtonInLiquidityForm,
   showStakeAllButton,
+  showUnstakeAllButton,
   unstakeButtonText,
 }) => {
   const [values, setValues] = useState([50])
@@ -405,13 +406,15 @@ const StakeNClaimSecond = ({
                   Stake All
                 </button>
               )}
-              <button
-                className={`default-btn ${!toggle && 'secondary-btn outlined'}`}
-                style={{ minWidth: 'unset', padding: '3px 10px' }}
-                onClick={handleLpCreateUnstake}
-              >
-                {unstakeButtonText}
-              </button>
+              {showUnstakeAllButton && (
+                <button
+                  className={`default-btn ${!toggle && 'secondary-btn outlined'}`}
+                  style={{ minWidth: 'unset', padding: '3px 10px' }}
+                  onClick={handleLpCreateUnstake}
+                >
+                  {unstakeButtonText}
+                </button>
+              )}
             </div>
             <div style={{ overflowY: 'auto' }}>
               <table className="w-full">

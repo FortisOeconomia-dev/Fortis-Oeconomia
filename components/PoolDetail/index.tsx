@@ -47,6 +47,7 @@ const PoolDetail = ({
   showStakeForm = false,
   showMaxButtonInLiquidityForm = false,
   showStakeAllButton = true,
+  showUnstakeAllButton = true,
   unstakeButtonText = 'Unstake All',
 }) => {
   const { toggle } = useContext(ToggleContext)
@@ -347,6 +348,7 @@ const PoolDetail = ({
           showStakeForm={showStakeForm}
           showMaxButtonInLiquidityForm={showMaxButtonInLiquidityForm}
           showStakeAllButton={showStakeAllButton}
+          showUnstakeAllButton={showUnstakeAllButton}
           unstakeButtonText={unstakeButtonText}
         />
       </div>
