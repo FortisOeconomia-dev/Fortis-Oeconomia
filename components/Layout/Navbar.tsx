@@ -323,7 +323,7 @@ const Navbar = ({ toggle, setToggle }) => {
                     </NavLink>
                   </Link>
                 </li>
-                <ToggleSwitch toggle={toggle} setToggle={setToggle} />
+                {pathname !== '/fortisDungeon' && <ToggleSwitch toggle={toggle} setToggle={setToggle} /> }
                 <button
                   className={`default-btn ${!toggle && pathname === '/gFOTmodule' ? 'secondary-btn' : ''}`}
                   onClick={handleConnect}
