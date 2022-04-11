@@ -19,8 +19,10 @@ import useTheme from '../../hooks/useTheme'
 const Wrapper = styled.div`
   background: ${props =>
     !props.defaultChecked && props.slot === '/gFOTmodule'
-    ? 'white'
-    : 'var(--background-color)'};
+      ? 'white'
+      : props.slot === '/fortisDungeon'
+      ? `var(--background-color)`
+      : `linear-gradient(180deg, #8394DD 0%, #FFFFFF 100%)`};
   min-height: 100vh;
   display: flex;
   flex-direction: column;
