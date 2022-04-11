@@ -132,7 +132,7 @@ export const assets = [
     toImage: '/images/atom.png',
   },
 ]
-export const ToggleContext = createContext({ toggle: false, asset: 0, setAsset: null, page: 0, setPage: null })
+export const ToggleContext = createContext({ toggle: false, setToggle: null, asset: 0, setAsset: null, page: 0, setPage: null })
 
 const Layout = ({ children }) => {
   const {
@@ -236,7 +236,7 @@ const Layout = ({ children }) => {
 
   return (
     <ThemeContext.Provider value={themeContext}>
-      <ToggleContext.Provider value={{ toggle, asset, setAsset, page, setPage }}>
+      <ToggleContext.Provider value={{ toggle, setToggle, asset, setAsset, page, setPage }}>
         {rateShow.length > 0 ? (
           <RateShow
             values={rateShow}

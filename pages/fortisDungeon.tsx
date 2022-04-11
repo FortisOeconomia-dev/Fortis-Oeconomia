@@ -105,7 +105,7 @@ const fortisDungeon = () => {
     return () => clearInterval(interval)
   }, [seconds])
 
-  const { toggle, asset, setAsset } = useContext(ToggleContext)
+  const { toggle, setToggle, asset, setAsset } = useContext(ToggleContext)
   const [swapBalance, setSwapBalance] = useState(sfotBalance)
   const onSwapAmountChange = (event: ChangeEvent<HTMLInputElement>) => {
     const {
@@ -136,6 +136,10 @@ const fortisDungeon = () => {
 
   const [swapBalances, setSwapBalances] = useState([0, 0])
 
+  useEffect(() => {
+    if (toggle) setToggle(false)
+  }, [toggle])
+  
   useEffect(() => {
     setTheme('theme' + (asset + 2))
   }, [asset])
