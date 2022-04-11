@@ -49,6 +49,7 @@ const PoolDetail = ({
   showStakeAllButton = true,
   showUnstakeAllButton = true,
   unstakeButtonText = 'Unstake All',
+  showClaimForm = false,
 }) => {
   const { toggle } = useContext(ToggleContext)
   const {
@@ -350,6 +351,7 @@ const PoolDetail = ({
           showStakeAllButton={showStakeAllButton}
           showUnstakeAllButton={showUnstakeAllButton}
           unstakeButtonText={unstakeButtonText}
+          showClaimForm={showClaimForm}
         />
       </div>
     </Wrapper>
