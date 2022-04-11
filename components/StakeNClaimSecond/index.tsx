@@ -104,6 +104,7 @@ const MyRewardsMiddle = styled.div`
   padding-bottom: 1px;
   padding-top: 16px;
   border-bottom: 2.05843px solid #2e0752;
+  padding-bottom: 20px;
 `
 
 const StakeNClaimSecond = ({
@@ -214,7 +215,6 @@ const StakeNClaimSecond = ({
               burnAmount={token2Amount}
               onBurnChange={onToken2Change}
               handleBurnPlus={handleToken2Plus}
-              maxW="216px"
             />
           </div>
         </div>
@@ -345,7 +345,6 @@ const StakeNClaimSecond = ({
                 burnAmount={0}
                 onBurnChange={null}
                 handleBurnPlus={null}
-                maxW="216px"
               />
             </div>
             <button className={`default-btn  ${!toggle && 'secondary-btn'}`} style={{ marginTop: '36px' }}>
@@ -387,11 +386,11 @@ const StakeNClaimSecond = ({
                 </MyStakedText>
               </div>
             )}
-            <div>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               {showMaxButtonInLiquidityForm && (
                 <button
                   className={`default-btn ${!toggle && 'secondary-btn outlined'}`}
-                  style={{ minWidth: 'unset', padding: '13px 30px' }}
+                  style={{ minWidth: 'unset', padding: '3px 30px' }}
                   onClick={() => console.log('here')}
                 >
                   Max

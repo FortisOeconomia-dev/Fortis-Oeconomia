@@ -12,16 +12,15 @@ import Navbar from './Navbar'
 
 //footer
 import Footer from './Footer'
+import ThemeContext from '../../contexts/ThemeContext'
+import useTheme from '../../hooks/useTheme'
 
 //styled components
-// background: ${props => props.slot==='/gFOTmodule' ? 'white' : `linear-gradient(180deg, ${props.defaultChecked ? '#1e2e71' : '#8394DD'} 0%, ${props.defaultChecked ? '#181a1b' : '#FFFFFF'} 100%)`};
 const Wrapper = styled.div`
   background: ${props =>
     !props.defaultChecked && props.slot === '/gFOTmodule'
-      ? 'white'
-      : props.slot === '/fortisDungeon'
-      ? `linear-gradient(180deg, #FFCD5E 0%, #FBBF5A 100%)`
-      : `linear-gradient(180deg, #8394DD 0%, #FFFFFF 100%)`};
+    ? 'white'
+    : 'var(--background-color)'};
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -148,6 +147,8 @@ const Layout = ({ children }) => {
   const [rateShow, setRateShow] = useState([])
   const [page, setPage] = useState(0)
   const [seconds, setSeconds] = useState(0)
+  const themeContext = useTheme('theme1')
+
   useEffect(() => {
     let interval = null
     if (seconds === 0) {
@@ -232,53 +233,55 @@ const Layout = ({ children }) => {
   }
 
   return (
-    <ToggleContext.Provider value={{ toggle, asset, setAsset, page, setPage }}>
-      {rateShow.length > 0 ? (
-        <RateShow
-          values={rateShow}
-          action={() => {
-            window.open('https://www.junoswap.com/pools', '_SEJ', 'noreferrer')
+    <ThemeContext.Provider value={themeContext}>
+      <ToggleContext.Provider value={{ toggle, asset, setAsset, page, setPage }}>
+        {rateShow.length > 0 ? (
+          <RateShow
+            values={rateShow}
+            action={() => {
+              window.open('https://www.junoswap.com/pools', '_SEJ', 'noreferrer')
+            }}
+          />
+        ) : (
+          <></>
+        )}
+        {page === 1 && <RateShow text="Clearance Sale" action={() => setPage(0)} top={true} />}
+        {page === 2 && <RateShow text="Stable Module (sFOT)" action={() => setPage(0)} left={true} />}
+        {pathname === '/airdrop' && eligible && <ProgressBar claimedPercent={monetaAirdropCount * 5} />}
+        <Wrapper
+          defaultChecked={toggle}
+          slot={pathname}
+          style={{
+            filter:
+              toggle &&
+              'drop-shadow(16px 16px 20px) invert(90) hue-rotate(170deg) saturate(200%) contrast(100%) brightness(90%)',
           }}
-        />
-      ) : (
-        <></>
-      )}
-      {page === 1 && <RateShow text="Clearance Sale" action={() => setPage(0)} top={true} />}
-      {page === 2 && <RateShow text="Stable Module (sFOT)" action={() => setPage(0)} left={true} />}
-      {pathname === '/airdrop' && eligible && <ProgressBar claimedPercent={monetaAirdropCount * 5} />}
-      <Wrapper
-        defaultChecked={toggle}
-        slot={pathname}
-        style={{
-          filter:
-            toggle &&
-            'drop-shadow(16px 16px 20px) invert(90) hue-rotate(170deg) saturate(200%) contrast(100%) brightness(90%)',
-        }}
-      >
-        <Head>
-          <title>Fortis Oeconomia</title>
-          <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-          <meta name="description" content="Innovative Financial Toolkit" />
-          <meta name="og:title" property="og:title" content="Innovative Financial Toolkit"></meta>
-          <meta name="twitter:card" content="Innovative Financial Toolkit"></meta>
-        </Head>
-        {!shouldShowInformativeDialog && (
-          <InformativeDialog onAcceptInformativeDialog={handleAcceptInformativeDialog} />
-        )}
-        {shouldShowInformativeDialog == 'false' && (
-          <>
-            <Navbar
-              toggle={toggle}
-              setToggle={toggle => {
-                localStorage.setItem('toggle', toggle.toString())
-                setToggle(toggle)
-              }}
-            />
-            {children}
-          </>
-        )}
-      </Wrapper>
-    </ToggleContext.Provider>
+        >
+          <Head>
+            <title>Fortis Oeconomia</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+            <meta name="description" content="Innovative Financial Toolkit" />
+            <meta name="og:title" property="og:title" content="Innovative Financial Toolkit"></meta>
+            <meta name="twitter:card" content="Innovative Financial Toolkit"></meta>
+          </Head>
+          {!shouldShowInformativeDialog && (
+            <InformativeDialog onAcceptInformativeDialog={handleAcceptInformativeDialog} />
+          )}
+          {shouldShowInformativeDialog == 'false' && (
+            <>
+              <Navbar
+                toggle={toggle}
+                setToggle={toggle => {
+                  localStorage.setItem('toggle', toggle.toString())
+                  setToggle(toggle)
+                }}
+              />
+              {children}
+            </>
+          )}
+        </Wrapper>
+      </ToggleContext.Provider>
+    </ThemeContext.Provider>
   )
 }
 

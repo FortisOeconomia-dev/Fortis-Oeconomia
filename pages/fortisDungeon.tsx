@@ -22,6 +22,7 @@ import {
   lp7Image,
 } from '../util/tokenImageUtils'
 import styles from '../styles/fortisDungeon.module.scss'
+import ThemeContext from '../contexts/ThemeContext'
 
 //styled components
 const Wrapper = styled.div`
@@ -32,6 +33,10 @@ const Wrapper = styled.div`
   align-items: flex-start;
   flex: 1;
   flex-wrap: wrap;
+  background-image: url('/images/chain-left.svg'), url('/images/chain-right.svg');
+  background-position: left center, right center;
+  background-repeat: no-repeat;
+  background-size: 50% 100%;
   img {
     filter: ${props =>
       props.defaultChecked ? 'drop-shadow(16px 16px 20px) invert(1) hue-rotate(-170deg)' : 'hue-rotate(-240deg)'};
@@ -78,6 +83,8 @@ const fortisDungeon = () => {
     getSfotBalances,
     updateInterval,
   } = useSigningClient()
+
+  const { setTheme } = useContext(ThemeContext)
 
   useEffect(() => {
     if (!signingClient || walletAddress.length === 0) {
@@ -129,6 +136,11 @@ const fortisDungeon = () => {
   }
 
   const [swapBalances, setSwapBalances] = useState([0, 0])
+
+  useEffect(() => {
+    setTheme('theme' + (asset + 2))
+  }, [asset])
+
   useEffect(() => {
     let balances = []
     setSwapAmount(0)
@@ -161,6 +173,7 @@ const fortisDungeon = () => {
       toImage: sFOTImage(toggle),
       showMaxButton: false,
       showUnstakeAllButton: false,
+      level: 1
     },
     {
       from: 'bFOT',
@@ -169,6 +182,7 @@ const fortisDungeon = () => {
       toImage: lp1Image(toggle),
       showMaxButton: false,
       showUnstakeAllButton: false,
+      level: 2
     },
     {
       from: 'sFOT',
@@ -178,6 +192,7 @@ const fortisDungeon = () => {
       showStakeForm: true,
       showMaxButton: true,
       showUnstakeAllButton: true,
+      level: 3
     },
     {
       from: 'UST',
@@ -186,6 +201,7 @@ const fortisDungeon = () => {
       toImage: lp3Image(toggle),
       showMaxButton: false,
       showUnstakeAllButton: false,
+      level: 4
     },
     {
       from: 'JUNO',
@@ -194,6 +210,7 @@ const fortisDungeon = () => {
       toImage: lp4Image(toggle),
       showMaxButton: false,
       showUnstakeAllButton: false,
+      level: 5
     },
     {
       from: 'ATOM',
@@ -202,6 +219,7 @@ const fortisDungeon = () => {
       toImage: lp5Image(toggle),
       showMaxButton: false,
       showUnstakeAllButton: false,
+      level: 6
     },
     {
       from: 'gFOT',
@@ -210,6 +228,7 @@ const fortisDungeon = () => {
       toImage: lp6Image(toggle),
       showMaxButton: false,
       showUnstakeAllButton: false,
+      level: 7
     },
     {
       from: 'FOT',
@@ -219,6 +238,7 @@ const fortisDungeon = () => {
       showStakeForm: true,
       showMaxButton: true,
       showUnstakeAllButton: true,
+      level: 8
     },
   ]
 
@@ -236,7 +256,7 @@ const fortisDungeon = () => {
             onClick={() => setAsset(index)}
             isActive={asset === index}
             imagesPosition="top"
-            level={index + 1}
+            level={item.level}
           />
         ))}
       </Assets>
