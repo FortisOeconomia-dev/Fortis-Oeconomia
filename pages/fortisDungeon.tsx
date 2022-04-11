@@ -176,7 +176,8 @@ const fortisDungeon = () => {
       toImage: sFOTImage(toggle),
       showMaxButton: false,
       showUnstakeAllButton: false,
-      level: 1
+      level: 1,
+      showTorch: true,
     },
     {
       from: 'bFOT',
@@ -185,7 +186,8 @@ const fortisDungeon = () => {
       toImage: lp1Image(toggle),
       showMaxButton: false,
       showUnstakeAllButton: false,
-      level: 2
+      level: 2,
+      showTorch: true,
     },
     {
       from: 'sFOT',
@@ -196,7 +198,8 @@ const fortisDungeon = () => {
       showMaxButton: true,
       showUnstakeAllButton: true,
       showClaimForm: true,
-      level: 3
+      level: 3,
+      showDPR:true,
     },
     {
       from: 'UST',
@@ -205,7 +208,8 @@ const fortisDungeon = () => {
       toImage: lp3Image(toggle),
       showMaxButton: false,
       showUnstakeAllButton: false,
-      level: 4
+      level: 4,
+      showTorch: true,
     },
     {
       from: 'JUNO',
@@ -214,7 +218,8 @@ const fortisDungeon = () => {
       toImage: lp4Image(toggle),
       showMaxButton: false,
       showUnstakeAllButton: false,
-      level: 5
+      level: 5,
+      showTorch: true,
     },
     {
       from: 'ATOM',
@@ -223,7 +228,8 @@ const fortisDungeon = () => {
       toImage: lp5Image(toggle),
       showMaxButton: false,
       showUnstakeAllButton: false,
-      level: 6
+      level: 6,
+      showTorch: true,
     },
     {
       from: 'gFOT',
@@ -232,7 +238,8 @@ const fortisDungeon = () => {
       toImage: lp6Image(toggle),
       showMaxButton: false,
       showUnstakeAllButton: false,
-      level: 7
+      level: 7,
+      showTorch: true,
     },
     {
       from: 'FOT',
@@ -243,7 +250,8 @@ const fortisDungeon = () => {
       showMaxButton: true,
       showUnstakeAllButton: true,
       showClaimForm: true,
-      level: 8
+      level: 8,
+      showDPR:true,
    },
   ]
 
@@ -273,8 +281,9 @@ const fortisDungeon = () => {
         toImage={assets[asset].toImage}
         level={asset + 1}
         showEpochReward={true}
-        showDPRInfoIcon={true}
+        showDPR={assets[asset].showDPR}
         showLpAmount={false}
+        showTorch={assets[asset].showTorch}
         maxWidth={'none'}
         showStakeForm={assets[asset].showStakeForm}
         showClaimForm={assets[asset].showClaimForm}
