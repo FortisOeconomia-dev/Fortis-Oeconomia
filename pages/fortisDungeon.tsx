@@ -68,10 +68,19 @@ const fortisDungeon = () => {
     signingClient,
     nativeBalance,
     atomBalance,
+    fotBalance,
     bfotBalance,
     gfotBalance,
     sfotBalance,
     ustBalance,
+    sfotBfotLpBalance,
+    pool1LpBfotLpBalance,
+    pool2LpSfotLpBalance,
+    pool3LpUstLpBalance,
+    pool4LpJunoLpBalance,
+    pool5LpAtomLpBalance,
+    pool6LpGfotLpBalance,
+    pool7LpFotLpBalance,
     swapToken1,
     expectedToken2Amount,
     executeSwap,
@@ -91,6 +100,12 @@ const fortisDungeon = () => {
     getSfotBalances()
   }, [signingClient, walletAddress])
 
+  // only pool3 and pool8
+  useEffect(() => {
+    // setAsset(2)
+    console.log(`[j] ===> load pool3 tab`)
+  }, [])
+
   const [seconds, setSeconds] = useState(0)
 
   useEffect(() => {
@@ -104,8 +119,8 @@ const fortisDungeon = () => {
     return () => clearInterval(interval)
   }, [seconds])
 
-  const { toggle, setToggle, asset, setAsset } = useContext(ToggleContext)
-  const [swapBalance, setSwapBalance] = useState(sfotBalance)
+  const { toggle,setToggle, asset, setAsset } = useContext(ToggleContext)
+  const [swapBalance, setSwapBalance] = useState(0)
   const onSwapAmountChange = (event: ChangeEvent<HTMLInputElement>) => {
     const {
       target: { value },
@@ -146,12 +161,16 @@ const fortisDungeon = () => {
   useEffect(() => {
     let balances = []
     setSwapAmount(0)
-    setSwapBalance(sfotBalance)
-    if (asset == 0) balances = [sfotBalance, ustBalance]
-    else if (asset == 1) balances = [sfotBalance, bfotBalance]
-    else if (asset == 2) balances = [sfotBalance, gfotBalance]
-    else if (asset == 3) balances = [sfotBalance, nativeBalance]
-    else if (asset == 4) balances = [sfotBalance, atomBalance]
+    setSwapBalance(0)
+
+    if (asset == 0) balances = [bfotBalance, sfotBalance]
+    else if (asset == 1) balances = [bfotBalance, sfotBfotLpBalance]
+    else if (asset == 2) balances = [sfotBalance, pool1LpBfotLpBalance]
+    else if (asset == 3) balances = [ustBalance, pool2LpSfotLpBalance]
+    else if (asset == 4) balances = [nativeBalance, pool3LpUstLpBalance]
+    else if (asset == 5) balances = [atomBalance, pool4LpJunoLpBalance]
+    else if (asset == 6) balances = [gfotBalance, pool5LpAtomLpBalance]
+    else if (asset == 7) balances = [fotBalance, pool6LpGfotLpBalance]
 
     setSwapBalances(balances)
     if (swapToken1) {
@@ -159,7 +178,16 @@ const fortisDungeon = () => {
     } else {
       setSwapBalance(balances[1])
     }
-  }, [asset, sfotBalance, swapToken1, sfotBalance, ustBalance, bfotBalance, gfotBalance, atomBalance, nativeBalance])
+  }, [asset, sfotBalance, swapToken1, ustBalance, bfotBalance, gfotBalance, atomBalance, nativeBalance,
+    sfotBfotLpBalance,
+    pool1LpBfotLpBalance,
+    pool2LpSfotLpBalance,
+    pool3LpUstLpBalance,
+    pool4LpJunoLpBalance,
+    pool5LpAtomLpBalance,
+    pool6LpGfotLpBalance,
+    pool7LpFotLpBalance,
+  ])
 
   useEffect(() => {
     if (!signingClient || walletAddress == '') return
@@ -266,6 +294,7 @@ const fortisDungeon = () => {
             fromImage={item.fromImage}
             toImage={item.toImage}
             onClick={() => setAsset(index)}
+            // onClick={() => { if (index == 2 || index == 7) setAsset(index)}}
             isActive={asset === index}
             imagesPosition="top"
             level={item.level}
@@ -273,7 +302,7 @@ const fortisDungeon = () => {
         ))}
       </Assets>
       <PoolDetail
-        asset={asset}
+        asset={asset + 10}
         from={assets[asset].from}
         to={assets[asset].to}
         fromImage={assets[asset].fromImage}
@@ -337,7 +366,7 @@ const fortisDungeon = () => {
           handleChange={handleSwapMax}
           sbalance={swapBalances[1]}
           submitTitle="Swap"
-          showBalance={false}
+          showBalance={true}
         />
       </ConverterContainer>
     </Wrapper>
