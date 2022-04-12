@@ -312,8 +312,13 @@ const PoolDetail = ({
 
   useEffect(() => {
     if (poolInfo == null) return
-    setToken1TotalAmount(convertMicroDenomToDenom2(poolInfo.token1_reserve, decimals[0]))
-    setToken2TotalAmount(convertMicroDenomToDenom2(poolInfo.token2_reserve, decimals[1]))
+    if (asset < 10) {
+      setToken1TotalAmount(convertMicroDenomToDenom2(poolInfo.token1_reserve, decimals[0]))
+      setToken2TotalAmount(convertMicroDenomToDenom2(poolInfo.token2_reserve, decimals[1]))
+    } else {
+      setToken1TotalAmount(convertMicroDenomToDenom2(poolInfo.token2_reserve, decimals[0]))
+      setToken2TotalAmount(convertMicroDenomToDenom2(poolInfo.token1_reserve, decimals[1]))
+    }
   }, [poolInfo])
 
   const updateAmounts = async (token1: number, token2: number, fix: number) => {
@@ -369,7 +374,7 @@ const PoolDetail = ({
     if (token1Amount == 0 || token2Amount == 0) return
     event.preventDefault()
 
-    if (asset >= 10) 
+    if (asset > 10) 
       await executeAddLiquidityForDungeon(asset - 10, token1Amount, token2Amount)
     else 
       await executeAddLiquidity(asset, token1Amount, token2Amount)
@@ -382,7 +387,7 @@ const PoolDetail = ({
       NotificationManager.error('Please connect wallet first')
       return
     }
-    if (asset < 10)
+    if (asset <= 10)
       await executeRemoveLiquidity(asset, value)
     else 
       await executeRemoveLiquidityForDungeon(asset - 10, value)

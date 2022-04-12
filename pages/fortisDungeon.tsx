@@ -81,6 +81,8 @@ const fortisDungeon = () => {
     expectedToken2Amount,
     executeSwap,
     calcExpectedSwapAmount,
+    executeSwapForDungeon,
+    calcExpectedSwapAmountForDungeon,
     swapAmount,
     setSwapAmount,
     getSfotBalances,
@@ -139,7 +141,7 @@ const fortisDungeon = () => {
   }
 
   const handleSwap = () => {
-    executeSwap(asset)
+    executeSwapForDungeon(asset)
   }
 
   const [swapBalances, setSwapBalances] = useState([0, 0])
@@ -177,7 +179,8 @@ const fortisDungeon = () => {
   useEffect(() => {
     if (!signingClient || walletAddress == '') return
 
-    calcExpectedSwapAmount(asset)
+    calcExpectedSwapAmountForDungeon(asset)
+
   }, [swapAmount, signingClient, walletAddress])
 
   const assets = [
