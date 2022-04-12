@@ -298,8 +298,10 @@ const PoolDetail = ({
       setsfotbfotdpr((5000000 * bFot2Ust) / (token1TotalAmount * 2))
     } else if (asset == 4) {
       setsfotbfotdpr((5000000 * bFot2Ust) / (token1TotalAmount * 2))
-    } else if (asset >= 10) {
-      setsfotbfotdpr(0)
+    } else if (asset == 12) {
+      setsfotbfotdpr((5500000 * bFot2Ust) / (token1TotalAmount * 2))
+    } else if (asset == 17) {
+      setsfotbfotdpr(2500000 / (token1TotalAmount * 2))
     }
   }, [bFot2Ust, gfotTokenInfo, token1TotalAmount, token2TotalAmount])
 
