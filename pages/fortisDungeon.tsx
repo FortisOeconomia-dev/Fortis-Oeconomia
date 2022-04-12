@@ -210,6 +210,7 @@ const fortisDungeon = () => {
       showLpAmount:false,
       showDPR:false,
       showClaimForm: false,
+      button: false,
     },
     {
       from: 'bFOT',
@@ -225,6 +226,7 @@ const fortisDungeon = () => {
       showLpAmount:false,
       showDPR:false,
       showClaimForm: false,
+      button: false,
     },
     {
       from: 'sFOT',
@@ -240,6 +242,7 @@ const fortisDungeon = () => {
       showStakeAllButton:true,
       showLpAmount:true,
       lpfetchunstake:false,
+      button: false,
     },
     {
       from: 'UST',
@@ -255,6 +258,7 @@ const fortisDungeon = () => {
       lpfetchunstake:false,
       showDPR:false,
       showClaimForm: false,
+      button: false,
     },
     {
       from: 'JUNO',
@@ -270,6 +274,7 @@ const fortisDungeon = () => {
       lpfetchunstake:false,
       showDPR:false,
       showClaimForm: false,
+      button: false,
     },
     {
       from: 'ATOM',
@@ -285,6 +290,7 @@ const fortisDungeon = () => {
       lpfetchunstake:false,
       showDPR:false,
       showClaimForm: false,
+      button: false,
     },
     {
       from: 'gFOT',
@@ -300,6 +306,7 @@ const fortisDungeon = () => {
       lpfetchunstake:false,
       showDPR:false,
       showClaimForm: false,
+      button: false,
     },
     {
       from: 'FOT',
@@ -315,6 +322,7 @@ const fortisDungeon = () => {
       showStakeAllButton:true,
       showLpAmount:true,
       lpfetchunstake:false,
+      button: false,
    },
   ]
 
@@ -404,6 +412,7 @@ const fortisDungeon = () => {
           sbalance={swapBalances[1]}
           submitTitle="Swap"
           showBalance={true}
+          button={assets[asset].button}
         />
       </ConverterContainer>
     </Wrapper>

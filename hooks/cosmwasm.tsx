@@ -328,14 +328,14 @@ export const DUNGEON_POOL_INFO = [
     staking_contract: PUBLIC_POOL7_STAKING_CONTRACT,
     token1_contract: PUBLIC_GFOT_CONTRACT,
     lp_contract: PUBLIC_POOL6_GFOT_LP_CONTRACT,
-    decimal: [10, 6]
+    decimal: [12, 6]
   },
   {
     pool_contract: PUBLIC_POOL7_FOT_POOL8_CONTRACT,
     staking_contract: PUBLIC_POOL8_STAKING_CONTRACT,
     token1_contract: PUBLIC_FOT_CONTRACT,
     lp_contract: PUBLIC_POOL7_FOT_LP_CONTRACT,
-    decimal: [10, 6]
+    decimal: [9, 6]
   }
 ]
 // End Dungeon
@@ -348,7 +348,7 @@ export const defaultFee = {
 export const CW20_DECIMAL = 1000000
 
 export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
-  const updateInterval = 20
+  const updateInterval = 10
   const [client, setClient] = useState<CosmWasmClient | null>(null)
   const [signingClient, setSigningClient] = useState<SigningCosmWasmClient | null>(null)
 

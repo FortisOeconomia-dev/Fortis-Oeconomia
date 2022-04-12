@@ -257,14 +257,14 @@ const PoolDetail = ({
       setMyLpBalance(pool5LpAtomLpBalance)
     } else if (asset == 16) {
       setPoolInfo(pool6LpGfotPoolInfo)
-      setDecimals([10, 6])
+      setDecimals([12, 6])
       setToken1Balance(gfotBalance)
       setToken2Balance(pool5LpAtomLpBalance)
       setLpTokenInfo(pool6LpGfotLpTokenInfo)
       setMyLpBalance(pool6LpGfotLpBalance)
     } else if (asset == 17) {
       setPoolInfo(pool7LpFotPoolInfo)
-      setDecimals([10, 6])
+      setDecimals([9, 6])
       setToken1Balance(fotBalance)
       setToken2Balance(pool6LpGfotLpTokenInfo)
       setLpTokenInfo(pool7LpFotLpTokenInfo)

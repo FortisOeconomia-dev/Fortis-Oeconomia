@@ -33,6 +33,7 @@ const Converter = ({
   sbalance,
   submitTitle = 'Burn',
   showBalance = true,
+  button = true,
 }) => {
   const { swapToken1, setSwapToken1 } = useSigningClient()
   const { toggle } = useContext(ToggleContext)
@@ -68,9 +69,11 @@ const Converter = ({
         maxW={maxW}
         showBalance={showBalance}
       />
+      {button && (
       <button className={`default-btn ${!toggle && from !== 'FOT' ? 'secondary-btn' : ''}`} onClick={handleSubmit}>
         {submitTitle}
       </button>
+      )}
     </Wrapper>
   )
 }
