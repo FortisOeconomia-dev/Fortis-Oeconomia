@@ -203,8 +203,13 @@ const fortisDungeon = () => {
       toImage: sFOTImage(toggle),
       showMaxButton: false,
       showUnstakeAllButton: false,
+      lpfetchunstake:false,
       level: 1,
       showTorch: true,
+      showStakeAllButton:false,
+      showLpAmount:false,
+      showDPR:false,
+      showClaimForm: false,
     },
     {
       from: 'bFOT',
@@ -213,8 +218,13 @@ const fortisDungeon = () => {
       toImage: lp1Image(toggle),
       showMaxButton: false,
       showUnstakeAllButton: false,
+      lpfetchunstake:false,
+      showStakeAllButton:false,
       level: 2,
       showTorch: true,
+      showLpAmount:false,
+      showDPR:false,
+      showClaimForm: false,
     },
     {
       from: 'sFOT',
@@ -226,7 +236,14 @@ const fortisDungeon = () => {
       showUnstakeAllButton: true,
       showClaimForm: true,
       level: 3,
+<<<<<<< Updated upstream
       showDPR: true,
+=======
+      showDPR:true,
+      showStakeAllButton:true,
+      showLpAmount:true,
+      lpfetchunstake:false,
+>>>>>>> Stashed changes
     },
     {
       from: 'UST',
@@ -235,8 +252,13 @@ const fortisDungeon = () => {
       toImage: lp3Image(toggle),
       showMaxButton: false,
       showUnstakeAllButton: false,
+      showStakeAllButton:false,
       level: 4,
       showTorch: true,
+      showLpAmount:false,
+      lpfetchunstake:false,
+      showDPR:false,
+      showClaimForm: false,
     },
     {
       from: 'JUNO',
@@ -245,8 +267,13 @@ const fortisDungeon = () => {
       toImage: lp4Image(toggle),
       showMaxButton: false,
       showUnstakeAllButton: false,
+      showStakeAllButton:false,
       level: 5,
       showTorch: true,
+      showLpAmount:false,
+      lpfetchunstake:false,
+      showDPR:false,
+      showClaimForm: false,
     },
     {
       from: 'ATOM',
@@ -255,8 +282,13 @@ const fortisDungeon = () => {
       toImage: lp5Image(toggle),
       showMaxButton: false,
       showUnstakeAllButton: false,
+      showStakeAllButton:false,
       level: 6,
       showTorch: true,
+      showLpAmount:false,
+      lpfetchunstake:false,
+      showDPR:false,
+      showClaimForm: false,
     },
     {
       from: 'gFOT',
@@ -265,8 +297,13 @@ const fortisDungeon = () => {
       toImage: lp6Image(toggle),
       showMaxButton: false,
       showUnstakeAllButton: false,
+      showStakeAllButton:false,
       level: 7,
       showTorch: true,
+      showLpAmount:false,
+      lpfetchunstake:false,
+      showDPR:false,
+      showClaimForm: false,
     },
     {
       from: 'FOT',
@@ -278,8 +315,16 @@ const fortisDungeon = () => {
       showUnstakeAllButton: true,
       showClaimForm: true,
       level: 8,
+<<<<<<< Updated upstream
       showDPR: true,
     },
+=======
+      showDPR:true,
+      showStakeAllButton:true,
+      showLpAmount:true,
+      lpfetchunstake:false,
+   },
+>>>>>>> Stashed changes
   ]
 
   return (
@@ -310,14 +355,15 @@ const fortisDungeon = () => {
         level={asset + 1}
         showEpochReward={true}
         showDPR={assets[asset].showDPR}
-        showLpAmount={false}
+        showLpAmount={assets[asset].showLpAmount}
         showTorch={assets[asset].showTorch}
         maxWidth={'none'}
         showStakeForm={assets[asset].showStakeForm}
         showClaimForm={assets[asset].showClaimForm}
         showMaxButtonInLiquidityForm={assets[asset].showMaxButton}
-        showStakeAllButton={false}
+        showStakeAllButton={assets[asset].showStakeAllButton}
         showUnstakeAllButton={assets[asset].showUnstakeAllButton}
+        lpfetchunstake={assets[asset].lpfetchunstake}
         unstakeButtonText="Unstake"
       />
       <ConverterContainer>

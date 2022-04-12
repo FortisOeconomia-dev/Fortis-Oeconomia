@@ -172,6 +172,7 @@ const StakeNClaimSecond = ({
   showMaxButtonInLiquidityForm,
   showStakeAllButton,
   showUnstakeAllButton,
+  lpfetchunstake,
   unstakeButtonText,
   showClaimForm,
   showTorch,
@@ -343,50 +344,6 @@ const StakeNClaimSecond = ({
       </TotalStaked>
       <MyStaked>
         <MyStakedContent className="wallet-text">
-          <MyRewardsUp visible={showStakeForm}>
-            <div
-              className="gFotCurrencyt-selection"
-              style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '10px' }}
-            >
-              <MyStakedDescription
-                className="wallet-label"
-                style={{ fontSize: '18px', height: 'unset', textAlign: 'left' }}
-              >
-                {from}
-              </MyStakedDescription>
-              <InputWithIncDec handleBurnMinus={null} burnAmount={0} onBurnChange={null} handleBurnPlus={null} />
-            </div>
-            <div
-              className="gFotCurrencyt-selection"
-              style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '10px' }}
-            >
-              <MyStakedDescription
-                className="wallet-label"
-                style={{ fontSize: '18px', height: 'unset', textAlign: 'left' }}
-              >
-                {to}
-              </MyStakedDescription>
-              <InputWithIncDec
-                handleBurnMinus={null}
-                burnAmount={0}
-                onBurnChange={null}
-                handleBurnPlus={null}
-              />
-            </div>
-            {showMaxButtonInLiquidityForm && (
-                <button
-                  className={`default-btn ${!toggle && 'secondary-btn outlined'}`}
-                  style={{ minWidth: 'unset', padding: '8px 30px',}}
-                  onClick={() => console.log('here')}
-                >
-                  Max
-                </button>
-              )}
-            <button className={`default-btn  ${!toggle && 'secondary-btn'}`} style={{ marginTop: '36px'}}>
-              Stake
-            </button>
-
-          </MyRewardsUp>
           <MyRewardsMiddle visible={showClaimForm}>
             <div>
               <MyStakedText className="wallet-label" style={{ textAlign: 'center' }}>
@@ -442,7 +399,7 @@ const StakeNClaimSecond = ({
                 </button>
               )}
             </div>
-            <div style={{ overflowY: 'auto' }}>
+            {lpfetchunstake && (<div style={{ overflowY: 'auto' }}>
               <table className="w-full">
                 {lpStakingMyUnstakingList.length > 0 && (
                   <tr>
@@ -456,6 +413,7 @@ const StakeNClaimSecond = ({
                     {/* <td>{convertMicroDenomToDenom2(d[0], gfotTokenInfo.decimals)}</td> */}
                     <td>{moment(new Date(Number(d[1]) * 1000)).format('YYYY/MM/DD HH:mm:ss')}</td>
                     <td>
+                
                       <button
                         className={`default-btn  ${!toggle && 'secondary-btn'}`}
                         style={{ minWidth: 'unset', padding: '3px 30px' }}
@@ -463,9 +421,11 @@ const StakeNClaimSecond = ({
                       >
                         Fetch Unstake
                       </button>
+                
                     </td>
                   </tr>
                 ))}
+                
               </table>
               {/* <table className="w-full">
                                 {lpStakingMyUnstakingList > 0 && <tr>
@@ -484,6 +444,7 @@ const StakeNClaimSecond = ({
 
                             </table> */}
             </div>
+            )}
             {/*                         <MyStakedText className="wallet-label" style={{ textAlign: 'center', fontSize:"16px" }}>Unbonding period is 14 days</MyStakedText> */}
           </MyRewardsMiddle>
           <Tourch visible={showTorch} src={`/images/torch.png`}/>

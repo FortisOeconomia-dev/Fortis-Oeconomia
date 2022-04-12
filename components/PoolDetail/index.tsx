@@ -42,7 +42,7 @@ const PoolDetail = ({
   level = null,
   showEpochReward = false,
   showDPRInfoIcon = false,
-  showDPR = false,
+  showDPR = true,
   showTorch = false,
   showLpAmount = true,
   maxWidth = '770px',
@@ -50,8 +50,10 @@ const PoolDetail = ({
   showMaxButtonInLiquidityForm = false,
   showStakeAllButton = true,
   showUnstakeAllButton = true,
+  lpfetchunstake = true,
+
   unstakeButtonText = 'Unstake All',
-  showClaimForm = false,
+  showClaimForm = true,
 }) => {
   const { toggle } = useContext(ToggleContext)
   const {
@@ -476,6 +478,7 @@ const PoolDetail = ({
           showMaxButtonInLiquidityForm={showMaxButtonInLiquidityForm}
           showStakeAllButton={showStakeAllButton}
           showUnstakeAllButton={showUnstakeAllButton}
+          lpfetchunstake={lpfetchunstake}
           unstakeButtonText={unstakeButtonText}
           showClaimForm={showClaimForm}
         />
