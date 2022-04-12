@@ -328,14 +328,14 @@ export const DUNGEON_POOL_INFO = [
     staking_contract: PUBLIC_POOL7_STAKING_CONTRACT,
     token1_contract: PUBLIC_GFOT_CONTRACT,
     lp_contract: PUBLIC_POOL6_GFOT_LP_CONTRACT,
-    decimal: [12, 6]
+    decimal: [10, 6]
   },
   {
     pool_contract: PUBLIC_POOL7_FOT_POOL8_CONTRACT,
     staking_contract: PUBLIC_POOL8_STAKING_CONTRACT,
     token1_contract: PUBLIC_FOT_CONTRACT,
     lp_contract: PUBLIC_POOL7_FOT_LP_CONTRACT,
-    decimal: [9, 6]
+    decimal: [10, 6]
   }
 ]
 // End Dungeon
@@ -2201,6 +2201,12 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         token2Balance = atomBalance
         poolInfo = sfotAtomPoolInfo
         break
+      case 10:
+          contract = PUBLIC_SFOT_BFOT_POOL_CONTRACT
+          token1Balance = bfotBalance
+          token2Balance = sfotBalance
+          poolInfo = sfotBfotPoolInfo
+        break
       case 11:
         contract = PUBLIC_POOL1_BFOT_POOL2_CONTRACT
         decimals = [10, 6]
@@ -2257,21 +2263,40 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     let token1max = Number(convertDenomToMicroDenom2(token1Balance, decimals[0]))
     let token2max = Number(convertDenomToMicroDenom2(token2Balance, decimals[1]))
 
-    if (fix == 1) {
-      //changed token1amount
-      let new_token2 = (token1 * poolInfo.token2_reserve) / poolInfo.token1_reserve
-      if (new_token2 > token2max) {
-        new_token2 = token2max
-        token1 = (new_token2 * poolInfo.token1_reserve) / poolInfo.token2_reserve
+    if (asset < 10) {
+      if (fix == 1) {
+        //changed token1amount  token1: token1_reverve, token2: token2_reserve
+        let new_token2 = (token1 * poolInfo.token2_reserve) / poolInfo.token1_reserve
+        if (new_token2 > token2max) {
+          new_token2 = token2max
+          token1 = (new_token2 * poolInfo.token1_reserve) / poolInfo.token2_reserve
+        }
+        token2 = new_token2 + 1
+      } else {
+        let new_token1 = (token2 * poolInfo.token1_reserve) / poolInfo.token2_reserve
+        if (new_token1 > token1max) {
+          new_token1 = token1max
+          token2 = (new_token1 * poolInfo.token2_reserve) / poolInfo.token1_reserve + 1
+        }
+        token1 = new_token1
       }
-      token2 = new_token2 + 1
-    } else {
-      let new_token1 = (token2 * poolInfo.token1_reserve) / poolInfo.token2_reserve
-      if (new_token1 > token1max) {
-        new_token1 = token1max
-        token2 = (new_token1 * poolInfo.token2_reserve) / poolInfo.token1_reserve + 1
+    } else { // dungeon
+      if (fix == 1) {
+        //changed token1amount  token1: token2_reverve, token2: token1_reserve
+        let new_token2 = (token1 * poolInfo.token1_reserve) / poolInfo.token2_reserve
+        if (new_token2 > token2max) {
+          new_token2 = token2max
+          token1 = (new_token2 * poolInfo.token2_reserve) / poolInfo.token1_reserve
+        }
+        token2 = new_token2
+      } else {
+        let new_token1 = (token2 * poolInfo.token2_reserve) / poolInfo.token1_reserve
+        if (new_token1 > token1max) {
+          new_token1 = token1max
+          token2 = (new_token1 * poolInfo.token1_reserve) / poolInfo.token2_reserve + 1
+        }
+        token1 = new_token1 + 1
       }
-      token1 = new_token1
     }
 
     return {
@@ -2284,6 +2309,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     setLoading(true)
     let contract = ''
     let decimals = [10, 10]
+    if (asset == 10) asset = 1
     switch (asset) {
       case 0:
         contract = PUBLIC_SFOT_UST_POOL_CONTRACT
@@ -2404,6 +2430,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     let lptot = 0
     let token1 = 0
     let token2 = 0
+    if (asset == 10) asset = 1
     switch (asset) {
       case 0:
         contract = PUBLIC_SFOT_UST_POOL_CONTRACT
@@ -2897,7 +2924,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     }
 
     try {
-      let token1 = convertDenomToMicroDenom2(token1Amount, decimals[0])
+      let token1 = convertDenomToMicroDenom2(token1Amount, decimals[0]) + 1
       let token2 = convertDenomToMicroDenom2(token2Amount, decimals[1])
 
       let msglist = []
@@ -3006,8 +3033,8 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
     lpbalance = lpBalance.balance
     lptot = lpTokenInfo.total_supply
-    token1 = (poolInfo.token1_reserve * lpbalance) / lptot
-    token2 = (poolInfo.token2_reserve * lpbalance) / lptot
+    token1 = (poolInfo.token2_reserve * lpbalance) / lptot
+    token2 = (poolInfo.token1_reserve * lpbalance) / lptot
 
     lpbalance = Math.floor((lpbalance * rate) / 100.0)
 
@@ -3084,8 +3111,8 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       token2_for_token1_price: { token2_amount: `${Math.pow(10, decimals[1])}` },
     })
     let input_amount_with_fee = Number(convertDenomToMicroDenom2(swapAmount, decimals[0])) * 990.0
-    let numerator = input_amount_with_fee * (swapToken1 ? poolInfo.token2_reserve : poolInfo.token1_reserve)
-    let denominator = (swapToken1 ? poolInfo.token1_reserve : poolInfo.token2_reserve) * 1000.0 + input_amount_with_fee
+    let numerator = input_amount_with_fee * (swapToken1 ? poolInfo.token1_reserve : poolInfo.token2_reserve)
+    let denominator = (swapToken1 ? poolInfo.token2_reserve : poolInfo.token1_reserve) * 1000.0 + input_amount_with_fee
     let out_amount = convertMicroDenomToDenom2(numerator / denominator, decimals[1])
     setExpectedToken2Amount(out_amount)
   }

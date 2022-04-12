@@ -27,7 +27,7 @@ import ThemeContext from '../contexts/ThemeContext'
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;
-  padding: 40px 0;
+  padding: 90px 0;
   display: flex;
   align-items: flex-start;
   flex: 1;
@@ -85,6 +85,8 @@ const fortisDungeon = () => {
     expectedToken2Amount,
     executeSwap,
     calcExpectedSwapAmount,
+    executeSwapForDungeon,
+    calcExpectedSwapAmountForDungeon,
     swapAmount,
     setSwapAmount,
     getSfotBalances,
@@ -145,7 +147,7 @@ const fortisDungeon = () => {
   }
 
   const handleSwap = () => {
-    executeSwap(asset)
+    executeSwapForDungeon(asset)
   }
 
   const [swapBalances, setSwapBalances] = useState([0, 0])
@@ -192,7 +194,8 @@ const fortisDungeon = () => {
   useEffect(() => {
     if (!signingClient || walletAddress == '') return
 
-    calcExpectedSwapAmount(asset)
+    calcExpectedSwapAmountForDungeon(asset)
+
   }, [swapAmount, signingClient, walletAddress])
 
   const assets = [
@@ -210,7 +213,6 @@ const fortisDungeon = () => {
       showLpAmount:false,
       showDPR:false,
       showClaimForm: false,
-      button: false,
     },
     {
       from: 'bFOT',
@@ -226,7 +228,6 @@ const fortisDungeon = () => {
       showLpAmount:false,
       showDPR:false,
       showClaimForm: false,
-      button: false,
     },
     {
       from: 'sFOT',
@@ -242,7 +243,6 @@ const fortisDungeon = () => {
       showStakeAllButton:true,
       showLpAmount:true,
       lpfetchunstake:false,
-      button: false,
     },
     {
       from: 'UST',
@@ -258,7 +258,6 @@ const fortisDungeon = () => {
       lpfetchunstake:false,
       showDPR:false,
       showClaimForm: false,
-      button: false,
     },
     {
       from: 'JUNO',
@@ -274,7 +273,6 @@ const fortisDungeon = () => {
       lpfetchunstake:false,
       showDPR:false,
       showClaimForm: false,
-      button: false,
     },
     {
       from: 'ATOM',
@@ -290,7 +288,6 @@ const fortisDungeon = () => {
       lpfetchunstake:false,
       showDPR:false,
       showClaimForm: false,
-      button: false,
     },
     {
       from: 'gFOT',
@@ -306,7 +303,6 @@ const fortisDungeon = () => {
       lpfetchunstake:false,
       showDPR:false,
       showClaimForm: false,
-      button: false,
     },
     {
       from: 'FOT',
@@ -322,7 +318,6 @@ const fortisDungeon = () => {
       showStakeAllButton:true,
       showLpAmount:true,
       lpfetchunstake:false,
-      button: false,
    },
   ]
 
@@ -364,6 +359,7 @@ const fortisDungeon = () => {
         showUnstakeAllButton={assets[asset].showUnstakeAllButton}
         lpfetchunstake={assets[asset].lpfetchunstake}
         unstakeButtonText="Unstake"
+        middletext='My Liquidity'
       />
       <ConverterContainer>
         <Converter
@@ -412,7 +408,6 @@ const fortisDungeon = () => {
           sbalance={swapBalances[1]}
           submitTitle="Swap"
           showBalance={true}
-          button={assets[asset].button}
         />
       </ConverterContainer>
     </Wrapper>

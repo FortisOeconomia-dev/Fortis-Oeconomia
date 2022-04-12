@@ -131,6 +131,7 @@ const Tourch = styled('img')<{ visible: boolean}>`
 `
 
 const StakeNClaimSecond = ({
+  middletext = 'My Liquidity',
   token1TotalAmount,
   token2TotalAmount,
 
@@ -347,7 +348,7 @@ const StakeNClaimSecond = ({
           <MyRewardsMiddle visible={showClaimForm}>
             <div>
               <MyStakedText className="wallet-label" style={{ textAlign: 'center' }}>
-                My Liquidity
+                {middletext}
               </MyStakedText>
               <MyStakedText className="wallet-label">
                 {from}
