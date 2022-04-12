@@ -21,7 +21,6 @@ import {
   lp6Image,
   lp7Image,
 } from '../util/tokenImageUtils'
-import styles from '../styles/fortisDungeon.module.scss'
 import ThemeContext from '../contexts/ThemeContext'
 
 //styled components
@@ -139,7 +138,7 @@ const fortisDungeon = () => {
   useEffect(() => {
     if (toggle) setToggle(false)
   }, [toggle])
-  
+
   useEffect(() => {
     setTheme('theme' + (asset + 2))
   }, [asset])
@@ -199,7 +198,7 @@ const fortisDungeon = () => {
       showUnstakeAllButton: true,
       showClaimForm: true,
       level: 3,
-      showDPR:true,
+      showDPR: true,
     },
     {
       from: 'UST',
@@ -251,12 +250,12 @@ const fortisDungeon = () => {
       showUnstakeAllButton: true,
       showClaimForm: true,
       level: 8,
-      showDPR:true,
-   },
+      showDPR: true,
+    },
   ]
 
   return (
-    <Wrapper className={styles.wrapper} defaultChecked={toggle}>
+    <Wrapper defaultChecked={toggle}>
       <Assets>
         <Title>Assets</Title>
         {assets.map((item, index) => (
