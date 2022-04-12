@@ -236,14 +236,10 @@ const fortisDungeon = () => {
       showUnstakeAllButton: true,
       showClaimForm: true,
       level: 3,
-<<<<<<< Updated upstream
-      showDPR: true,
-=======
       showDPR:true,
       showStakeAllButton:true,
       showLpAmount:true,
       lpfetchunstake:false,
->>>>>>> Stashed changes
     },
     {
       from: 'UST',
@@ -315,16 +311,11 @@ const fortisDungeon = () => {
       showUnstakeAllButton: true,
       showClaimForm: true,
       level: 8,
-<<<<<<< Updated upstream
-      showDPR: true,
-    },
-=======
       showDPR:true,
       showStakeAllButton:true,
       showLpAmount:true,
       lpfetchunstake:false,
    },
->>>>>>> Stashed changes
   ]
 
   return (

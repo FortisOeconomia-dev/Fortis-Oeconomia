@@ -2076,6 +2076,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   }
 
   const executeStable = async () => {
+    return
     setLoading(true)
     try {
       await signingClient?.execute(
