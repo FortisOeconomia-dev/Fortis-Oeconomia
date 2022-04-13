@@ -59,6 +59,13 @@ const StakedValue = styled.span`
   float: right;
 `
 
+const RewardValue = styled('span')<{ visible: boolean }>`
+  font-size: 16px;
+  display: block;
+  float: right;
+  visibility: ${props => (props.visible ? 'initial' : 'hidden')};
+`
+
 const MyStaked = styled.div`
   display: flex;
   flex-direction: column;
@@ -80,6 +87,7 @@ const MyStakedText = styled.label`
   border-bottom: 0px !important;
   margin: 0 !important;
 `
+
 const MyReward = styled('div')<{ visible: boolean }>`
   width: 100% !important;
   border-bottom: 0px !important;
@@ -177,6 +185,7 @@ const StakeNClaimSecond = ({
   unstakeButtonText,
   showClaimForm,
   showTorch,
+  showReward,
 }) => {
   const [values, setValues] = useState([50])
   const { toggle } = useContext(ToggleContext)
@@ -452,7 +461,7 @@ const StakeNClaimSecond = ({
           <MyReward visible={showClaimForm} className="w-full">
             <MyStakedText className="wallet-label">
               My Rewards
-              <StakedValue> {lpStakingMyReward}</StakedValue>
+              <RewardValue visible={showReward}> {lpStakingMyReward}</RewardValue>
             </MyStakedText>
             <button className={`default-btn ${!toggle && 'secondary-btn'}`} onClick={handleLpStakingReward} style={{display: 'flex', justifyContent:'center', margin:'auto'}}>
               Claim

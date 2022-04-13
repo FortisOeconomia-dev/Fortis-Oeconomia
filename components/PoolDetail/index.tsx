@@ -51,7 +51,7 @@ const PoolDetail = ({
   showStakeAllButton = true,
   showUnstakeAllButton = true,
   lpfetchunstake = true,
-
+  showReward=true,
   unstakeButtonText = 'Unstake All',
   showClaimForm = true,
   middletext= 'My Liquidity',
@@ -489,6 +489,7 @@ const PoolDetail = ({
           lpfetchunstake={lpfetchunstake}
           unstakeButtonText={unstakeButtonText}
           showClaimForm={showClaimForm}
+          showReward={showReward}
           middletext={middletext}
         />
       </div>
