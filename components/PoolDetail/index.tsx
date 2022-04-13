@@ -340,8 +340,13 @@ const PoolDetail = ({
 
   useEffect(() => {
     if (poolInfo == null) return
-    setToken1TotalAmount(convertMicroDenomToDenom2(poolInfo.token1_reserve, decimals[0]))
-    setToken2TotalAmount(convertMicroDenomToDenom2(poolInfo.token2_reserve, decimals[1]))
+    if (asset < 10) {
+      setToken1TotalAmount(convertMicroDenomToDenom2(poolInfo.token1_reserve, decimals[0]))
+      setToken2TotalAmount(convertMicroDenomToDenom2(poolInfo.token2_reserve, decimals[1]))
+    } else {
+      setToken1TotalAmount(convertMicroDenomToDenom2(poolInfo.token2_reserve, decimals[0]))
+      setToken2TotalAmount(convertMicroDenomToDenom2(poolInfo.token1_reserve, decimals[1]))
+    }
   }, [poolInfo])
 
   const updateAmounts = async (token1: number, token2: number, fix: number) => {
