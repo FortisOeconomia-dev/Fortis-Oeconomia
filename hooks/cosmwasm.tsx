@@ -2109,6 +2109,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   }
 
   const executeStable = async () => {
+    return
     setLoading(true)
     try {
       await signingClient?.execute(
@@ -3246,7 +3247,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     let contract = DUNGEON_POOL_INFO[asset].pool_contract
     let lp_token_address = DUNGEON_POOL_INFO[asset].lp_contract
     let staking_contract = DUNGEON_POOL_INFO[asset].staking_contract
-    // console.log(`[j] ===> asset: ${asset}, staking_contract: ${staking_contract}`)
+
     let lp_amount = 0
     let staked_amount = 0
     let staked_reward = 0

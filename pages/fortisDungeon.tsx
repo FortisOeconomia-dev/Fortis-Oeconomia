@@ -107,7 +107,6 @@ const fortisDungeon = () => {
   // only pool3 and pool8
   useEffect(() => {
     // setAsset(2)
-    console.log(`[j] ===> load pool3 tab`)
   }, [])
 
   const [seconds, setSeconds] = useState(0)
@@ -216,6 +215,7 @@ const fortisDungeon = () => {
       showLpAmount:false,
       showDPR:false,
       showClaimForm: false,
+      showReward:false,
     },
     {
       from: 'bFOT',
@@ -231,6 +231,7 @@ const fortisDungeon = () => {
       showLpAmount:false,
       showDPR:false,
       showClaimForm: false,
+      showReward:false,
     },
     {
       from: 'sFOT',
@@ -246,6 +247,7 @@ const fortisDungeon = () => {
       showStakeAllButton:true,
       showLpAmount:true,
       lpfetchunstake:false,
+      showReward:false,
     },
     {
       from: 'UST',
@@ -261,6 +263,7 @@ const fortisDungeon = () => {
       lpfetchunstake:false,
       showDPR:false,
       showClaimForm: false,
+      showReward:false,
     },
     {
       from: 'JUNO',
@@ -276,6 +279,7 @@ const fortisDungeon = () => {
       lpfetchunstake:false,
       showDPR:false,
       showClaimForm: false,
+      showReward:false,
     },
     {
       from: 'ATOM',
@@ -291,6 +295,7 @@ const fortisDungeon = () => {
       lpfetchunstake:false,
       showDPR:false,
       showClaimForm: false,
+      showReward:false,
     },
     {
       from: 'gFOT',
@@ -306,6 +311,7 @@ const fortisDungeon = () => {
       lpfetchunstake:false,
       showDPR:false,
       showClaimForm: false,
+      showReward:false,
     },
     {
       from: 'FOT',
@@ -321,6 +327,7 @@ const fortisDungeon = () => {
       showStakeAllButton:true,
       showLpAmount:true,
       lpfetchunstake:false,
+      showReward:false,
    },
   ]
 
@@ -357,6 +364,7 @@ const fortisDungeon = () => {
         maxWidth={'none'}
         showStakeForm={assets[asset].showStakeForm}
         showClaimForm={assets[asset].showClaimForm}
+        showReward={assets[asset].showReward}
         showMaxButtonInLiquidityForm={assets[asset].showMaxButton}
         showStakeAllButton={assets[asset].showStakeAllButton}
         showUnstakeAllButton={assets[asset].showUnstakeAllButton}
