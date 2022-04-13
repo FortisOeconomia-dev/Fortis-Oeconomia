@@ -89,6 +89,7 @@ const fortisDungeon = () => {
     calcExpectedSwapAmountForDungeon,
     swapAmount,
     setSwapAmount,
+    getBfotBalances,
     getSfotBalances,
     updateInterval,
   } = useSigningClient()
@@ -99,6 +100,7 @@ const fortisDungeon = () => {
     if (!signingClient || walletAddress.length === 0) {
       return
     }
+    getBfotBalances()
     getSfotBalances()
   }, [signingClient, walletAddress])
 
@@ -174,13 +176,14 @@ const fortisDungeon = () => {
     else if (asset == 6) balances = [gfotBalance, pool5LpAtomLpBalance]
     else if (asset == 7) balances = [fotBalance, pool6LpGfotLpBalance]
 
+    console.log(`[j]===> fotbalance: ${fotBalance}, lp7balance: ${pool6LpGfotLpBalance}` )
     setSwapBalances(balances)
     if (swapToken1) {
       setSwapBalance(balances[0])
     } else {
       setSwapBalance(balances[1])
     }
-  }, [asset, sfotBalance, swapToken1, ustBalance, bfotBalance, gfotBalance, atomBalance, nativeBalance,
+  }, [asset, fotBalance, sfotBalance, swapToken1, ustBalance, bfotBalance, gfotBalance, atomBalance, nativeBalance,
     sfotBfotLpBalance,
     pool1LpBfotLpBalance,
     pool2LpSfotLpBalance,
