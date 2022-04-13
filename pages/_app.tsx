@@ -13,19 +13,24 @@ import '../public/css/custom.css'
 import Layout from '../components/Layout/Layout'
 import GoTop from '../components/Shared/GoTop'
 import { SigningCosmWasmProvider } from '../contexts/cosmwasm'
+import { QueryClient, QueryClientProvider } from 'react-query'
 
 export default function App({ Component, pageProps }) {
   const store = useStore(pageProps.initialReduxState)
-  return (
-    <SigningCosmWasmProvider>
-      <Provider store={store}>
-        <Layout>
-          <Component {...pageProps} />
+  const queryClient = new QueryClient()
 
-          {/* Go Top Button */}
-          {/* <GoTop/> */}
-        </Layout>
-      </Provider>
-    </SigningCosmWasmProvider>
+  return (
+    <QueryClientProvider client={queryClient}>
+      <SigningCosmWasmProvider>
+        <Provider store={store}>
+          <Layout>
+            <Component {...pageProps} />
+
+            {/* Go Top Button */}
+            {/* <GoTop/> */}
+          </Layout>
+        </Provider>
+      </SigningCosmWasmProvider>
+    </QueryClientProvider>
   )
 }

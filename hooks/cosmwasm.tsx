@@ -24,6 +24,7 @@ import { create } from 'ipfs-http-client'
 import { voters } from '../proposal.json'
 import { moneta_voters } from '../monetaairdrop.json'
 import { Airdrop } from '../util/merkle-airdrop-cli/airdrop'
+import { useQuery } from 'react-query'
 
 const atom_denom = 'ibc/C4CFF46FD6DE35CA4CF4CE031E643C8FDC9BA4B99AE598E9B0ED98FE3A2319F9'
 const osmo_denom = 'ibc/ED07A3391A112B175915CD8FAF43A2DA8E4790EDE12566649D0C2F97716B8518'
@@ -716,6 +717,11 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
   const showNotification = false
 
+  const { data: clientData } = useQuery(
+    'rpcClientData',
+    async () => await CosmWasmClient.connect(PUBLIC_CHAIN_RPC_ENDPOINT),
+  )
+
   const connectWallet = async (inBackground: boolean) => {
     if (!inBackground) setLoading(true)
 
@@ -736,7 +742,8 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       const offlineSigner = await (window as any).getOfflineSignerOnlyAmino(PUBLIC_CHAIN_ID)
 
       // make client
-      setClient(await CosmWasmClient.connect(PUBLIC_CHAIN_RPC_ENDPOINT))
+      setClient(clientData)
+      // setClient(await CosmWasmClient.connect(PUBLIC_CHAIN_RPC_ENDPOINT))
 
       // make client
       setSigningClient(await SigningCosmWasmClient.connectWithSigner(PUBLIC_CHAIN_RPC_ENDPOINT, offlineSigner))
