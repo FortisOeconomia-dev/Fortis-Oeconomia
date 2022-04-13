@@ -42,14 +42,19 @@ const PoolDetail = ({
   level = null,
   showEpochReward = false,
   showDPRInfoIcon = false,
+  showDPR = true,
+  showTorch = false,
   showLpAmount = true,
   maxWidth = '770px',
   showStakeForm = false,
   showMaxButtonInLiquidityForm = false,
   showStakeAllButton = true,
   showUnstakeAllButton = true,
+  lpfetchunstake = true,
+
   unstakeButtonText = 'Unstake All',
-  showClaimForm = false,
+  showClaimForm = true,
+  middletext= 'My Liquidity',
 }) => {
   const { toggle } = useContext(ToggleContext)
   const {
@@ -60,6 +65,7 @@ const PoolDetail = ({
     gfotStakingApy,
     gfotStakingMyStaked,
     gfotStakingMyReward,
+    fotBalance,
     gfotBalance,
     sfotBalance,
     ustBalance,
@@ -101,6 +107,41 @@ const PoolDetail = ({
     getSfotBalances,
     updateInterval,
     getCommonBalances,
+
+    executeAddLiquidityForDungeon,
+    executeRemoveLiquidityForDungeon,
+    calcExpectedSwapAmountForDungeon,
+    executeSwapForDungeon,
+    getLpStakingInfoForDungeon,
+    executeLpStakeAllForDungeon,
+    executeLpClaimRewardForDungeon,
+    executeLpCreateUnstakeForDungeon,
+    executeLpFetchUnstakeForDungeon,
+
+    pool1LpBfotLpBalance,
+    pool2LpSfotLpBalance,
+    pool3LpUstLpBalance,
+    pool4LpJunoLpBalance,
+    pool5LpAtomLpBalance,
+    pool6LpGfotLpBalance,
+    pool7LpFotLpBalance,
+
+    pool1LpBfotLpTokenInfo,
+    pool2LpSfotLpTokenInfo,
+    pool3LpUstLpTokenInfo,
+    pool4LpJunoLpTokenInfo,
+    pool5LpAtomLpTokenInfo,
+    pool6LpGfotLpTokenInfo,
+    pool7LpFotLpTokenInfo,
+
+    pool1LpBfotPoolInfo,
+    pool2LpSfotPoolInfo,
+    pool3LpUstPoolInfo,
+    pool4LpJunoPoolInfo,
+    pool5LpAtomPoolInfo,
+    pool6LpGfotPoolInfo,
+    pool7LpFotPoolInfo,
+
   } = useSigningClient()
 
   const [seconds, setSeconds] = useState(0)
@@ -173,14 +214,95 @@ const PoolDetail = ({
       setToken2Balance(atomBalance)
       setLpTokenInfo(sfotAtomLpTokenInfo)
       setMyLpBalance(sfotAtomLpBalance)
+    } else if (asset == 10) {
+      setPoolInfo(sfotBfotPoolInfo)
+      setDecimals([10, 10])
+      setToken1Balance(bfotBalance)
+      setToken2Balance(sfotBalance)
+      setLpTokenInfo(sfotBfotLpTokenInfo)
+      setMyLpBalance(sfotBfotLpBalance)
+      setMyToken1Amount(bfotBalance)
+      setMyToken2Amount(sfotBalance)
+    } else if (asset == 11) {
+      setPoolInfo(pool1LpBfotPoolInfo)
+      setDecimals([10, 6])
+      setToken1Balance(bfotBalance)
+      setToken2Balance(sfotBfotLpBalance)
+      setLpTokenInfo(pool1LpBfotLpTokenInfo)
+      setMyLpBalance(pool1LpBfotLpBalance)
+      setMyToken1Amount(bfotBalance)
+      setMyToken2Amount(sfotBfotLpBalance)
+    } else if (asset == 12) {
+      setPoolInfo(pool2LpSfotPoolInfo)
+      setDecimals([10, 6])
+      setToken1Balance(sfotBalance)
+      setToken2Balance(pool1LpBfotLpBalance)
+      setLpTokenInfo(pool2LpSfotLpTokenInfo)
+      setMyLpBalance(pool2LpSfotLpBalance)
+      setMyToken1Amount(sfotBalance)
+      setMyToken2Amount(pool1LpBfotLpBalance)
+    } else if (asset == 13) {
+      setPoolInfo(pool3LpUstPoolInfo)
+      setDecimals([6, 6])
+      setToken1Balance(ustBalance)
+      setToken2Balance(pool2LpSfotLpBalance)
+      setLpTokenInfo(pool3LpUstLpTokenInfo)
+      setMyLpBalance(pool3LpUstLpBalance)
+      setMyToken1Amount(ustBalance)
+      setMyToken2Amount(pool2LpSfotLpBalance)
+    } else if (asset == 14) {
+      setPoolInfo(pool4LpJunoPoolInfo)
+      setDecimals([6, 6])
+      setToken1Balance(nativeBalance)
+      setToken2Balance(pool3LpUstLpBalance)
+      setLpTokenInfo(pool4LpJunoLpTokenInfo)
+      setMyLpBalance(pool4LpJunoLpBalance)
+      setMyToken1Amount(nativeBalance)
+      setMyToken2Amount(pool3LpUstLpBalance)
+    } else if (asset == 15) {
+      setPoolInfo(pool5LpAtomPoolInfo)
+      setDecimals([6, 6])
+      setToken1Balance(atomBalance)
+      setToken2Balance(pool4LpJunoLpBalance)
+      setLpTokenInfo(pool5LpAtomLpTokenInfo)
+      setMyLpBalance(pool5LpAtomLpBalance)
+      setMyToken1Amount(atomBalance)
+      setMyToken2Amount(pool4LpJunoLpBalance)
+    } else if (asset == 16) {
+      setPoolInfo(pool6LpGfotPoolInfo)
+      setDecimals([10, 6])
+      setToken1Balance(gfotBalance)
+      setToken2Balance(pool5LpAtomLpBalance)
+      setLpTokenInfo(pool6LpGfotLpTokenInfo)
+      setMyLpBalance(pool6LpGfotLpBalance)
+      setMyToken1Amount(gfotBalance)
+      setMyToken2Amount(pool5LpAtomLpBalance)
+    } else if (asset == 17) {
+      setPoolInfo(pool7LpFotPoolInfo)
+      setDecimals([10, 6])
+      setToken1Balance(fotBalance)
+      setToken2Balance(pool6LpGfotLpTokenInfo)
+      setLpTokenInfo(pool7LpFotLpTokenInfo)
+      setMyLpBalance(pool7LpFotLpBalance)
+      setMyToken1Amount(fotBalance)
+      setMyToken2Amount(pool6LpGfotLpBalance)
     }
 
-    getLpStakingInfo(asset).then((response: any) => {
-      setLpStakingMyReward(convertMicroDenomToDenom2(response.staked_reward, fotTokenInfo.decimals))
-      setLpStakingMyStaked(convertMicroDenomToDenom2(response.staked_amount, 6))
-      setLpStakingMyUnstakingList(response.unstakingList)
-      // setLpStakingMyDeadline(response.deadline)
-    })
+    if (asset < 10) {
+      getLpStakingInfo(asset).then((response: any) => {
+        setLpStakingMyReward(convertMicroDenomToDenom2(response.staked_reward, fotTokenInfo.decimals))
+        setLpStakingMyStaked(convertMicroDenomToDenom2(response.staked_amount, 6))
+        setLpStakingMyUnstakingList(response.unstakingList)
+        // setLpStakingMyDeadline(response.deadline)
+      })
+    } else {
+      getLpStakingInfoForDungeon(asset - 10).then((response: any) => {
+        setLpStakingMyReward(convertMicroDenomToDenom2(response.staked_reward, fotTokenInfo.decimals))
+        setLpStakingMyStaked(convertMicroDenomToDenom2(response.staked_amount, 6))
+        setLpStakingMyUnstakingList(response.unstakingList)
+        // setLpStakingMyDeadline(response.deadline)
+      })
+    }
   }, [asset, loading, sfotUstPoolInfo, sfotBfotPoolInfo, sfotGfotPoolInfo, sfotJunoPoolInfo, sfotAtomPoolInfo])
 
   // update dpr
@@ -197,14 +319,23 @@ const PoolDetail = ({
       setsfotbfotdpr((5000000 * bFot2Ust) / (token1TotalAmount * 2))
     } else if (asset == 4) {
       setsfotbfotdpr((5000000 * bFot2Ust) / (token1TotalAmount * 2))
+    } else if (asset == 12) {
+      setsfotbfotdpr((5500000 * bFot2Ust) / (token1TotalAmount * 2))
+    } else if (asset == 17) {
+      setsfotbfotdpr(2500000 / (token1TotalAmount * 2))
     }
   }, [bFot2Ust, gfotTokenInfo, token1TotalAmount, token2TotalAmount])
 
   // update my token balance
   useEffect(() => {
     if (lpTokenInfo.total_supply == 0) return
-    setMyToken1Amount((myLpBalance * token1TotalAmount) / lpTokenInfo.total_supply)
-    setMyToken2Amount((myLpBalance * token2TotalAmount) / lpTokenInfo.total_supply)
+    if (asset < 10) {
+      setToken1TotalAmount(convertMicroDenomToDenom2(poolInfo.token1_reserve, decimals[0]))
+      setToken2TotalAmount(convertMicroDenomToDenom2(poolInfo.token2_reserve, decimals[1]))
+    } else {
+      setToken1TotalAmount(convertMicroDenomToDenom2(poolInfo.token2_reserve, decimals[0]))
+      setToken2TotalAmount(convertMicroDenomToDenom2(poolInfo.token1_reserve, decimals[1]))
+    }
   }, [myLpBalance, lpTokenInfo, token1TotalAmount, token2TotalAmount])
 
   useEffect(() => {
@@ -266,7 +397,10 @@ const PoolDetail = ({
     if (token1Amount == 0 || token2Amount == 0) return
     event.preventDefault()
 
-    await executeAddLiquidity(asset, token1Amount, token2Amount)
+    if (asset > 10) 
+      await executeAddLiquidityForDungeon(asset - 10, token1Amount, token2Amount)
+    else 
+      await executeAddLiquidity(asset, token1Amount, token2Amount)
     setToken1Amount(0)
     setToken2Amount(0)
   }
@@ -276,7 +410,10 @@ const PoolDetail = ({
       NotificationManager.error('Please connect wallet first')
       return
     }
-    await executeRemoveLiquidity(asset, value)
+    if (asset <= 10)
+      await executeRemoveLiquidity(asset, value)
+    else 
+      await executeRemoveLiquidityForDungeon(asset - 10, value)
     // setToken1Amount(0)
     // setToken2Amount(0)
   }
@@ -287,19 +424,32 @@ const PoolDetail = ({
   const [lpStakingMyDeadline, setLpStakingMyDeadline] = useState(0)
 
   const handleLpStaking = async () => {
-    await executeLpStakeAll(asset)
+    if (asset < 10)
+      await executeLpStakeAll(asset)
+    else 
+      await executeLpStakeAllForDungeon(asset - 10)
   }
   const handleLpCreateUnstake = async () => {
-    await executeLpCreateUnstake(asset)
+    if (asset < 10)
+      await executeLpCreateUnstake(asset)
+    else 
+      await executeLpCreateUnstakeForDungeon(asset - 10)
   }
   const handleLpStakingReward = async () => {
     // if (asset == 2)
     //     return
-    await executeLpClaimReward(asset)
+    if (asset < 10)
+      await executeLpClaimReward(asset)
+    else
+      await executeLpClaimRewardForDungeon(asset - 10)
   }
   const handleLpFetchUnstake = async lpState => {
-    await executeLpFetchUnstake(lpState)
+    if (asset < 10)
+      await executeLpFetchUnstake(lpState, asset)
+    else 
+      await executeLpFetchUnstakeForDungeon(lpState, asset - 10)
   }
+
   return (
     <Wrapper>
       <div className="w-full">
@@ -344,14 +494,18 @@ const PoolDetail = ({
           APY={0}
           showEpochReward={showEpochReward}
           showDPRInfoIcon={showDPRInfoIcon}
+          showDPR={showDPR}
+          showTorch={showTorch}
           showLpAmount={showLpAmount}
           maxWidth={maxWidth}
           showStakeForm={showStakeForm}
           showMaxButtonInLiquidityForm={showMaxButtonInLiquidityForm}
           showStakeAllButton={showStakeAllButton}
           showUnstakeAllButton={showUnstakeAllButton}
+          lpfetchunstake={lpfetchunstake}
           unstakeButtonText={unstakeButtonText}
           showClaimForm={showClaimForm}
+          middletext={middletext}
         />
       </div>
     </Wrapper>

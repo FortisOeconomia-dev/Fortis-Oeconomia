@@ -25,6 +25,10 @@ import { voters } from '../proposal.json'
 import { moneta_voters } from '../monetaairdrop.json'
 import { Airdrop } from '../util/merkle-airdrop-cli/airdrop'
 
+const atom_denom = 'ibc/C4CFF46FD6DE35CA4CF4CE031E643C8FDC9BA4B99AE598E9B0ED98FE3A2319F9'
+const osmo_denom = 'ibc/ED07A3391A112B175915CD8FAF43A2DA8E4790EDE12566649D0C2F97716B8518'
+const ust_denom = 'ibc/2DA4136457810BCB9DAAB620CA67BC342B17C3C70151CA70490A170DF7C9CB27'
+
 export interface ISigningCosmWasmClientContext {
   walletAddress: string
   eligible: boolean
@@ -141,6 +145,39 @@ export interface ISigningCosmWasmClientContext {
   sfotJunoPoolInfo: any
   sfotAtomPoolInfo: any
 
+  // dungeon
+  pool1LpBfotLpBalance: number
+  pool2LpSfotLpBalance: number
+  pool3LpUstLpBalance: number
+  pool4LpJunoLpBalance: number
+  pool5LpAtomLpBalance: number
+  pool6LpGfotLpBalance: number
+  pool7LpFotLpBalance: number
+
+  pool1LpBfotLpTokenInfo: any
+  pool2LpSfotLpTokenInfo: any
+  pool3LpUstLpTokenInfo: any
+  pool4LpJunoLpTokenInfo: any
+  pool5LpAtomLpTokenInfo: any
+  pool6LpGfotLpTokenInfo: any
+  pool7LpFotLpTokenInfo: any
+
+  pool1LpBfotPoolInfo: any
+  pool2LpSfotPoolInfo: any
+  pool3LpUstPoolInfo: any
+  pool4LpJunoPoolInfo: any
+  pool5LpAtomPoolInfo: any
+  pool6LpGfotPoolInfo: any
+  pool7LpFotPoolInfo: any
+
+  pool1LpBfotLpStakingContractInfo: any
+  pool2LpSfotLpStakingContractInfo: any
+  pool3LpUstLpStakingContractInfo: any
+  pool4LpJunoLpStakingContractInfo: any
+  pool5LpAtomLpStakingContractInfo: any
+  pool6LpGfotLpStakingContractInfo: any
+  pool7LpFotLpStakingContractInfo: any
+
   handleAddLiquidityValuesChange: Function
   executeAddLiquidity: Function
   executeRemoveLiquidity: Function
@@ -170,6 +207,17 @@ export interface ISigningCosmWasmClientContext {
   getCommonBalances: Function
   getWalletBalances: Function
   updateInterval: number
+
+  // for dungeon
+  executeAddLiquidityForDungeon: Function
+  executeRemoveLiquidityForDungeon: Function
+  calcExpectedSwapAmountForDungeon: Function
+  executeSwapForDungeon: Function
+  getLpStakingInfoForDungeon: Function
+  executeLpStakeAllForDungeon: Function
+  executeLpClaimRewardForDungeon: Function
+  executeLpCreateUnstakeForDungeon: Function
+  executeLpFetchUnstakeForDungeon: Function
 }
 
 export const PUBLIC_CHAIN_RPC_ENDPOINT = process.env.NEXT_PUBLIC_CHAIN_RPC_ENDPOINT || ''
@@ -204,6 +252,94 @@ export const PUBLIC_SFOT_GFOT_STAKING_CONTRACT = process.env.NEXT_PUBLIC_SFOT_GF
 export const PUBLIC_SFOT_JUNO_STAKING_CONTRACT = process.env.NEXT_PUBLIC_SFOT_JUNO_STAKING_CONTRACT || ''
 export const PUBLIC_SFOT_ATOM_STAKING_CONTRACT = process.env.NEXT_PUBLIC_SFOT_ATOM_STAKING_CONTRACT || ''
 
+// For Dungeon
+export const PUBLIC_SFOT_BFOT_POOL1_CONTRACT = process.env.NEXT_PUBLIC_SFOT_BFOT_POOL1_CONTRACT || ''
+export const PUBLIC_POOL1_BFOT_POOL2_CONTRACT = process.env.NEXT_PUBLIC_POOL1_BFOT_POOL2_CONTRACT || ''
+export const PUBLIC_POOL2_SFOT_POOL3_CONTRACT = process.env.NEXT_PUBLIC_POOL2_SFOT_POOL3_CONTRACT || ''
+export const PUBLIC_POOL3_UST_POOL4_CONTRACT = process.env.NEXT_PUBLIC_POOL3_UST_POOL4_CONTRACT || ''
+export const PUBLIC_POOL4_JUNO_POOL5_CONTRACT = process.env.NEXT_PUBLIC_POOL4_JUNO_POOL5_CONTRACT || ''
+export const PUBLIC_POOL5_ATOM_POOL6_CONTRACT = process.env.NEXT_PUBLIC_POOL5_ATOM_POOL6_CONTRACT || ''
+export const PUBLIC_POOL6_GFOT_POOL7_CONTRACT = process.env.NEXT_PUBLIC_POOL6_GFOT_POOL7_CONTRACT || ''
+export const PUBLIC_POOL7_FOT_POOL8_CONTRACT = process.env.NEXT_PUBLIC_POOL7_FOT_POOL8_CONTRACT || ''
+
+export const PUBLIC_SFOT_BFOT_LP_CONTRACT = process.env.NEXT_PUBLIC_SFOT_BFOT_LP_CONTRACT || ''
+export const PUBLIC_POOL1_BFOT_LP_CONTRACT = process.env.NEXT_PUBLIC_POOL1_BFOT_LP_CONTRACT || ''
+export const PUBLIC_POOL2_SFOT_LP_CONTRACT = process.env.NEXT_PUBLIC_POOL2_SFOT_LP_CONTRACT || ''
+export const PUBLIC_POOL3_UST_LP_CONTRACT = process.env.NEXT_PUBLIC_POOL3_UST_LP_CONTRACT || ''
+export const PUBLIC_POOL4_JUNO_LP_CONTRACT = process.env.NEXT_PUBLIC_POOL4_JUNO_LP_CONTRACT || ''
+export const PUBLIC_POOL5_ATOM_LP_CONTRACT = process.env.NEXT_PUBLIC_POOL5_ATOM_LP_CONTRACT || ''
+export const PUBLIC_POOL6_GFOT_LP_CONTRACT = process.env.NEXT_PUBLIC_POOL6_GFOT_LP_CONTRACT || ''
+export const PUBLIC_POOL7_FOT_LP_CONTRACT = process.env.NEXT_PUBLIC_POOL7_FOT_LP_CONTRACT || ''
+
+export const PUBLIC_POOL1_STAKING_CONTRACT = process.env.NEXT_PUBLIC_POOL1_STAKING_CONTRACT || ''
+export const PUBLIC_POOL2_STAKING_CONTRACT = process.env.NEXT_PUBLIC_POOL2_STAKING_CONTRACT || ''
+export const PUBLIC_POOL3_STAKING_CONTRACT = process.env.NEXT_PUBLIC_POOL3_STAKING_CONTRACT || ''
+export const PUBLIC_POOL4_STAKING_CONTRACT = process.env.NEXT_PUBLIC_POOL4_STAKING_CONTRACT || ''
+export const PUBLIC_POOL5_STAKING_CONTRACT = process.env.NEXT_PUBLIC_POOL5_STAKING_CONTRACT || ''
+export const PUBLIC_POOL6_STAKING_CONTRACT = process.env.NEXT_PUBLIC_POOL6_STAKING_CONTRACT || ''
+export const PUBLIC_POOL7_STAKING_CONTRACT = process.env.NEXT_PUBLIC_POOL7_STAKING_CONTRACT || ''
+export const PUBLIC_POOL8_STAKING_CONTRACT = process.env.NEXT_PUBLIC_POOL8_STAKING_CONTRACT || ''
+
+export const DUNGEON_POOL_INFO = [
+  {
+    pool_contract: PUBLIC_SFOT_BFOT_POOL1_CONTRACT,
+    staking_contract: PUBLIC_POOL1_STAKING_CONTRACT,
+    token1_contract: PUBLIC_BFOT_CONTRACT,
+    lp_contract: PUBLIC_SFOT_BFOT_LP_CONTRACT,
+    decimal: [10, 10]
+  },
+  {
+    pool_contract: PUBLIC_POOL1_BFOT_POOL2_CONTRACT,
+    staking_contract: PUBLIC_POOL2_STAKING_CONTRACT,
+    token1_contract: PUBLIC_BFOT_CONTRACT,
+    lp_contract: PUBLIC_POOL1_BFOT_LP_CONTRACT,
+    decimal: [10, 6]
+  },
+  {
+    pool_contract: PUBLIC_POOL2_SFOT_POOL3_CONTRACT,
+    staking_contract: PUBLIC_POOL3_STAKING_CONTRACT,
+    token1_contract: PUBLIC_SFOT_CONTRACT,
+    lp_contract: PUBLIC_POOL2_SFOT_LP_CONTRACT,
+    decimal: [10, 6]
+  },
+  {
+    pool_contract: PUBLIC_POOL3_UST_POOL4_CONTRACT,
+    staking_contract: PUBLIC_POOL4_STAKING_CONTRACT,
+    token1_contract: ust_denom,
+    lp_contract: PUBLIC_POOL3_UST_LP_CONTRACT,
+    decimal: [6, 6]
+  },
+  {
+    pool_contract: PUBLIC_POOL4_JUNO_POOL5_CONTRACT,
+    staking_contract: PUBLIC_POOL5_STAKING_CONTRACT,
+    token1_contract: 'ujuno',
+    lp_contract: PUBLIC_POOL4_JUNO_LP_CONTRACT,
+    decimal: [6, 6]
+  },
+  {
+    pool_contract: PUBLIC_POOL5_ATOM_POOL6_CONTRACT,
+    staking_contract: PUBLIC_POOL6_STAKING_CONTRACT,
+    token1_contract: atom_denom,
+    lp_contract: PUBLIC_POOL5_ATOM_LP_CONTRACT,
+    decimal: [6, 6]
+  },
+  {
+    pool_contract: PUBLIC_POOL6_GFOT_POOL7_CONTRACT,
+    staking_contract: PUBLIC_POOL7_STAKING_CONTRACT,
+    token1_contract: PUBLIC_GFOT_CONTRACT,
+    lp_contract: PUBLIC_POOL6_GFOT_LP_CONTRACT,
+    decimal: [10, 6]
+  },
+  {
+    pool_contract: PUBLIC_POOL7_FOT_POOL8_CONTRACT,
+    staking_contract: PUBLIC_POOL8_STAKING_CONTRACT,
+    token1_contract: PUBLIC_FOT_CONTRACT,
+    lp_contract: PUBLIC_POOL7_FOT_LP_CONTRACT,
+    decimal: [10, 6]
+  }
+]
+// End Dungeon
+
 export const defaultFee = {
   amount: [],
   gas: '800000',
@@ -211,12 +347,8 @@ export const defaultFee = {
 
 export const CW20_DECIMAL = 1000000
 
-const atom_denom = 'ibc/C4CFF46FD6DE35CA4CF4CE031E643C8FDC9BA4B99AE598E9B0ED98FE3A2319F9'
-const osmo_denom = 'ibc/ED07A3391A112B175915CD8FAF43A2DA8E4790EDE12566649D0C2F97716B8518'
-const ust_denom = 'ibc/2DA4136457810BCB9DAAB620CA67BC342B17C3C70151CA70490A170DF7C9CB27'
-
 export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
-  const updateInterval = 20
+  const updateInterval = 10
   const [client, setClient] = useState<CosmWasmClient | null>(null)
   const [signingClient, setSigningClient] = useState<SigningCosmWasmClient | null>(null)
 
@@ -254,6 +386,122 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   const [sfotGfotLpTokenInfo, setSfotGfotLpTokenInfo] = useState({ name: '', symbol: '', decimals: 6, total_supply: 0 })
   const [sfotJunoLpTokenInfo, setSfotJunoLpTokenInfo] = useState({ name: '', symbol: '', decimals: 6, total_supply: 0 })
   const [sfotAtomLpTokenInfo, setSfotAtomLpTokenInfo] = useState({ name: '', symbol: '', decimals: 6, total_supply: 0 })
+
+  // for dungeon
+  const [pool1LpBfotLpBalance, SetPool1LpBfotLpBalance] = useState(0)
+  const [pool2LpSfotLpBalance, SetPool2LpSfotLpBalance] = useState(0)
+  const [pool3LpUstLpBalance, SetPool3LpUstLpBalance] = useState(0)
+  const [pool4LpJunoLpBalance, SetPool4LpJunoLpBalance] = useState(0)
+  const [pool5LpAtomLpBalance, SetPool5LpAtomLpBalance] = useState(0)
+  const [pool6LpGfotLpBalance, SetPool6LpGfotLpBalance] = useState(0)
+  const [pool7LpFotLpBalance, SetPool7LpFotLpBalance] = useState(0)
+
+  const [pool1LpBfotLpTokenInfo, SetPool1LpBfotLpTokenInfo] = useState({ name: '', symbol: '', decimals: 6, total_supply: 0 })
+  const [pool2LpSfotLpTokenInfo, SetPool2LpSfotLpTokenInfo] = useState({ name: '', symbol: '', decimals: 6, total_supply: 0 })
+  const [pool3LpUstLpTokenInfo, SetPool3LpUstLpTokenInfo] = useState({ name: '', symbol: '', decimals: 6, total_supply: 0 })
+  const [pool4LpJunoLpTokenInfo, SetPool4LpJunoLpTokenInfo] = useState({ name: '', symbol: '', decimals: 6, total_supply: 0 })
+  const [pool5LpAtomLpTokenInfo, SetPool5LpAtomLpTokenInfo] = useState({ name: '', symbol: '', decimals: 6, total_supply: 0 })
+  const [pool6LpGfotLpTokenInfo, SetPool6LpGfotLpTokenInfo] = useState({ name: '', symbol: '', decimals: 6, total_supply: 0 })
+  const [pool7LpFotLpTokenInfo, SetPool7LpFotLpTokenInfo] = useState({ name: '', symbol: '', decimals: 6, total_supply: 0 })
+
+  const [pool1LpBfotPoolInfo, setPool1LpBfotPoolInfo] = useState({
+    token1_reserve: 0,
+    token2_reserve: 0,
+    lp_token_supply: 0,
+    lp_token_address: '',
+  })
+
+  const [pool2LpSfotPoolInfo, setPool2LpSfotPoolInfo] = useState({
+    token1_reserve: 0,
+    token2_reserve: 0,
+    lp_token_supply: 0,
+    lp_token_address: '',
+  })
+
+  const [pool3LpUstPoolInfo, setPool3LpUstPoolInfo] = useState({
+    token1_reserve: 0,
+    token2_reserve: 0,
+    lp_token_supply: 0,
+    lp_token_address: '',
+  })
+
+  const [pool4LpJunoPoolInfo, setPool4LpJunoPoolInfo] = useState({
+    token1_reserve: 0,
+    token2_reserve: 0,
+    lp_token_supply: 0,
+    lp_token_address: '',
+  })
+
+  const [pool5LpAtomPoolInfo, setPool5LpAtomPoolInfo] = useState({
+    token1_reserve: 0,
+    token2_reserve: 0,
+    lp_token_supply: 0,
+    lp_token_address: '',
+  })
+
+  const [pool6LpGfotPoolInfo, setPool6LpGfotPoolInfo] = useState({
+    token1_reserve: 0,
+    token2_reserve: 0,
+    lp_token_supply: 0,
+    lp_token_address: '',
+  })
+
+  const [pool7LpFotPoolInfo, setPool7LpFotPoolInfo] = useState({
+    token1_reserve: 0,
+    token2_reserve: 0,
+    lp_token_supply: 0,
+    lp_token_address: '',
+  })
+
+  const [pool1LpBfotLpStakingContractInfo, setPool1LpBfotLpStakingContractInfo] = useState({
+    owner: '',
+    fot_amount: 0,
+    gfot_amount: 0,
+    apy_prefix: 0,
+  })
+
+  const [pool2LpSfotLpStakingContractInfo, setPool2LpSfotLpStakingContractInfo] = useState({
+    owner: '',
+    fot_amount: 0,
+    gfot_amount: 0,
+    apy_prefix: 0,
+  })
+
+  const [pool3LpUstLpStakingContractInfo, setPool3LpUstLpStakingContractInfo] = useState({
+    owner: '',
+    fot_amount: 0,
+    gfot_amount: 0,
+    apy_prefix: 0,
+  })
+
+  const [pool4LpJunoLpStakingContractInfo, setPool4LpJunoLpStakingContractInfo] = useState({
+    owner: '',
+    fot_amount: 0,
+    gfot_amount: 0,
+    apy_prefix: 0,
+  })
+
+  const [pool5LpAtomLpStakingContractInfo, setPool5LpAtomLpStakingContractInfo] = useState({
+    owner: '',
+    fot_amount: 0,
+    gfot_amount: 0,
+    apy_prefix: 0,
+  })
+
+  const [pool6LpGfotLpStakingContractInfo, setPool6LpGfotLpStakingContractInfo] = useState({
+    owner: '',
+    fot_amount: 0,
+    gfot_amount: 0,
+    apy_prefix: 0,
+  })
+
+  const [pool7LpFotLpStakingContractInfo, setPool7LpFotLpStakingContractInfo] = useState({
+    owner: '',
+    fot_amount: 0,
+    gfot_amount: 0,
+    apy_prefix: 0,
+  })
+  // end
 
   const [fotBurnContractInfo, setFotBurnContractInfo] = useState({
     owner: '',
@@ -670,7 +918,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       // apr formula is 365xdpr
       setgFotStakingApy(
         (365 * 100 * 30.0) /
-          Number(convertMicroDenomToDenom2(gfotStakingContractInfo.gfot_amount, objectGfotTokenInfo.decimals)),
+        Number(convertMicroDenomToDenom2(gfotStakingContractInfo.gfot_amount, objectGfotTokenInfo.decimals)),
       )
 
       const gfotStakingMyInfo = await signingClient.queryContractSmart(PUBLIC_GFOTSTAKING_CONTRACT, {
@@ -854,7 +1102,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       })
       SetSfotUstLpBalance(sfotUstLpBalance.balance)
 
-      //SFOT-BFOT
+      //SFOT-BFOT (pool1 for dungeon)
       const sfotBfotPoolInfo = await signingClient.queryContractSmart(PUBLIC_SFOT_BFOT_POOL_CONTRACT, {
         info: {},
       })
@@ -914,6 +1162,147 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       })
       SetSfotAtomLpBalance(sfotAtomLpBalance.balance)
 
+      // ================== For Dungeon ==================
+      // pool2: pool1-bfot 
+      const pool2Info = await signingClient.queryContractSmart(PUBLIC_POOL1_BFOT_POOL2_CONTRACT, {
+        info: {},
+      })
+      setPool1LpBfotPoolInfo(pool2Info)
+      const pool2LpTokenInfo = await signingClient.queryContractSmart(pool2Info.lp_token_address, {
+        token_info: {},
+      })
+      SetPool1LpBfotLpTokenInfo(pool2LpTokenInfo)
+
+      const pool2LpBalance = await signingClient.queryContractSmart(pool2Info.lp_token_address, {
+        balance: { address: walletAddress },
+      })
+      SetPool1LpBfotLpBalance(pool2LpBalance.balance)
+
+      const pool2StakingContractInfo = await signingClient.queryContractSmart(PUBLIC_POOL2_STAKING_CONTRACT, {
+        config: {},
+      })
+      setPool1LpBfotLpStakingContractInfo(pool2StakingContractInfo)
+
+      // pool3: pool2-sfot
+      const pool3Info = await signingClient.queryContractSmart(PUBLIC_POOL2_SFOT_POOL3_CONTRACT, {
+        info: {},
+      })
+      setPool2LpSfotPoolInfo(pool3Info)
+      const pool3LpTokenInfo = await signingClient.queryContractSmart(pool3Info.lp_token_address, {
+        token_info: {},
+      })
+      SetPool2LpSfotLpTokenInfo(pool3LpTokenInfo)
+
+      const pool3LpBalance = await signingClient.queryContractSmart(pool3Info.lp_token_address, {
+        balance: { address: walletAddress },
+      })
+      SetPool2LpSfotLpBalance(pool3LpBalance.balance)
+
+      const pool3StakingContractInfo = await signingClient.queryContractSmart(PUBLIC_POOL3_STAKING_CONTRACT, {
+        config: {},
+      })
+      setPool2LpSfotLpStakingContractInfo(pool3StakingContractInfo)
+
+      // pool4: pool3-ust
+      const pool4Info = await signingClient.queryContractSmart(PUBLIC_POOL3_UST_POOL4_CONTRACT, {
+        info: {},
+      })
+      setPool3LpUstPoolInfo(pool4Info)
+      const pool4LpTokenInfo = await signingClient.queryContractSmart(pool4Info.lp_token_address, {
+        token_info: {},
+      })
+      SetPool3LpUstLpTokenInfo(pool4LpTokenInfo)
+
+      const pool4LpBalance = await signingClient.queryContractSmart(pool4Info.lp_token_address, {
+        balance: { address: walletAddress },
+      })
+      SetPool3LpUstLpBalance(pool4LpBalance.balance)
+
+      const pool4StakingContractInfo = await signingClient.queryContractSmart(PUBLIC_POOL4_STAKING_CONTRACT, {
+        config: {},
+      })
+      setPool3LpUstLpStakingContractInfo(pool4StakingContractInfo)
+
+      // pool5: pool4-juno
+      const pool5Info = await signingClient.queryContractSmart(PUBLIC_POOL4_JUNO_POOL5_CONTRACT, {
+        info: {},
+      })
+      setPool4LpJunoPoolInfo(pool5Info)
+      const pool5LpTokenInfo = await signingClient.queryContractSmart(pool5Info.lp_token_address, {
+        token_info: {},
+      })
+      SetPool4LpJunoLpTokenInfo(pool5LpTokenInfo)
+
+      const pool5LpBalance = await signingClient.queryContractSmart(pool5Info.lp_token_address, {
+        balance: { address: walletAddress },
+      })
+      SetPool4LpJunoLpBalance(pool5LpBalance.balance)
+
+      const pool5StakingContractInfo = await signingClient.queryContractSmart(PUBLIC_POOL5_STAKING_CONTRACT, {
+        config: {},
+      })
+      setPool4LpJunoLpStakingContractInfo(pool5StakingContractInfo)
+
+      // pool6: pool5-atom
+      const pool6Info = await signingClient.queryContractSmart(PUBLIC_POOL5_ATOM_POOL6_CONTRACT, {
+        info: {},
+      })
+      setPool5LpAtomPoolInfo(pool6Info)
+      const pool6LpTokenInfo = await signingClient.queryContractSmart(pool6Info.lp_token_address, {
+        token_info: {},
+      })
+      SetPool5LpAtomLpTokenInfo(pool6LpTokenInfo)
+
+      const pool6LpBalance = await signingClient.queryContractSmart(pool6Info.lp_token_address, {
+        balance: { address: walletAddress },
+      })
+      SetPool5LpAtomLpBalance(pool6LpBalance.balance)
+
+      const pool6StakingContractInfo = await signingClient.queryContractSmart(PUBLIC_POOL6_STAKING_CONTRACT, {
+        config: {},
+      })
+      setPool5LpAtomLpStakingContractInfo(pool6StakingContractInfo)
+
+      // pool7: pool6-gfot
+      const pool7Info = await signingClient.queryContractSmart(PUBLIC_POOL6_GFOT_POOL7_CONTRACT, {
+        info: {},
+      })
+      setPool6LpGfotPoolInfo(pool7Info)
+      const pool7LpTokenInfo = await signingClient.queryContractSmart(pool7Info.lp_token_address, {
+        token_info: {},
+      })
+      SetPool6LpGfotLpTokenInfo(pool7LpTokenInfo)
+
+      const pool7LpBalance = await signingClient.queryContractSmart(pool7Info.lp_token_address, {
+        balance: { address: walletAddress },
+      })
+      SetPool6LpGfotLpBalance(pool7LpBalance.balance)
+
+      const pool7StakingContractInfo = await signingClient.queryContractSmart(PUBLIC_POOL7_STAKING_CONTRACT, {
+        config: {},
+      })
+      setPool6LpGfotLpStakingContractInfo(pool7StakingContractInfo)
+
+      // pool8: pool7-fot
+      const pool8Info = await signingClient.queryContractSmart(PUBLIC_POOL7_FOT_POOL8_CONTRACT, {
+        info: {},
+      })
+      setPool7LpFotPoolInfo(pool8Info)
+      const pool8LpTokenInfo = await signingClient.queryContractSmart(pool8Info.lp_token_address, {
+        token_info: {},
+      })
+      SetPool7LpFotLpTokenInfo(pool8LpTokenInfo)
+
+      const pool8LpBalance = await signingClient.queryContractSmart(pool8Info.lp_token_address, {
+        balance: { address: walletAddress },
+      })
+      SetPool7LpFotLpBalance(pool8LpBalance.balance)
+
+      const pool8StakingContractInfo = await signingClient.queryContractSmart(PUBLIC_POOL8_STAKING_CONTRACT, {
+        config: {},
+      })
+      setPool7LpFotLpStakingContractInfo(pool8StakingContractInfo)
+
       setLoading(false)
       if (showNotification) NotificationManager.info(`Successfully got balances`)
     } catch (error) {
@@ -937,7 +1326,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         `${convertMicroDenomToDenom(objectNative.amount)} ${convertFromMicroDenom(objectNative.denom)}`,
       )
       setNativeBalance(convertMicroDenomToDenom(objectNative.amount))
-      
+
       setLoading(false)
       if (showNotification) NotificationManager.info(`Successfully got balances`)
     } catch (error) {
@@ -1687,6 +2076,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   }
 
   const executeStable = async () => {
+    return
     setLoading(true)
     try {
       await signingClient?.execute(
@@ -1732,7 +2122,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   }
 
   const executeClearance = async () => {
-    
+
     setLoading(true)
     try {
       await signingClient?.execute(
@@ -1789,6 +2179,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         poolInfo = sfotUstPoolInfo
         break
       case 1:
+      case 10:
         contract = PUBLIC_SFOT_BFOT_POOL_CONTRACT
         token2Balance = bfotBalance
         poolInfo = sfotBfotPoolInfo
@@ -1809,7 +2200,61 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         decimals = [10, 6]
         token2Balance = atomBalance
         poolInfo = sfotAtomPoolInfo
-        break              
+        break
+      case 10:
+          contract = PUBLIC_SFOT_BFOT_POOL_CONTRACT
+          token1Balance = bfotBalance
+          token2Balance = sfotBalance
+          poolInfo = sfotBfotPoolInfo
+        break
+      case 11:
+        contract = PUBLIC_POOL1_BFOT_POOL2_CONTRACT
+        decimals = [10, 6]
+        token1Balance = bfotBalance
+        token2Balance = sfotBfotLpBalance
+        poolInfo = pool1LpBfotPoolInfo
+        break
+      case 12:
+        contract = PUBLIC_POOL2_SFOT_POOL3_CONTRACT
+        decimals = [10, 6]
+        token2Balance = pool1LpBfotLpBalance
+        poolInfo = pool2LpSfotPoolInfo
+        break
+      case 13:
+        contract = PUBLIC_POOL3_UST_POOL4_CONTRACT
+        decimals = [6, 6]
+        token1Balance = ustBalance
+        token2Balance = pool2LpSfotLpBalance
+        poolInfo = pool3LpUstPoolInfo
+        break
+      case 14:
+        contract = PUBLIC_POOL4_JUNO_POOL5_CONTRACT
+        decimals = [6, 6]
+        token1Balance = junoBalance
+        token2Balance = pool3LpUstLpBalance
+        poolInfo = pool4LpJunoPoolInfo
+        break
+      case 15:
+        contract = PUBLIC_POOL5_ATOM_POOL6_CONTRACT
+        decimals = [6, 6]
+        token1Balance = atomBalance
+        token2Balance = pool4LpJunoLpBalance
+        poolInfo = pool5LpAtomPoolInfo
+        break
+      case 16:
+        contract = PUBLIC_POOL6_GFOT_POOL7_CONTRACT
+        decimals = [10, 6]
+        token1Balance = gfotBalance
+        token2Balance = pool5LpAtomLpBalance
+        poolInfo = pool6LpGfotPoolInfo
+        break
+      case 17:
+        contract = PUBLIC_POOL7_FOT_POOL8_CONTRACT
+        decimals = [10, 6]
+        token1Balance = fotBalance
+        token2Balance = pool6LpGfotLpBalance
+        poolInfo = pool7LpFotPoolInfo
+        break
       default:
         return
     }
@@ -1818,21 +2263,40 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     let token1max = Number(convertDenomToMicroDenom2(token1Balance, decimals[0]))
     let token2max = Number(convertDenomToMicroDenom2(token2Balance, decimals[1]))
 
-    if (fix == 1) {
-      //changed token1amount
-      let new_token2 = (token1 * poolInfo.token2_reserve) / poolInfo.token1_reserve
-      if (new_token2 > token2max) {
-        new_token2 = token2max
-        token1 = (new_token2 * poolInfo.token1_reserve) / poolInfo.token2_reserve
+    if (asset < 10) {
+      if (fix == 1) {
+        //changed token1amount  token1: token1_reverve, token2: token2_reserve
+        let new_token2 = (token1 * poolInfo.token2_reserve) / poolInfo.token1_reserve
+        if (new_token2 > token2max) {
+          new_token2 = token2max
+          token1 = (new_token2 * poolInfo.token1_reserve) / poolInfo.token2_reserve
+        }
+        token2 = new_token2 + 1
+      } else {
+        let new_token1 = (token2 * poolInfo.token1_reserve) / poolInfo.token2_reserve
+        if (new_token1 > token1max) {
+          new_token1 = token1max
+          token2 = (new_token1 * poolInfo.token2_reserve) / poolInfo.token1_reserve + 1
+        }
+        token1 = new_token1
       }
-      token2 = new_token2 + 1
-    } else {
-      let new_token1 = (token2 * poolInfo.token1_reserve) / poolInfo.token2_reserve
-      if (new_token1 > token1max) {
-        new_token1 = token1max
-        token2 = (new_token1 * poolInfo.token2_reserve) / poolInfo.token1_reserve + 1
+    } else { // dungeon
+      if (fix == 1) {
+        //changed token1amount  token1: token2_reverve, token2: token1_reserve
+        let new_token2 = (token1 * poolInfo.token1_reserve) / poolInfo.token2_reserve
+        if (new_token2 > token2max) {
+          new_token2 = token2max
+          token1 = (new_token2 * poolInfo.token2_reserve) / poolInfo.token1_reserve
+        }
+        token2 = new_token2
+      } else {
+        let new_token1 = (token2 * poolInfo.token2_reserve) / poolInfo.token1_reserve
+        if (new_token1 > token1max) {
+          new_token1 = token1max
+          token2 = (new_token1 * poolInfo.token1_reserve) / poolInfo.token2_reserve + 1
+        }
+        token1 = new_token1 + 1
       }
-      token1 = new_token1
     }
 
     return {
@@ -1845,6 +2309,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     setLoading(true)
     let contract = ''
     let decimals = [10, 10]
+    if (asset == 10) asset = 1
     switch (asset) {
       case 0:
         contract = PUBLIC_SFOT_UST_POOL_CONTRACT
@@ -1965,6 +2430,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     let lptot = 0
     let token1 = 0
     let token2 = 0
+    if (asset == 10) asset = 1
     switch (asset) {
       case 0:
         contract = PUBLIC_SFOT_UST_POOL_CONTRACT
@@ -2006,7 +2472,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         token1 = (sfotAtomPoolInfo.token1_reserve * lpbalance) / lptot
         token2 = (sfotAtomPoolInfo.token2_reserve * lpbalance) / lptot
         break
-    
+
       default:
         return
     }
@@ -2092,7 +2558,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         contract = PUBLIC_SFOT_ATOM_POOL_CONTRACT
         decimals = [10, 6]
         poolInfo = sfotAtomPoolInfo
-        break        
+        break
 
       default:
         return
@@ -2414,15 +2880,520 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     }
   }
 
-  const executeLpFetchUnstake = async (lpstate: any) => {
-    // let lpstate = await getLpStakingInfo(asset)
+  const executeLpFetchUnstake = async (lpstate: any, asset) => {
+    let stakingInfo = await getLpStakingInfo(asset)
     if (lpstate[0] == 0 || lpstate[1] > new Date().getTime() / 1000 + 60) return
     setLoading(true)
 
     try {
       await signingClient?.execute(
         walletAddress, // sender address
-        PUBLIC_SFOT_GFOT_STAKING_CONTRACT,
+        stakingInfo.staking_contract,
+        {
+          fetch_unstake: {
+            index: 0,
+          },
+        }, // msg
+        defaultFee,
+        undefined,
+        [],
+      )
+
+      setLoading(false)
+      getSfotBalances()
+      if (showNotification) NotificationManager.success('Successfully unstaked')
+    } catch (error) {
+      setLoading(false)
+      if (showNotification) {
+        NotificationManager.error(`Stakemodule unstake error : ${error}`)
+        console.log(error.toString())
+      }
+    }
+  }
+
+  // for dungeon
+  const executeAddLiquidityForDungeon = async (asset: number, token1Amount: number, token2Amount: number) => {
+    setLoading(true)
+    let contract = DUNGEON_POOL_INFO[asset].pool_contract
+    let decimals = DUNGEON_POOL_INFO[asset].decimal
+    let token1_contract = DUNGEON_POOL_INFO[asset].token1_contract
+    let token2_contract = PUBLIC_SFOT_CONTRACT
+
+    if (asset > 0) {
+      token2_contract = DUNGEON_POOL_INFO[asset - 1].lp_contract
+    }
+
+    try {
+      let token1 = convertDenomToMicroDenom2(token1Amount, decimals[0]) + 1
+      let token2 = convertDenomToMicroDenom2(token2Amount, decimals[1])
+
+      let msglist = []
+
+      let jsonmsg = {
+        increase_allowance: {
+          amount: `${token2}`,
+          spender: `${contract}`,
+        },
+      }
+
+      let msg: MsgExecuteContractEncodeObject = {
+        typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
+        value: MsgExecuteContract.fromPartial({
+          sender: walletAddress,
+          contract: token2_contract,
+          msg: toUtf8(JSON.stringify(jsonmsg)),
+          funds: [],
+        }),
+      }
+      msglist.push(msg)
+
+      let funds = []
+
+      if (asset == 3) {
+        funds = [coin(token1, ust_denom)]
+      } else if (asset == 4) {
+        funds = [coin(token1, 'ujuno')]
+      } else if (asset == 5) {
+        funds = [coin(token1, atom_denom)]
+      } else {
+        let jsonmsg = {
+          increase_allowance: {
+            amount: `${token1}`,
+            spender: `${contract}`,
+          },
+        }
+        let msg: MsgExecuteContractEncodeObject = {
+          typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
+          value: MsgExecuteContract.fromPartial({
+            sender: walletAddress,
+            contract: token1_contract,
+            msg: toUtf8(JSON.stringify(jsonmsg)),
+            funds: [],
+          }),
+        }
+        msglist.push(msg)
+      }
+
+      let jsonmsg1 = {
+        add_liquidity: {
+          token1_amount: `${token2}`,
+          max_token2: `${token1}`,
+          min_liquidity: `1`,
+        },
+      }
+      const msg1: MsgExecuteContractEncodeObject = {
+        typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
+        value: MsgExecuteContract.fromPartial({
+          sender: walletAddress,
+          contract: contract,
+          msg: toUtf8(JSON.stringify(jsonmsg1)),
+          funds,
+        }),
+      }
+      msglist.push(msg1)
+
+      let result = await signingClient?.signAndBroadcast(walletAddress, msglist, defaultFee)
+      if (isDeliverTxFailure(result)) {
+        throw new Error(
+          `Error when broadcasting tx ${result.transactionHash} at height ${result.height}. Code: ${result.code}; Raw log: ${result.rawLog}`,
+        )
+      }
+      setLoading(false)
+      getSfotBalances()
+      if (showNotification) NotificationManager.success('Successfully added liquidity')
+    } catch (error) {
+      setLoading(false)
+      //if (showNotification) {
+      NotificationManager.error(`Add Liquidity error : ${error}`)
+      console.log(error.toString())
+      //}
+    }
+  }
+
+  const executeRemoveLiquidityForDungeon = async (asset: number, rate: number) => {
+    setLoading(true)
+    let contract = DUNGEON_POOL_INFO[asset].pool_contract
+    let lpcontract = DUNGEON_POOL_INFO[asset].lp_contract
+    let lpbalance = 0
+    let lptot = 0
+    let token1 = 0
+    let token2 = 0
+
+    const poolInfo = await signingClient.queryContractSmart(contract, {
+      info: {},
+    })
+
+    const lpTokenInfo = await signingClient.queryContractSmart(poolInfo.lp_token_address, {
+      token_info: {},
+    })
+
+    const lpBalance = await signingClient.queryContractSmart(poolInfo.lp_token_address, {
+      balance: { address: walletAddress },
+    })
+
+    lpbalance = lpBalance.balance
+    lptot = lpTokenInfo.total_supply
+    token1 = (poolInfo.token2_reserve * lpbalance) / lptot
+    token2 = (poolInfo.token1_reserve * lpbalance) / lptot
+
+    lpbalance = Math.floor((lpbalance * rate) / 100.0)
+
+    try {
+      let msglist = []
+      let jsonmsg1 = {
+        increase_allowance: {
+          amount: `${lpbalance}`,
+          spender: `${contract}`,
+        },
+      }
+      const msg1: MsgExecuteContractEncodeObject = {
+        typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
+        value: MsgExecuteContract.fromPartial({
+          sender: walletAddress,
+          contract: lpcontract,
+          msg: toUtf8(JSON.stringify(jsonmsg1)),
+          funds: [],
+        }),
+      }
+      msglist.push(msg1)
+
+      let jsonmsg2 = {
+        remove_liquidity: {
+          amount: `${lpbalance}`,
+          min_token1: `0`,
+          min_token2: `0`,
+        },
+      }
+      const msg2: MsgExecuteContractEncodeObject = {
+        typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
+        value: MsgExecuteContract.fromPartial({
+          sender: walletAddress,
+          contract: contract,
+          msg: toUtf8(JSON.stringify(jsonmsg2)),
+          funds: [],
+        }),
+      }
+      msglist.push(msg2)
+
+      let result = await signingClient?.signAndBroadcast(walletAddress, msglist, defaultFee)
+
+      setLoading(false)
+      getSfotBalances()
+      if (showNotification) NotificationManager.success('Successfully removed liquidity')
+    } catch (error) {
+      setLoading(false)
+      //if (showNotification) {
+      NotificationManager.error(`Remove Liquidity error : ${error}`)
+      console.log(error.toString())
+      //}
+    }
+  }
+
+  const calcExpectedSwapAmountForDungeon = async asset => {
+    // console.log(swapToken1)
+
+    let contract = DUNGEON_POOL_INFO[asset].pool_contract
+    let decimals = DUNGEON_POOL_INFO[asset].decimal
+    let poolInfo = null
+
+    poolInfo = await signingClient.queryContractSmart(contract, {
+      info: {},
+    })
+
+    if (!swapToken1) {
+      decimals = [decimals[1], decimals[0]]
+    }
+    const price1to2 = await signingClient.queryContractSmart(contract, {
+      token1_for_token2_price: { token1_amount: `${Math.pow(10, decimals[0])}` },
+    })
+
+    const price2to1 = await signingClient.queryContractSmart(contract, {
+      token2_for_token1_price: { token2_amount: `${Math.pow(10, decimals[1])}` },
+    })
+    let input_amount_with_fee = Number(convertDenomToMicroDenom2(swapAmount, decimals[0])) * 990.0
+    let numerator = input_amount_with_fee * (swapToken1 ? poolInfo.token1_reserve : poolInfo.token2_reserve)
+    let denominator = (swapToken1 ? poolInfo.token2_reserve : poolInfo.token1_reserve) * 1000.0 + input_amount_with_fee
+    let out_amount = convertMicroDenomToDenom2(numerator / denominator, decimals[1])
+    setExpectedToken2Amount(out_amount)
+  }
+
+  const executeSwapForDungeon = async asset => {
+    // console.log(swapToken1)
+
+    let contract = DUNGEON_POOL_INFO[asset].pool_contract
+    let decimals = DUNGEON_POOL_INFO[asset].decimal
+    let token2_contract = PUBLIC_SFOT_CONTRACT
+
+    if (asset > 0) {
+      token2_contract = DUNGEON_POOL_INFO[asset - 1].lp_contract
+    }
+
+    if (!swapToken1) {
+      decimals = [decimals[1], decimals[0]]
+    }
+
+    let token1 = convertDenomToMicroDenom2(swapAmount, decimals[0])
+
+    let token2 = convertDenomToMicroDenom2(expectedToken2Amount, decimals[1])
+    // console.log(expectedToken2Amount)
+    // console.log(token1)
+    // console.log(token2)
+    try {
+      let msglist = []
+      let funds = []
+      if (asset == 3 || asset == 4 || asset == 5) {
+        if (swapToken1) {
+          if (asset == 3)
+            funds = [coin(token1, ust_denom)]
+          else if (asset == 4)
+            funds = [coin(token1, 'ujuno')]
+          else if (asset == 5)
+            funds = [coin(token1, atom_denom)]
+        }
+        else {
+          const jsonmsg = {
+            increase_allowance: {
+              amount: `${token1}`,
+              spender: `${contract}`,
+            },
+          }
+          const msg: MsgExecuteContractEncodeObject = {
+            typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
+            value: MsgExecuteContract.fromPartial({
+              sender: walletAddress,
+              contract: token2_contract,
+              msg: toUtf8(JSON.stringify(jsonmsg)),
+              funds: [],
+            }),
+          }
+          msglist.push(msg)
+        }
+      } else {
+        const jsonmsg = {
+          increase_allowance: {
+            amount: `${token1}`,
+            spender: `${contract}`,
+          },
+        }
+
+        const msg: MsgExecuteContractEncodeObject = {
+          typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
+          value: MsgExecuteContract.fromPartial({
+            sender: walletAddress,
+            contract: swapToken1 ? DUNGEON_POOL_INFO[asset].token1_contract : token2_contract,
+            msg: toUtf8(JSON.stringify(jsonmsg)),
+            funds: [],
+          }),
+        }
+        msglist.push(msg)
+      }
+      const jsonmsg = {
+        swap: {
+          input_token: `${swapToken1 ? 'Token2' : 'Token1'}`,
+          input_amount: `${token1}`,
+          min_output: `${token2}`,
+        },
+      }
+      const msg: MsgExecuteContractEncodeObject = {
+        typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
+        value: MsgExecuteContract.fromPartial({
+          sender: walletAddress,
+          contract: contract,
+          msg: toUtf8(JSON.stringify(jsonmsg)),
+          funds,
+        }),
+      }
+      msglist.push(msg)
+      let result = await signingClient?.signAndBroadcast(walletAddress, msglist, defaultFee)
+
+      setLoading(false)
+      getSfotBalances()
+      if (showNotification) NotificationManager.success('Successfully swapped')
+    } catch (error) {
+      setLoading(false)
+      //if (showNotification) {
+      NotificationManager.error(`Swap error : ${error}`)
+      console.log(error.toString())
+      //}
+    }
+  }
+
+  // ######### lp staking ##########
+  const getLpStakingInfoForDungeon = async (asset: number) => {
+    let contract = DUNGEON_POOL_INFO[asset].pool_contract
+    let lp_token_address = DUNGEON_POOL_INFO[asset].lp_contract
+    let staking_contract = DUNGEON_POOL_INFO[asset].staking_contract
+    console.log(`[j] ===> asset: ${asset}, staking_contract: ${staking_contract}`)
+    let lp_amount = 0
+    let staked_amount = 0
+    let staked_reward = 0
+    let lpStakingInfo = null
+
+    switch (asset) {
+      case 0:
+        lp_amount = sfotBfotLpBalance
+        lpStakingInfo = sfotBfotLpStakingContractInfo
+        break
+      case 1:
+        lp_amount = pool1LpBfotLpBalance
+        lpStakingInfo = pool1LpBfotLpStakingContractInfo
+        break
+      case 2:
+        lp_amount = pool2LpSfotLpBalance
+        lpStakingInfo = pool2LpSfotLpStakingContractInfo
+        break
+      case 3:
+        lp_amount = pool3LpUstLpBalance
+        lpStakingInfo = pool3LpUstLpStakingContractInfo
+        break
+      case 4:
+        lp_amount = pool4LpJunoLpBalance
+        lpStakingInfo = pool4LpJunoLpStakingContractInfo
+        break
+      case 5:
+        lp_amount = pool5LpAtomLpBalance
+        lpStakingInfo = pool5LpAtomLpStakingContractInfo
+        break
+      case 6:
+        lp_amount = pool6LpGfotLpBalance
+        lpStakingInfo = pool6LpGfotLpStakingContractInfo
+        break
+      case 7:
+        lp_amount = pool7LpFotLpBalance
+        lpStakingInfo = pool7LpFotLpStakingContractInfo
+        break
+    }
+
+    if (signingClient) {
+      const response: JsonObject = await signingClient.queryContractSmart(staking_contract, {
+        staker: {
+          address: walletAddress,
+        },
+      })
+
+      staked_amount = Number(response.amount)
+      staked_reward = Number(response.reward)
+      const unstakingList: JsonObject = await signingClient.queryContractSmart(staking_contract, {
+        unstaking: {
+          address: walletAddress,
+        },
+      })
+      if (unstakingList.length > 0) {
+        // unstaking_amount = Number(response2[0][0])
+        // deadline = Number(response2[0][1])
+      }
+
+      if (lpStakingInfo.gfot_amount > 0 && response.last_time > 0) {
+        let delay = Math.floor(new Date().getTime() / 1000 / 86400) - Math.floor(response.last_time / 86400)
+        staked_reward +=
+          ((delay > 0 ? delay : 0) * lpStakingInfo.daily_fot_amount * staked_amount) / lpStakingInfo.gfot_amount
+      }
+    }
+
+    return { lp_token_address, staking_contract, staked_amount, unstakingList, lp_amount, staked_reward }
+  }
+
+  const executeLpStakeAllForDungeon = async asset => {
+    let lpstate = await getLpStakingInfoForDungeon(asset)
+    if (lpstate.lp_amount == 0) return
+    setLoading(true)
+    try {
+      await signingClient?.execute(
+        walletAddress, // sender address
+        lpstate.lp_token_address,
+        {
+          send: {
+            amount: `${lpstate.lp_amount}`,
+            contract: `${lpstate.staking_contract}`,
+            msg: ``,
+          },
+        }, // msg
+        defaultFee,
+        undefined,
+        [],
+      )
+      setLoading(false)
+      getSfotBalances()
+      if (showNotification) NotificationManager.success('Successfully staked')
+    } catch (error) {
+      setLoading(false)
+      console.log(error)
+      //if (showNotification) {
+      NotificationManager.error(`Stakemodule error : ${error}`)
+      console.log(error.toString())
+      //}
+    }
+  }
+
+  const executeLpClaimRewardForDungeon = async asset => {
+    let staking_contract = DUNGEON_POOL_INFO[asset].staking_contract
+
+    setLoading(true)
+
+    try {
+      await signingClient?.execute(
+        walletAddress, // sender address
+        staking_contract,
+        {
+          claim_reward: {},
+        }, // msg
+        defaultFee,
+        undefined,
+        [],
+      )
+
+      setLoading(false)
+      getSfotBalances()
+      if (showNotification) NotificationManager.success('Successfully clamied reward')
+    } catch (error) {
+      setLoading(false)
+      //if (showNotification) {
+      NotificationManager.error(`Stakemodule claim error : ${error}`)
+      console.log(error.toString())
+      //}
+    }
+  }
+
+  const executeLpCreateUnstakeForDungeon = async asset => {
+    let lpstate = await getLpStakingInfoForDungeon(asset)
+    if (lpstate.staked_amount == 0) return
+    setLoading(true)
+
+    try {
+      await signingClient?.execute(
+        walletAddress, // sender address
+        lpstate.staking_contract,
+        {
+          create_unstake: {
+            unstake_amount: `${lpstate.staked_amount}`,
+          },
+        }, // msg
+        defaultFee,
+        undefined,
+        [],
+      )
+
+      setLoading(false)
+      getSfotBalances()
+      if (showNotification) NotificationManager.success('Successfully unstaked')
+    } catch (error) {
+      setLoading(false)
+      if (showNotification) {
+        NotificationManager.error(`Stakemodule unstake error : ${error}`)
+        console.log(error.toString())
+      }
+    }
+  }
+
+  const executeLpFetchUnstakeForDungeon = async (lpstate: any, asset) => {
+    let stakingInfo = await getLpStakingInfoForDungeon(asset)
+    if (lpstate[0] == 0 || lpstate[1] > new Date().getTime() / 1000 + 60) return
+    setLoading(true)
+
+    try {
+      await signingClient?.execute(
+        walletAddress, // sender address
+        stakingInfo.staking_contract,
         {
           fetch_unstake: {
             index: 0,
@@ -2581,5 +3552,49 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     getSfotBalances,
     getWalletBalances,
     updateInterval,
+
+    // dungeon
+    executeAddLiquidityForDungeon,
+    executeRemoveLiquidityForDungeon,
+    calcExpectedSwapAmountForDungeon,
+    executeSwapForDungeon,
+    getLpStakingInfoForDungeon,
+    executeLpStakeAllForDungeon,
+    executeLpClaimRewardForDungeon,
+    executeLpCreateUnstakeForDungeon,
+    executeLpFetchUnstakeForDungeon,
+
+    pool1LpBfotLpBalance,
+    pool2LpSfotLpBalance,
+    pool3LpUstLpBalance,
+    pool4LpJunoLpBalance,
+    pool5LpAtomLpBalance,
+    pool6LpGfotLpBalance,
+    pool7LpFotLpBalance,
+
+    pool1LpBfotPoolInfo,
+    pool2LpSfotPoolInfo,
+    pool3LpUstPoolInfo,
+    pool4LpJunoPoolInfo,
+    pool5LpAtomPoolInfo,
+    pool6LpGfotPoolInfo,
+    pool7LpFotPoolInfo,
+
+    pool1LpBfotLpTokenInfo,
+    pool2LpSfotLpTokenInfo,
+    pool3LpUstLpTokenInfo,
+    pool4LpJunoLpTokenInfo,
+    pool5LpAtomLpTokenInfo,
+    pool6LpGfotLpTokenInfo,
+    pool7LpFotLpTokenInfo,
+
+    pool1LpBfotLpStakingContractInfo,
+    pool2LpSfotLpStakingContractInfo,
+    pool3LpUstLpStakingContractInfo,
+    pool4LpJunoLpStakingContractInfo,
+    pool5LpAtomLpStakingContractInfo,
+    pool6LpGfotLpStakingContractInfo,
+    pool7LpFotLpStakingContractInfo,
+    //
   }
 }
