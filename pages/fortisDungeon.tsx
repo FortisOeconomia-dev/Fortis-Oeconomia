@@ -175,7 +175,7 @@ const fortisDungeon = () => {
     else if (asset == 6) balances = [gfotBalance, pool5LpAtomLpBalance]
     else if (asset == 7) balances = [fotBalance, pool6LpGfotLpBalance]
 
-    console.log(`[j]===> fotbalance: ${fotBalance}, lp7balance: ${pool6LpGfotLpBalance}` )
+    // console.log(`[j]===> fotbalance: ${fotBalance}, lp7balance: ${pool6LpGfotLpBalance}` )
     setSwapBalances(balances)
     if (swapToken1) {
       setSwapBalance(balances[0])
