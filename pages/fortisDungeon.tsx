@@ -21,6 +21,9 @@ import {
   lp6Image,
   lp7Image,
 } from '../util/tokenImageUtils'
+import {
+  convertMicroDenomToDenom2,
+} from '../util/conversion'
 import ThemeContext from '../contexts/ThemeContext'
 
 //styled components
@@ -81,6 +84,14 @@ const fortisDungeon = () => {
     pool5LpAtomLpBalance,
     pool6LpGfotLpBalance,
     pool7LpFotLpBalance,
+    sfotBfotLpTokenInfo,
+    pool1LpBfotLpTokenInfo,
+    pool2LpSfotLpTokenInfo,
+    pool3LpUstLpTokenInfo,
+    pool4LpJunoLpTokenInfo,
+    pool5LpAtomLpTokenInfo,
+    pool6LpGfotLpTokenInfo,
+    pool7LpFotLpTokenInfo,
     swapToken1,
     expectedToken2Amount,
     executeSwap,
@@ -165,13 +176,13 @@ const fortisDungeon = () => {
     setSwapBalance(0)
 
     if (asset == 0) balances = [bfotBalance, sfotBalance]
-    else if (asset == 1) balances = [bfotBalance, sfotBfotLpBalance]
-    else if (asset == 2) balances = [sfotBalance, pool1LpBfotLpBalance]
-    else if (asset == 3) balances = [ustBalance, pool2LpSfotLpBalance]
-    else if (asset == 4) balances = [nativeBalance, pool3LpUstLpBalance]
-    else if (asset == 5) balances = [atomBalance, pool4LpJunoLpBalance]
-    else if (asset == 6) balances = [gfotBalance, pool5LpAtomLpBalance]
-    else if (asset == 7) balances = [fotBalance, pool6LpGfotLpBalance]
+    else if (asset == 1) balances = [bfotBalance, convertMicroDenomToDenom2(sfotBfotLpBalance, sfotBfotLpTokenInfo.decimals)]
+    else if (asset == 2) balances = [sfotBalance, convertMicroDenomToDenom2(pool1LpBfotLpBalance, pool1LpBfotLpTokenInfo.decimals)]
+    else if (asset == 3) balances = [ustBalance, convertMicroDenomToDenom2(pool2LpSfotLpBalance, pool2LpSfotLpTokenInfo.decimals)]
+    else if (asset == 4) balances = [nativeBalance, convertMicroDenomToDenom2(pool3LpUstLpBalance, pool3LpUstLpTokenInfo.decimals)]
+    else if (asset == 5) balances = [atomBalance, convertMicroDenomToDenom2(pool4LpJunoLpBalance, pool4LpJunoLpTokenInfo.decimals)]
+    else if (asset == 6) balances = [gfotBalance, convertMicroDenomToDenom2(pool5LpAtomLpBalance, pool5LpAtomLpTokenInfo.decimals)]
+    else if (asset == 7) balances = [fotBalance, convertMicroDenomToDenom2(pool6LpGfotLpBalance, pool6LpGfotLpTokenInfo.decimals)]
 
     // console.log(`[j]===> fotbalance: ${fotBalance}, lp7balance: ${pool6LpGfotLpBalance}` )
     setSwapBalances(balances)
