@@ -221,8 +221,6 @@ const PoolDetail = ({
       setToken2Balance(sfotBalance)
       setLpTokenInfo(sfotBfotLpTokenInfo)
       setMyLpBalance(sfotBfotLpBalance)
-      setMyToken1Amount(bfotBalance)
-      setMyToken2Amount(sfotBalance)
     } else if (asset == 11) {
       setPoolInfo(pool1LpBfotPoolInfo)
       setDecimals([10, 6])
@@ -230,8 +228,6 @@ const PoolDetail = ({
       setToken2Balance(sfotBfotLpBalance)
       setLpTokenInfo(pool1LpBfotLpTokenInfo)
       setMyLpBalance(pool1LpBfotLpBalance)
-      setMyToken1Amount(bfotBalance)
-      setMyToken2Amount(sfotBfotLpBalance)
     } else if (asset == 12) {
       setPoolInfo(pool2LpSfotPoolInfo)
       setDecimals([10, 6])
@@ -239,8 +235,6 @@ const PoolDetail = ({
       setToken2Balance(pool1LpBfotLpBalance)
       setLpTokenInfo(pool2LpSfotLpTokenInfo)
       setMyLpBalance(pool2LpSfotLpBalance)
-      setMyToken1Amount(sfotBalance)
-      setMyToken2Amount(pool1LpBfotLpBalance)
     } else if (asset == 13) {
       setPoolInfo(pool3LpUstPoolInfo)
       setDecimals([6, 6])
@@ -248,8 +242,6 @@ const PoolDetail = ({
       setToken2Balance(pool2LpSfotLpBalance)
       setLpTokenInfo(pool3LpUstLpTokenInfo)
       setMyLpBalance(pool3LpUstLpBalance)
-      setMyToken1Amount(ustBalance)
-      setMyToken2Amount(pool2LpSfotLpBalance)
     } else if (asset == 14) {
       setPoolInfo(pool4LpJunoPoolInfo)
       setDecimals([6, 6])
@@ -257,8 +249,6 @@ const PoolDetail = ({
       setToken2Balance(pool3LpUstLpBalance)
       setLpTokenInfo(pool4LpJunoLpTokenInfo)
       setMyLpBalance(pool4LpJunoLpBalance)
-      setMyToken1Amount(nativeBalance)
-      setMyToken2Amount(pool3LpUstLpBalance)
     } else if (asset == 15) {
       setPoolInfo(pool5LpAtomPoolInfo)
       setDecimals([6, 6])
@@ -266,8 +256,6 @@ const PoolDetail = ({
       setToken2Balance(pool4LpJunoLpBalance)
       setLpTokenInfo(pool5LpAtomLpTokenInfo)
       setMyLpBalance(pool5LpAtomLpBalance)
-      setMyToken1Amount(atomBalance)
-      setMyToken2Amount(pool4LpJunoLpBalance)
     } else if (asset == 16) {
       setPoolInfo(pool6LpGfotPoolInfo)
       setDecimals([10, 6])
@@ -275,8 +263,6 @@ const PoolDetail = ({
       setToken2Balance(pool5LpAtomLpBalance)
       setLpTokenInfo(pool6LpGfotLpTokenInfo)
       setMyLpBalance(pool6LpGfotLpBalance)
-      setMyToken1Amount(gfotBalance)
-      setMyToken2Amount(pool5LpAtomLpBalance)
     } else if (asset == 17) {
       setPoolInfo(pool7LpFotPoolInfo)
       setDecimals([10, 6])
@@ -284,8 +270,6 @@ const PoolDetail = ({
       setToken2Balance(pool6LpGfotLpTokenInfo)
       setLpTokenInfo(pool7LpFotLpTokenInfo)
       setMyLpBalance(pool7LpFotLpBalance)
-      setMyToken1Amount(fotBalance)
-      setMyToken2Amount(pool6LpGfotLpBalance)
     }
 
     if (asset < 10) {
@@ -329,6 +313,12 @@ const PoolDetail = ({
   // update my token balance
   useEffect(() => {
     if (lpTokenInfo.total_supply == 0) return
+    setMyToken1Amount((myLpBalance * token1TotalAmount) / lpTokenInfo.total_supply)
+    setMyToken2Amount((myLpBalance * token2TotalAmount) / lpTokenInfo.total_supply)
+  }, [myLpBalance, lpTokenInfo, token1TotalAmount, token2TotalAmount])
+
+  useEffect(() => {
+    if (poolInfo == null) return
     if (asset < 10) {
       setToken1TotalAmount(convertMicroDenomToDenom2(poolInfo.token1_reserve, decimals[0]))
       setToken2TotalAmount(convertMicroDenomToDenom2(poolInfo.token2_reserve, decimals[1]))
@@ -336,12 +326,6 @@ const PoolDetail = ({
       setToken1TotalAmount(convertMicroDenomToDenom2(poolInfo.token2_reserve, decimals[0]))
       setToken2TotalAmount(convertMicroDenomToDenom2(poolInfo.token1_reserve, decimals[1]))
     }
-  }, [myLpBalance, lpTokenInfo, token1TotalAmount, token2TotalAmount])
-
-  useEffect(() => {
-    if (poolInfo == null) return
-    setToken1TotalAmount(convertMicroDenomToDenom2(poolInfo.token1_reserve, decimals[0]))
-    setToken2TotalAmount(convertMicroDenomToDenom2(poolInfo.token2_reserve, decimals[1]))
   }, [poolInfo])
 
   const updateAmounts = async (token1: number, token2: number, fix: number) => {
