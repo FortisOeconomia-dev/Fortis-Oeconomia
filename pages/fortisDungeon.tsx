@@ -256,7 +256,6 @@ const fortisDungeon = () => {
       showStakeAllButton:true,
       showLpAmount:true,
       lpfetchunstake:false,
-      showReward:false,
     },
     {
       from: 'UST',
@@ -336,7 +335,6 @@ const fortisDungeon = () => {
       showStakeAllButton:true,
       showLpAmount:true,
       lpfetchunstake:false,
-      showReward:false,
    },
   ]
 
