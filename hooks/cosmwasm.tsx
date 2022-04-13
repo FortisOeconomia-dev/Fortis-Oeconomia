@@ -286,57 +286,57 @@ export const DUNGEON_POOL_INFO = [
     staking_contract: PUBLIC_POOL1_STAKING_CONTRACT,
     token1_contract: PUBLIC_BFOT_CONTRACT,
     lp_contract: PUBLIC_SFOT_BFOT_LP_CONTRACT,
-    decimal: [10, 10]
+    decimal: [10, 10],
   },
   {
     pool_contract: PUBLIC_POOL1_BFOT_POOL2_CONTRACT,
     staking_contract: PUBLIC_POOL2_STAKING_CONTRACT,
     token1_contract: PUBLIC_BFOT_CONTRACT,
     lp_contract: PUBLIC_POOL1_BFOT_LP_CONTRACT,
-    decimal: [10, 6]
+    decimal: [10, 6],
   },
   {
     pool_contract: PUBLIC_POOL2_SFOT_POOL3_CONTRACT,
     staking_contract: PUBLIC_POOL3_STAKING_CONTRACT,
     token1_contract: PUBLIC_SFOT_CONTRACT,
     lp_contract: PUBLIC_POOL2_SFOT_LP_CONTRACT,
-    decimal: [10, 6]
+    decimal: [10, 6],
   },
   {
     pool_contract: PUBLIC_POOL3_UST_POOL4_CONTRACT,
     staking_contract: PUBLIC_POOL4_STAKING_CONTRACT,
     token1_contract: ust_denom,
     lp_contract: PUBLIC_POOL3_UST_LP_CONTRACT,
-    decimal: [6, 6]
+    decimal: [6, 6],
   },
   {
     pool_contract: PUBLIC_POOL4_JUNO_POOL5_CONTRACT,
     staking_contract: PUBLIC_POOL5_STAKING_CONTRACT,
     token1_contract: 'ujuno',
     lp_contract: PUBLIC_POOL4_JUNO_LP_CONTRACT,
-    decimal: [6, 6]
+    decimal: [6, 6],
   },
   {
     pool_contract: PUBLIC_POOL5_ATOM_POOL6_CONTRACT,
     staking_contract: PUBLIC_POOL6_STAKING_CONTRACT,
     token1_contract: atom_denom,
     lp_contract: PUBLIC_POOL5_ATOM_LP_CONTRACT,
-    decimal: [6, 6]
+    decimal: [6, 6],
   },
   {
     pool_contract: PUBLIC_POOL6_GFOT_POOL7_CONTRACT,
     staking_contract: PUBLIC_POOL7_STAKING_CONTRACT,
     token1_contract: PUBLIC_GFOT_CONTRACT,
     lp_contract: PUBLIC_POOL6_GFOT_LP_CONTRACT,
-    decimal: [10, 6]
+    decimal: [10, 6],
   },
   {
     pool_contract: PUBLIC_POOL7_FOT_POOL8_CONTRACT,
     staking_contract: PUBLIC_POOL8_STAKING_CONTRACT,
     token1_contract: PUBLIC_FOT_CONTRACT,
     lp_contract: PUBLIC_POOL7_FOT_LP_CONTRACT,
-    decimal: [10, 6]
-  }
+    decimal: [10, 6],
+  },
 ]
 // End Dungeon
 
@@ -396,13 +396,48 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   const [pool6LpGfotLpBalance, SetPool6LpGfotLpBalance] = useState(0)
   const [pool7LpFotLpBalance, SetPool7LpFotLpBalance] = useState(0)
 
-  const [pool1LpBfotLpTokenInfo, SetPool1LpBfotLpTokenInfo] = useState({ name: '', symbol: '', decimals: 6, total_supply: 0 })
-  const [pool2LpSfotLpTokenInfo, SetPool2LpSfotLpTokenInfo] = useState({ name: '', symbol: '', decimals: 6, total_supply: 0 })
-  const [pool3LpUstLpTokenInfo, SetPool3LpUstLpTokenInfo] = useState({ name: '', symbol: '', decimals: 6, total_supply: 0 })
-  const [pool4LpJunoLpTokenInfo, SetPool4LpJunoLpTokenInfo] = useState({ name: '', symbol: '', decimals: 6, total_supply: 0 })
-  const [pool5LpAtomLpTokenInfo, SetPool5LpAtomLpTokenInfo] = useState({ name: '', symbol: '', decimals: 6, total_supply: 0 })
-  const [pool6LpGfotLpTokenInfo, SetPool6LpGfotLpTokenInfo] = useState({ name: '', symbol: '', decimals: 6, total_supply: 0 })
-  const [pool7LpFotLpTokenInfo, SetPool7LpFotLpTokenInfo] = useState({ name: '', symbol: '', decimals: 6, total_supply: 0 })
+  const [pool1LpBfotLpTokenInfo, SetPool1LpBfotLpTokenInfo] = useState({
+    name: '',
+    symbol: '',
+    decimals: 6,
+    total_supply: 0,
+  })
+  const [pool2LpSfotLpTokenInfo, SetPool2LpSfotLpTokenInfo] = useState({
+    name: '',
+    symbol: '',
+    decimals: 6,
+    total_supply: 0,
+  })
+  const [pool3LpUstLpTokenInfo, SetPool3LpUstLpTokenInfo] = useState({
+    name: '',
+    symbol: '',
+    decimals: 6,
+    total_supply: 0,
+  })
+  const [pool4LpJunoLpTokenInfo, SetPool4LpJunoLpTokenInfo] = useState({
+    name: '',
+    symbol: '',
+    decimals: 6,
+    total_supply: 0,
+  })
+  const [pool5LpAtomLpTokenInfo, SetPool5LpAtomLpTokenInfo] = useState({
+    name: '',
+    symbol: '',
+    decimals: 6,
+    total_supply: 0,
+  })
+  const [pool6LpGfotLpTokenInfo, SetPool6LpGfotLpTokenInfo] = useState({
+    name: '',
+    symbol: '',
+    decimals: 6,
+    total_supply: 0,
+  })
+  const [pool7LpFotLpTokenInfo, SetPool7LpFotLpTokenInfo] = useState({
+    name: '',
+    symbol: '',
+    decimals: 6,
+    total_supply: 0,
+  })
 
   const [pool1LpBfotPoolInfo, setPool1LpBfotPoolInfo] = useState({
     token1_reserve: 0,
@@ -918,7 +953,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       // apr formula is 365xdpr
       setgFotStakingApy(
         (365 * 100 * 30.0) /
-        Number(convertMicroDenomToDenom2(gfotStakingContractInfo.gfot_amount, objectGfotTokenInfo.decimals)),
+          Number(convertMicroDenomToDenom2(gfotStakingContractInfo.gfot_amount, objectGfotTokenInfo.decimals)),
       )
 
       const gfotStakingMyInfo = await signingClient.queryContractSmart(PUBLIC_GFOTSTAKING_CONTRACT, {
@@ -1066,7 +1101,6 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       })
       setSfotAtomLpStakingContractInfo(sfotAtomLpStakingContractInfo)
 
-
       const bFot2JunoPriceInfo = await signingClient.queryContractSmart(PUBLIC_BFOT_JUNO_POOL_CONTRACT, {
         token2_for_token1_price: { token2_amount: '10000000000' },
       })
@@ -1163,7 +1197,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       SetSfotAtomLpBalance(sfotAtomLpBalance.balance)
 
       // ================== For Dungeon ==================
-      // pool2: pool1-bfot 
+      // pool2: pool1-bfot
       const pool2Info = await signingClient.queryContractSmart(PUBLIC_POOL1_BFOT_POOL2_CONTRACT, {
         info: {},
       })
@@ -1992,8 +2026,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   }
 
   const createUnstake = async () => {
-    if (unstakeAmount == 0)
-      return
+    if (unstakeAmount == 0) return
     setLoading(true)
 
     try {
@@ -2121,7 +2154,6 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   }
 
   const executeClearance = async () => {
-
     setLoading(true)
     try {
       await signingClient?.execute(
@@ -2278,7 +2310,8 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         }
         token1 = new_token1
       }
-    } else { // dungeon
+    } else {
+      // dungeon
       if (fix == 1) {
         //changed token1amount  token1: token2_reverve, token2: token1_reserve
         let new_token2 = (token1 * poolInfo.token1_reserve) / poolInfo.token2_reserve
@@ -2621,14 +2654,10 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       let funds = []
       if (asset == 0 || asset == 3 || asset == 4) {
         if (!swapToken1) {
-          if (asset == 0)
-            funds = [coin(token1, ust_denom)]
-          else if (asset == 3)
-            funds = [coin(token1, 'ujuno')]
-          else if (asset == 4)
-            funds = [coin(token1, atom_denom)]
-        }
-        else {
+          if (asset == 0) funds = [coin(token1, ust_denom)]
+          else if (asset == 3) funds = [coin(token1, 'ujuno')]
+          else if (asset == 4) funds = [coin(token1, atom_denom)]
+        } else {
           const jsonmsg = {
             increase_allowance: {
               amount: `${token1}`,
@@ -3141,14 +3170,10 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       let funds = []
       if (asset == 3 || asset == 4 || asset == 5) {
         if (swapToken1) {
-          if (asset == 3)
-            funds = [coin(token1, ust_denom)]
-          else if (asset == 4)
-            funds = [coin(token1, 'ujuno')]
-          else if (asset == 5)
-            funds = [coin(token1, atom_denom)]
-        }
-        else {
+          if (asset == 3) funds = [coin(token1, ust_denom)]
+          else if (asset == 4) funds = [coin(token1, 'ujuno')]
+          else if (asset == 5) funds = [coin(token1, atom_denom)]
+        } else {
           const jsonmsg = {
             increase_allowance: {
               amount: `${token1}`,

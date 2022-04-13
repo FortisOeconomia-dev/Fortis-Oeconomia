@@ -14,7 +14,7 @@ const WalletTitle = styled.label`
   line-height: 48px;
   margin-bottom: 32px;
   margin-top: 0px !important;
-  background-color: ${props => props.slot !== '/gFOTmodule' && 'white !important'};
+  background-color: ${props => props.slot !== '/gFOTmodule' && 'transparent !important'};
 `
 
 const ExpectedValWrapper = styled.label`
@@ -44,7 +44,7 @@ const ToConv = ({ to, expectedAmount, sbalance, maxW, toImage, showBalance }) =>
 
   return (
     <div className="gFotCurrencyt-selection">
-      <WalletTitle slot={pathname} className="wallet-title">
+      <WalletTitle slot={pathname}>
         {toImage && (typeof toImage === 'string' ? <img src={toImage} /> : toImage(toggle))} {to}
       </WalletTitle>
       <ExpectedValWrapper className="wallet-label" slot={maxW}>

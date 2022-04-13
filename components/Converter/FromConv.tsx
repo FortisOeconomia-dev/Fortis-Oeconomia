@@ -14,7 +14,7 @@ const WalletTitle = styled.label`
   font-size: 32px;
   line-height: 48px;
   margin-bottom: 32px;
-  background-color: ${props => props.slot !== '/gFOTmodule' && 'white !important'};
+  background-color: ${props => props.slot !== '/gFOTmodule' && 'transparent !important'};
 `
 
 const MaxButton = styled.span`
@@ -44,7 +44,7 @@ const FromConv = ({
 
   return (
     <div className="gFotCurrencyt-selection" style={{ maxWidth: maxW }}>
-      <WalletTitle slot={pathname} className="wallet-title" defaultChecked={fromImage}>
+      <WalletTitle slot={pathname} defaultChecked={fromImage}>
         {fromImage && (typeof fromImage === 'string' ? <img src={fromImage} /> : fromImage(toggle))} {from}
       </WalletTitle>
       <InputWithIncDec

@@ -1,4 +1,4 @@
-import { useEffect, useState, MouseEvent, ChangeEvent } from 'react'
+import { useEffect, useState, MouseEvent, ChangeEvent, useContext } from 'react'
 import TextField from '@mui/material/TextField'
 import { NotificationContainer, NotificationManager } from 'react-notifications'
 import 'react-notifications/lib/notifications.css'
@@ -20,6 +20,7 @@ import {
 
 import Converter from '../components/Converter'
 import StatisticBox from '../components/StatisticBox'
+import ThemeContext from '../contexts/ThemeContext'
 
 //styled components
 const Wrapper = styled.div`
@@ -83,6 +84,12 @@ const burnmodule = () => {
     getBfotBalances,
     updateInterval,
   } = useSigningClient()
+
+  const { setTheme } = useContext(ThemeContext)
+
+  useEffect(() => {
+    setTheme('theme1')
+  }, [])
 
   useEffect(() => {
     if (!signingClient || walletAddress.length === 0) {

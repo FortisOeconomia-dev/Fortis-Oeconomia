@@ -44,6 +44,14 @@ const TotalStakedText = styled.label`
   margin: 0 !important;
   font-size: 16px;
 `
+const DPRText = styled('label')<{ visible: boolean }>`
+  width: unset !important;
+  border-bottom: 0px !important;
+  margin: 0 !important;
+  font-size: 16px;
+  visibility: ${props => (props.visible ? 'initial' : 'hidden')};
+  height: ${props => (props.visible ? 'initial' : '0')}
+`
 
 const StakedValue = styled.span`
   font-size: 16px;
@@ -65,7 +73,6 @@ const MyStakedContent = styled.div`
   align-items: center;
   flex-direction: column;
   height: 100%;
-  justify-content: space-between;
 `
 
 const MyStakedText = styled.label`
@@ -112,9 +119,19 @@ const MyRewardsMiddle = styled('div')<{ visible: boolean }>`
   padding-bottom: 1px;
   padding-top: 16px;
   border-bottom: ${props => (props.visible ? '2.05843px solid #2e0752' : '0')};
+  padding-bottom: 20px;
+`
+const Tourch = styled('img')<{ visible: boolean}>`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 10px;
+  visibility: ${props => (props.visible ? 'initial' : 'hidden')};
+  height: ${props => (props.visible ? 'initial' : '0')};
 `
 
 const StakeNClaimSecond = ({
+  middletext = 'My Liquidity',
   token1TotalAmount,
   token2TotalAmount,
 
@@ -149,14 +166,17 @@ const StakeNClaimSecond = ({
   sfotbfotdpr,
   showEpochReward,
   showDPRInfoIcon,
+  showDPR,
   showLpAmount,
   maxWidth,
   showStakeForm,
   showMaxButtonInLiquidityForm,
   showStakeAllButton,
   showUnstakeAllButton,
+  lpfetchunstake,
   unstakeButtonText,
   showClaimForm,
+  showTorch,
 }) => {
   const [values, setValues] = useState([50])
   const { toggle } = useContext(ToggleContext)
@@ -170,12 +190,12 @@ const StakeNClaimSecond = ({
           <TotalStakedText className="wallet-label" style={{ textAlign: 'center' }}>
             Total Assets in Pool
           </TotalStakedText>
-          {showEpochReward && (
+{/*           {showEpochReward && (
             <TotalStakedText className="wallet-label" style={{ fontSize: '18px' }}>
               Epoch Reward
               <StakedValue> {0}</StakedValue>
             </TotalStakedText>
-          )}
+          )} */}
           <TotalStakedText className="wallet-label">
             {from}
             <StakedValue> {token1TotalAmount}</StakedValue>
@@ -184,7 +204,7 @@ const StakeNClaimSecond = ({
             {to}
             <StakedValue> {token2TotalAmount}</StakedValue>
           </TotalStakedText>
-          <TotalStakedText className="wallet-label" style={{ fontSize: '18px' }}>
+          <DPRText visible={showDPR} className="wallet-label" style={{ fontSize: '18px' }}>
             DPR
             {showDPRInfoIcon ? (
               <>
@@ -194,7 +214,7 @@ const StakeNClaimSecond = ({
             ) : (
               <StakedValue>{sfotbfotdpr} %</StakedValue>
             )}
-          </TotalStakedText>
+          </DPRText>
         </div>
         <div>
           <div
@@ -325,54 +345,10 @@ const StakeNClaimSecond = ({
       </TotalStaked>
       <MyStaked>
         <MyStakedContent className="wallet-text">
-          <MyRewardsUp visible={showStakeForm}>
-            <div
-              className="gFotCurrencyt-selection"
-              style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '10px' }}
-            >
-              <MyStakedDescription
-                className="wallet-label"
-                style={{ fontSize: '18px', height: 'unset', textAlign: 'left' }}
-              >
-                {from}
-              </MyStakedDescription>
-              <InputWithIncDec handleBurnMinus={null} burnAmount={0} onBurnChange={null} handleBurnPlus={null} />
-            </div>
-            <div
-              className="gFotCurrencyt-selection"
-              style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '10px' }}
-            >
-              <MyStakedDescription
-                className="wallet-label"
-                style={{ fontSize: '18px', height: 'unset', textAlign: 'left' }}
-              >
-                {to}
-              </MyStakedDescription>
-              <InputWithIncDec
-                handleBurnMinus={null}
-                burnAmount={0}
-                onBurnChange={null}
-                handleBurnPlus={null}
-              />
-            </div>
-            {showMaxButtonInLiquidityForm && (
-                <button
-                  className={`default-btn ${!toggle && 'secondary-btn outlined'}`}
-                  style={{ minWidth: 'unset', padding: '8px 30px',}}
-                  onClick={() => console.log('here')}
-                >
-                  Max
-                </button>
-              )}
-            <button className={`default-btn  ${!toggle && 'secondary-btn'}`} style={{ marginTop: '36px'}}>
-              Stake
-            </button>
-
-          </MyRewardsUp>
           <MyRewardsMiddle visible={showClaimForm}>
             <div>
               <MyStakedText className="wallet-label" style={{ textAlign: 'center' }}>
-                My Liquidity
+                {middletext}
               </MyStakedText>
               <MyStakedText className="wallet-label">
                 {from}
@@ -424,7 +400,7 @@ const StakeNClaimSecond = ({
                 </button>
               )}
             </div>
-            <div style={{ overflowY: 'auto' }}>
+            {lpfetchunstake && (<div style={{ overflowY: 'auto' }}>
               <table className="w-full">
                 {lpStakingMyUnstakingList.length > 0 && (
                   <tr>
@@ -438,6 +414,7 @@ const StakeNClaimSecond = ({
                     {/* <td>{convertMicroDenomToDenom2(d[0], gfotTokenInfo.decimals)}</td> */}
                     <td>{moment(new Date(Number(d[1]) * 1000)).format('YYYY/MM/DD HH:mm:ss')}</td>
                     <td>
+                
                       <button
                         className={`default-btn  ${!toggle && 'secondary-btn'}`}
                         style={{ minWidth: 'unset', padding: '3px 30px' }}
@@ -445,9 +422,11 @@ const StakeNClaimSecond = ({
                       >
                         Fetch Unstake
                       </button>
+                
                     </td>
                   </tr>
                 ))}
+                
               </table>
               {/* <table className="w-full">
                                 {lpStakingMyUnstakingList > 0 && <tr>
@@ -466,8 +445,10 @@ const StakeNClaimSecond = ({
 
                             </table> */}
             </div>
+            )}
             {/*                         <MyStakedText className="wallet-label" style={{ textAlign: 'center', fontSize:"16px" }}>Unbonding period is 14 days</MyStakedText> */}
           </MyRewardsMiddle>
+          <Tourch visible={showTorch} src={`/images/torch.png`}/>
           <MyReward visible={showClaimForm} className="w-full">
             <MyStakedText className="wallet-label">
               My Rewards
