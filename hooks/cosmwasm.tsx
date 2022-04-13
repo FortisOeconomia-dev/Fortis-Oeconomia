@@ -1013,6 +1013,21 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   const getSfotBalances = async () => {
     setLoading(true)
     try {
+      //FOT balance and info
+      const objectFotTokenInfo: JsonObject = await signingClient.queryContractSmart(PUBLIC_FOT_CONTRACT, {
+        token_info: {},
+      })
+      setFotTokenInfo(objectFotTokenInfo)
+
+      const objectFot: JsonObject = await signingClient.queryContractSmart(PUBLIC_FOT_CONTRACT, {
+        balance: { address: walletAddress },
+      })
+
+      SetFotBalance(parseInt(objectFot.balance) / Math.pow(10, objectFotTokenInfo.decimals))
+      SetFotBalanceStr(
+        parseInt(objectFot.balance) / Math.pow(10, objectFotTokenInfo.decimals) + ' ' + objectFotTokenInfo.symbol,
+      )
+      
       //BFOT balance and info
       const objectBfotTokenInfo: JsonObject = await signingClient.queryContractSmart(PUBLIC_BFOT_CONTRACT, {
         token_info: {},

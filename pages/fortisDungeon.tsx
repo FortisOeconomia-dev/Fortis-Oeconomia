@@ -89,7 +89,6 @@ const fortisDungeon = () => {
     calcExpectedSwapAmountForDungeon,
     swapAmount,
     setSwapAmount,
-    getBfotBalances,
     getSfotBalances,
     updateInterval,
   } = useSigningClient()
@@ -100,7 +99,6 @@ const fortisDungeon = () => {
     if (!signingClient || walletAddress.length === 0) {
       return
     }
-    getBfotBalances()
     getSfotBalances()
   }, [signingClient, walletAddress])
 
