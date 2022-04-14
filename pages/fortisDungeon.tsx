@@ -119,6 +119,7 @@ const fortisDungeon = () => {
   }, [])
 
   const [seconds, setSeconds] = useState(0)
+  const [asset, setAsset] = useState(0)
 
   useEffect(() => {
     let interval = null
@@ -131,8 +132,9 @@ const fortisDungeon = () => {
     return () => clearInterval(interval)
   }, [seconds])
 
-  const { toggle,setToggle, asset, setAsset } = useContext(ToggleContext)
+  const { toggle, setToggle } = useContext(ToggleContext)
   const [swapBalance, setSwapBalance] = useState(0)
+
   const onSwapAmountChange = (event: ChangeEvent<HTMLInputElement>) => {
     const {
       target: { value },
