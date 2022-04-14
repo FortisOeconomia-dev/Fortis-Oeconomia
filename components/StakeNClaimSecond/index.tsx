@@ -6,6 +6,10 @@ import { ToggleContext } from '../Layout/Layout'
 import moment from 'moment'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 
+import {
+  convertMicroDenomToDenom2,
+} from '../../util/conversion'
+
 const Wrapper = styled('div')<{ maxWidth: string }>`
   padding: 50px 32px;
   background: rgba(255, 255, 255, 0.25);
@@ -413,14 +417,14 @@ const StakeNClaimSecond = ({
               <table className="w-full">
                 {lpStakingMyUnstakingList.length > 0 && (
                   <tr>
-                    {/* <th>Amount</th> */}
+                    <th>Amount</th>
                     <th>Release date</th>
                     <th>Action</th>
                   </tr>
                 )}
                 {lpStakingMyUnstakingList.map((d, idx) => (
                   <tr key={`${idx}-unstakelp`}>
-                    {/* <td>{convertMicroDenomToDenom2(d[0], gfotTokenInfo.decimals)}</td> */}
+                    <td>{convertMicroDenomToDenom2(d[0], 6)}</td>
                     <td>{moment(new Date(Number(d[1]) * 1000)).format('YYYY/MM/DD HH:mm:ss')}</td>
                     <td>
                 
