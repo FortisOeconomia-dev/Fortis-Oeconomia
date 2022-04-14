@@ -3323,10 +3323,12 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       }
 
       if (lpStakingInfo.gfot_amount > 0 && response.last_time > 0) {
-        let delay = Math.floor(new Date().getTime() / 1000 / 86400) - Math.floor(response.last_time / 86400)
+        let delay = Math.floor((new Date().getTime() / 1000 + 43200) / 86400) - Math.floor((response.last_time + 43200)/ 86400)
         staked_reward +=
           ((delay > 0 ? delay : 0) * lpStakingInfo.daily_fot_amount * staked_amount) / lpStakingInfo.gfot_amount
       }
+
+      return { lp_token_address, staking_contract, staked_amount, unstakingList, lp_amount, staked_reward }
     }
 
     return { lp_token_address, staking_contract, staked_amount, unstakingList, lp_amount, staked_reward }
