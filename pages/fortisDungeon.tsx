@@ -21,14 +21,16 @@ import {
   lp6Image,
   lp7Image,
 } from '../util/tokenImageUtils'
-import styles from '../styles/fortisDungeon.module.scss'
+import {
+  convertMicroDenomToDenom2,
+} from '../util/conversion'
 import ThemeContext from '../contexts/ThemeContext'
 
 //styled components
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;
-  padding: 40px 0;
+  padding: 90px 0;
   display: flex;
   align-items: flex-start;
   flex: 1;
@@ -69,14 +71,33 @@ const fortisDungeon = () => {
     signingClient,
     nativeBalance,
     atomBalance,
+    fotBalance,
     bfotBalance,
     gfotBalance,
     sfotBalance,
     ustBalance,
+    sfotBfotLpBalance,
+    pool1LpBfotLpBalance,
+    pool2LpSfotLpBalance,
+    pool3LpUstLpBalance,
+    pool4LpJunoLpBalance,
+    pool5LpAtomLpBalance,
+    pool6LpGfotLpBalance,
+    pool7LpFotLpBalance,
+    sfotBfotLpTokenInfo,
+    pool1LpBfotLpTokenInfo,
+    pool2LpSfotLpTokenInfo,
+    pool3LpUstLpTokenInfo,
+    pool4LpJunoLpTokenInfo,
+    pool5LpAtomLpTokenInfo,
+    pool6LpGfotLpTokenInfo,
+    pool7LpFotLpTokenInfo,
     swapToken1,
     expectedToken2Amount,
     executeSwap,
     calcExpectedSwapAmount,
+    executeSwapForDungeon,
+    calcExpectedSwapAmountForDungeon,
     swapAmount,
     setSwapAmount,
     getSfotBalances,
@@ -91,6 +112,11 @@ const fortisDungeon = () => {
     }
     getSfotBalances()
   }, [signingClient, walletAddress])
+
+  // only pool3 and pool8
+  useEffect(() => {
+    // setAsset(2)
+  }, [])
 
   const [seconds, setSeconds] = useState(0)
   const [asset, setAsset] = useState(0)
@@ -107,7 +133,8 @@ const fortisDungeon = () => {
   }, [seconds])
 
   const { toggle, setToggle } = useContext(ToggleContext)
-  const [swapBalance, setSwapBalance] = useState(sfotBalance)
+  const [swapBalance, setSwapBalance] = useState(0)
+
   const onSwapAmountChange = (event: ChangeEvent<HTMLInputElement>) => {
     const {
       target: { value },
@@ -132,7 +159,7 @@ const fortisDungeon = () => {
   }
 
   const handleSwap = () => {
-    executeSwap(asset)
+    executeSwapForDungeon(asset)
   }
 
   const [swapBalances, setSwapBalances] = useState([0, 0])
@@ -140,7 +167,7 @@ const fortisDungeon = () => {
   useEffect(() => {
     if (toggle) setToggle(false)
   }, [toggle])
-  
+
   useEffect(() => {
     setTheme('theme' + (asset + 2))
   }, [asset])
@@ -148,25 +175,40 @@ const fortisDungeon = () => {
   useEffect(() => {
     let balances = []
     setSwapAmount(0)
-    setSwapBalance(sfotBalance)
-    if (asset == 0) balances = [sfotBalance, ustBalance]
-    else if (asset == 1) balances = [sfotBalance, bfotBalance]
-    else if (asset == 2) balances = [sfotBalance, gfotBalance]
-    else if (asset == 3) balances = [sfotBalance, nativeBalance]
-    else if (asset == 4) balances = [sfotBalance, atomBalance]
+    setSwapBalance(0)
 
+    if (asset == 0) balances = [bfotBalance, sfotBalance]
+    else if (asset == 1) balances = [bfotBalance, convertMicroDenomToDenom2(sfotBfotLpBalance, sfotBfotLpTokenInfo.decimals)]
+    else if (asset == 2) balances = [sfotBalance, convertMicroDenomToDenom2(pool1LpBfotLpBalance, pool1LpBfotLpTokenInfo.decimals)]
+    else if (asset == 3) balances = [ustBalance, convertMicroDenomToDenom2(pool2LpSfotLpBalance, pool2LpSfotLpTokenInfo.decimals)]
+    else if (asset == 4) balances = [nativeBalance, convertMicroDenomToDenom2(pool3LpUstLpBalance, pool3LpUstLpTokenInfo.decimals)]
+    else if (asset == 5) balances = [atomBalance, convertMicroDenomToDenom2(pool4LpJunoLpBalance, pool4LpJunoLpTokenInfo.decimals)]
+    else if (asset == 6) balances = [gfotBalance, convertMicroDenomToDenom2(pool5LpAtomLpBalance, pool5LpAtomLpTokenInfo.decimals)]
+    else if (asset == 7) balances = [fotBalance, convertMicroDenomToDenom2(pool6LpGfotLpBalance, pool6LpGfotLpTokenInfo.decimals)]
+
+    // console.log(`[j]===> fotbalance: ${fotBalance}, lp7balance: ${pool6LpGfotLpBalance}` )
     setSwapBalances(balances)
     if (swapToken1) {
       setSwapBalance(balances[0])
     } else {
       setSwapBalance(balances[1])
     }
-  }, [asset, sfotBalance, swapToken1, sfotBalance, ustBalance, bfotBalance, gfotBalance, atomBalance, nativeBalance])
+  }, [asset, fotBalance, sfotBalance, swapToken1, ustBalance, bfotBalance, gfotBalance, atomBalance, nativeBalance,
+    sfotBfotLpBalance,
+    pool1LpBfotLpBalance,
+    pool2LpSfotLpBalance,
+    pool3LpUstLpBalance,
+    pool4LpJunoLpBalance,
+    pool5LpAtomLpBalance,
+    pool6LpGfotLpBalance,
+    pool7LpFotLpBalance,
+  ])
 
   useEffect(() => {
     if (!signingClient || walletAddress == '') return
 
-    calcExpectedSwapAmount(asset)
+    calcExpectedSwapAmountForDungeon(asset)
+
   }, [swapAmount, signingClient, walletAddress])
 
   const assets = [
@@ -177,8 +219,14 @@ const fortisDungeon = () => {
       toImage: sFOTImage(toggle),
       showMaxButton: false,
       showUnstakeAllButton: false,
+      lpfetchunstake:false,
       level: 1,
       showTorch: true,
+      showStakeAllButton:false,
+      showLpAmount:false,
+      showDPR:false,
+      showClaimForm: false,
+      showReward:false,
     },
     {
       from: 'bFOT',
@@ -187,8 +235,14 @@ const fortisDungeon = () => {
       toImage: lp1Image(toggle),
       showMaxButton: false,
       showUnstakeAllButton: false,
+      lpfetchunstake:false,
+      showStakeAllButton:false,
       level: 2,
       showTorch: true,
+      showLpAmount:false,
+      showDPR:false,
+      showClaimForm: false,
+      showReward:false,
     },
     {
       from: 'sFOT',
@@ -201,6 +255,10 @@ const fortisDungeon = () => {
       showClaimForm: true,
       level: 3,
       showDPR:true,
+      showStakeAllButton:true,
+      showLpAmount:true,
+      lpfetchunstake:true,
+      showReward:true,
     },
     {
       from: 'UST',
@@ -209,8 +267,14 @@ const fortisDungeon = () => {
       toImage: lp3Image(toggle),
       showMaxButton: false,
       showUnstakeAllButton: false,
+      showStakeAllButton:false,
       level: 4,
       showTorch: true,
+      showLpAmount:false,
+      lpfetchunstake:false,
+      showDPR:false,
+      showClaimForm: false,
+      showReward:false,
     },
     {
       from: 'JUNO',
@@ -219,8 +283,14 @@ const fortisDungeon = () => {
       toImage: lp4Image(toggle),
       showMaxButton: false,
       showUnstakeAllButton: false,
+      showStakeAllButton:false,
       level: 5,
       showTorch: true,
+      showLpAmount:false,
+      lpfetchunstake:false,
+      showDPR:false,
+      showClaimForm: false,
+      showReward:false,
     },
     {
       from: 'ATOM',
@@ -229,8 +299,14 @@ const fortisDungeon = () => {
       toImage: lp5Image(toggle),
       showMaxButton: false,
       showUnstakeAllButton: false,
+      showStakeAllButton:false,
       level: 6,
       showTorch: true,
+      showLpAmount:false,
+      lpfetchunstake:false,
+      showDPR:false,
+      showClaimForm: false,
+      showReward:false,
     },
     {
       from: 'gFOT',
@@ -239,8 +315,14 @@ const fortisDungeon = () => {
       toImage: lp6Image(toggle),
       showMaxButton: false,
       showUnstakeAllButton: false,
+      showStakeAllButton:false,
       level: 7,
       showTorch: true,
+      showLpAmount:false,
+      lpfetchunstake:false,
+      showDPR:false,
+      showClaimForm: false,
+      showReward:false,
     },
     {
       from: 'FOT',
@@ -253,11 +335,15 @@ const fortisDungeon = () => {
       showClaimForm: true,
       level: 8,
       showDPR:true,
+      showStakeAllButton:true,
+      showLpAmount:true,
+      lpfetchunstake:true,
+      showReward:true,
    },
   ]
 
   return (
-    <Wrapper className={styles.wrapper} defaultChecked={toggle}>
+    <Wrapper defaultChecked={toggle}>
       <Assets>
         <Title>Assets</Title>
         {assets.map((item, index) => (
@@ -268,6 +354,7 @@ const fortisDungeon = () => {
             fromImage={item.fromImage}
             toImage={item.toImage}
             onClick={() => setAsset(index)}
+            // onClick={() => { if (index == 2 || index == 7) setAsset(index)}}
             isActive={asset === index}
             imagesPosition="top"
             level={item.level}
@@ -275,7 +362,7 @@ const fortisDungeon = () => {
         ))}
       </Assets>
       <PoolDetail
-        asset={asset}
+        asset={asset + 10}
         from={assets[asset].from}
         to={assets[asset].to}
         fromImage={assets[asset].fromImage}
@@ -283,15 +370,18 @@ const fortisDungeon = () => {
         level={asset + 1}
         showEpochReward={true}
         showDPR={assets[asset].showDPR}
-        showLpAmount={false}
+        showLpAmount={assets[asset].showLpAmount}
         showTorch={assets[asset].showTorch}
         maxWidth={'none'}
         showStakeForm={assets[asset].showStakeForm}
         showClaimForm={assets[asset].showClaimForm}
+        showReward={assets[asset].showReward}
         showMaxButtonInLiquidityForm={assets[asset].showMaxButton}
-        showStakeAllButton={false}
+        showStakeAllButton={assets[asset].showStakeAllButton}
         showUnstakeAllButton={assets[asset].showUnstakeAllButton}
+        lpfetchunstake={assets[asset].lpfetchunstake}
         unstakeButtonText="Unstake"
+        middletext='My Liquidity'
       />
       <ConverterContainer>
         <Converter
@@ -339,7 +429,7 @@ const fortisDungeon = () => {
           handleChange={handleSwapMax}
           sbalance={swapBalances[1]}
           submitTitle="Swap"
-          showBalance={false}
+          showBalance={true}
         />
       </ConverterContainer>
     </Wrapper>

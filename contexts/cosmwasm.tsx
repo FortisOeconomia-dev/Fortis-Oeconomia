@@ -138,6 +138,49 @@ let { Provider } = (CosmWasmContext = createContext<ISigningCosmWasmClientContex
   getCommonBalances: () => {},
   getWalletBalances: () => {},
   updateInterval: 0,
+
+  // dungeon
+  executeAddLiquidityForDungeon: () => {},
+  executeRemoveLiquidityForDungeon: () => {},
+  calcExpectedSwapAmountForDungeon: () => {},
+  executeSwapForDungeon: () => {},
+  getLpStakingInfoForDungeon: () => {},
+  executeLpStakeAllForDungeon: () => {},
+  executeLpClaimRewardForDungeon: () => {},
+  executeLpCreateUnstakeForDungeon: () => {},
+  executeLpFetchUnstakeForDungeon: () => {},
+
+  pool1LpBfotLpBalance: 0,
+  pool2LpSfotLpBalance: 0,
+  pool3LpUstLpBalance: 0,
+  pool4LpJunoLpBalance: 0,
+  pool5LpAtomLpBalance: 0,
+  pool6LpGfotLpBalance: 0,
+
+  pool1LpBfotLpTokenInfo: null,
+  pool2LpSfotLpTokenInfo: null,
+  pool3LpUstLpTokenInfo: null,
+  pool4LpJunoLpTokenInfo: null,
+  pool5LpAtomLpTokenInfo: null,
+  pool6LpGfotLpTokenInfo: null,
+  pool7LpFotLpTokenInfo: null,
+
+  pool7LpFotLpBalance: null,
+  pool1LpBfotPoolInfo: null,
+  pool2LpSfotPoolInfo: null,
+  pool3LpUstPoolInfo: null,
+  pool4LpJunoPoolInfo: null,
+  pool5LpAtomPoolInfo: null,
+  pool6LpGfotPoolInfo: null,
+  pool7LpFotPoolInfo: null,
+
+  pool1LpBfotLpStakingContractInfo: null,
+  pool2LpSfotLpStakingContractInfo: null,
+  pool3LpUstLpStakingContractInfo: null,
+  pool4LpJunoLpStakingContractInfo: null,
+  pool5LpAtomLpStakingContractInfo: null,
+  pool6LpGfotLpStakingContractInfo: null,
+  pool7LpFotLpStakingContractInfo: null,
 }))
 
 export const useSigningClient = (): ISigningCosmWasmClientContext => useContext(CosmWasmContext)

@@ -6,6 +6,10 @@ import { ToggleContext } from '../Layout/Layout'
 import moment from 'moment'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 
+import {
+  convertMicroDenomToDenom2,
+} from '../../util/conversion'
+
 const Wrapper = styled('div')<{ maxWidth: string }>`
   padding: 50px 32px;
   background: rgba(255, 255, 255, 0.25);
@@ -59,6 +63,13 @@ const StakedValue = styled.span`
   float: right;
 `
 
+const RewardValue = styled('span')<{ visible: boolean }>`
+  font-size: 16px;
+  display: block;
+  float: right;
+  visibility: ${props => (props.visible ? 'initial' : 'hidden')};
+`
+
 const MyStaked = styled.div`
   display: flex;
   flex-direction: column;
@@ -80,6 +91,7 @@ const MyStakedText = styled.label`
   border-bottom: 0px !important;
   margin: 0 !important;
 `
+
 const MyReward = styled('div')<{ visible: boolean }>`
   width: 100% !important;
   border-bottom: 0px !important;
@@ -131,6 +143,7 @@ const Tourch = styled('img')<{ visible: boolean}>`
 `
 
 const StakeNClaimSecond = ({
+  middletext = 'My Liquidity',
   token1TotalAmount,
   token2TotalAmount,
 
@@ -172,9 +185,11 @@ const StakeNClaimSecond = ({
   showMaxButtonInLiquidityForm,
   showStakeAllButton,
   showUnstakeAllButton,
+  lpfetchunstake,
   unstakeButtonText,
   showClaimForm,
   showTorch,
+  showReward,
 }) => {
   const [values, setValues] = useState([50])
   const { toggle } = useContext(ToggleContext)
@@ -343,54 +358,10 @@ const StakeNClaimSecond = ({
       </TotalStaked>
       <MyStaked>
         <MyStakedContent className="wallet-text">
-          <MyRewardsUp visible={showStakeForm}>
-            <div
-              className="gFotCurrencyt-selection"
-              style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '10px' }}
-            >
-              <MyStakedDescription
-                className="wallet-label"
-                style={{ fontSize: '18px', height: 'unset', textAlign: 'left' }}
-              >
-                {from}
-              </MyStakedDescription>
-              <InputWithIncDec handleBurnMinus={null} burnAmount={0} onBurnChange={null} handleBurnPlus={null} />
-            </div>
-            <div
-              className="gFotCurrencyt-selection"
-              style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '10px' }}
-            >
-              <MyStakedDescription
-                className="wallet-label"
-                style={{ fontSize: '18px', height: 'unset', textAlign: 'left' }}
-              >
-                {to}
-              </MyStakedDescription>
-              <InputWithIncDec
-                handleBurnMinus={null}
-                burnAmount={0}
-                onBurnChange={null}
-                handleBurnPlus={null}
-              />
-            </div>
-            {showMaxButtonInLiquidityForm && (
-                <button
-                  className={`default-btn ${!toggle && 'secondary-btn outlined'}`}
-                  style={{ minWidth: 'unset', padding: '8px 30px',}}
-                  onClick={() => console.log('here')}
-                >
-                  Max
-                </button>
-              )}
-            <button className={`default-btn  ${!toggle && 'secondary-btn'}`} style={{ marginTop: '36px'}}>
-              Stake
-            </button>
-
-          </MyRewardsUp>
           <MyRewardsMiddle visible={showClaimForm}>
             <div>
               <MyStakedText className="wallet-label" style={{ textAlign: 'center' }}>
-                My Liquidity
+                {middletext}
               </MyStakedText>
               <MyStakedText className="wallet-label">
                 {from}
@@ -442,20 +413,21 @@ const StakeNClaimSecond = ({
                 </button>
               )}
             </div>
-            <div style={{ overflowY: 'auto' }}>
+            {lpfetchunstake && (<div style={{ overflowY: 'auto' }}>
               <table className="w-full">
                 {lpStakingMyUnstakingList.length > 0 && (
                   <tr>
-                    {/* <th>Amount</th> */}
+                    <th>Amount</th>
                     <th>Release date</th>
                     <th>Action</th>
                   </tr>
                 )}
                 {lpStakingMyUnstakingList.map((d, idx) => (
                   <tr key={`${idx}-unstakelp`}>
-                    {/* <td>{convertMicroDenomToDenom2(d[0], gfotTokenInfo.decimals)}</td> */}
+                    <td>{convertMicroDenomToDenom2(d[0], 6)}</td>
                     <td>{moment(new Date(Number(d[1]) * 1000)).format('YYYY/MM/DD HH:mm:ss')}</td>
                     <td>
+                
                       <button
                         className={`default-btn  ${!toggle && 'secondary-btn'}`}
                         style={{ minWidth: 'unset', padding: '3px 30px' }}
@@ -463,9 +435,11 @@ const StakeNClaimSecond = ({
                       >
                         Fetch Unstake
                       </button>
+                
                     </td>
                   </tr>
                 ))}
+                
               </table>
               {/* <table className="w-full">
                                 {lpStakingMyUnstakingList > 0 && <tr>
@@ -484,13 +458,14 @@ const StakeNClaimSecond = ({
 
                             </table> */}
             </div>
+            )}
             {/*                         <MyStakedText className="wallet-label" style={{ textAlign: 'center', fontSize:"16px" }}>Unbonding period is 14 days</MyStakedText> */}
           </MyRewardsMiddle>
           <Tourch visible={showTorch} src={`/images/torch.png`}/>
           <MyReward visible={showClaimForm} className="w-full">
             <MyStakedText className="wallet-label">
               My Rewards
-              <StakedValue> {lpStakingMyReward}</StakedValue>
+              <RewardValue visible={showReward}> {lpStakingMyReward}</RewardValue>
             </MyStakedText>
             <button className={`default-btn ${!toggle && 'secondary-btn'}`} onClick={handleLpStakingReward} style={{display: 'flex', justifyContent:'center', margin:'auto'}}>
               Claim

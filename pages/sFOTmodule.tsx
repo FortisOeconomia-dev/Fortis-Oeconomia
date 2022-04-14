@@ -461,18 +461,6 @@ const sfotmodule = () => {
                 onClick={() => setAsset(4)}
                 isActive={asset === 4}
               />
-
-              <img
-                src="../images/gate1.png"
-                style={{
-                  width: '50%',
-                  height: '50%',
-                  margin: 'auto',
-                  WebkitFilter: 'drop-shadow(16px 16px 20px) invert(0) hue-rotate(-170deg)',
-                  filter: 'drop-shadow(16px 16px 20px) invert(0) hue-rotate(-170deg)',
-                  cursor: 'pointer',
-                }}
-              />
             </PoolsContent>
             <Divider />
           </Pools>
