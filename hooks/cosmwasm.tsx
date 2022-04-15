@@ -2276,7 +2276,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       case 14:
         contract = PUBLIC_POOL4_JUNO_POOL5_CONTRACT
         decimals = [6, 6]
-        token1Balance = junoBalance
+        token1Balance = nativeBalance
         token2Balance = pool3LpUstLpBalance
         poolInfo = pool4LpJunoPoolInfo
         break
