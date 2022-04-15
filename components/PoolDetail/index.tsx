@@ -335,9 +335,12 @@ const PoolDetail = ({
   }
 
   const handleLiquidityMax = async () => {
-    let ret = await handleAddLiquidityValuesChange(asset, token1Balance, token2Balance, 1)
-    setToken1Amount(ret.token1Amount)
-    setToken2Amount(ret.token2Amount)
+    const ret1 = await handleAddLiquidityValuesChange(asset, token1Balance, convertMicroDenomToDenom2(token2Balance, decimals[1]), 1)
+    const ret2 = await handleAddLiquidityValuesChange(asset, token1Balance, convertMicroDenomToDenom2(token2Balance, decimals[1]), 2)
+    const token1Amount = Math.min(ret1.token1Amount, ret2.token1Amount)
+    const token2Amount = Math.min(ret1.token2Amount, ret2.token2Amount)
+    setToken1Amount(token1Amount)
+    setToken2Amount(token2Amount)
   }
 
   const onToken1Change = (event: ChangeEvent<HTMLInputElement>) => {
