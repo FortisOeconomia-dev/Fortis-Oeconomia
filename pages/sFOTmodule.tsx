@@ -143,17 +143,12 @@ const sfotmodule = () => {
     getSfotBalances()
   }, [signingClient, walletAddress])
 
-  const [seconds, setSeconds] = useState(0)
   useEffect(() => {
-    let interval = null
-    if (seconds === 0) {
-      getSfotBalances()
-    }
-    interval = setInterval(() => {
-      setSeconds(seconds => (seconds + 1) % updateInterval)
-    }, 1000)
+    getSfotBalances()
+    const interval = setInterval(() => getSfotBalances(), updateInterval * 1000)
     return () => clearInterval(interval)
-  }, [seconds])
+  }, [])
+
   const { toggle, asset, setAsset, page, setPage } = useContext(ToggleContext)
   const defaultValues0 = [
     {
