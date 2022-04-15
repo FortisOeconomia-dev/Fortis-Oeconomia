@@ -262,7 +262,7 @@ const PoolDetail = ({
       setPoolInfo(pool7LpFotPoolInfo)
       setDecimals([10, 6])
       setToken1Balance(fotBalance)
-      setToken2Balance(pool6LpGfotLpTokenInfo)
+      setToken2Balance(pool6LpGfotLpBalance)
       setLpTokenInfo(pool7LpFotLpTokenInfo)
       setMyLpBalance(pool7LpFotLpBalance)
     }
