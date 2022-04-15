@@ -132,7 +132,14 @@ export const assets = [
     toImage: '/images/atom.png',
   },
 ]
-export const ToggleContext = createContext({ toggle: false, setToggle: null, asset: 0, setAsset: null, page: 0, setPage: null })
+export const ToggleContext = createContext({
+  toggle: false,
+  setToggle: null,
+  asset: 0,
+  setAsset: null,
+  page: 0,
+  setPage: null,
+})
 
 const Layout = ({ children }) => {
   const {
@@ -148,19 +155,16 @@ const Layout = ({ children }) => {
 
   const [rateShow, setRateShow] = useState([])
   const [page, setPage] = useState(0)
-  const [seconds, setSeconds] = useState(0)
   const themeContext = useTheme('theme1')
 
   useEffect(() => {
-    let interval = null
-    if (seconds === 0) {
-      //  getCommonBalances()
-    }
-    interval = setInterval(() => {
-      setSeconds(seconds => (seconds + 1) % updateInterval)
-    }, 1000)
+    // getCommonBalances()
+    const interval = setInterval(() => {
+      // getCommonBalances()
+    }, updateInterval * 1000)
     return () => clearInterval(interval)
-  }, [seconds])
+  }, [])
+
   const [toggle, setToggle] = useState(false)
   useEffect(() => {
     let temp = localStorage.getItem('toggle')
