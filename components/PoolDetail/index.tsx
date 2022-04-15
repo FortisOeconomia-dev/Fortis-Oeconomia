@@ -434,6 +434,11 @@ const PoolDetail = ({
       await executeLpFetchUnstakeForDungeon(lpState, asset - 10)
   }
 
+  useEffect(() => {
+    setToken1Amount(0)
+    setToken2Amount(0)
+  }, [asset])
+
   return (
     <Wrapper>
       <div className="w-full">
