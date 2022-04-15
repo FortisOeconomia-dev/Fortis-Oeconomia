@@ -117,13 +117,6 @@ const fortisDungeon = () => {
   }, [])
 
   const [asset, setAsset] = useState(0)
-
-  useEffect(() => {
-    getSfotBalances()
-    const interval = setInterval(() => getSfotBalances(), updateInterval * 1000)
-    return () => clearInterval(interval)
-  }, [updateInterval])
-
   const { toggle, setToggle } = useContext(ToggleContext)
   const [swapBalance, setSwapBalance] = useState(0)
 

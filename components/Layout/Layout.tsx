@@ -156,15 +156,6 @@ const Layout = ({ children }) => {
   const [rateShow, setRateShow] = useState([])
   const [page, setPage] = useState(0)
   const themeContext = useTheme('theme1')
-
-  useEffect(() => {
-    // getCommonBalances()
-    const interval = setInterval(() => {
-      // getCommonBalances()
-    }, updateInterval * 1000)
-    return () => clearInterval(interval)
-  }, [])
-
   const [toggle, setToggle] = useState(false)
   useEffect(() => {
     let temp = localStorage.getItem('toggle')
