@@ -51,10 +51,10 @@ const PoolDetail = ({
   showStakeAllButton = true,
   showUnstakeAllButton = true,
   lpfetchunstake = true,
-  showReward=true,
+  showReward = true,
   unstakeButtonText = 'Unstake All',
   showClaimForm = true,
-  middletext= 'My Liquidity',
+  middletext = 'My Liquidity',
 }) => {
   const { toggle } = useContext(ToggleContext)
   const {
@@ -141,22 +141,17 @@ const PoolDetail = ({
     pool5LpAtomPoolInfo,
     pool6LpGfotPoolInfo,
     pool7LpFotPoolInfo,
-
   } = useSigningClient()
 
-  const [seconds, setSeconds] = useState(0)
   useEffect(() => {
-    let interval = null
-    if (seconds === 0) {
+    getCommonBalances()
+    getSfotBalances()
+    const interval = setInterval(() => {
       getCommonBalances()
       getSfotBalances()
-      //   getLpStakingInfo(asset)
-    }
-    interval = setInterval(() => {
-      setSeconds(seconds => (seconds + 1) % updateInterval)
-    }, 1000)
+    }, updateInterval * 1000)
     return () => clearInterval(interval)
-  }, [seconds])
+  }, [])
 
   const [poolInfo, setPoolInfo] = useState(null)
   const [decimals, setDecimals] = useState([10, 10])
@@ -381,10 +376,8 @@ const PoolDetail = ({
     if (token1Amount == 0 || token2Amount == 0) return
     event.preventDefault()
 
-    if (asset > 10) 
-      await executeAddLiquidityForDungeon(asset - 10, token1Amount, token2Amount)
-    else 
-      await executeAddLiquidity(asset, token1Amount, token2Amount)
+    if (asset > 10) await executeAddLiquidityForDungeon(asset - 10, token1Amount, token2Amount)
+    else await executeAddLiquidity(asset, token1Amount, token2Amount)
     setToken1Amount(0)
     setToken2Amount(0)
   }
@@ -394,10 +387,8 @@ const PoolDetail = ({
       NotificationManager.error('Please connect wallet first')
       return
     }
-    if (asset <= 10)
-      await executeRemoveLiquidity(asset, value)
-    else 
-      await executeRemoveLiquidityForDungeon(asset - 10, value)
+    if (asset <= 10) await executeRemoveLiquidity(asset, value)
+    else await executeRemoveLiquidityForDungeon(asset - 10, value)
     // setToken1Amount(0)
     // setToken2Amount(0)
   }
@@ -408,30 +399,22 @@ const PoolDetail = ({
   const [lpStakingMyDeadline, setLpStakingMyDeadline] = useState(0)
 
   const handleLpStaking = async () => {
-    if (asset < 10)
-      await executeLpStakeAll(asset)
-    else 
-      await executeLpStakeAllForDungeon(asset - 10)
+    if (asset < 10) await executeLpStakeAll(asset)
+    else await executeLpStakeAllForDungeon(asset - 10)
   }
   const handleLpCreateUnstake = async () => {
-    if (asset < 10)
-      await executeLpCreateUnstake(asset)
-    else 
-      await executeLpCreateUnstakeForDungeon(asset - 10)
+    if (asset < 10) await executeLpCreateUnstake(asset)
+    else await executeLpCreateUnstakeForDungeon(asset - 10)
   }
   const handleLpStakingReward = async () => {
     // if (asset == 2)
     //     return
-    if (asset < 10)
-      await executeLpClaimReward(asset)
-    else
-      await executeLpClaimRewardForDungeon(asset - 10)
+    if (asset < 10) await executeLpClaimReward(asset)
+    else await executeLpClaimRewardForDungeon(asset - 10)
   }
   const handleLpFetchUnstake = async lpState => {
-    if (asset < 10)
-      await executeLpFetchUnstake(lpState, asset)
-    else 
-      await executeLpFetchUnstakeForDungeon(lpState, asset - 10)
+    if (asset < 10) await executeLpFetchUnstake(lpState, asset)
+    else await executeLpFetchUnstakeForDungeon(lpState, asset - 10)
   }
 
   return (
