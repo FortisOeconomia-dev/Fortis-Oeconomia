@@ -2968,7 +2968,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     }
 
     try {
-      let token1 = convertDenomToMicroDenom2(token1Amount, decimals[0]) + 1
+      let token1 = Number(convertDenomToMicroDenom2(token1Amount, decimals[0])) + 1
       let token2 = convertDenomToMicroDenom2(token2Amount, decimals[1])
 
       let msglist = []
