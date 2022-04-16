@@ -2314,17 +2314,20 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         //changed token1amount  token1: token1_reverve, token2: token2_reserve
         let new_token2 = (token1 * poolInfo.token2_reserve) / poolInfo.token1_reserve
         if (new_token2 > token2max) {
-          new_token2 = token2max
-          token1 = (new_token2 * poolInfo.token1_reserve) / poolInfo.token2_reserve
+          token1 = (token2max * poolInfo.token1_reserve) / poolInfo.token2_reserve
+          token2 = token2max
+        } else {
+          token2 = new_token2
         }
-        token2 = new_token2 + 1
+        
       } else {
         let new_token1 = (token2 * poolInfo.token1_reserve) / poolInfo.token2_reserve
         if (new_token1 > token1max) {
-          new_token1 = token1max
-          token2 = (new_token1 * poolInfo.token2_reserve) / poolInfo.token1_reserve + 1
+          token2 = (token1max * poolInfo.token2_reserve) / poolInfo.token1_reserve
+          token1 = token1max
+        } else {
+          token1 = new_token1
         }
-        token1 = new_token1
       }
     } else {
       // dungeon
@@ -2334,15 +2337,16 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         if (new_token2 > token2max) {
           token1 = (token2max * poolInfo.token2_reserve) / poolInfo.token1_reserve
           token2 = token2max
+        } else {
+          token2 = new_token2
         }
-        token2 = new_token2
       } else {
         let new_token1 = (token2 * poolInfo.token2_reserve) / poolInfo.token1_reserve
         if (new_token1 > token1max) {
           token2 = (token1max * poolInfo.token1_reserve) / poolInfo.token2_reserve
           token1 = token1max
         } else {
-          token1 = new_token1 + 1
+          token1 = new_token1
         }
       }
     }
