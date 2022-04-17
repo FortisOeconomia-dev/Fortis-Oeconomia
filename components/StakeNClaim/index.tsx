@@ -12,6 +12,7 @@ import { useContext, MouseEvent, ChangeEvent } from 'react'
 import { ToggleContext } from '../Layout/Layout'
 import { NotificationContainer, NotificationManager } from 'react-notifications'
 import moment from 'moment'
+import Countdown from '../Countdown'
 
 const Wrapper = styled.div`
   padding: 50px 32px;
@@ -185,6 +186,10 @@ const StakeNClaim = ({
             APR
             <StakedValue> {gfotStakingApy.toFixed(10)} %</StakedValue>
           </TotalStakedText>
+          <TotalStakedText className="wallet-label" style={{ fontSize: '18px', paddingBottom: 0 }}>
+            Reward Distribution in
+          </TotalStakedText>
+          <Countdown initialTime={500000000}/>
         </div>
         <div className="gFotCurrencyt-selection">
           <InputWithIncDec
