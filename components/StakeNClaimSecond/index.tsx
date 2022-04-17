@@ -9,6 +9,7 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 import {
   convertMicroDenomToDenom2,
 } from '../../util/conversion'
+import Countdown from '../Countdown'
 
 const Wrapper = styled('div')<{ maxWidth: string }>`
   padding: 50px 32px;
@@ -228,11 +229,15 @@ const StakeNClaimSecond = ({
               <StakedValue>{sfotbfotdpr} %</StakedValue>
             )}
           </DPRText>
+          <TotalStakedText className="wallet-label" style={{ fontSize: '18px' }}>
+            Reward Distribution in
+          </TotalStakedText>
+          <Countdown initialTime={500000000}/>
         </div>
-        <div>
+        <div style={{ width: '100%' }}>
           <div
             className="gFotCurrencyt-selection"
-            style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '10px' }}
+            style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '10px', width: '100%', maxWidth: 'unset' }}
           >
             <span style={{ fontSize: '18px', height: 'unset' }}>
               {from}
@@ -246,7 +251,7 @@ const StakeNClaimSecond = ({
           </div>
           <div
             className="gFotCurrencyt-selection"
-            style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '10px' }}
+            style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '10px', width: '100%', maxWidth: 'unset' }}
           >
             <span style={{ fontSize: '18px', height: 'unset' }}>
               {to}

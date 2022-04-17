@@ -44,6 +44,18 @@ export function convertToFixedDecimals(amount: number | string): string {
   } else return String(amount)
 }
 
+export function convertTimeToHMS(time: number) : any {
+  const sec = time % 60
+  const minTime = Math.floor(time / 60)
+  const min = minTime % 60
+  const hour = Math.floor(minTime / 60)
+  return {
+    hour,
+    min,
+    sec
+  }
+}
+
 export const zeroVotingCoin = {
   amount: '0',
   denom: 'ucredits',
