@@ -173,6 +173,7 @@ const PoolDetail = ({
   const [lpStakingInfo, setLpStakingInfo] = useState(null)
 
   const [lpTokenInfo, setLpTokenInfo] = useState({ name: '', symbol: '', decimals: 6, total_supply: 0 })
+  const [initialTime, setInitialTime] = useState<number | undefined>()
 
   useEffect(() => {
     // if (loading)
@@ -422,6 +423,12 @@ const PoolDetail = ({
   useEffect(() => {
     setToken1Amount(0)
     setToken2Amount(0)
+    if (asset > 4) {
+      // dungeon
+      setInitialTime(700000000)
+    } else {
+      setInitialTime(500000000)
+    }
   }, [asset])
 
   return (
@@ -481,6 +488,7 @@ const PoolDetail = ({
           showClaimForm={showClaimForm}
           showReward={showReward}
           middletext={middletext}
+          initialTime={initialTime}
         />
       </div>
     </Wrapper>
