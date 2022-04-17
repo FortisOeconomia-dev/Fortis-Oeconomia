@@ -177,43 +177,42 @@ const PoolDetail = ({
   useEffect(() => {
     // if (loading)
     //     return
-    setToken1Balance(sfotBalance)
-
+    setToken1Balance(Number(convertDenomToMicroDenom2(sfotBalance, 10)))
     if (asset == 0) {
       setPoolInfo(sfotUstPoolInfo)
       setDecimals([10, 6])
-      setToken2Balance(ustBalance)
+      setToken2Balance(Number(convertDenomToMicroDenom2(ustBalance, 6)))
       setLpTokenInfo(sfotUstLpTokenInfo)
       setMyLpBalance(sfotUstLpBalance)
     } else if (asset == 1) {
       setPoolInfo(sfotBfotPoolInfo)
       setDecimals([10, 10])
-      setToken2Balance(bfotBalance)
+      setToken2Balance(Number(convertDenomToMicroDenom2(bfotBalance, 10)))
       setLpTokenInfo(sfotBfotLpTokenInfo)
       setMyLpBalance(sfotBfotLpBalance)
     } else if (asset == 2) {
       setPoolInfo(sfotGfotPoolInfo)
       setDecimals([10, 10])
-      setToken2Balance(gfotBalance)
+      setToken2Balance(Number(convertDenomToMicroDenom2(gfotBalance, 10)))
       setLpTokenInfo(sfotGfotLpTokenInfo)
       setMyLpBalance(sfotGfotLpBalance)
     } else if (asset == 3) {
       setPoolInfo(sfotJunoPoolInfo)
       setDecimals([10, 6])
-      setToken2Balance(nativeBalance)
+      setToken2Balance(Number(convertDenomToMicroDenom2(nativeBalance, 6)))
       setLpTokenInfo(sfotJunoLpTokenInfo)
       setMyLpBalance(sfotJunoLpBalance)
     } else if (asset == 4) {
       setPoolInfo(sfotAtomPoolInfo)
       setDecimals([10, 6])
-      setToken2Balance(atomBalance)
+      setToken2Balance(Number(convertDenomToMicroDenom2(atomBalance, 6)))
       setLpTokenInfo(sfotAtomLpTokenInfo)
       setMyLpBalance(sfotAtomLpBalance)
     } else if (asset == 10) {
       setPoolInfo(sfotBfotPoolInfo)
       setDecimals([10, 10])
       setToken1Balance(bfotBalance)
-      setToken2Balance(sfotBalance)
+      setToken2Balance(Number(convertDenomToMicroDenom2(sfotBalance, 10)))
       setLpTokenInfo(sfotBfotLpTokenInfo)
       setMyLpBalance(sfotBfotLpBalance)
     } else if (asset == 11) {
