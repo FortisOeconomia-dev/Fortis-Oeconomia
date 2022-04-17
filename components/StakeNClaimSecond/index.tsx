@@ -234,7 +234,7 @@ const StakeNClaimSecond = ({
             className="gFotCurrencyt-selection"
             style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '10px' }}
           >
-            <span className="wallet-label" style={{ fontSize: '18px', height: 'unset' }}>
+            <span style={{ fontSize: '18px', height: 'unset' }}>
               {from}
             </span>
             <InputWithIncDec
@@ -248,7 +248,7 @@ const StakeNClaimSecond = ({
             className="gFotCurrencyt-selection"
             style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '10px' }}
           >
-            <span className="wallet-label" style={{ fontSize: '18px', height: 'unset' }}>
+            <span style={{ fontSize: '18px', height: 'unset' }}>
               {to}
             </span>
             <InputWithIncDec
