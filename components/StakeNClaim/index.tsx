@@ -58,6 +58,14 @@ const TotalStakedText = styled.label`
   font-size: 16px;
 `
 
+const CountdownText = styled.label`
+  width: unset !important;
+  border-bottom: 0px !important;
+  font-size: 16px;
+  margin: 0 !important;
+  text-align: center;
+`
+
 const StakedValue = styled.span`
   font-size: 16px;
   display: block;
@@ -186,9 +194,9 @@ const StakeNClaim = ({
             APR
             <StakedValue> {gfotStakingApy.toFixed(10)} %</StakedValue>
           </TotalStakedText>
-          <TotalStakedText className="wallet-label" style={{ fontSize: '18px', paddingBottom: 0 }}>
+          <CountdownText className="wallet-label" style={{ fontSize: '18px', paddingBottom: 0 }}>
             Reward Distribution in
-          </TotalStakedText>
+          </CountdownText>
           <Countdown initialTime={500000000}/>
         </div>
         <div className="gFotCurrencyt-selection">
