@@ -44,7 +44,8 @@ export function convertToFixedDecimals(amount: number | string): string {
   } else return String(amount)
 }
 
-export function convertTimeToHMS(time: number) : any {
+export function convertTimeToHMS(time: number | undefined) : any {
+  if (!time) return null
   const sec = time % 60
   const minTime = Math.floor(time / 60)
   const min = minTime % 60

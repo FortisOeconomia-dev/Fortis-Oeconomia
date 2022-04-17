@@ -29,8 +29,8 @@ const StyledDiv = styled.div`
   min-width: 35px;
   text-align: center;
 `
-const Countdown = ({ initialTime = 100000000 }) => {
-  const [time, setTime] = useState<number>(initialTime / 1000)
+const Countdown = ({ initialTime }) => {
+  const [time, setTime] = useState<number | undefined>()
 
   useEffect(() => {
     let time = initialTime / 10000
@@ -46,11 +46,14 @@ const Countdown = ({ initialTime = 100000000 }) => {
   const timeObj = useMemo(() => convertTimeToHMS(time), [time])
 
   return (
-    <Wrapper>
-    {timeObj?.hour ? <TimePanel>{timeObj?.hour}<StyledDiv>H</StyledDiv></TimePanel> : null}
-    {(timeObj?.min || timeObj?.hour) && <TimePanel>{timeObj?.min}<StyledDiv>M</StyledDiv></TimePanel>}
-    {<TimePanel>{timeObj?.sec}<StyledDiv>S</StyledDiv></TimePanel>}
-    </Wrapper>
+    <>
+    {timeObj && <Wrapper>
+      {timeObj?.hour ? <TimePanel>{timeObj?.hour}<StyledDiv>H</StyledDiv></TimePanel> : null}
+      {(timeObj?.min || timeObj?.hour) && <TimePanel>{timeObj?.min}<StyledDiv>M</StyledDiv></TimePanel>}
+      {<TimePanel>{timeObj?.sec}<StyledDiv>S</StyledDiv></TimePanel>}
+      </Wrapper>
+    }
+    </>
   )
 }
 
