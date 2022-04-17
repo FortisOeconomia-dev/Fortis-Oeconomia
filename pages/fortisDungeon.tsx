@@ -21,9 +21,7 @@ import {
   lp6Image,
   lp7Image,
 } from '../util/tokenImageUtils'
-import {
-  convertMicroDenomToDenom2,
-} from '../util/conversion'
+import { convertMicroDenomToDenom2 } from '../util/conversion'
 import ThemeContext from '../contexts/ThemeContext'
 
 //styled components
@@ -118,20 +116,7 @@ const fortisDungeon = () => {
     // setAsset(2)
   }, [])
 
-  const [seconds, setSeconds] = useState(0)
   const [asset, setAsset] = useState(0)
-
-  useEffect(() => {
-    let interval = null
-    if (seconds === 0) {
-      getSfotBalances()
-    }
-    interval = setInterval(() => {
-      setSeconds(seconds => (seconds + 1) % updateInterval)
-    }, 1000)
-    return () => clearInterval(interval)
-  }, [seconds])
-
   const { toggle, setToggle } = useContext(ToggleContext)
   const [swapBalance, setSwapBalance] = useState(0)
 
@@ -178,13 +163,20 @@ const fortisDungeon = () => {
     setSwapBalance(0)
 
     if (asset == 0) balances = [bfotBalance, sfotBalance]
-    else if (asset == 1) balances = [bfotBalance, convertMicroDenomToDenom2(sfotBfotLpBalance, sfotBfotLpTokenInfo.decimals)]
-    else if (asset == 2) balances = [sfotBalance, convertMicroDenomToDenom2(pool1LpBfotLpBalance, pool1LpBfotLpTokenInfo.decimals)]
-    else if (asset == 3) balances = [ustBalance, convertMicroDenomToDenom2(pool2LpSfotLpBalance, pool2LpSfotLpTokenInfo.decimals)]
-    else if (asset == 4) balances = [nativeBalance, convertMicroDenomToDenom2(pool3LpUstLpBalance, pool3LpUstLpTokenInfo.decimals)]
-    else if (asset == 5) balances = [atomBalance, convertMicroDenomToDenom2(pool4LpJunoLpBalance, pool4LpJunoLpTokenInfo.decimals)]
-    else if (asset == 6) balances = [gfotBalance, convertMicroDenomToDenom2(pool5LpAtomLpBalance, pool5LpAtomLpTokenInfo.decimals)]
-    else if (asset == 7) balances = [fotBalance, convertMicroDenomToDenom2(pool6LpGfotLpBalance, pool6LpGfotLpTokenInfo.decimals)]
+    else if (asset == 1)
+      balances = [bfotBalance, convertMicroDenomToDenom2(sfotBfotLpBalance, sfotBfotLpTokenInfo.decimals)]
+    else if (asset == 2)
+      balances = [sfotBalance, convertMicroDenomToDenom2(pool1LpBfotLpBalance, pool1LpBfotLpTokenInfo.decimals)]
+    else if (asset == 3)
+      balances = [ustBalance, convertMicroDenomToDenom2(pool2LpSfotLpBalance, pool2LpSfotLpTokenInfo.decimals)]
+    else if (asset == 4)
+      balances = [nativeBalance, convertMicroDenomToDenom2(pool3LpUstLpBalance, pool3LpUstLpTokenInfo.decimals)]
+    else if (asset == 5)
+      balances = [atomBalance, convertMicroDenomToDenom2(pool4LpJunoLpBalance, pool4LpJunoLpTokenInfo.decimals)]
+    else if (asset == 6)
+      balances = [gfotBalance, convertMicroDenomToDenom2(pool5LpAtomLpBalance, pool5LpAtomLpTokenInfo.decimals)]
+    else if (asset == 7)
+      balances = [fotBalance, convertMicroDenomToDenom2(pool6LpGfotLpBalance, pool6LpGfotLpTokenInfo.decimals)]
 
     // console.log(`[j]===> fotbalance: ${fotBalance}, lp7balance: ${pool6LpGfotLpBalance}` )
     setSwapBalances(balances)
@@ -193,7 +185,16 @@ const fortisDungeon = () => {
     } else {
       setSwapBalance(balances[1])
     }
-  }, [asset, fotBalance, sfotBalance, swapToken1, ustBalance, bfotBalance, gfotBalance, atomBalance, nativeBalance,
+  }, [
+    asset,
+    fotBalance,
+    sfotBalance,
+    swapToken1,
+    ustBalance,
+    bfotBalance,
+    gfotBalance,
+    atomBalance,
+    nativeBalance,
     sfotBfotLpBalance,
     pool1LpBfotLpBalance,
     pool2LpSfotLpBalance,
@@ -208,7 +209,6 @@ const fortisDungeon = () => {
     if (!signingClient || walletAddress == '') return
 
     calcExpectedSwapAmountForDungeon(asset)
-
   }, [swapAmount, signingClient, walletAddress])
 
   const assets = [
@@ -219,14 +219,14 @@ const fortisDungeon = () => {
       toImage: sFOTImage(toggle),
       showMaxButton: false,
       showUnstakeAllButton: false,
-      lpfetchunstake:false,
+      lpfetchunstake: false,
       level: 1,
       showTorch: true,
-      showStakeAllButton:false,
-      showLpAmount:false,
-      showDPR:false,
+      showStakeAllButton: false,
+      showLpAmount: false,
+      showDPR: false,
       showClaimForm: false,
-      showReward:false,
+      showReward: false,
     },
     {
       from: 'bFOT',
@@ -235,14 +235,14 @@ const fortisDungeon = () => {
       toImage: lp1Image(toggle),
       showMaxButton: false,
       showUnstakeAllButton: false,
-      lpfetchunstake:false,
-      showStakeAllButton:false,
+      lpfetchunstake: false,
+      showStakeAllButton: false,
       level: 2,
       showTorch: true,
-      showLpAmount:false,
-      showDPR:false,
+      showLpAmount: false,
+      showDPR: false,
       showClaimForm: false,
-      showReward:false,
+      showReward: false,
     },
     {
       from: 'sFOT',
@@ -254,11 +254,11 @@ const fortisDungeon = () => {
       showUnstakeAllButton: true,
       showClaimForm: true,
       level: 3,
-      showDPR:true,
-      showStakeAllButton:true,
-      showLpAmount:true,
-      lpfetchunstake:true,
-      showReward:true,
+      showDPR: true,
+      showStakeAllButton: true,
+      showLpAmount: true,
+      lpfetchunstake: true,
+      showReward: true,
     },
     {
       from: 'UST',
@@ -267,14 +267,14 @@ const fortisDungeon = () => {
       toImage: lp3Image(toggle),
       showMaxButton: false,
       showUnstakeAllButton: false,
-      showStakeAllButton:false,
+      showStakeAllButton: false,
       level: 4,
       showTorch: true,
-      showLpAmount:false,
-      lpfetchunstake:false,
-      showDPR:false,
+      showLpAmount: false,
+      lpfetchunstake: false,
+      showDPR: false,
       showClaimForm: false,
-      showReward:false,
+      showReward: false,
     },
     {
       from: 'JUNO',
@@ -283,14 +283,14 @@ const fortisDungeon = () => {
       toImage: lp4Image(toggle),
       showMaxButton: false,
       showUnstakeAllButton: false,
-      showStakeAllButton:false,
+      showStakeAllButton: false,
       level: 5,
       showTorch: true,
-      showLpAmount:false,
-      lpfetchunstake:false,
-      showDPR:false,
+      showLpAmount: false,
+      lpfetchunstake: false,
+      showDPR: false,
       showClaimForm: false,
-      showReward:false,
+      showReward: false,
     },
     {
       from: 'ATOM',
@@ -299,14 +299,14 @@ const fortisDungeon = () => {
       toImage: lp5Image(toggle),
       showMaxButton: false,
       showUnstakeAllButton: false,
-      showStakeAllButton:false,
+      showStakeAllButton: false,
       level: 6,
       showTorch: true,
-      showLpAmount:false,
-      lpfetchunstake:false,
-      showDPR:false,
+      showLpAmount: false,
+      lpfetchunstake: false,
+      showDPR: false,
       showClaimForm: false,
-      showReward:false,
+      showReward: false,
     },
     {
       from: 'gFOT',
@@ -315,14 +315,14 @@ const fortisDungeon = () => {
       toImage: lp6Image(toggle),
       showMaxButton: false,
       showUnstakeAllButton: false,
-      showStakeAllButton:false,
+      showStakeAllButton: false,
       level: 7,
       showTorch: true,
-      showLpAmount:false,
-      lpfetchunstake:false,
-      showDPR:false,
+      showLpAmount: false,
+      lpfetchunstake: false,
+      showDPR: false,
       showClaimForm: false,
-      showReward:false,
+      showReward: false,
     },
     {
       from: 'FOT',
@@ -334,12 +334,12 @@ const fortisDungeon = () => {
       showUnstakeAllButton: true,
       showClaimForm: true,
       level: 8,
-      showDPR:true,
-      showStakeAllButton:true,
-      showLpAmount:true,
-      lpfetchunstake:true,
-      showReward:true,
-   },
+      showDPR: true,
+      showStakeAllButton: true,
+      showLpAmount: true,
+      lpfetchunstake: true,
+      showReward: true,
+    },
   ]
 
   return (
@@ -381,7 +381,7 @@ const fortisDungeon = () => {
         showUnstakeAllButton={assets[asset].showUnstakeAllButton}
         lpfetchunstake={assets[asset].lpfetchunstake}
         unstakeButtonText="Unstake"
-        middletext='My Liquidity'
+        middletext="My Liquidity"
       />
       <ConverterContainer>
         <Converter

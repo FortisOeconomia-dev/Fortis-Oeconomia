@@ -10,6 +10,7 @@ const Wrapper = styled.div`
   font-size: 1.2em;
   padding: 10px;
   padding-bottom: 20px;
+  margin-left: 20px;
 `
 
 const TimePanel = styled.div`
@@ -19,7 +20,7 @@ const TimePanel = styled.div`
 `
 
 const StyledDiv = styled.div`
-  font-size: 1.3em;
+  font-size: 1em;
   border-radius: 5px;
   font-weight: 700;
   background: #0000001c;

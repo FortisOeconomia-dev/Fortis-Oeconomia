@@ -1027,7 +1027,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       SetFotBalanceStr(
         parseInt(objectFot.balance) / Math.pow(10, objectFotTokenInfo.decimals) + ' ' + objectFotTokenInfo.symbol,
       )
-      
+
       //BFOT balance and info
       const objectBfotTokenInfo: JsonObject = await signingClient.queryContractSmart(PUBLIC_BFOT_CONTRACT, {
         token_info: {},
@@ -1784,7 +1784,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   // }
 
   const executeMonetaAirdrop = async () => {
-    return
+    // return
     // if (alreadyAirdropped) {
     //   if (showNotification)
     //     NotificationManager.warning('Already airdropped')
@@ -2972,7 +2972,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     }
 
     try {
-      let token1 = convertDenomToMicroDenom2(token1Amount, decimals[0]) + 1
+      let token1 = Number(convertDenomToMicroDenom2(token1Amount, decimals[0])) + 1
       let token2 = convertDenomToMicroDenom2(token2Amount, decimals[1])
 
       let msglist = []
@@ -3328,7 +3328,8 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       }
 
       if (lpStakingInfo.gfot_amount > 0 && response.last_time > 0) {
-        let delay = Math.floor((new Date().getTime() / 1000 + 43200) / 86400) - Math.floor((response.last_time + 43200)/ 86400)
+        let delay =
+          Math.floor((new Date().getTime() / 1000 + 43200) / 86400) - Math.floor((response.last_time + 43200) / 86400)
         staked_reward +=
           ((delay > 0 ? delay : 0) * lpStakingInfo.daily_fot_amount * staked_amount) / lpStakingInfo.gfot_amount
       }

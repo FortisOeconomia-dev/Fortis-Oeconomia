@@ -17,6 +17,7 @@ import Converter from '../components/Converter'
 import StakeNClaim from '../components/StakeNClaim'
 import StatisticBox from '../components/StatisticBox'
 import RateShow from '../components/RateShow'
+import { clearInterval } from 'timers'
 
 //styled components
 const Wrapper = styled.div`
@@ -99,17 +100,11 @@ const gfotmodule = () => {
     getGfotBalances()
   }, [signingClient, walletAddress])
 
-  const [seconds, setSeconds] = useState(0)
   useEffect(() => {
-    let interval = null
-    if (seconds === 0) {
-      getGfotBalances()
-    }
-    interval = setInterval(() => {
-      setSeconds(seconds => (seconds + 1) % updateInterval)
-    }, 1000)
+    getGfotBalances()
+    const interval = setInterval(() => getGfotBalances(), updateInterval * 1000)
     return () => clearInterval(interval)
-  }, [seconds])
+  }, [])
 
   const defaultValues = [
     {
