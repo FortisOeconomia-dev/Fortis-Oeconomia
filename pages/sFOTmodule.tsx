@@ -26,11 +26,12 @@ import 'react-notifications/lib/notifications.css'
 
 //styled components
 const Wrapper = styled.div`
-  max-width: 1368px;
+  // max-width: 1368px;
   height: 100%;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
+  justify-content: center;
   flex: 1;
   width: 100%;
   margin: 44px;
@@ -83,6 +84,7 @@ const PoolsContent = styled.div`
   flex-direction: column;
   gap: 24px;
   padding-right: 27px;
+  padding-left: 27px;
 `
 
 const Divider = styled.div`
@@ -386,6 +388,7 @@ const sfotmodule = () => {
               justifyContent: 'space-around',
               flexWrap: 'wrap',
               gap: '50px',
+              maxWidth: 1368
             }}
             className="w-full"
           >
@@ -475,6 +478,7 @@ const sfotmodule = () => {
             to={assets[asset].to}
             fromImage={assets[asset].fromImage}
             toImage={assets[asset].toImage}
+            maxWidth={'none'}
           />
           <div>
             <Title>Swap</Title>

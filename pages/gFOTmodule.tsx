@@ -25,7 +25,7 @@ const Wrapper = styled.div`
   height: 100%;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
   flex: 1;
   width: 100%;
   margin: 24px;
@@ -34,7 +34,7 @@ const Wrapper = styled.div`
 `
 const LeftPart = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   flex: 1;
   max-width: 100%;
@@ -246,6 +246,15 @@ const gfotmodule = () => {
   return (
     <>
       <Wrapper>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-around',
+            flexWrap: 'wrap',
+            gap: '50px',
+          }}
+          className="w-full"
+        >
         <LeftPart>
           <Converter
             handleBurnMinus={handlebFotBurnMinus}
@@ -276,6 +285,7 @@ const gfotmodule = () => {
         {/* <RateShow values={values} action={() => {
           window.location.href = "https://www.junoswap.com/pools";
         }} /> */}
+        </div>
       </Wrapper>
     </>
   )
