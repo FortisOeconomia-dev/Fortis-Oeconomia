@@ -49,6 +49,13 @@ const TotalStakedText = styled.label`
   margin: 0 !important;
   font-size: 16px;
 `
+const CountdownText = styled.label`
+  width: unset !important;
+  border-bottom: 0px !important;
+  font-size: 16px;
+  margin: 0 !important;
+  text-align: center;
+`
 const DPRText = styled('label')<{ visible: boolean }>`
   width: unset !important;
   border-bottom: 0px !important;
@@ -229,9 +236,9 @@ const StakeNClaimSecond = ({
               <StakedValue>{sfotbfotdpr} %</StakedValue>
             )}
           </DPRText>
-          <TotalStakedText className="wallet-label" style={{ fontSize: '18px' }}>
+          <CountdownText className="wallet-label">
             Reward Distribution in
-          </TotalStakedText>
+          </CountdownText>
           <Countdown initialTime={500000000}/>
         </div>
         <div style={{ width: '100%' }}>
