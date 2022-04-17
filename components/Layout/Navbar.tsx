@@ -25,6 +25,23 @@ const NavLink = styled.a`
   padding-right: unset !important;
 `
 
+const Governance = styled.a`
+  white-space: nowrap;
+  color: ${props => (!props.defaultChecked && props.slot === '/gFOTmodule' ? '#4B365B' : 'white')} !important;
+  cursor: pointer;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  font-size: 19px !important;
+  line-height: 28px !important;
+  padding-left: unset !important;
+  padding-right: unset !important;
+  &.active {
+    color: ${props => (props.slot === 'gFOTmodule' ? 'red' : 'black')} !important;
+  }
+  padding-left: unset !important;
+  padding-right: unset !important;
+`
+
 const SubLink = styled.a`
   font-size: 14px !important;
   line-height: 21px !important;
@@ -323,15 +340,17 @@ const Navbar = ({ toggle, setToggle }) => {
                     </NavLink>
                   </Link>
                 </li>
-                <li className="nav-item">
-                <a
+                <Governance className="nav-item">
+                <Governance
                   style={{fontSize:'19px', fontWeight: '600'}}
                   href="https://daodao.zone/dao/juno1anz3mg3n0pdj6d4pulk94sqz52j3duld6cclauzxhtv7de5hahssgc3r9n"
                   target="_SEJ"
-                  rel="noreferrer">
+                  rel="noreferrer"
+                  slot={pathname}
+                  defaultChecked={toggle}>
                     Governance
-                </a>
-                </li>
+                </Governance>
+                </Governance>
                 {pathname !== '/fortisDungeon' && <ToggleSwitch toggle={toggle} setToggle={setToggle} /> }
                 <button
                   className={`default-btn ${!toggle && pathname === '/gFOTmodule' ? 'secondary-btn' : ''}`}

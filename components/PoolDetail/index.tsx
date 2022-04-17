@@ -288,19 +288,19 @@ const PoolDetail = ({
     if (token1TotalAmount == 0 || token2TotalAmount == 0) return
 
     if (asset == 0) {
-      setsfotbfotdpr((5000000 * bFot2Ust) / token1TotalAmount)
+      setsfotbfotdpr(((5000000 * bFot2Ust) / token1TotalAmount) * 365)
     } else if (asset == 1) {
-      setsfotbfotdpr(5000000 / token2TotalAmount)
+      setsfotbfotdpr((5000000 / token2TotalAmount) * 365)
     } else if (asset == 2) {
-      setsfotbfotdpr(5000000 / ((Math.floor(gfotTokenInfo.total_supply / 10000000000) + 10000) * token2TotalAmount))
+      setsfotbfotdpr((5000000 / ((Math.floor(gfotTokenInfo.total_supply / 10000000000) + 10000) * token2TotalAmount)) * 365)
     } else if (asset == 3) {
-      setsfotbfotdpr((5000000 * bFot2Ust) / (token1TotalAmount * 2))
+      setsfotbfotdpr(((5000000 * bFot2Ust) / (token1TotalAmount * 2)) * 365)
     } else if (asset == 4) {
-      setsfotbfotdpr((5000000 * bFot2Ust) / (token1TotalAmount * 2))
+      setsfotbfotdpr(((5000000 * bFot2Ust) / (token1TotalAmount * 2)) * 365)
     } else if (asset == 12) {
-      setsfotbfotdpr((5500000 * bFot2Ust) / (token1TotalAmount * 2))
+      setsfotbfotdpr(((5500000 * bFot2Ust) / (token1TotalAmount * 2)) * 365)
     } else if (asset == 17) {
-      setsfotbfotdpr(2500000 / (token1TotalAmount * 2))
+      setsfotbfotdpr((2500000 / (token1TotalAmount * 2)) * 365)
     }
   }, [bFot2Ust, gfotTokenInfo, token1TotalAmount, token2TotalAmount])
 

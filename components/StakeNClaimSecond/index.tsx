@@ -218,7 +218,7 @@ const StakeNClaimSecond = ({
             <StakedValue> {token2TotalAmount}</StakedValue>
           </TotalStakedText>
           <DPRText visible={showDPR} className="wallet-label" style={{ fontSize: '18px' }}>
-            DPR
+            APR
             {showDPRInfoIcon ? (
               <>
                 <InfoOutlinedIcon style={{ position: 'absolute', width: '20px', height: '20px' }} />
