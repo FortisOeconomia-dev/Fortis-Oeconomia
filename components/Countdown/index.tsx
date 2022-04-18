@@ -29,23 +29,42 @@ const StyledDiv = styled.div`
   min-width: 35px;
   text-align: center;
 `
-const Countdown = ({ targetDate }) => {
+const Countdown = ({ targetHour }: { targetHour: number | undefined }) => {
   const [time, setTime] = useState<number | undefined>()
 
   useEffect(() => {
-    const _targetDate = new Date(targetDate)
-    const now = new Date();
-    let time = Math.floor((_targetDate.getTime() - now.getTime()) / 1000)
-    if (time > 0) {
-      const intervalHandler = setInterval(() => {
-        time -= 1
-        setTime(time)
-      }, 1000)
-      return () => {
-        clearInterval(intervalHandler)
+    if (targetHour !== undefined) {
+      const _targetDate = new Date()
+      const offset = _targetDate.getTimezoneOffset()
+      let hour = _targetDate.getHours()
+      let offsetHour = Math.floor(offset / 60)
+      let offsetMin = offset - offsetHour * 60
+      if (hour + offsetHour >= targetHour) {
+        _targetDate.setDate(_targetDate.getDate() + 1)
+      } else {
+        _targetDate.setDate(_targetDate.getDate())
+      }
+      _targetDate.setHours(targetHour - offsetHour);
+      _targetDate.setMinutes(offsetMin);
+      _targetDate.setSeconds(0);
+      _targetDate.setMilliseconds(0);
+      const now = new Date();
+      let time = Math.floor((_targetDate.getTime() - now.getTime()) / 1000)
+      if (time > 0) {
+        const intervalHandler = setInterval(() => {
+          time -= 1
+          if (time > 0) {
+            setTime(time)
+          } else {
+            setTime(24 * 60 * 60)
+          }
+        }, 1000)
+        return () => {
+          clearInterval(intervalHandler)
+        }
       }
     }
-  }, [targetDate])
+  }, [targetHour])
 
   const timeObj = useMemo(() => convertTimeToHMS(time), [time])
 
