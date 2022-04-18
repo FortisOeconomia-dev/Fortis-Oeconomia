@@ -173,7 +173,7 @@ const PoolDetail = ({
   const [lpStakingInfo, setLpStakingInfo] = useState(null)
 
   const [lpTokenInfo, setLpTokenInfo] = useState({ name: '', symbol: '', decimals: 6, total_supply: 0 })
-  const [targetDate, setTargetDate] = useState<string | undefined>()
+  const [targetHour, setTargetHour] = useState<number | undefined>()
 
   useEffect(() => {
     // if (loading)
@@ -425,9 +425,9 @@ const PoolDetail = ({
     setToken2Amount(0)
     if (asset > 4) {
       // dungeon
-      setTargetDate('04/20/2022 21:00:00')
+      setTargetHour(12)
     } else {
-      setTargetDate('04/20/2022 9:00:00')
+      setTargetHour(0)
     }
   }, [asset])
 
@@ -488,7 +488,7 @@ const PoolDetail = ({
           showClaimForm={showClaimForm}
           showReward={showReward}
           middletext={middletext}
-          targetDate={targetDate}
+          targetHour={targetHour}
         />
       </div>
     </Wrapper>
