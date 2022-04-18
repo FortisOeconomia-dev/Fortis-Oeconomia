@@ -2325,6 +2325,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
           token2 = (new_token1 * poolInfo.token2_reserve) / poolInfo.token1_reserve + 1
         }
         token1 = new_token1
+        token2 = token2 + 1
       }
     } else {
       // dungeon
