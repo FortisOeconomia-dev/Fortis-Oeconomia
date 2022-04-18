@@ -173,47 +173,47 @@ const PoolDetail = ({
   const [lpStakingInfo, setLpStakingInfo] = useState(null)
 
   const [lpTokenInfo, setLpTokenInfo] = useState({ name: '', symbol: '', decimals: 6, total_supply: 0 })
+  const [targetHour, setTargetHour] = useState<number | undefined>()
 
   useEffect(() => {
     // if (loading)
     //     return
-    setToken1Balance(sfotBalance)
-
+    setToken1Balance(Number(convertDenomToMicroDenom2(sfotBalance, 10)))
     if (asset == 0) {
       setPoolInfo(sfotUstPoolInfo)
       setDecimals([10, 6])
-      setToken2Balance(ustBalance)
+      setToken2Balance(Number(convertDenomToMicroDenom2(ustBalance, 6)))
       setLpTokenInfo(sfotUstLpTokenInfo)
       setMyLpBalance(sfotUstLpBalance)
     } else if (asset == 1) {
       setPoolInfo(sfotBfotPoolInfo)
       setDecimals([10, 10])
-      setToken2Balance(bfotBalance)
+      setToken2Balance(Number(convertDenomToMicroDenom2(bfotBalance, 10)))
       setLpTokenInfo(sfotBfotLpTokenInfo)
       setMyLpBalance(sfotBfotLpBalance)
     } else if (asset == 2) {
       setPoolInfo(sfotGfotPoolInfo)
       setDecimals([10, 10])
-      setToken2Balance(gfotBalance)
+      setToken2Balance(Number(convertDenomToMicroDenom2(gfotBalance, 10)))
       setLpTokenInfo(sfotGfotLpTokenInfo)
       setMyLpBalance(sfotGfotLpBalance)
     } else if (asset == 3) {
       setPoolInfo(sfotJunoPoolInfo)
       setDecimals([10, 6])
-      setToken2Balance(nativeBalance)
+      setToken2Balance(Number(convertDenomToMicroDenom2(nativeBalance, 6)))
       setLpTokenInfo(sfotJunoLpTokenInfo)
       setMyLpBalance(sfotJunoLpBalance)
     } else if (asset == 4) {
       setPoolInfo(sfotAtomPoolInfo)
       setDecimals([10, 6])
-      setToken2Balance(atomBalance)
+      setToken2Balance(Number(convertDenomToMicroDenom2(atomBalance, 6)))
       setLpTokenInfo(sfotAtomLpTokenInfo)
       setMyLpBalance(sfotAtomLpBalance)
     } else if (asset == 10) {
       setPoolInfo(sfotBfotPoolInfo)
       setDecimals([10, 10])
       setToken1Balance(bfotBalance)
-      setToken2Balance(sfotBalance)
+      setToken2Balance(Number(convertDenomToMicroDenom2(sfotBalance, 10)))
       setLpTokenInfo(sfotBfotLpTokenInfo)
       setMyLpBalance(sfotBfotLpBalance)
     } else if (asset == 11) {
@@ -289,19 +289,19 @@ const PoolDetail = ({
     if (token1TotalAmount == 0 || token2TotalAmount == 0) return
 
     if (asset == 0) {
-      setsfotbfotdpr((5000000 * bFot2Ust) / token1TotalAmount)
+      setsfotbfotdpr(((5000000 * bFot2Ust) / token1TotalAmount) * 365)
     } else if (asset == 1) {
-      setsfotbfotdpr(5000000 / token2TotalAmount)
+      setsfotbfotdpr((5000000 / token2TotalAmount) * 365)
     } else if (asset == 2) {
-      setsfotbfotdpr(5000000 / ((Math.floor(gfotTokenInfo.total_supply / 10000000000) + 10000) * token2TotalAmount))
+      setsfotbfotdpr((5000000 / ((Math.floor(gfotTokenInfo.total_supply / 10000000000) + 10000) * token2TotalAmount)) * 365)
     } else if (asset == 3) {
-      setsfotbfotdpr((5000000 * bFot2Ust) / (token1TotalAmount * 2))
+      setsfotbfotdpr(((5000000 * bFot2Ust) / (token1TotalAmount * 2)) * 365)
     } else if (asset == 4) {
-      setsfotbfotdpr((5000000 * bFot2Ust) / (token1TotalAmount * 2))
+      setsfotbfotdpr(((5000000 * bFot2Ust) / (token1TotalAmount * 2)) * 365)
     } else if (asset == 12) {
-      setsfotbfotdpr((5500000 * bFot2Ust) / (token1TotalAmount * 2))
+      setsfotbfotdpr(((5500000 * bFot2Ust) / (token1TotalAmount * 2)) * 365)
     } else if (asset == 17) {
-      setsfotbfotdpr(2500000 / (token1TotalAmount * 2))
+      setsfotbfotdpr((2500000 / (token1TotalAmount * 2)) * 365)
     }
   }, [bFot2Ust, gfotTokenInfo, token1TotalAmount, token2TotalAmount])
 
@@ -423,6 +423,12 @@ const PoolDetail = ({
   useEffect(() => {
     setToken1Amount(0)
     setToken2Amount(0)
+    if (asset > 4) {
+      // dungeon
+      setTargetHour(12)
+    } else {
+      setTargetHour(0)
+    }
   }, [asset])
 
   return (
@@ -482,6 +488,7 @@ const PoolDetail = ({
           showClaimForm={showClaimForm}
           showReward={showReward}
           middletext={middletext}
+          targetHour={targetHour}
         />
       </div>
     </Wrapper>

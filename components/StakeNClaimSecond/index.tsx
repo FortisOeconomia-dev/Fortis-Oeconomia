@@ -9,6 +9,7 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 import {
   convertMicroDenomToDenom2,
 } from '../../util/conversion'
+import Countdown from '../Countdown'
 
 const Wrapper = styled('div')<{ maxWidth: string }>`
   padding: 50px 32px;
@@ -47,6 +48,13 @@ const TotalStakedText = styled.label`
   border-bottom: 0px !important;
   margin: 0 !important;
   font-size: 16px;
+`
+const CountdownText = styled.label`
+  width: unset !important;
+  border-bottom: 0px !important;
+  font-size: 16px;
+  margin: 0 !important;
+  text-align: center;
 `
 const DPRText = styled('label')<{ visible: boolean }>`
   width: unset !important;
@@ -190,6 +198,7 @@ const StakeNClaimSecond = ({
   showClaimForm,
   showTorch,
   showReward,
+  targetHour
 }) => {
   const [values, setValues] = useState([50])
   const { toggle } = useContext(ToggleContext)
@@ -218,7 +227,7 @@ const StakeNClaimSecond = ({
             <StakedValue> {token2TotalAmount}</StakedValue>
           </TotalStakedText>
           <DPRText visible={showDPR} className="wallet-label" style={{ fontSize: '18px' }}>
-            DPR
+            APR
             {showDPRInfoIcon ? (
               <>
                 <InfoOutlinedIcon style={{ position: 'absolute', width: '20px', height: '20px' }} />
@@ -228,13 +237,17 @@ const StakeNClaimSecond = ({
               <StakedValue>{sfotbfotdpr} %</StakedValue>
             )}
           </DPRText>
+          <CountdownText className="wallet-label">
+            Reward Distribution in
+          </CountdownText>
+          <Countdown targetHour={targetHour}/>
         </div>
-        <div>
+        <div style={{ width: '100%' }}>
           <div
             className="gFotCurrencyt-selection"
-            style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '10px' }}
+            style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '10px', width: '100%', maxWidth: 'unset' }}
           >
-            <span className="wallet-label" style={{ fontSize: '18px', height: 'unset' }}>
+            <span style={{ fontSize: '18px', height: 'unset' }}>
               {from}
             </span>
             <InputWithIncDec
@@ -246,9 +259,9 @@ const StakeNClaimSecond = ({
           </div>
           <div
             className="gFotCurrencyt-selection"
-            style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '10px' }}
+            style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '10px', width: '100%', maxWidth: 'unset' }}
           >
-            <span className="wallet-label" style={{ fontSize: '18px', height: 'unset' }}>
+            <span style={{ fontSize: '18px', height: 'unset' }}>
               {to}
             </span>
             <InputWithIncDec
