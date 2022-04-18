@@ -29,25 +29,30 @@ const StyledDiv = styled.div`
   min-width: 35px;
   text-align: center;
 `
-const Countdown = ({ initialTime }) => {
+const Countdown = ({ targetDate }) => {
   const [time, setTime] = useState<number | undefined>()
 
   useEffect(() => {
-    let time = initialTime / 10000
-    const intervalHandler = setInterval(() => {
-      time -= 1
-      setTime(time)
-    }, 1000)
-    return () => {
-      clearInterval(intervalHandler)
+    const _targetDate = new Date(targetDate)
+    const now = new Date();
+    let time = Math.floor((_targetDate.getTime() - now.getTime()) / 1000)
+    if (time > 0) {
+      const intervalHandler = setInterval(() => {
+        time -= 1
+        setTime(time)
+      }, 1000)
+      return () => {
+        clearInterval(intervalHandler)
+      }
     }
-  }, [initialTime])
+  }, [targetDate])
 
   const timeObj = useMemo(() => convertTimeToHMS(time), [time])
 
   return (
     <>
     {timeObj && <Wrapper>
+      {timeObj?.day ? <TimePanel>{timeObj?.day}<StyledDiv>D</StyledDiv></TimePanel> : null}
       {timeObj?.hour ? <TimePanel>{timeObj?.hour}<StyledDiv>H</StyledDiv></TimePanel> : null}
       {(timeObj?.min || timeObj?.hour) && <TimePanel>{timeObj?.min}<StyledDiv>M</StyledDiv></TimePanel>}
       {<TimePanel>{timeObj?.sec}<StyledDiv>S</StyledDiv></TimePanel>}

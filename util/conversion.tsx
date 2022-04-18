@@ -49,8 +49,11 @@ export function convertTimeToHMS(time: number | undefined) : any {
   const sec = time % 60
   const minTime = Math.floor(time / 60)
   const min = minTime % 60
-  const hour = Math.floor(minTime / 60)
+  let hour = Math.floor(minTime / 60)
+  const day = Math.floor(hour / 24)
+  hour = hour % 24
   return {
+    day,
     hour,
     min,
     sec
