@@ -189,7 +189,7 @@ const StakeNClaim = ({
           <TotalStakedText className="wallet-label" style={{ fontSize: '18px', paddingBottom: 0 }}>
             Reward Distribution in
           </TotalStakedText>
-          <Countdown initialTime={500000000}/>
+          <Countdown targetDate={'04/20/2022 9:00:00'}/>
         </div>
         <div className="gFotCurrencyt-selection">
           <InputWithIncDec

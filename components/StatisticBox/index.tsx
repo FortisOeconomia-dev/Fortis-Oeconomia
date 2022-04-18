@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import React, { useContext } from 'react'
 import { ToggleContext } from '../Layout/Layout'
+import { ConvertToNoExponents } from '../../util/conversion'
 
 const Wrapper = styled.div`
   background: ${props => (props.slot === '/gFOTmodule' ? 'rgba(255, 255, 255, 0.25)' : 'rgba(251, 252, 253, 0.3)')};
@@ -173,7 +174,7 @@ const StatisticBox = ({ values = [], leftValues = [], page = 0, setPage = null }
                       ),
                     )}
                   </StatisticLabel>
-                  <StatisticValue slot={pathname}> {v.value}</StatisticValue>
+                  <StatisticValue slot={pathname}> {ConvertToNoExponents(v.value)}</StatisticValue>
                 </StatisticItem>
                 {idx < values.length - 1 && <Divider slot={pathname} />}
               </React.Fragment>
