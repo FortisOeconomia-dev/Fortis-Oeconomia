@@ -198,7 +198,7 @@ const StakeNClaimSecond = ({
   showClaimForm,
   showTorch,
   showReward,
-  initialTime
+  targetDate
 }) => {
   const [values, setValues] = useState([50])
   const { toggle } = useContext(ToggleContext)
@@ -240,7 +240,7 @@ const StakeNClaimSecond = ({
           <CountdownText className="wallet-label">
             Reward Distribution in
           </CountdownText>
-          <Countdown initialTime={initialTime}/>
+          <Countdown targetDate={targetDate}/>
         </div>
         <div style={{ width: '100%' }}>
           <div
