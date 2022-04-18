@@ -49,7 +49,7 @@ export function convertDenomToMicroDenom2(amount: number | string, decimals: num
   if (typeof amount === 'string') {
     amount = Number(amount)
   }
-  amount = Math.round(amount * Math.pow(10, decimals))
+  amount = Math.floor(amount * Math.pow(10, decimals))
   return isNaN(amount) ? '0' : String(amount)
 }
 
