@@ -249,7 +249,7 @@ const gfotmodule = () => {
         <div
           style={{
             display: 'flex',
-            justifyContent: 'space-around',
+            justifyContent: 'space-between',
             flexWrap: 'wrap',
             gap: '50px',
           }}

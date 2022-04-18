@@ -34,7 +34,7 @@ const Wrapper = styled.div`
   justify-content: center;
   flex: 1;
   width: 100%;
-  margin: 44px;
+  margin: 24px;
   padding: 0 20px;
   gap: 37px;
   img {
@@ -385,7 +385,7 @@ const sfotmodule = () => {
             style={{
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'space-around',
+              justifyContent: 'space-between',
               flexWrap: 'wrap',
               gap: '50px',
               maxWidth: 1368
