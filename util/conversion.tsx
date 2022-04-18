@@ -18,13 +18,31 @@ export function convertFromMicroDenom(denom: string) {
   return denom?.substring(1).toUpperCase()
 }
 
+function toFixed(x) {
+  if (Math.abs(x) < 1.0) {
+    var e = parseInt(x.toString().split('e-')[1])
+    if (e) {
+      x *= Math.pow(10, e - 1)
+      x = '0.' + new Array(e).join('0') + x.toString().substring(2)
+    }
+  } else {
+    var e = parseInt(x.toString().split('+')[1])
+    if (e > 20) {
+      e -= 20
+      x /= Math.pow(10, e)
+      x += new Array(e + 1).join('0')
+    }
+  }
+  return x
+}
+
 export function convertMicroDenomToDenom2(amount: number | string, decimals: number) {
   if (typeof amount === 'string') {
     amount = Number(amount)
   }
 
   amount = amount / Math.pow(10, decimals)
-  return isNaN(amount) ? 0 : amount
+  return isNaN(amount) ? 0 : toFixed(amount).toString()
 }
 
 export function convertDenomToMicroDenom2(amount: number | string, decimals: number): string {
@@ -44,7 +62,7 @@ export function convertToFixedDecimals(amount: number | string): string {
   } else return String(amount)
 }
 
-export function convertTimeToHMS(time: number | undefined) : any {
+export function convertTimeToHMS(time: number | undefined): any {
   if (!time) return null
   const sec = time % 60
   const minTime = Math.floor(time / 60)
@@ -53,7 +71,7 @@ export function convertTimeToHMS(time: number | undefined) : any {
   return {
     hour,
     min,
-    sec
+    sec,
   }
 }
 
