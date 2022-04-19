@@ -227,6 +227,7 @@ const fortisDungeon = () => {
       showDPR: false,
       showClaimForm: false,
       showReward: false,
+      showCountdownText: false,
     },
     {
       from: 'bFOT',
@@ -243,6 +244,7 @@ const fortisDungeon = () => {
       showDPR: false,
       showClaimForm: false,
       showReward: false,
+      showCountdownText: false,
     },
     {
       from: 'sFOT',
@@ -275,6 +277,7 @@ const fortisDungeon = () => {
       showDPR: false,
       showClaimForm: false,
       showReward: false,
+      showCountdownText: false,
     },
     {
       from: 'JUNO',
@@ -291,6 +294,7 @@ const fortisDungeon = () => {
       showDPR: false,
       showClaimForm: false,
       showReward: false,
+      showCountdownText: false,
     },
     {
       from: 'ATOM',
@@ -307,6 +311,7 @@ const fortisDungeon = () => {
       showDPR: false,
       showClaimForm: false,
       showReward: false,
+      showCountdownText: false,
     },
     {
       from: 'gFOT',
@@ -323,6 +328,7 @@ const fortisDungeon = () => {
       showDPR: false,
       showClaimForm: false,
       showReward: false,
+      showCountdownText: false,
     },
     {
       from: 'FOT',
@@ -370,6 +376,7 @@ const fortisDungeon = () => {
         level={asset + 1}
         showEpochReward={true}
         showDPR={assets[asset].showDPR}
+        showCountdownText={assets[asset].showCountdownText}
         showLpAmount={assets[asset].showLpAmount}
         showTorch={assets[asset].showTorch}
         maxWidth={'none'}

@@ -31,7 +31,7 @@ const Wrapper = styled.div`
   align-items: center;
   flex: 1;
   width: 100%;
-  margin: 44px;
+  margin: 70px;
   padding: 0 20px;
   gap: 125px;
 `
@@ -39,7 +39,7 @@ const Wrapper = styled.div`
 const LeftPart = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: 'space-between',
   flex: 1;
   max-width: 100%;
   margin-top: -50px;
