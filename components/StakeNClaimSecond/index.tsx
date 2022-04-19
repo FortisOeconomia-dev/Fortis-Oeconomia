@@ -56,6 +56,14 @@ const CountdownText = styled.label`
   margin: 0 !important;
   text-align: center;
 `
+const CountdownWrapper = styled('label')<{ visible: boolean }>`
+  width: unset !important;
+  border-bottom: 0px !important;
+  text-align: center;
+  margin: 0 !important;
+  visibility: ${props => (props.visible ? 'initial' : 'hidden')};
+  height: ${props => (props.visible ? 'initial' : '0')}
+`
 const DPRText = styled('label')<{ visible: boolean }>`
   width: unset !important;
   border-bottom: 0px !important;
@@ -187,6 +195,7 @@ const StakeNClaimSecond = ({
   showEpochReward,
   showDPRInfoIcon,
   showDPR,
+  showCountdownText,
   showLpAmount,
   maxWidth,
   showStakeForm,
@@ -237,10 +246,12 @@ const StakeNClaimSecond = ({
               <StakedValue>{convertToFixedDecimals(sfotbfotdpr)} %</StakedValue>
             )}
           </DPRText>
+          <CountdownWrapper className="countdownwrapper" visible={showCountdownText}>
           <CountdownText className="wallet-label">
             Reward Distribution in
           </CountdownText>
           <Countdown targetHour={targetHour}/>
+          </CountdownWrapper>
         </div>
         <div style={{ width: '100%' }}>
           <div
@@ -398,11 +409,11 @@ const StakeNClaimSecond = ({
               <div>
                 <MyStakedText className="wallet-label">
                   {'LP Amount'}
-                  <StakedValue> {lpAmount}</StakedValue>
+                  <StakedValue> {convertToFixedDecimals(lpAmount)}</StakedValue>
                 </MyStakedText>
                 <MyStakedText className="wallet-label">
                   {'Staked LP Amount'}
-                  <StakedValue> {lpStakingMyStaked}</StakedValue>
+                  <StakedValue> {convertToFixedDecimals(lpStakingMyStaked)}</StakedValue>
                 </MyStakedText>
               </div>
             )}

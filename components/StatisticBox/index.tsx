@@ -115,7 +115,6 @@ const VirticalDivider = styled.div`
 `
 
 const StatisticBox = ({ values = [], leftValues = [], page = 0, setPage = null }) => {
-  console.log(values)
   const router = useRouter()
   const { pathname } = router
   const { toggle } = useContext(ToggleContext)
@@ -168,14 +167,14 @@ const StatisticBox = ({ values = [], leftValues = [], page = 0, setPage = null }
                       ) : idx === self.length - 1 ? (
                         <React.Fragment key={idx}>
                           <br />
-                          <span>({convertToFixedDecimals(value)}</span>
+                          <span>{(value)}</span>
                         </React.Fragment>
                       ) : (
-                        convertToFixedDecimals(value)
+                        (value)
                       ),
                     )}
                   </StatisticLabel>
-                  <StatisticValue slot={pathname}> {convertToFixedDecimals(ConvertToNoExponents(v.value))}</StatisticValue>
+                  <StatisticValue slot={pathname}> {ConvertToNoExponents(convertToFixedDecimals(v.value))}</StatisticValue>
                 </StatisticItem>
                 {idx < values.length - 1 && <Divider slot={pathname} />}
               </React.Fragment>

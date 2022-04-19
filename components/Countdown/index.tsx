@@ -7,10 +7,10 @@ const Wrapper = styled.div`
   justify-content: center;
   font-weight: 600;
   gap: 10px;
-  font-size: 1.2em;
+  font-size: 1em;
   padding: 10px;
   padding-bottom: 20px;
-  margin-left: 20px;
+  min-width: 250px;
 `
 
 const TimePanel = styled.div`
