@@ -7,7 +7,7 @@ import moment from 'moment'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 
 import {
-  convertMicroDenomToDenom2,
+  convertMicroDenomToDenom2, convertToFixedDecimals,
 } from '../../util/conversion'
 import Countdown from '../Countdown'
 
@@ -220,21 +220,21 @@ const StakeNClaimSecond = ({
           )} */}
           <TotalStakedText className="wallet-label">
             {from}
-            <StakedValue> {token1TotalAmount}</StakedValue>
+            <StakedValue> {convertToFixedDecimals(token1TotalAmount)}</StakedValue>
           </TotalStakedText>
           <TotalStakedText className="wallet-label" style={{ fontSize: '18px' }}>
             {to}
-            <StakedValue> {token2TotalAmount}</StakedValue>
+            <StakedValue> {convertToFixedDecimals(token2TotalAmount)}</StakedValue>
           </TotalStakedText>
           <DPRText visible={showDPR} className="wallet-label" style={{ fontSize: '18px' }}>
             APR
             {showDPRInfoIcon ? (
               <>
                 <InfoOutlinedIcon style={{ position: 'absolute', width: '20px', height: '20px' }} />
-                <StakedValue>%{sfotbfotdpr}</StakedValue>
+                <StakedValue>%{convertToFixedDecimals(sfotbfotdpr)}</StakedValue>
               </>
             ) : (
-              <StakedValue>{sfotbfotdpr} %</StakedValue>
+              <StakedValue>{convertToFixedDecimals(sfotbfotdpr)} %</StakedValue>
             )}
           </DPRText>
           <CountdownText className="wallet-label">
@@ -378,11 +378,11 @@ const StakeNClaimSecond = ({
               </MyStakedText>
               <MyStakedText className="wallet-label">
                 {from}
-                <StakedValue> {myToken1Amount}</StakedValue>
+                <StakedValue> {convertToFixedDecimals(myToken1Amount)}</StakedValue>
               </MyStakedText>
               <MyStakedText className="wallet-label">
                 {to}
-                <StakedValue> {myToken2Amount}</StakedValue>
+                <StakedValue> {convertToFixedDecimals(myToken2Amount)}</StakedValue>
               </MyStakedText>
             </div>
             <div
