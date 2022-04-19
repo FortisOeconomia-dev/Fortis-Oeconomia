@@ -16,7 +16,7 @@ const Wrapper = styled.div`
   max-width: 610px;
   display: flex;
   position: relative;
-  padding: ${props => (props.slot === '/sFOTmodule' ? '0 30px' : '30px')};
+  padding: ${props => (props.slot === '/sFOTmodule' && props.page === 0 ? '0 30px' : '30px')};
   align-self: flex-start;
   margin: auto;
   margin-left: ${props => (props.slot === '/sFOTmodule' && props.page === 0 ? '-45px' : '22px')};
