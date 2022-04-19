@@ -11,7 +11,7 @@ const Wrapper = styled.div`
       ? '2.74846px 5.49692px 57.0305px rgba(161, 164, 176, 0.25)'
       : '4px 8px 83px rgba(34, 40, 95, 0.25)'};
   border-radius: ${props =>
-    props.slot === '/gFOTmodule' ? '15.1165px' : props.slot === '/sFOTmodule' ? '27px' : '70px'};
+    props.slot === '/gFOTmodule' ? '15.1165px' : props.slot === '/sFOTmodule' && props.page === 0 ? '27px' : '70px'};
   width: 100%;
   max-width: 610px;
   display: flex;
@@ -19,7 +19,7 @@ const Wrapper = styled.div`
   padding: ${props => (props.slot === '/sFOTmodule' ? '0 30px' : '30px')};
   align-self: flex-start;
   margin: auto;
-  margin-left: ${props => (props.slot === '/sFOTmodule' ? '-45px' : '22px')};
+  margin-left: ${props => (props.slot === '/sFOTmodule' && props.page === 0 ? '-45px' : '22px')};
 `
 
 const ContentWrapper = styled.div`
@@ -47,7 +47,9 @@ const StatisticValue = styled.span`
 const StatisticItem = styled.label`
   width: 100%;
   max-width: 470px;
-  padding: ${props => (props.datatype === '/gFOTmodule' || props.datatype === '/sFOTmodule' ? '36px' : '72px')} 0;
+  padding: ${props =>
+      props.datatype === '/gFOTmodule' || (props.datatype === '/sFOTmodule' && props.page === 0) ? '36px' : '72px'}
+    0;
   transform: rotate(0.01deg);
   display: flex;
   align-items: center;
@@ -200,7 +202,7 @@ const StatisticBox = ({
         </div>
       )}
       {children}
-      <Wrapper slot={pathname} defaultChecked={leftValues.length > 0}>
+      <Wrapper slot={pathname} page={page} defaultChecked={leftValues.length > 0}>
         {pathname !== '/gFOTmodule' && pathname !== '/sFOTmodule' && (
           <>
             <Ellipse1 />
@@ -221,7 +223,7 @@ const StatisticBox = ({
           {values.map((v, idx) => {
             return (
               <React.Fragment key={idx}>
-                <StatisticItem htmlFor={`${idx}`} slot={`${values.length}`} datatype={pathname}>
+                <StatisticItem htmlFor={`${idx}`} slot={`${values.length}`} datatype={pathname} page={page}>
                   <StatisticLabel slot={pathname}>
                     {v.key.split('(').map((value, idx, self) =>
                       self.length === 1 ? (
