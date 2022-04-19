@@ -427,7 +427,7 @@ const sfotmodule = () => {
                 setPage={setPage}
                 maxWidth={null}
               >
-                {page === 0 && <StakeNClaim showCountdown={false} showInfoIcon={true} showDivider={true} />}
+                {page === 0 && <StakeNClaim showInfoIcon={true} showDivider={true} tokenType="sFOT" />}
               </StatisticBox>
             </RightPart>
           </div>

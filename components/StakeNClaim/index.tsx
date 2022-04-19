@@ -121,6 +121,7 @@ const StakeNClaim = ({
   showCountdown = true,
   showInfoIcon = false,
   showDivider = false,
+  tokenType = null,
 }) => {
   const {
     fotTokenInfo,
@@ -189,7 +190,7 @@ const StakeNClaim = ({
       <TotalStaked>
         <div className="wallet-text w-full">
           <TotalStakedText className="wallet-label">
-            Total Staked gFOT
+            Total Staked {tokenType}
             <StakedValue>
               {' '}
               {convertToFixedDecimals(
@@ -217,7 +218,7 @@ const StakeNClaim = ({
             )}
           </TotalStakedText>
           <TotalStakedText className="wallet-label">
-            APR
+            {pathname === '/sFOTmodule' ? 'APY' : 'APR'}
             {showInfoIcon ? (
               <>
                 <InfoOutlinedIcon style={{ position: 'absolute', width: '20px', height: '20px' }} />
@@ -258,7 +259,7 @@ const StakeNClaim = ({
         <MyStakedContent className="wallet-text">
           <div className="w-full" style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
             <MyStakedText className="wallet-label">
-              My Staked gFOT
+              My Staked {tokenType}
               <StakedValue>
                 {convertToFixedDecimals(convertMicroDenomToDenom2(gfotStakingMyStaked, gfotTokenInfo.decimals))}
               </StakedValue>

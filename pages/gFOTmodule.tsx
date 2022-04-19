@@ -255,34 +255,35 @@ const gfotmodule = () => {
           }}
           className="w-full"
         >
-        <LeftPart>
-          <Converter
-            handleBurnMinus={handlebFotBurnMinus}
-            burnAmount={bfotBurnAmount}
-            onBurnChange={onbFotBurnChange}
-            handleBurnPlus={handlebFotBurnPlus}
-            expectedAmount={expectedGfotAmount}
-            convImg="/images/gfotarrow.png"
-            from="bFOT"
-            to="gFOT"
-            handleSubmit={handlebFotBurn}
-            balance={bfotBalance}
-            handleChange={handlebFotChange}
-            sbalance={gfotBalance}
-          />
-        </LeftPart>
-        <RightPart>
-          <StakeNClaim
-            handleBurnMinus={handlegFotStakingMinus}
-            onBurnChange={ongFotStakingChange}
-            handleBurnPlus={handlegFotStakingPlus}
-            handleFotStaking={handlegFotStaking}
-            handleFotStakingClaimReward={handlegFotStakingClaimReward}
-          />
-          <StatisticBox values={defaultValues} />
-          {/* <StatisticBox values={defaultValues} leftValues={leftValues} /> */}
-        </RightPart>
-        {/* <RateShow values={values} action={() => {
+          <LeftPart>
+            <Converter
+              handleBurnMinus={handlebFotBurnMinus}
+              burnAmount={bfotBurnAmount}
+              onBurnChange={onbFotBurnChange}
+              handleBurnPlus={handlebFotBurnPlus}
+              expectedAmount={expectedGfotAmount}
+              convImg="/images/gfotarrow.png"
+              from="bFOT"
+              to="gFOT"
+              handleSubmit={handlebFotBurn}
+              balance={bfotBalance}
+              handleChange={handlebFotChange}
+              sbalance={gfotBalance}
+            />
+          </LeftPart>
+          <RightPart>
+            <StakeNClaim
+              handleBurnMinus={handlegFotStakingMinus}
+              onBurnChange={ongFotStakingChange}
+              handleBurnPlus={handlegFotStakingPlus}
+              handleFotStaking={handlegFotStaking}
+              handleFotStakingClaimReward={handlegFotStakingClaimReward}
+              tokenType="gFOT"
+            />
+            <StatisticBox values={defaultValues} />
+            {/* <StatisticBox values={defaultValues} leftValues={leftValues} /> */}
+          </RightPart>
+          {/* <RateShow values={values} action={() => {
           window.location.href = "https://www.junoswap.com/pools";
         }} /> */}
         </div>
