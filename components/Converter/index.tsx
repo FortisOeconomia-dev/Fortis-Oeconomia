@@ -11,6 +11,10 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   width: ${props => (props.defaultChecked ? '100%' : 'unset')};
+
+  button {
+    border-radius: 60px;
+  }
 `
 
 const Converter = ({
@@ -70,9 +74,9 @@ const Converter = ({
         showBalance={showBalance}
       />
       {button && (
-      <button className={`default-btn secondary-btn`} onClick={handleSubmit}>
-        {submitTitle}
-      </button>
+        <button className={`default-btn secondary-btn`} onClick={handleSubmit}>
+          {submitTitle}
+        </button>
       )}
     </Wrapper>
   )

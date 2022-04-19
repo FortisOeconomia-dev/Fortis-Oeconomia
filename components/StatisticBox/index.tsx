@@ -10,15 +10,16 @@ const Wrapper = styled.div`
     props.slot === '/gFOTmodule'
       ? '2.74846px 5.49692px 57.0305px rgba(161, 164, 176, 0.25)'
       : '4px 8px 83px rgba(34, 40, 95, 0.25)'};
-  border-radius: ${props => (props.slot === '/gFOTmodule' ? '15.1165px' : '70px')};
+  border-radius: ${props =>
+    props.slot === '/gFOTmodule' ? '15.1165px' : props.slot === '/sFOTmodule' ? '27px' : '70px'};
   width: 100%;
   max-width: 610px;
   display: flex;
   position: relative;
-  padding: 30px;
+  padding: ${props => (props.slot === '/sFOTmodule' ? '0 30px' : '30px')};
   align-self: flex-start;
   margin: auto;
-  margin-left: 22px;
+  margin-left: ${props => (props.slot === '/sFOTmodule' ? '-45px' : '22px')};
 `
 
 const ContentWrapper = styled.div`
@@ -31,22 +32,22 @@ const ContentWrapper = styled.div`
 
 const StatisticLabel = styled.span`
   font-weight: 600;
-  font-size: ${props => (props.slot === '/gFOTmodule' ? '16.4907px' : '24px')};
-  line-height: ${props => (props.slot === '/gFOTmodule' ? '25px' : '36px')};
+  font-size: ${props => (props.slot === '/gFOTmodule' || props.slot === '/sFOTmodule' ? '16.4907px' : '24px')};
+  line-height: ${props => (props.slot === '/gFOTmodule' || props.slot === '/sFOTmodule' ? '25px' : '36px')};
   color: ${props => (props.slot === '/gFOTmodule' ? '#080451' : '#22053D')};
 `
 
 const StatisticValue = styled.span`
   font-weight: 600;
-  font-size: ${props => (props.slot === '/gFOTmodule' ? '20.6134px' : '30px')};
-  line-height: ${props => (props.slot === '/gFOTmodule' ? '31px' : '45px')};
+  font-size: ${props => (props.slot === '/gFOTmodule' || props.slot === '/sFOTmodule' ? '20.6134px' : '30px')};
+  line-height: ${props => (props.slot === '/gFOTmodule' || props.slot === '/sFOTmodule' ? '31px' : '45px')};
   color: #22053d;
 `
 
 const StatisticItem = styled.label`
   width: 100%;
   max-width: 470px;
-  padding: ${props => (props.datatype === '/gFOTmodule' ? '36px' : '72px')} 0;
+  padding: ${props => (props.datatype === '/gFOTmodule' || props.datatype === '/sFOTmodule' ? '36px' : '72px')} 0;
   transform: rotate(0.01deg);
   display: flex;
   align-items: center;
@@ -97,6 +98,50 @@ const Ellipse4 = styled.div`
   filter: blur(90px);
 `
 
+const Ellipse5 = styled.div`
+  position: absolute;
+  width: 261px;
+  height: 157px;
+  border-radius: 100%;
+  left: 676px;
+  top: 630px;
+  background: #89b9a0;
+  filter: blur(141.846px);
+`
+
+const Ellipse6 = styled.div`
+  position: absolute;
+  width: 427px;
+  height: 268px;
+  border-radius: 100%;
+  left: 1053px;
+  top: 340px;
+  background: #c4ddd0;
+  filter: blur(207.22px);
+`
+
+const Ellipse7 = styled.div`
+  position: absolute;
+  width: 431px;
+  height: 214px;
+  border-radius: 100%;
+  left: 1046px;
+  top: 634px;
+  background: #a7cbb8;
+  filter: blur(202.166px);
+`
+
+const Ellipse8 = styled.div`
+  position: absolute;
+  width: 420px;
+  height: 265px;
+  border-radius: 100%;
+  left: 715px;
+  top: 378px;
+  background: #ddece5;
+  filter: blur(202.166px);
+`
+
 const Divider = styled.div`
   background: ${props =>
     props.slot === '/gFOTmodule' ? '#2E0752' : 'linear-gradient(270deg, #5F5BCD 0%, #83B8DD 100%)'};
@@ -114,12 +159,20 @@ const VirticalDivider = styled.div`
   margin-right: 20px;
 `
 
-const StatisticBox = ({ values = [], leftValues = [], page = 0, setPage = null }) => {
+const StatisticBox = ({
+  values = [],
+  leftValues = [],
+  page = 0,
+  setPage = null,
+  maxWidth = '661px',
+  children = null,
+}) => {
+  console.log(values)
   const router = useRouter()
   const { pathname } = router
   const { toggle } = useContext(ToggleContext)
   return (
-    <div style={{ paddingLeft: '27px', maxWidth: '661px', width: '100%' }}>
+    <div style={{ paddingLeft: '27px', maxWidth, width: '100%' }}>
       {pathname === '/sFOTmodule' && (
         <div
           style={{
@@ -146,8 +199,9 @@ const StatisticBox = ({ values = [], leftValues = [], page = 0, setPage = null }
           </button>
         </div>
       )}
+      {children}
       <Wrapper slot={pathname} defaultChecked={leftValues.length > 0}>
-        {pathname !== '/gFOTmodule' && (
+        {pathname !== '/gFOTmodule' && pathname !== '/sFOTmodule' && (
           <>
             <Ellipse1 />
             <Ellipse2 />
@@ -155,7 +209,15 @@ const StatisticBox = ({ values = [], leftValues = [], page = 0, setPage = null }
             <Ellipse4 />
           </>
         )}
-        <ContentWrapper>
+        {pathname == '/sFOTmodule' && (
+          <>
+            <Ellipse5 />
+            <Ellipse6 />
+            <Ellipse7 />
+            <Ellipse8 />
+          </>
+        )}
+        <ContentWrapper slot={pathname}>
           {values.map((v, idx) => {
             return (
               <React.Fragment key={idx}>
@@ -167,36 +229,22 @@ const StatisticBox = ({ values = [], leftValues = [], page = 0, setPage = null }
                       ) : idx === self.length - 1 ? (
                         <React.Fragment key={idx}>
                           <br />
-                          <span>({(value)}</span>
+                          <span>({value}</span>
                         </React.Fragment>
                       ) : (
-                        (value)
+                        value
                       ),
                     )}
                   </StatisticLabel>
-                  <StatisticValue slot={pathname}> {convertToFixedDecimals(ConvertToNoExponents(v.value))}</StatisticValue>
+                  <StatisticValue slot={pathname}>
+                    {convertToFixedDecimals(ConvertToNoExponents(v.value))}
+                  </StatisticValue>
                 </StatisticItem>
                 {idx < values.length - 1 && <Divider slot={pathname} />}
               </React.Fragment>
             )
           })}
         </ContentWrapper>
-        {/*<ContentWrapper>
-                    {leftValues.map((l, idx) => {
-                        return (
-                            <React.Fragment key={idx}>
-                                <StatisticItem htmlFor={`${idx}`} slot={`${values.length}`} datatype={pathname}>
-                                    <StatisticLabel slot={pathname}>{l.key}</StatisticLabel>
-                                    <StatisticValue slot={pathname}>
-                                        {" "}
-                                        {l.value}
-                                    </StatisticValue>
-                                </StatisticItem>
-                                {idx < values.length - 1 && <Divider slot={pathname} />}
-                            </React.Fragment>
-                        )
-                    })}
-                </ContentWrapper>*/}
         {leftValues.length > 0 ? <VirticalDivider slot={pathname} /> : <></>}
       </Wrapper>
     </div>
