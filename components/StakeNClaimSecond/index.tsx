@@ -409,11 +409,11 @@ const StakeNClaimSecond = ({
               <div>
                 <MyStakedText className="wallet-label">
                   {'LP Amount'}
-                  <StakedValue> {lpAmount}</StakedValue>
+                  <StakedValue> {convertToFixedDecimals(lpAmount)}</StakedValue>
                 </MyStakedText>
                 <MyStakedText className="wallet-label">
                   {'Staked LP Amount'}
-                  <StakedValue> {lpStakingMyStaked}</StakedValue>
+                  <StakedValue> {convertToFixedDecimals(lpStakingMyStaked)}</StakedValue>
                 </MyStakedText>
               </div>
             )}

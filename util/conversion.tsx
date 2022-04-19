@@ -59,6 +59,8 @@ export function convertToFixedDecimals(amount: number | string): string {
   }
   if (amount > 0.01) {
     return amount.toFixed(2)
+  } else if (amount > 0.0001) {
+    return amount.toFixed(4)
   } else return String(amount)
 }
 
