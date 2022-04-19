@@ -5,6 +5,7 @@ import {
   convertMicroDenomToDenom2,
   convertDenomToMicroDenom2,
   convertFromMicroDenom,
+  convertToFixedDecimals,
 } from '../../util/conversion'
 import InputWithIncDec from '../InputWithIncDec'
 import styled from 'styled-components'
@@ -175,7 +176,7 @@ const StakeNClaim = ({
             Total Staked gFOT
             <StakedValue>
               {' '}
-              {convertMicroDenomToDenom2(gfotStakingContractInfo.gfot_amount, gfotTokenInfo.decimals)}
+              {convertToFixedDecimals(convertMicroDenomToDenom2(gfotStakingContractInfo.gfot_amount, gfotTokenInfo.decimals))}
             </StakedValue>
           </TotalStakedText>
           {/* <TotalStakedText className="wallet-label" style={{ fontSize: '18px' }}>
@@ -188,11 +189,11 @@ const StakeNClaim = ({
           </TotalStakedText> */}
           <TotalStakedText className="wallet-label" style={{ fontSize: '18px' }}>
             DPR
-            <StakedValue> {(gfotStakingApy / 365.0).toFixed(10)} %</StakedValue>
+            <StakedValue> {convertToFixedDecimals((gfotStakingApy / 365.0))} %</StakedValue>
           </TotalStakedText>
           <TotalStakedText className="wallet-label">
             APR
-            <StakedValue> {gfotStakingApy.toFixed(10)} %</StakedValue>
+            <StakedValue> {convertToFixedDecimals(gfotStakingApy)} %</StakedValue>
           </TotalStakedText>
           <CountdownText className="wallet-label" style={{ fontSize: '18px', paddingBottom: 0 }}>
             Reward Distribution in
@@ -222,7 +223,7 @@ const StakeNClaim = ({
           <div className="w-full" style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
             <MyStakedText className="wallet-label">
               My Staked gFOT
-              <StakedValue> {convertMicroDenomToDenom2(gfotStakingMyStaked, gfotTokenInfo.decimals)}</StakedValue>
+              <StakedValue> {convertToFixedDecimals(convertMicroDenomToDenom2(gfotStakingMyStaked, gfotTokenInfo.decimals))}</StakedValue>
             </MyStakedText>
             <div className="gFotCurrencyt-selection">
               <InputWithIncDec
@@ -263,7 +264,7 @@ const StakeNClaim = ({
               )}
               {unstakingList.map((d, idx) => (
                 <tr key={`${idx}-unstake`}>
-                  <td>{convertMicroDenomToDenom2(d[0], gfotTokenInfo.decimals)}</td>
+                  <td>{convertToFixedDecimals(convertMicroDenomToDenom2(d[0], gfotTokenInfo.decimals))}</td>
                   <td>{moment(new Date(Number(d[1]) * 1000)).format('YYYY/MM/DD HH:mm:ss')}</td>
                   <td>
                     <MaxButton
