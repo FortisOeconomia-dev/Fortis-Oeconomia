@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import React, { useContext } from 'react'
 import { ToggleContext } from '../Layout/Layout'
-import { ConvertToNoExponents } from '../../util/conversion'
+import { convertToFixedDecimals, ConvertToNoExponents } from '../../util/conversion'
 
 const Wrapper = styled.div`
   background: ${props => (props.slot === '/gFOTmodule' ? 'rgba(255, 255, 255, 0.25)' : 'rgba(251, 252, 253, 0.3)')};
@@ -115,6 +115,7 @@ const VirticalDivider = styled.div`
 `
 
 const StatisticBox = ({ values = [], leftValues = [], page = 0, setPage = null }) => {
+  console.log(values)
   const router = useRouter()
   const { pathname } = router
   const { toggle } = useContext(ToggleContext)
@@ -167,14 +168,14 @@ const StatisticBox = ({ values = [], leftValues = [], page = 0, setPage = null }
                       ) : idx === self.length - 1 ? (
                         <React.Fragment key={idx}>
                           <br />
-                          <span>({value}</span>
+                          <span>({convertToFixedDecimals(value)}</span>
                         </React.Fragment>
                       ) : (
-                        value
+                        convertToFixedDecimals(value)
                       ),
                     )}
                   </StatisticLabel>
-                  <StatisticValue slot={pathname}> {ConvertToNoExponents(v.value)}</StatisticValue>
+                  <StatisticValue slot={pathname}> {convertToFixedDecimals(ConvertToNoExponents(v.value))}</StatisticValue>
                 </StatisticItem>
                 {idx < values.length - 1 && <Divider slot={pathname} />}
               </React.Fragment>
