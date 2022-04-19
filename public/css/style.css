@@ -177,6 +177,10 @@ Default CSS
   border-bottom: 2px solid #22053d;
   padding-bottom: 27px;
 }
+.countdownwrapper {
+  width: 606px;
+  display:block;
+}
 .wallet-text .wallet-label .wallet-span {
   margin: 0;
   padding-right: 10px;
