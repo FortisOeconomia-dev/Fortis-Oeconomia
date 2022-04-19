@@ -34,7 +34,7 @@ const Wrapper = styled.div`
   justify-content: center;
   flex: 1;
   width: 100%;
-  margin: 24px;
+  margin: 20px;
   padding: 0 20px;
   gap: 37px;
   img {

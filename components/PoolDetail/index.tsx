@@ -43,6 +43,7 @@ const PoolDetail = ({
   showEpochReward = false,
   showDPRInfoIcon = false,
   showDPR = true,
+  showCountdownText = true,
   showTorch = false,
   showLpAmount = true,
   maxWidth = '770px',
@@ -379,7 +380,7 @@ const PoolDetail = ({
     if (token1Amount == 0 || token2Amount == 0) return
     event.preventDefault()
 
-    if (asset > 10) await executeAddLiquidityForDungeon(asset - 10, token1Amount, token2Amount)
+    if (asset >= 10) await executeAddLiquidityForDungeon(asset - 10, token1Amount, token2Amount)
     else await executeAddLiquidity(asset, token1Amount, token2Amount)
     setToken1Amount(0)
     setToken2Amount(0)
@@ -390,7 +391,7 @@ const PoolDetail = ({
       NotificationManager.error('Please connect wallet first')
       return
     }
-    if (asset <= 10) await executeRemoveLiquidity(asset, value)
+    if (asset < 10) await executeRemoveLiquidity(asset, value)
     else await executeRemoveLiquidityForDungeon(asset - 10, value)
     // setToken1Amount(0)
     // setToken2Amount(0)
@@ -476,6 +477,7 @@ const PoolDetail = ({
           showEpochReward={showEpochReward}
           showDPRInfoIcon={showDPRInfoIcon}
           showDPR={showDPR}
+          showCountdownText={showCountdownText}
           showTorch={showTorch}
           showLpAmount={showLpAmount}
           maxWidth={maxWidth}

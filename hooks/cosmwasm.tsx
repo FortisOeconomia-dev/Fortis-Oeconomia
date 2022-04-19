@@ -1784,7 +1784,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   // }
 
   const executeMonetaAirdrop = async () => {
-    // return
+    return
     // if (alreadyAirdropped) {
     //   if (showNotification)
     //     NotificationManager.warning('Already airdropped')
