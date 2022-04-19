@@ -3,6 +3,7 @@ import { useSigningClient } from '../contexts/cosmwasm'
 import styled from 'styled-components'
 import { useContext, useEffect, useState } from 'react'
 import { ToggleContext } from '../components/Layout/Layout'
+import { ConvertToNoExponents } from '../util/conversion'
 
 const Wallet = styled.div`
   flex: 1;
@@ -233,7 +234,7 @@ const nwallet = () => {
                   <Divider />
                   <AssetContent>
                     {d.label}
-                    <AssetValue> {walletAddress.length == 0 ? 0 : d.amount}</AssetValue>
+                    <AssetValue> {walletAddress.length == 0 ? 0 : ConvertToNoExponents(d.amount)}</AssetValue>
                   </AssetContent>
                 </div>
                 {idx > 3 && <AssetImage defaultChecked={toggle} src={`${d.image}`} />}
