@@ -4,6 +4,7 @@ import { ToggleContext } from '../Layout/Layout'
 import InputWithIncDec from '../InputWithIncDec'
 import { useRouter } from 'next/router'
 import { useSigningClient } from '../../contexts/cosmwasm'
+import { ConvertToNoExponents } from '../../util/conversion'
 
 const WalletTitle = styled.label`
   display: flex;
@@ -56,7 +57,7 @@ const FromConv = ({
       {showBalance && walletAddress.length != 0 && (
         <div className="banner-wrapper-content" style={{ height: 'fit-content', textAlign: 'right' }}>
           <span className="sub-title ms-2" style={{ background: '#83B8DD' }}>
-            Balance {balance}
+            Balance {ConvertToNoExponents(balance)}
           </span>
         </div>
       )}
