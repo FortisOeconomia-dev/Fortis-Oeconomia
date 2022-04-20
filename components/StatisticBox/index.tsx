@@ -4,7 +4,7 @@ import React, { useContext } from 'react'
 import { ToggleContext } from '../Layout/Layout'
 import { convertToFixedDecimals, ConvertToNoExponents } from '../../util/conversion'
 
-const Wrapper = styled.div`
+const Wrapper = styled('div')<{ slot: string; page: number }>`
   background: ${props => (props.slot === '/gFOTmodule' ? 'rgba(255, 255, 255, 0.25)' : 'rgba(251, 252, 253, 0.3)')};
   box-shadow: ${props =>
     props.slot === '/gFOTmodule'
@@ -15,7 +15,6 @@ const Wrapper = styled.div`
   width: 100%;
   max-width: 610px;
   display: flex;
-  position: relative;
   padding: ${props => (props.slot === '/sFOTmodule' && props.page === 0 ? '0 30px' : '30px')};
   align-self: flex-start;
   margin: auto;
@@ -30,21 +29,25 @@ const ContentWrapper = styled.div`
   padding: 10px;
 `
 
-const StatisticLabel = styled.span`
+const StatisticLabel = styled('span')<{ slot: string; page: number }>`
   font-weight: 600;
-  font-size: ${props => (props.slot === '/gFOTmodule' || props.slot === '/sFOTmodule' ? '16.4907px' : '24px')};
-  line-height: ${props => (props.slot === '/gFOTmodule' || props.slot === '/sFOTmodule' ? '25px' : '36px')};
-  color: ${props => (props.slot === '/gFOTmodule' ? '#080451' : '#22053D')};
+  font-size: ${props =>
+    props.slot === '/gFOTmodule' || (props.slot === '/sFOTmodule' && props.page === 0) ? '16.4907px' : '24px'};
+  line-height: ${props =>
+    props.slot === '/gFOTmodule' || (props.slot === '/sFOTmodule' && props.page === 0) ? '25px' : '36px'};
+  color: ${props => (props.slot === '/gFOTmodule' ? '#080451' : props.slot === '/sFOTmodule' ? '#171E0E' : '#22053D')};
 `
 
-const StatisticValue = styled.span`
+const StatisticValue = styled('span')<{ slot: string; page: number }>`
   font-weight: 600;
-  font-size: ${props => (props.slot === '/gFOTmodule' || props.slot === '/sFOTmodule' ? '20.6134px' : '30px')};
-  line-height: ${props => (props.slot === '/gFOTmodule' || props.slot === '/sFOTmodule' ? '31px' : '45px')};
-  color: #22053d;
+  font-size: ${props =>
+    props.slot === '/gFOTmodule' || (props.slot === '/sFOTmodule' && props.page === 0) ? '20.6134px' : '30px'};
+  line-height: ${props =>
+    props.slot === '/gFOTmodule' || (props.slot === '/sFOTmodule' && props.page === 0) ? '31px' : '45px'};
+  color: ${props => (props.slot === '/sFOTmodule' ? '#171E0E' : '#22053d')};
 `
 
-const StatisticItem = styled.label`
+const StatisticItem = styled('label')<{ datatype: string; page: number }>`
   width: 100%;
   max-width: 470px;
   padding: ${props =>
@@ -144,6 +147,54 @@ const Ellipse8 = styled.div`
   filter: blur(202.166px);
 `
 
+const Ellipse9 = styled.div`
+  position: absolute;
+  width: 190px;
+  height: 113px;
+  left: 828px;
+  top: 571px;
+  border-radius: 100%;
+  background: #89b9a0;
+  filter: blur(118.129px);
+`
+
+const Ellipse10 = styled.div`
+  position: absolute;
+  width: 312px;
+  height: 193px;
+  left: 1103px;
+  top: 363px;
+
+  background: #c4ddd0;
+  filter: blur(172.573px);
+`
+
+const Ellipse11 = styled.div`
+  position: absolute;
+  width: 315px;
+  height: 153px;
+  left: 1098px;
+  top: 575px;
+
+  background: #a7cbb8;
+  filter: blur(168.364px);
+`
+
+const Ellipse12 = styled.div`
+  position: absolute;
+  width: 306px;
+  height: 189px;
+  left: 856px;
+  top: 390px;
+
+  background: #ddece5;
+  filter: blur(168.364px);
+`
+
+const ShadowEllipses = styled.div`
+  z-index: -1;
+`
+
 const Divider = styled.div`
   background: ${props =>
     props.slot === '/gFOTmodule' ? '#2E0752' : 'linear-gradient(270deg, #5F5BCD 0%, #83B8DD 100%)'};
@@ -211,20 +262,28 @@ const StatisticBox = ({
             <Ellipse4 />
           </>
         )}
-        {pathname == '/sFOTmodule' && (
-          <>
+        {pathname == '/sFOTmodule' && page === 0 && (
+          <ShadowEllipses>
             <Ellipse5 />
             <Ellipse6 />
             <Ellipse7 />
             <Ellipse8 />
-          </>
+          </ShadowEllipses>
+        )}
+        {pathname == '/sFOTmodule' && page === 1 && (
+          <ShadowEllipses>
+            <Ellipse9 />
+            <Ellipse10 />
+            <Ellipse11 />
+            <Ellipse12 />
+          </ShadowEllipses>
         )}
         <ContentWrapper slot={pathname}>
           {values.map((v, idx) => {
             return (
               <React.Fragment key={idx}>
                 <StatisticItem htmlFor={`${idx}`} slot={`${values.length}`} datatype={pathname} page={page}>
-                  <StatisticLabel slot={pathname}>
+                  <StatisticLabel slot={pathname} page={page}>
                     {v.key.split('(').map((value, idx, self) =>
                       self.length === 1 ? (
                         v.key
@@ -238,7 +297,7 @@ const StatisticBox = ({
                       ),
                     )}
                   </StatisticLabel>
-                  <StatisticValue slot={pathname}>
+                  <StatisticValue slot={pathname} page={page}>
                     {convertToFixedDecimals(ConvertToNoExponents(v.value))}
                   </StatisticValue>
                 </StatisticItem>
