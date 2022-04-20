@@ -30,6 +30,7 @@ const Wrapper = styled.div`
   margin: 24px;
   padding: 0 10px;
   gap: 50px;
+  max-width: 1368px;
 `
 const LeftPart = styled.div`
   display: flex;
