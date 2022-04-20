@@ -1,35 +1,43 @@
 import { useSigningClient } from '../../contexts/cosmwasm'
-import {
-  convertMicroDenomToDenom,
-  convertDenomToMicroDenom,
-  convertMicroDenomToDenom2,
-  convertDenomToMicroDenom2,
-  convertFromMicroDenom,
-  convertToFixedDecimals,
-} from '../../util/conversion'
+import { convertMicroDenomToDenom2, convertToFixedDecimals } from '../../util/conversion'
 import InputWithIncDec from '../InputWithIncDec'
 import styled from 'styled-components'
+import classnames from 'classnames'
 import { useContext, MouseEvent, ChangeEvent } from 'react'
+import { useRouter } from 'next/router'
 import { ToggleContext } from '../Layout/Layout'
-import { NotificationContainer, NotificationManager } from 'react-notifications'
+import { NotificationManager } from 'react-notifications'
 import moment from 'moment'
 import Countdown from '../Countdown'
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
+
+const MaxButton = styled.button`
+  margin-bottom: 20px;
+  padding: 5px !important;
+  min-width: unset !important;
+`
 
 const Wrapper = styled.div`
   padding: 50px 32px;
   background: rgba(255, 255, 255, 0.25);
   box-shadow: 2.74846px 5.49692px 57.0305px rgba(161, 164, 176, 0.25);
   border-radius: 15.1165px;
-  margin-bottom: 16px;
+  margin-top: ${props => props.slot === '/sFOTmodule' && '-18px'};
+  margin-bottom: ${props => (props.slot === '/sFOTmodule' ? '32px' : '16px')};
   display: flex;
   max-width: 950px;
-  margin-left: 50px;
+  margin-left: ${props => (props.slot === '/sFOTmodule' ? '-45px' : '50px')};
   @media (max-width: 768px) {
     flex-direction: column;
   }
   th,
   td {
     text-align: center;
+  }
+
+  ${MaxButton} {
+    padding-left: 36px !important;
+    padding-right: 36px !important;
   }
 `
 
@@ -96,18 +104,24 @@ const MyStakedText = styled.label`
   margin: 0 !important;
 `
 
-const MaxButton = styled.button`
-  margin-bottom: 20px;
-  padding: 5px !important;
-  min-width: unset !important;
+const HorizontalDivider = styled.div`
+  background: #171e0e;
+  height: 2px;
+  width: 100%;
+  transform: rotate(180deg);
+  margin: 16px 0 36px;
 `
 
 const StakeNClaim = ({
-  handleBurnMinus,
-  onBurnChange,
-  handleBurnPlus,
-  handleFotStaking,
-  handleFotStakingClaimReward,
+  handleBurnMinus = null,
+  onBurnChange = null,
+  handleBurnPlus = null,
+  handleFotStaking = null,
+  handleFotStakingClaimReward = null,
+  showCountdown = true,
+  showInfoIcon = false,
+  showDivider = false,
+  tokenType = null,
 }) => {
   const {
     fotTokenInfo,
@@ -146,6 +160,9 @@ const StakeNClaim = ({
     createUnstake()
   }
 
+  const router = useRouter()
+  const { pathname } = router
+
   const handlegFotUnstakingPlus = () => {
     console.log(unstakeAmount)
     console.log(convertMicroDenomToDenom2(gfotStakingMyStaked, gfotTokenInfo.decimals))
@@ -169,14 +186,16 @@ const StakeNClaim = ({
 
   const { toggle } = useContext(ToggleContext)
   return (
-    <Wrapper>
+    <Wrapper slot={pathname}>
       <TotalStaked>
         <div className="wallet-text w-full">
           <TotalStakedText className="wallet-label">
-            Total Staked gFOT
+            Total Staked {tokenType}
             <StakedValue>
               {' '}
-              {convertToFixedDecimals(convertMicroDenomToDenom2(gfotStakingContractInfo.gfot_amount, gfotTokenInfo.decimals))}
+              {convertToFixedDecimals(
+                convertMicroDenomToDenom2(gfotStakingContractInfo.gfot_amount, gfotTokenInfo.decimals),
+              )}
             </StakedValue>
           </TotalStakedText>
           {/* <TotalStakedText className="wallet-label" style={{ fontSize: '18px' }}>
@@ -184,21 +203,39 @@ const StakeNClaim = ({
             <StakedValue>
               {' '}
               {'30000FOT'} */}
-              {/* {(gfotStakingApy / 10000000000.0).toFixed(10)} % */}
-            {/* </StakedValue>
+          {/* {(gfotStakingApy / 10000000000.0).toFixed(10)} % */}
+          {/* </StakedValue>
           </TotalStakedText> */}
           <TotalStakedText className="wallet-label" style={{ fontSize: '18px' }}>
             DPR
-            <StakedValue> {convertToFixedDecimals((gfotStakingApy / 365.0))} %</StakedValue>
+            {showInfoIcon ? (
+              <>
+                <InfoOutlinedIcon style={{ position: 'absolute', width: '20px', height: '20px' }} />
+                <StakedValue>%{convertToFixedDecimals(gfotStakingApy / 365.0)}</StakedValue>
+              </>
+            ) : (
+              <StakedValue> {convertToFixedDecimals(gfotStakingApy / 365.0)} %</StakedValue>
+            )}
           </TotalStakedText>
           <TotalStakedText className="wallet-label">
-            APR
-            <StakedValue> {convertToFixedDecimals(gfotStakingApy)} %</StakedValue>
+            {pathname === '/sFOTmodule' ? 'APY' : 'APR'}
+            {showInfoIcon ? (
+              <>
+                <InfoOutlinedIcon style={{ position: 'absolute', width: '20px', height: '20px' }} />
+                <StakedValue>%{convertToFixedDecimals(gfotStakingApy)}</StakedValue>
+              </>
+            ) : (
+              <StakedValue> {convertToFixedDecimals(gfotStakingApy)} %</StakedValue>
+            )}
           </TotalStakedText>
-          <CountdownText className="wallet-label" style={{ fontSize: '18px', paddingBottom: 0 }}>
-            Reward Distribution in
-          </CountdownText>
-          <Countdown targetHour={0}/>
+          {showCountdown && (
+            <>
+              <CountdownText className="wallet-label" style={{ fontSize: '18px', paddingBottom: 0 }}>
+                Reward Distribution in
+              </CountdownText>
+              <Countdown targetHour={0} />
+            </>
+          )}
         </div>
         <div className="gFotCurrencyt-selection">
           <InputWithIncDec
@@ -222,8 +259,10 @@ const StakeNClaim = ({
         <MyStakedContent className="wallet-text">
           <div className="w-full" style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
             <MyStakedText className="wallet-label">
-              My Staked gFOT
-              <StakedValue> {convertToFixedDecimals(convertMicroDenomToDenom2(gfotStakingMyStaked, gfotTokenInfo.decimals))}</StakedValue>
+              My Staked {tokenType}
+              <StakedValue>
+                {convertToFixedDecimals(convertMicroDenomToDenom2(gfotStakingMyStaked, gfotTokenInfo.decimals))}
+              </StakedValue>
             </MyStakedText>
             <div className="gFotCurrencyt-selection">
               <InputWithIncDec
@@ -278,6 +317,7 @@ const StakeNClaim = ({
               ))}
             </table>
           </div>
+          {showDivider && <HorizontalDivider />}
           <div className="w-full" style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
             <MyStakedText className="wallet-label">
               My Rewards

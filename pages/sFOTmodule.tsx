@@ -10,23 +10,15 @@ import Converter from '../components/Converter'
 import StatisticBox from '../components/StatisticBox'
 import Pool from '../components/Pool'
 import PoolDetail from '../components/PoolDetail'
-import RateShow from '../components/RateShow'
+import StakeNClaim from '../components/StakeNClaim'
 
 import { useSigningClient } from '../contexts/cosmwasm'
-import { fromBase64, toBase64 } from '@cosmjs/encoding'
-import {
-  convertMicroDenomToDenom,
-  convertDenomToMicroDenom,
-  convertMicroDenomToDenom2,
-  convertDenomToMicroDenom2,
-  convertFromMicroDenom,
-} from '../util/conversion'
-import { NotificationContainer, NotificationManager } from 'react-notifications'
+import { convertMicroDenomToDenom2 } from '../util/conversion'
+import { NotificationManager } from 'react-notifications'
 import 'react-notifications/lib/notifications.css'
 
 //styled components
 const Wrapper = styled.div`
-  // max-width: 1368px;
   height: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -90,6 +82,22 @@ const PoolsContent = styled.div`
 const Divider = styled.div`
   width: 2.06px;
   background: linear-gradient(180deg, #171e0e 0%, #ffffff 100%);
+`
+
+const LeftPart = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex: 1;
+  margin-top: 34px;
+  max-width: 100%;
+`
+
+const RightPart = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 2;
+  max-width: 100%;
 `
 
 const sfotmodule = () => {
@@ -168,19 +176,15 @@ const sfotmodule = () => {
       value: `${convertMicroDenomToDenom2(sfotTokenInfo.total_supply, sfotTokenInfo.decimals)}`,
     },
     {
-      key: 'bFOT Price',
+      key: 'sFOT Price',
       value: bFot2Ust,
     },
   ]
   const defaultValues1 = [
     {
       key: 'gFOT on Sale',
-      value: `${convertMicroDenomToDenom2(clearanceContractInfo.gfot_amount, gfotTokenInfo.decimals)}`,
+      value: `${convertMicroDenomToDenom2(clearanceContractInfo.sfot_amount, gfotTokenInfo.decimals)}`,
     },
-    //    {
-    //      key: 'sFOT Price',
-    //      value: `${convertMicroDenomToDenom2(clearanceContractInfo.sfot_price, 6)}`
-    //    }
   ]
 
   //Stable Handling
@@ -259,7 +263,6 @@ const sfotmodule = () => {
 
     handleClearanceSfotChange(Number(clearanceSfotAmount) + 1)
   }
-
   ///////////////////////////////////////////////////////////////////////
   //swap
   ///////////////////////////////////////////////////////////////////////
@@ -347,6 +350,7 @@ const sfotmodule = () => {
       </AssetImageWrapper>
     </OutWrapper>
   )
+
   const bFOTImage = () => (
     <OutWrapper
       defaultChecked={toggle}
@@ -362,6 +366,7 @@ const sfotmodule = () => {
       </AssetImageWrapper>
     </OutWrapper>
   )
+
   const gFOTImage = () => (
     <OutWrapper
       defaultChecked={toggle}
@@ -384,36 +389,47 @@ const sfotmodule = () => {
           <div
             style={{
               display: 'flex',
-              alignItems: 'center',
               justifyContent: 'space-between',
               flexWrap: 'wrap',
               gap: '50px',
-              maxWidth: 1368
+              maxWidth: 1368,
             }}
             className="w-full"
           >
-            <Converter
-              wfull={false}
-              handleBurnMinus={page === 0 ? handleStableGfotMinus : handleClearanceSfotMinus}
-              burnAmount={page === 0 ? stableGfotAmount : clearanceSfotAmount}
-              onBurnChange={page === 0 ? onStableGfotChange : onClearanceSfotChange}
-              handleBurnPlus={page === 0 ? handleStableGfotPlus : handleClearanceSfotPlus}
-              expectedAmount={page === 0 ? stableExpectedSfotAmount : clearanceExpectedGfotAmount}
-              convImg={() => (
-                <svg width="127" height="70" viewBox="0 0 127 94" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <line x1="1.23677" y1="2.15124" x2="63.3153" y2="92.6086" stroke="#171E0E" strokeWidth="3" />
-                  <line x1="62.7632" y1="91.6095" x2="124.841" y2="1.15126" stroke="#171E0E" strokeWidth="3" />
-                </svg>
-              )}
-              from={page === 0 ? 'gFOT' : 'sFOT'}
-              to={page === 0 ? 'sFOT' : 'gFOT'}
-              handleSubmit={page === 0 ? handleStableSubmit : handleClearanceSubmit}
-              balance={page === 0 ? gfotBalance : sfotBalance}
-              handleChange={page === 0 ? handleStableGfotChange : handleClearanceSfotChange}
-              sbalance={page === 0 ? sfotBalance : gfotBalance}
-              submitTitle={page === 0 ? 'Mint' : 'Purchase'}
-            />
-            <StatisticBox values={page === 0 ? defaultValues0 : defaultValues1} page={page} setPage={setPage} />
+            <LeftPart>
+              <Converter
+                wfull={false}
+                handleBurnMinus={page === 0 ? handleStableGfotMinus : handleClearanceSfotMinus}
+                burnAmount={page === 0 ? stableGfotAmount : clearanceSfotAmount}
+                onBurnChange={page === 0 ? onStableGfotChange : onClearanceSfotChange}
+                handleBurnPlus={page === 0 ? handleStableGfotPlus : handleClearanceSfotPlus}
+                expectedAmount={page === 0 ? stableExpectedSfotAmount : clearanceExpectedGfotAmount}
+                convImg={() => (
+                  <svg width="127" height="70" viewBox="0 0 127 94" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="1.23677" y1="2.15124" x2="63.3153" y2="92.6086" stroke="#171E0E" strokeWidth="3" />
+                    <line x1="62.7632" y1="91.6095" x2="124.841" y2="1.15126" stroke="#171E0E" strokeWidth="3" />
+                  </svg>
+                )}
+                from={page === 0 ? 'gFOT' : 'sFOT'}
+                to={page === 0 ? 'sFOT' : 'gFOT'}
+                handleSubmit={page === 0 ? handleStableSubmit : handleClearanceSubmit}
+                balance={page === 0 ? gfotBalance : sfotBalance}
+                handleChange={page === 0 ? handleStableGfotChange : handleClearanceSfotChange}
+                sbalance={page === 0 ? sfotBalance : gfotBalance}
+                submitTitle={page === 0 ? 'Mint' : 'Purchase'}
+                showBalance={false}
+              />
+            </LeftPart>
+            <RightPart>
+              <StatisticBox
+                values={page === 0 ? defaultValues0 : defaultValues1}
+                page={page}
+                setPage={setPage}
+                maxWidth={null}
+              >
+                {page === 0 && <StakeNClaim showInfoIcon={true} showDivider={true} tokenType="sFOT" />}
+              </StatisticBox>
+            </RightPart>
           </div>
         </>
       ) : (
@@ -421,14 +437,6 @@ const sfotmodule = () => {
           <Pools>
             <PoolsContent>
               <Title>Pools</Title>
-              {/*             <Pool 
-            from="sFOT" 
-            to="USDC" 
-            fromImage={sFOTImage}
-            toImage="/images/usdc.png"
-            onClick={() => setAsset(0)}
-            isActive={asset===0}
-          />  */}
               <Pool
                 from="sFOT"
                 to="UST"
