@@ -1135,14 +1135,6 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       })
       setsFotStakingContractInfo(sfotStakingContractInfo)
 
-      //Changed APY formula
-      // dpr formula is (100x30)/staked gFOT amount
-      // apr formula is 365xdpr
-      setsFotStakingApy(
-        (365 * 100 * 30.0) /
-          Number(convertMicroDenomToDenom2(sfotStakingContractInfo.gfot_amount, objectSfotTokenInfo.decimals)),
-      )
-
       const sfotStakingMyInfo = await signingClient.queryContractSmart(PUBLIC_SFOTSTAKING_CONTRACT, {
         staker: {
           address: `${walletAddress}`,
@@ -1223,6 +1215,16 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       const sfot2ustval = (Number(convertMicroDenomToDenom2(sfotUstPoolInfo.token2_reserve, 6)) / Number(convertMicroDenomToDenom2(sfotUstPoolInfo.token1_reserve, objectSfotTokenInfo.decimals))) * 1000000
 
       setsFot2Ust(Number(convertMicroDenomToDenom2(sfot2ustval, 6)))
+
+      //Changed APY formula
+      // (36.000.000 x bFOT price )/(staked sFOT x sFOT price) for DPR on sFOT
+      // dpr * 365 for APR on sFOT
+      setsFotStakingApy(
+        (36000000 * Number(convertMicroDenomToDenom2(bfot2ustval, 6))) /
+          (Number(convertMicroDenomToDenom2(sfotStakingContractInfo.gfot_amount, objectSfotTokenInfo.decimals)) *
+          Number(convertMicroDenomToDenom2(sfot2ustval, 6)))
+      )
+
       setSfotUstPoolInfo(sfotUstPoolInfo)
       const sfotUstLpTokenInfo = await signingClient.queryContractSmart(sfotUstPoolInfo.lp_token_address, {
         token_info: {},
