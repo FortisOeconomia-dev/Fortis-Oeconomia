@@ -125,7 +125,7 @@ const gfotmodule = () => {
       value: `${convertMicroDenomToDenom2(bfotBurnContractInfo.gfot_sent_amount, gfotTokenInfo.decimals)}`,
     },
     {
-      key: 'gFOT Minting Ratio(Required bFOT for 1 gFOT)',
+      key: 'gFOT Minting Ratio(Required bFOT for 1 gFOT',
       value: `${Math.floor(gfotTokenInfo.total_supply / 10000000000) + 10000}`,
     },
   ]
@@ -285,6 +285,7 @@ const gfotmodule = () => {
               handleFotStakingClaimReward={handlegFotStakingClaimReward}
               tokenType="gFOT"
               gfotTokenInfo={gfotTokenInfo}
+              showStakeNClaimReward={true}
               gfotStakingContractInfo={gfotStakingContractInfo}
               gfotStakingAmount={gfotStakingAmount}
               gfotStakingApy={gfotStakingApy}

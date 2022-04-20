@@ -121,6 +121,7 @@ const StakeNClaim = ({
   showCountdown = true,
   showInfoIcon = false,
   showDivider = false,
+  showStakeNClaimReward = false,
   tokenType = null,
   gfotTokenInfo,
   gfotStakingContractInfo,
@@ -317,7 +318,7 @@ const StakeNClaim = ({
             </table>
           </div>
           {showDivider && <HorizontalDivider />}
-          <div className="w-full" style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+          {showStakeNClaimReward && <div className="w-full" style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
             <MyStakedText className="wallet-label">
               My Rewards
               <StakedValue> {convertMicroDenomToDenom2(gfotStakingMyReward, fotTokenInfo.decimals)}</StakedValue>
@@ -325,7 +326,7 @@ const StakeNClaim = ({
             <button className={`default-btn   ${!toggle && 'secondary-btn'}`} onClick={handleFotStakingClaimReward}>
               Claim
             </button>
-          </div>
+          </div>}
         </MyStakedContent>
       </MyStaked>
     </Wrapper>
