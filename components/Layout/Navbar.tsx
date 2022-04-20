@@ -292,14 +292,14 @@ const Navbar = ({ toggle, setToggle }) => {
                           borderRadius: '0px 0px 13px 13px',
                         }}
                       >
-                        <Link href="/sFOTmodule" activeClassName="active">
+                        <Link href="/sFOTVault" activeClassName="active">
                           <SubLink
                             onClick={() => setModulesMenu(!modulesMenu)}
                             className="nav-link"
                             slot={pathname}
                             defaultChecked={toggle}
                           >
-                            Stable Module (sFOT)
+                            sFOT Vault
                           </SubLink>
                         </Link>
                       </li>

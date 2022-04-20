@@ -27,7 +27,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  filter: ${props => !props.defaultChecked && props.slot === '/sFOTmodule' && 'hue-rotate(240deg)'};
+  filter: ${props => !props.defaultChecked && props.slot === '/sFOTVault' && 'hue-rotate(240deg)'};
 `
 const AssetImageWrapper = styled.div`
   background: ${props => props.slot};
@@ -191,7 +191,7 @@ const Layout = ({ children }) => {
           },
         ]
         break
-      case '/sFOTmodule':
+      case '/sFOTVault':
         values = [
           {
             fromAmount: '1',
