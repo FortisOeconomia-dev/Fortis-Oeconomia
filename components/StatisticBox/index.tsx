@@ -220,7 +220,6 @@ const StatisticBox = ({
   maxWidth = '661px',
   children = null,
 }) => {
-  console.log(values)
   const router = useRouter()
   const { pathname } = router
   const { toggle } = useContext(ToggleContext)
