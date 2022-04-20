@@ -11,14 +11,14 @@ const Wrapper = styled('div')<{ slot: string; page: number }>`
       ? '2.74846px 5.49692px 57.0305px rgba(161, 164, 176, 0.25)'
       : '4px 8px 83px rgba(34, 40, 95, 0.25)'};
   border-radius: ${props =>
-    props.slot === '/gFOTmodule' ? '15.1165px' : props.slot === '/sFOTmodule' && props.page === 0 ? '27px' : '70px'};
+    props.slot === '/gFOTmodule' ? '15.1165px' : props.slot === '/sFOTVault' && props.page === 0 ? '27px' : '70px'};
   width: 100%;
   max-width: 610px;
   display: flex;
-  padding: ${props => (props.slot === '/sFOTmodule' && props.page === 0 ? '0 30px' : '30px')};
+  padding: ${props => (props.slot === '/sFOTVault' && props.page === 0 ? '0 30px' : '30px')};
   align-self: flex-start;
   margin: auto;
-  margin-left: ${props => (props.slot === '/sFOTmodule' && props.page === 0 ? '-45px' : '22px')};
+  margin-left: ${props => (props.slot === '/sFOTVault' && props.page === 0 ? '-45px' : '22px')};
 `
 
 const ContentWrapper = styled.div`
@@ -32,26 +32,26 @@ const ContentWrapper = styled.div`
 const StatisticLabel = styled('span')<{ slot: string; page: number }>`
   font-weight: 600;
   font-size: ${props =>
-    props.slot === '/gFOTmodule' || (props.slot === '/sFOTmodule' && props.page === 0) ? '16.4907px' : '24px'};
+    props.slot === '/gFOTmodule' || (props.slot === '/sFOTVault' && props.page === 0) ? '16.4907px' : '24px'};
   line-height: ${props =>
-    props.slot === '/gFOTmodule' || (props.slot === '/sFOTmodule' && props.page === 0) ? '25px' : '36px'};
-  color: ${props => (props.slot === '/gFOTmodule' ? '#080451' : props.slot === '/sFOTmodule' ? '#171E0E' : '#22053D')};
+    props.slot === '/gFOTmodule' || (props.slot === '/sFOTVault' && props.page === 0) ? '25px' : '36px'};
+  color: ${props => (props.slot === '/gFOTmodule' ? '#080451' : props.slot === '/sFOTVault' ? '#171E0E' : '#22053D')};
 `
 
 const StatisticValue = styled('span')<{ slot: string; page: number }>`
   font-weight: 600;
   font-size: ${props =>
-    props.slot === '/gFOTmodule' || (props.slot === '/sFOTmodule' && props.page === 0) ? '20.6134px' : '30px'};
+    props.slot === '/gFOTmodule' || (props.slot === '/sFOTVault' && props.page === 0) ? '20.6134px' : '30px'};
   line-height: ${props =>
-    props.slot === '/gFOTmodule' || (props.slot === '/sFOTmodule' && props.page === 0) ? '31px' : '45px'};
-  color: ${props => (props.slot === '/sFOTmodule' ? '#171E0E' : '#22053d')};
+    props.slot === '/gFOTmodule' || (props.slot === '/sFOTVault' && props.page === 0) ? '31px' : '45px'};
+  color: ${props => (props.slot === '/sFOTVault' ? '#171E0E' : '#22053d')};
 `
 
 const StatisticItem = styled('label')<{ datatype: string; page: number }>`
   width: 100%;
   max-width: 470px;
   padding: ${props =>
-      props.datatype === '/gFOTmodule' || (props.datatype === '/sFOTmodule' && props.page === 0) ? '36px' : '72px'}
+      props.datatype === '/gFOTmodule' || (props.datatype === '/sFOTVault' && props.page === 0) ? '36px' : '72px'}
     0;
   transform: rotate(0.01deg);
   display: flex;
@@ -226,7 +226,7 @@ const StatisticBox = ({
   const { toggle } = useContext(ToggleContext)
   return (
     <div style={{ paddingLeft: '27px', maxWidth, width: '100%' }}>
-      {pathname === '/sFOTmodule' && (
+      {pathname === '/sFOTVault' && (
         <div
           style={{
             display: 'flex',
@@ -254,7 +254,7 @@ const StatisticBox = ({
       )}
       {children}
       <Wrapper slot={pathname} page={page} defaultChecked={leftValues.length > 0}>
-        {pathname !== '/gFOTmodule' && pathname !== '/sFOTmodule' && (
+        {pathname !== '/gFOTmodule' && pathname !== '/sFOTVault' && (
           <>
             <Ellipse1 />
             <Ellipse2 />
@@ -262,7 +262,7 @@ const StatisticBox = ({
             <Ellipse4 />
           </>
         )}
-        {pathname == '/sFOTmodule' && page === 0 && (
+        {pathname == '/sFOTVault' && page === 0 && (
           <ShadowEllipses>
             <Ellipse5 />
             <Ellipse6 />
@@ -270,7 +270,7 @@ const StatisticBox = ({
             <Ellipse8 />
           </ShadowEllipses>
         )}
-        {pathname == '/sFOTmodule' && page === 1 && (
+        {pathname == '/sFOTVault' && page === 1 && (
           <ShadowEllipses>
             <Ellipse9 />
             <Ellipse10 />

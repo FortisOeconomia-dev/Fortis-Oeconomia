@@ -22,11 +22,11 @@ const Wrapper = styled.div`
   background: rgba(255, 255, 255, 0.25);
   box-shadow: 2.74846px 5.49692px 57.0305px rgba(161, 164, 176, 0.25);
   border-radius: 15.1165px;
-  margin-top: ${props => props.slot === '/sFOTmodule' && '-18px'};
-  margin-bottom: ${props => (props.slot === '/sFOTmodule' ? '32px' : '16px')};
+  margin-top: ${props => props.slot === '/sFOTVault' && '-18px'};
+  margin-bottom: ${props => (props.slot === '/sFOTVault' ? '32px' : '16px')};
   display: flex;
   max-width: 950px;
-  margin-left: ${props => (props.slot === '/sFOTmodule' ? '-45px' : '50px')};
+  margin-left: ${props => (props.slot === '/sFOTVault' ? '-45px' : '50px')};
   @media (max-width: 768px) {
     flex-direction: column;
   }
@@ -218,7 +218,7 @@ const StakeNClaim = ({
             )}
           </TotalStakedText>
           <TotalStakedText className="wallet-label">
-            {pathname === '/sFOTmodule' ? 'APY' : 'APR'}
+            {pathname === '/sFOTVault' ? 'APY' : 'APR'}
             {showInfoIcon ? (
               <>
                 <InfoOutlinedIcon style={{ position: 'absolute', width: '20px', height: '20px' }} />
