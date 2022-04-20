@@ -2266,7 +2266,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         PUBLIC_SFOTSTAKING_CONTRACT,
         {
           create_unstake: {
-            unstake_amount: convertDenomToMicroDenom2(unstakeAmount, sfotTokenInfo.decimals),
+            unstake_amount: convertDenomToMicroDenom2(sFotUnstakeAmount, sfotTokenInfo.decimals),
           },
         }, // msg
         defaultFee,
