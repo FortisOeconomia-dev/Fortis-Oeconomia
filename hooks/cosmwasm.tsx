@@ -1220,7 +1220,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       // (36.000.000 x bFOT price )/(staked sFOT x sFOT price) for DPR on sFOT
       // dpr * 365 for APR on sFOT
       setsFotStakingApy(
-        (36000000 * Number(convertMicroDenomToDenom2(bfot2ustval, 6))) /
+        (365 * 36000000 * Number(convertMicroDenomToDenom2(bfot2ustval, 6))) /
           (Number(convertMicroDenomToDenom2(sfotStakingContractInfo.gfot_amount, objectSfotTokenInfo.decimals)) *
           Number(convertMicroDenomToDenom2(sfot2ustval, 6)))
       )
