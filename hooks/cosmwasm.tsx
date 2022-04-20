@@ -95,6 +95,23 @@ export interface ISigningCosmWasmClientContext {
   executegFotStaking: Function
   executegFotClaimReward: Function
 
+  // sfotstaking part
+  sfotStakingContractInfo: any
+  sfotStakingAmount: string
+  setsFotStakingAmount: Function
+  sfotStakingApy: number
+  sfotStakingMyStaked: number
+  sfotStakingMyReward: number
+  handlesFotStakingChange: Function
+  executesFotStaking: Function
+  executesFotClaimReward: Function
+
+  sFotUnstakingList: any[]
+  createsFotUnstake: Function
+  executesFotFetchUnstake: Function
+  sFotUnstakeAmount: number
+  handlesFotUnstakeChange: Function
+
   //bFOT Juno Pool Part
   bFot2Juno: number
   Juno2bFot: number
@@ -231,6 +248,7 @@ export const PUBLIC_BFOTBURN_CONTRACT = process.env.NEXT_PUBLIC_BFOTBURN_CONTRAC
 export const PUBLIC_GFOTSTAKING_CONTRACT = process.env.NEXT_PUBLIC_GFOTSTAKING_CONTRACT || ''
 export const PUBLIC_STABLE_CONTRACT = process.env.NEXT_PUBLIC_STABLE_CONTRACT || ''
 export const PUBLIC_CLEARANCE_CONTRACT = process.env.NEXT_PUBLIC_CLEARANCE_CONTRACT || ''
+export const PUBLIC_SFOTSTAKING_CONTRACT = process.env.NEXT_PUBLIC_SFOTSTAKING_CONTRACT || ''
 
 export const PUBLIC_FOT_CONTRACT = process.env.NEXT_PUBLIC_FOT_CONTRACT || ''
 export const PUBLIC_BFOT_CONTRACT = process.env.NEXT_PUBLIC_BFOT_CONTRACT || ''
@@ -569,6 +587,12 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     sfot_burn_amount: 0,
     sfot_price: 0,
   })
+  const [sfotStakingContractInfo, setsFotStakingContractInfo] = useState({
+    owner: '',
+    fot_amount: 0,
+    gfot_amount: 0,
+    apy_prefix: 0,
+  })
   const [sfotUstPoolInfo, setSfotUstPoolInfo] = useState({
     token1_reserve: 0,
     token2_reserve: 0,
@@ -675,6 +699,19 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
   const [unstakingList, setUnstakingList] = useState([])
   const [unstakeAmount, setUnstakeAmount] = useState(0)
+
+  //////////////////////////////////////////////////////////////////////
+  /////////////////////  sFotStaking Variables   ///////////////////////
+  //////////////////////////////////////////////////////////////////////
+
+  const [sfotStakingAmount, setsFotStakingAmount] = useState('')
+  const [sfotStakingApy, setsFotStakingApy] = useState(0)
+  const [sfotStakingMyStaked, setsFotStakingMyStaked] = useState(0)
+  const [sfotStakingMyReward, setsFotStakingMyReward] = useState(0)
+
+  const [sFotUnstakingList, setsFotUnstakingList] = useState([])
+  const [sFotUnstakeAmount, setsFotUnstakeAmount] = useState(0)
+
   //////////////////////////////////////////////////////////////////////
   /////////////////////  bFOT JUno Pool Variables   ////////////////////
   //////////////////////////////////////////////////////////////////////
@@ -1089,6 +1126,42 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         config: {},
       })
       setClearanceContractInfo(clearanceContractInfo)
+
+      //sFotStaking Contract Info
+      const sfotStakingContractInfo = await signingClient.queryContractSmart(PUBLIC_SFOTSTAKING_CONTRACT, {
+        config: {},
+      })
+      setsFotStakingContractInfo(sfotStakingContractInfo)
+
+      //Changed APY formula
+      // dpr formula is (100x30)/staked gFOT amount
+      // apr formula is 365xdpr
+      setsFotStakingApy(
+        (365 * 100 * 30.0) /
+          Number(convertMicroDenomToDenom2(sfotStakingContractInfo.gfot_amount, objectSfotTokenInfo.decimals)),
+      )
+
+      const sfotStakingMyInfo = await signingClient.queryContractSmart(PUBLIC_SFOTSTAKING_CONTRACT, {
+        staker: {
+          address: `${walletAddress}`,
+        },
+      })
+
+      let new_reward =
+        (sfotStakingContractInfo.daily_fot_amount *
+          (Math.floor((new Date().getTime() / 1000 + 43200) / 86400) - Math.floor((sfotStakingMyInfo.last_time + 43200) / 86400)) *
+          sfotStakingMyInfo.amount) /
+        sfotStakingContractInfo.gfot_amount
+
+      setsFotStakingMyStaked(sfotStakingMyInfo.amount)
+      setsFotStakingMyReward(sfotStakingMyInfo.reward + new_reward)
+
+      const unstaking_list = await signingClient.queryContractSmart(PUBLIC_SFOTSTAKING_CONTRACT, {
+        unstaking: {
+          address: `${walletAddress}`,
+        },
+      })
+      setsFotUnstakingList(unstaking_list)
 
       //Lp Staking contract Info
       //SFOT-UST Contract Info
@@ -2106,6 +2179,141 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
   ////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////
+  ////////////////////    sfotstaking Functions   ////////////////////////
+  ////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////
+
+  const handlesFotStakingChange = async value => {
+    //    if (Number(value) > bfotBalance || Number(value) < 0)
+    //    return;
+    setsFotStakingAmount(value)
+  }
+
+  const executesFotStaking = async () => {
+    setLoading(true)
+
+    try {
+      await signingClient?.execute(
+        walletAddress, // sender address
+        PUBLIC_SFOT_CONTRACT,
+        {
+          send: {
+            amount: convertDenomToMicroDenom2(sfotStakingAmount, sfotTokenInfo.decimals),
+            contract: PUBLIC_SFOTSTAKING_CONTRACT,
+            msg: '',
+          },
+        }, // msg
+        defaultFee,
+        undefined,
+        [],
+      )
+
+      setLoading(false)
+      setsFotStakingAmount('')
+      getSfotBalances()
+      if (showNotification) NotificationManager.success('Successfully staked')
+    } catch (error) {
+      setLoading(false)
+      console.log(error)
+      //if (showNotification) {
+      NotificationManager.error(`Stakemodule error : ${error}`)
+      console.log(error.toString())
+      //}
+    }
+  }
+
+  const executesFotClaimReward = async () => {
+    setLoading(true)
+
+    try {
+      await signingClient?.execute(
+        walletAddress, // sender address
+        PUBLIC_SFOTSTAKING_CONTRACT,
+        {
+          claim_reward: {},
+        }, // msg
+        defaultFee,
+        undefined,
+        [],
+      )
+
+      setLoading(false)
+      getSfotBalances()
+      if (showNotification) NotificationManager.success('Successfully clamied reward')
+    } catch (error) {
+      setLoading(false)
+      //if (showNotification) {
+      NotificationManager.error(`Stakemodule claim error : ${error}`)
+      console.log(error.toString())
+      //}
+    }
+  }
+
+  const createsFotUnstake = async () => {
+    if (sFotUnstakeAmount == 0) return
+    setLoading(true)
+
+    try {
+      await signingClient?.execute(
+        walletAddress, // sender address
+        PUBLIC_SFOTSTAKING_CONTRACT,
+        {
+          create_unstake: {
+            unstake_amount: convertDenomToMicroDenom2(unstakeAmount, sfotTokenInfo.decimals),
+          },
+        }, // msg
+        defaultFee,
+        undefined,
+        [],
+      )
+
+      setLoading(false)
+      getSfotBalances()
+      if (showNotification) NotificationManager.success('Successfully unstaked')
+    } catch (error) {
+      setLoading(false)
+      if (showNotification) {
+        NotificationManager.error(`Stakemodule unstake error : ${error}`)
+        console.log(error.toString())
+      }
+    }
+  }
+
+  const executesFotFetchUnstake = async num => {
+    setLoading(true)
+
+    try {
+      await signingClient?.execute(
+        walletAddress, // sender address
+        PUBLIC_SFOTSTAKING_CONTRACT,
+        {
+          fetch_unstake: {
+            index: num,
+          },
+        }, // msg
+        defaultFee,
+        undefined,
+        [],
+      )
+
+      setLoading(false)
+      getSfotBalances()
+      if (showNotification) NotificationManager.success('Successfully unstaked')
+    } catch (error) {
+      setLoading(false)
+      if (showNotification) {
+        NotificationManager.error(`Stakemodule unstake error : ${error}`)
+        console.log(error.toString())
+      }
+    }
+  }
+
+  const handlesFotUnstakeChange = async e => {
+    setsFotUnstakeAmount(Number(e))
+  }
+
+  ////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////
   ///////////////////////    Stable and Clearance Functions   ////////////
   ////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////
@@ -2315,19 +2523,17 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         //changed token1amount  token1: token1_reverve, token2: token2_reserve
         let new_token2 = (token1 * poolInfo.token2_reserve) / poolInfo.token1_reserve
         if (new_token2 > token2max) {
-          token1 = (token2max * poolInfo.token1_reserve) / poolInfo.token2_reserve
-          token2 = token2max
-        } else {
-          token2 = new_token2
+          new_token2 = token2max
+          token1 = (new_token2 * poolInfo.token1_reserve) / poolInfo.token2_reserve
         }
+        token2 = new_token2 + 1
       } else {
         let new_token1 = (token2 * poolInfo.token1_reserve) / poolInfo.token2_reserve
         if (new_token1 > token1max) {
-          token2 = (token1max * poolInfo.token2_reserve) / poolInfo.token1_reserve
-          token1 = token1max
-        } else {
-          token1 = new_token1
+          new_token1 = token1max
+          token2 = (new_token1 * poolInfo.token2_reserve) / poolInfo.token1_reserve + 1
         }
+        token1 = new_token1
       }
     } else {
       // dungeon
@@ -3539,6 +3745,22 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     executeFetchUnstake,
     unstakeAmount,
     handleUnstakeChange,
+
+    sfotStakingContractInfo,
+    sfotStakingAmount,
+    setsFotStakingAmount,
+    sfotStakingApy,
+    sfotStakingMyStaked,
+    sfotStakingMyReward,
+    handlesFotStakingChange,
+    executesFotStaking,
+    executesFotClaimReward,
+
+    sFotUnstakingList,
+    createsFotUnstake,
+    executesFotFetchUnstake,
+    sFotUnstakeAmount,
+    handlesFotUnstakeChange,
 
     sfotBalance,
     sfotBalanceStr,

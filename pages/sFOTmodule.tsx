@@ -145,6 +145,22 @@ const sfotmodule = () => {
     setSwapAmount,
     getSfotBalances,
     updateInterval,
+
+    sfotStakingContractInfo,
+    sfotStakingAmount,
+    setsFotStakingAmount,
+    sfotStakingApy,
+    sfotStakingMyStaked,
+    sfotStakingMyReward,
+    handlesFotStakingChange,
+    executesFotStaking,
+    executesFotClaimReward,
+    sFotUnstakingList,
+    createsFotUnstake,
+    executesFotFetchUnstake,
+    handlesFotUnstakeChange,
+    sFotUnstakeAmount,
+
   } = useSigningClient()
   useEffect(() => {
     if (!signingClient || walletAddress.length === 0) {
@@ -382,6 +398,55 @@ const sfotmodule = () => {
       </AssetImageWrapper>
     </OutWrapper>
   )
+
+  const handlesFotStaking = async (event: MouseEvent<HTMLElement>) => {
+    if (!signingClient || walletAddress.length === 0) {
+      NotificationManager.error('Please connect wallet first')
+      return
+    }
+
+    if (Number(sfotStakingAmount) == 0) {
+      NotificationManager.error('Please input the GFOT amount first')
+      return
+    }
+    if (Number(sfotStakingAmount) > Number(sfotBalance)) {
+      NotificationManager.error('Please input correct GFOT amount')
+      return
+    }
+
+    event.preventDefault()
+    executesFotStaking()
+  }
+
+  const handlesFotStakingClaimReward = async (event: MouseEvent<HTMLElement>) => {
+    if (!signingClient || walletAddress.length === 0) {
+      NotificationManager.error('Please connect wallet first')
+      return
+    }
+
+    event.preventDefault()
+    executesFotClaimReward()
+  }
+
+  const onsFotStakingChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const {
+      target: { value },
+    } = event
+    if (Number(value) > Number(sfotBalance)) return
+    if (Number(value) < 0) return
+    handlesFotStakingChange(Number(value))
+  }
+
+  const handlesFotStakingPlus = () => {
+    if (Number(sfotStakingAmount) + 1 > Number(sfotBalance)) return
+
+    handlesFotStakingChange(Number(sfotStakingAmount) + 1)
+  }
+  const handlesFotStakingMinus = () => {
+    if (Number(sfotStakingAmount) - 1 < 0) return
+    handlesFotStakingChange(Number(sfotStakingAmount) - 1)
+  }
+
   return (
     <Wrapper defaultChecked={toggle}>
       {page < 2 ? (
@@ -417,7 +482,7 @@ const sfotmodule = () => {
                 handleChange={page === 0 ? handleStableGfotChange : handleClearanceSfotChange}
                 sbalance={page === 0 ? sfotBalance : gfotBalance}
                 submitTitle={page === 0 ? 'Mint' : 'Purchase'}
-                showBalance={false}
+                showBalance={true}
               />
             </LeftPart>
             <RightPart>
@@ -427,7 +492,31 @@ const sfotmodule = () => {
                 setPage={setPage}
                 maxWidth={null}
               >
-                {page === 0 && <StakeNClaim showInfoIcon={true} showDivider={true} tokenType="sFOT" />}
+                {/* {page === 0 && <StakeNClaim showInfoIcon={true} showDivider={true} tokenType="sFOT" />} */}
+                {page === 0 && 
+                <StakeNClaim
+                showInfoIcon={true}
+                showDivider={true}
+                handleBurnMinus={handlesFotStakingMinus}
+                onBurnChange={onsFotStakingChange}
+                handleBurnPlus={handlesFotStakingPlus}
+                handleFotStaking={handlesFotStaking}
+                handleFotStakingClaimReward={handlesFotStakingClaimReward}
+                tokenType="sFOT"
+                gfotTokenInfo={sfotTokenInfo}
+                gfotStakingContractInfo={sfotStakingContractInfo}
+                gfotStakingAmount={sfotStakingAmount}
+                gfotStakingApy={sfotStakingApy}
+                gfotStakingMyStaked={sfotStakingMyStaked}
+                gfotStakingMyReward={sfotStakingMyReward}
+                gfotBalance={sfotBalance}
+                handlegFotStakingChange={handlesFotStakingChange}
+                unstakingList={sFotUnstakingList}
+                createUnstake={createsFotUnstake}
+                executeFetchUnstake={executesFotFetchUnstake}
+                handleUnstakeChange={handlesFotUnstakeChange}
+                unstakeAmount={sFotUnstakeAmount}
+              />}
               </StatisticBox>
             </RightPart>
           </div>

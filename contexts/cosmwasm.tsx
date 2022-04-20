@@ -64,6 +64,22 @@ let { Provider } = (CosmWasmContext = createContext<ISigningCosmWasmClientContex
   executegFotStaking: () => {},
   executegFotClaimReward: () => {},
 
+  sfotStakingContractInfo: null,
+  sfotStakingAmount: '',
+  setsFotStakingAmount: () => {},
+  sfotStakingApy: 0,
+  sfotStakingMyStaked: 0,
+  sfotStakingMyReward: 0,
+  handlesFotStakingChange: () => {},
+  executesFotStaking: () => {},
+  executesFotClaimReward: () => {},
+
+  sFotUnstakingList: [],
+  createsFotUnstake: () => {},
+  executesFotFetchUnstake: () => {},
+  sFotUnstakeAmount: 0,
+  handlesFotUnstakeChange: () => {},
+
   bFot2Juno: 0,
   Juno2bFot: 0,
   bFot2Ust: 0,

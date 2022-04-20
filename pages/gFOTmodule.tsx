@@ -87,6 +87,12 @@ const gfotmodule = () => {
     handlegFotStakingChange,
     executegFotStaking,
     executegFotClaimReward,
+    unstakingList,
+    createUnstake,
+    executeFetchUnstake,
+    handleUnstakeChange,
+    unstakeAmount,
+    
     bFot2Juno,
     Juno2bFot,
     poolDpr,
@@ -279,6 +285,19 @@ const gfotmodule = () => {
               handleFotStaking={handlegFotStaking}
               handleFotStakingClaimReward={handlegFotStakingClaimReward}
               tokenType="gFOT"
+              gfotTokenInfo={gfotTokenInfo}
+              gfotStakingContractInfo={gfotStakingContractInfo}
+              gfotStakingAmount={gfotStakingAmount}
+              gfotStakingApy={gfotStakingApy}
+              gfotStakingMyStaked={gfotStakingMyStaked}
+              gfotStakingMyReward={gfotStakingMyReward}
+              gfotBalance={gfotBalance}
+              handlegFotStakingChange={handlegFotStakingChange}
+              unstakingList={unstakingList}
+              createUnstake={createUnstake}
+              executeFetchUnstake={executeFetchUnstake}
+              handleUnstakeChange={handleUnstakeChange}
+              unstakeAmount={unstakeAmount}
             />
             <StatisticBox values={defaultValues} />
             {/* <StatisticBox values={defaultValues} leftValues={leftValues} /> */}
