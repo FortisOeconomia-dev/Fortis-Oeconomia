@@ -3,6 +3,7 @@ import { useSigningClient } from '../../contexts/cosmwasm'
 import { useContext } from 'react'
 import { useRouter } from 'next/router'
 import { ToggleContext } from '../Layout/Layout'
+import { ConvertToNoExponents } from '../../util/conversion'
 
 const WalletTitle = styled.label`
   gap: 10px;
@@ -54,7 +55,7 @@ const ToConv = ({ to, expectedAmount, sbalance, maxW, toImage, showBalance }) =>
       {showBalance && walletAddress.length != 0 && (
         <div className="banner-wrapper-content" style={{ height: 'fit-content', textAlign: 'right' }}>
           <span className="sub-title ms-2" style={{ background: '#83B8DD', marginTop: '10px', marginBottom: '32px' }}>
-            Balance {sbalance}
+            Balance {ConvertToNoExponents(sbalance)}
           </span>
         </div>
       )}

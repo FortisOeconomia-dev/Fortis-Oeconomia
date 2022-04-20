@@ -290,7 +290,7 @@ const StatisticBox = ({
                       ) : idx === self.length - 1 ? (
                         <React.Fragment key={idx}>
                           <br />
-                          <span>({value}</span>
+                          <span>{value}</span>
                         </React.Fragment>
                       ) : (
                         value

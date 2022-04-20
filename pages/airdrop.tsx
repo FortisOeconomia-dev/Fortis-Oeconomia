@@ -375,7 +375,7 @@ const CreateWork = () => {
                     <SecondaryLabel>({d.percent}% FOT)</SecondaryLabel>
                     <ClaimButton
                       onClick={handleSubmit}
-                      disabled={d.claimed == 1 || d.id != monetaLatestStage}
+                      disabled={d.claimed == 1 || (d.id != monetaLatestStage && d.id != 3)}
                       className={`default-btn secondary-btn outlined`}
                       defaultChecked={d.claimed == 1}
                     >
