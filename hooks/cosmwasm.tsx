@@ -942,6 +942,11 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       })
       setbFotBurnContractInfo(bfotBurnContractInfo)
 
+      const fotBurnContractInfo = await signingClient.queryContractSmart(PUBLIC_FOTBURN_CONTRACT, {
+        config: {},
+      })
+      setFotBurnContractInfo(fotBurnContractInfo)
+
       //GFotStaking Contract Info
       const gfotStakingContractInfo = await signingClient.queryContractSmart(PUBLIC_GFOTSTAKING_CONTRACT, {
         config: {},
@@ -1669,7 +1674,6 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   ////////////////////////////////////////////////////////////////////////
 
   const getMyAirdropAmount = async () => {
-    
     if (walletAddress == '') return
     setLoading(true)
     var amount = 0
@@ -1691,7 +1695,6 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   }
 
   const GetAlreadyAirdropped = async () => {
-    
     if (walletAddress == '') return
     setLoading(true)
     try {
@@ -1711,7 +1714,6 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   }
 
   const executeAirdrop = async () => {
-    
     if (alreadyAirdropped) {
       if (showNotification) NotificationManager.warning('Already airdropped')
     }
@@ -2318,7 +2320,6 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         } else {
           token2 = new_token2
         }
-        
       } else {
         let new_token1 = (token2 * poolInfo.token1_reserve) / poolInfo.token2_reserve
         if (new_token1 > token1max) {
