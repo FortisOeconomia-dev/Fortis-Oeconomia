@@ -135,6 +135,7 @@ const StakeNClaim = ({
   executeFetchUnstake,
   handleUnstakeChange,
   unstakeAmount,
+  targetHour,
 }) => {
   const {
     fotTokenInfo,
@@ -233,7 +234,7 @@ const StakeNClaim = ({
               <CountdownText className="wallet-label" style={{ fontSize: '18px', paddingBottom: 0 }}>
                 Reward Distribution in
               </CountdownText>
-              <Countdown targetHour={0} />
+              <Countdown targetHour={targetHour} />
             </>
           )}
         </div>

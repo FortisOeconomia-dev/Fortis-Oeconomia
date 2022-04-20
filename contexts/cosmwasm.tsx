@@ -83,6 +83,7 @@ let { Provider } = (CosmWasmContext = createContext<ISigningCosmWasmClientContex
   bFot2Juno: 0,
   Juno2bFot: 0,
   bFot2Ust: 0,
+  sFot2Ust: 0,
   poolDpr: 0,
 
   executeMonetaAirdrop: () => {},

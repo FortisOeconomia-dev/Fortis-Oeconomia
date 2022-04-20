@@ -116,6 +116,7 @@ export interface ISigningCosmWasmClientContext {
   bFot2Juno: number
   Juno2bFot: number
   bFot2Ust: number
+  sFot2Ust: number
   poolDpr: number
 
   executeMonetaAirdrop: Function
@@ -720,6 +721,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   const [Juno2bFot, setJuno2bFot] = useState(0)
   const [Juno2Ust, setJuno2Ust] = useState(0)
   const [bFot2Ust, setbFot2Ust] = useState(0)
+  const [sFot2Ust, setsFot2Ust] = useState(0)
   const [poolDpr, setPoolDpr] = useState(0)
 
   //////////////////////////////////////////////////////////////////////
@@ -1218,6 +1220,9 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       const sfotUstPoolInfo = await signingClient.queryContractSmart(PUBLIC_SFOT_UST_POOL_CONTRACT, {
         info: {},
       })
+      const sfot2ustval = (Number(convertMicroDenomToDenom2(sfotUstPoolInfo.token2_reserve, 6)) / Number(convertMicroDenomToDenom2(sfotUstPoolInfo.token1_reserve, objectSfotTokenInfo.decimals))) * 1000000
+
+      setsFot2Ust(Number(convertMicroDenomToDenom2(sfot2ustval, 6)))
       setSfotUstPoolInfo(sfotUstPoolInfo)
       const sfotUstLpTokenInfo = await signingClient.queryContractSmart(sfotUstPoolInfo.lp_token_address, {
         token_info: {},
@@ -3733,6 +3738,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     bFot2Juno,
     Juno2bFot,
     bFot2Ust,
+    sFot2Ust,
     poolDpr,
 
     executeMonetaAirdrop,

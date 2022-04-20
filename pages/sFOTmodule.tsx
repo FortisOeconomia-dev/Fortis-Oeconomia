@@ -100,7 +100,7 @@ const RightPart = styled.div`
   max-width: 100%;
 `
 
-const sFOTVault = () => {
+const sfotmodule = () => {
   const {
     walletAddress,
     signingClient,
@@ -633,4 +633,4 @@ const sFOTVault = () => {
   )
 }
 
-export default sFOTVault
+export default sfotmodule

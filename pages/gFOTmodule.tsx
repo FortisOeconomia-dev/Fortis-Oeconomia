@@ -91,7 +91,7 @@ const gfotmodule = () => {
     executeFetchUnstake,
     handleUnstakeChange,
     unstakeAmount,
-    
+
     bFot2Juno,
     Juno2bFot,
     poolDpr,
@@ -297,6 +297,7 @@ const gfotmodule = () => {
               executeFetchUnstake={executeFetchUnstake}
               handleUnstakeChange={handleUnstakeChange}
               unstakeAmount={unstakeAmount}
+              targetHour={0}
             />
             <StatisticBox values={defaultValues} />
             {/* <StatisticBox values={defaultValues} leftValues={leftValues} /> */}
