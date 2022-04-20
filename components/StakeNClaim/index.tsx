@@ -210,19 +210,17 @@ const StakeNClaim = ({
             DPR
             {showInfoIcon ? (
               <>
-                <InfoOutlinedIcon style={{ position: 'absolute', width: '20px', height: '20px' }} />
-                <StakedValue>%{convertToFixedDecimals(gfotStakingApy / 365.0)}</StakedValue>
+                <StakedValue>{convertToFixedDecimals(gfotStakingApy / 365.0)}%</StakedValue>
               </>
             ) : (
-              <StakedValue> {convertToFixedDecimals(gfotStakingApy / 365.0)} %</StakedValue>
+              <StakedValue> {convertToFixedDecimals(gfotStakingApy / 365.0)}%</StakedValue>
             )}
           </TotalStakedText>
           <TotalStakedText className="wallet-label">
-            {pathname === '/sFOTVault' ? 'APY' : 'APR'}
+            {pathname === '/sFOTVault' ? 'APR' : 'APR'}
             {showInfoIcon ? (
               <>
-                <InfoOutlinedIcon style={{ position: 'absolute', width: '20px', height: '20px' }} />
-                <StakedValue>%{convertToFixedDecimals(gfotStakingApy)}</StakedValue>
+                <StakedValue>{convertToFixedDecimals(gfotStakingApy)}%</StakedValue>
               </>
             ) : (
               <StakedValue> {convertToFixedDecimals(gfotStakingApy)} %</StakedValue>
