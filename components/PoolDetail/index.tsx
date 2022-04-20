@@ -326,6 +326,8 @@ const PoolDetail = ({
 
   const updateAmounts = async (token1: number, token2: number, fix: number) => {
     let ret = await handleAddLiquidityValuesChange(asset, token1, token2, fix)
+    if (Number(ret.token1Amount) > Number(token1Balance)) return
+    if (Number(ret.token2Amount) > Number(convertMicroDenomToDenom2(token2Balance, decimals[1]))) return
     setToken1Amount(ret.token1Amount)
     setToken2Amount(ret.token2Amount)
   }
@@ -348,28 +350,28 @@ const PoolDetail = ({
     updateAmounts(Number(value), token2Amount, 1)
   }
   const handleToken1Plus = () => {
-    if (token1Amount + 1 > token1Balance) return
+    if (Number(token1Amount) + 1 > Number(token1Balance)) return
     updateAmounts(token1Amount + 1, token2Amount, 1)
   }
   const handleToken1Minus = () => {
-    if (token1Amount - 1 < 0) return
+    if (Number(token1Amount) - 1 < 0) return
     updateAmounts(token1Amount - 1, token2Amount, 1)
   }
   const onToken2Change = (event: ChangeEvent<HTMLInputElement>) => {
     const {
       target: { value },
     } = event
-    if (Number(value) > token2Balance) return
+    if (Number(value) > Number(convertMicroDenomToDenom2(token2Balance, decimals[1]))) return
     if (Number(value) < 0) return
     updateAmounts(token1Amount, Number(value), 2)
   }
   const handleToken2Plus = () => {
-    if (token2Amount + 1 > token2Balance) return
-    updateAmounts(token1Amount, token2Amount + 1, 2)
+    if (Number(token2Amount) + 1 > Number(convertMicroDenomToDenom2(token2Balance, decimals[1]))) return
+    updateAmounts(Number(token1Amount), Number(token2Amount) + 1, 2)
   }
   const handleToken2Minus = () => {
     if (token2Amount - 1 < 0) return
-    updateAmounts(token1Amount, token2Amount - 1, 2)
+    updateAmounts(Number(token1Amount), Number(token2Amount) - 1, 2)
   }
 
   const handleAddLiquidity = async (event: MouseEvent<HTMLElement>) => {
@@ -377,11 +379,11 @@ const PoolDetail = ({
       NotificationManager.error('Please connect wallet first')
       return
     }
-    if (token1Amount == 0 || token2Amount == 0) return
+    if (Number(token1Amount) == 0 || Number(token2Amount) == 0) return
     event.preventDefault()
 
-    if (asset >= 10) await executeAddLiquidityForDungeon(asset - 10, token1Amount, token2Amount)
-    else await executeAddLiquidity(asset, token1Amount, token2Amount)
+    if (asset >= 10) await executeAddLiquidityForDungeon(asset - 10, Number(token1Amount), Number(token2Amount))
+    else await executeAddLiquidity(asset, Number(token1Amount), Number(token2Amount))
     setToken1Amount(0)
     setToken2Amount(0)
   }
