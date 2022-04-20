@@ -21,7 +21,6 @@ import { clearInterval } from 'timers'
 
 //styled components
 const Wrapper = styled.div`
-  max-width: 1368px;
   height: 100%;
   display: flex;
   flex-wrap: wrap;
