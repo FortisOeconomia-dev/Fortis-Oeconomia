@@ -155,6 +155,7 @@ const Layout = ({ children }) => {
 
   const [rateShow, setRateShow] = useState([])
   const [page, setPage] = useState(0)
+  const [seconds, setSeconds] = useState(0)
   const themeContext = useTheme('theme1')
   const [toggle, setToggle] = useState(false)
   useEffect(() => {

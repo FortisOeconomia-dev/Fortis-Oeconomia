@@ -98,11 +98,17 @@ const burnmodule = () => {
     getBfotBalances()
   }, [signingClient, walletAddress])
 
+  const [seconds, setSeconds] = useState(0)
   useEffect(() => {
-    getBfotBalances()
-    const interval = setInterval(() => getBfotBalances(), updateInterval * 1000)
+    let interval = null
+    if (seconds === 0) {
+      getBfotBalances()
+    }
+    interval = setInterval(() => {
+      setSeconds(seconds => (seconds + 1) % updateInterval)
+    }, 1000)
     return () => clearInterval(interval)
-  }, [])
+  }, [seconds])
 
   const defaultValues = [
     {

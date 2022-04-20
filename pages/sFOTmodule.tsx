@@ -152,24 +152,23 @@ const sfotmodule = () => {
     }
     getSfotBalances()
   }, [signingClient, walletAddress])
-
   const { toggle, asset, setAsset, page, setPage } = useContext(ToggleContext)
+  const [seconds, setSeconds] = useState(0)
   const [intervalInstance, setIntervalInstance] = useState(null)
-
   useEffect(() => {
-    if (page < 2) {
-      getSfotBalances()
-      const interval = setInterval(() => getSfotBalances(), updateInterval * 1000)
-      setIntervalInstance(interval)
-    } else {
+    if (page >= 2) {
       intervalInstance && clearInterval(intervalInstance)
+      return
     }
-  }, [page])
-
-  useEffect(() => {
+    if (seconds === 0) {
+      getSfotBalances()
+    }
+    const interval = setInterval(() => {
+      setSeconds(seconds => (seconds + 1) % updateInterval)
+    }, 1000)
+    setIntervalInstance(interval)
     return () => intervalInstance && clearInterval(intervalInstance)
-  }, [])
-
+  }, [seconds, page])
   const defaultValues0 = [
     {
       key: 'sFOT Supply',

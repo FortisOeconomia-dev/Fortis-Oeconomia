@@ -111,11 +111,6 @@ const fortisDungeon = () => {
     getSfotBalances()
   }, [signingClient, walletAddress])
 
-  // only pool3 and pool8
-  useEffect(() => {
-    // setAsset(2)
-  }, [])
-
   const [asset, setAsset] = useState(0)
   const { toggle, setToggle } = useContext(ToggleContext)
   const [swapBalance, setSwapBalance] = useState(0)
