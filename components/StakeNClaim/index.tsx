@@ -122,6 +122,7 @@ const StakeNClaim = ({
   showInfoIcon = false,
   showDivider = false,
   showStakeNClaimReward = false,
+  Note = false,
   tokenType = null,
   gfotTokenInfo,
   gfotStakingContractInfo,
@@ -291,6 +292,7 @@ const StakeNClaim = ({
                 Create Unstake
               </MaxButton>
             </div>
+            {Note &&<MyStakedText>21 days Unbonding Period</MyStakedText>}
           </div>
           <div style={{ overflowY: 'auto' }}>
             <table className="w-full">

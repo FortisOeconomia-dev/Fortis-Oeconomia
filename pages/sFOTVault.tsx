@@ -498,6 +498,7 @@ const sFOTVault = () => {
                 showInfoIcon={true}
                 showDivider={true}
                 showStakeNClaimReward={false}
+                Note={true}
                 handleBurnMinus={handlesFotStakingMinus}
                 onBurnChange={onsFotStakingChange}
                 handleBurnPlus={handlesFotStakingPlus}
