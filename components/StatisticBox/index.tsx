@@ -240,7 +240,7 @@ const StatisticBox = ({
             style={{ flex: '1', minWidth: 'unset', borderRadius: '50px' }}
             onClick={() => setPage(page => (page === 0 ? 1 : 0))}
           >
-            {page === 0 ? <span>Clearance Sale<br></br><span style={{ fontSize: '0.7em' }}>gFOT to sFOT Swap</span></span> : 'Stable Module (sFOT)'}
+            {page === 0 ? <span>Clearance Sale<br></br><span style={{ fontSize: '0.7em' }}>sFOT to gFOT Swap</span></span> : 'Stable Module (sFOT)'}
           </button>
           <button
             className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
