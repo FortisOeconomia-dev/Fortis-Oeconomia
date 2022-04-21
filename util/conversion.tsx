@@ -81,7 +81,7 @@ export function convertTimeToHMS(time: number | undefined): any {
 }
 
 export  function ConvertToNoExponents(value) {
-  var data = String(value).split(/[eE]/);
+  var data = String(Number(value)).split(/[eE]/);
   if (data.length == 1) return data[0];
 
   var z = '',

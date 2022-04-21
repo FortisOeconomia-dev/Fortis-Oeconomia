@@ -299,7 +299,7 @@ const Navbar = ({ toggle, setToggle }) => {
                             slot={pathname}
                             defaultChecked={toggle}
                           >
-                            sFOT Vault
+                            sFOT Vault/Module
                           </SubLink>
                         </Link>
                       </li>

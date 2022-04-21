@@ -1,4 +1,6 @@
+import { useEffect, useMemo, useReducer, useState } from 'react'
 import styled from 'styled-components'
+import { ConvertToNoExponents } from '../../util/conversion'
 
 const Wrapper = styled.label`
   background: rgba(255, 255, 255, 0.6);
@@ -47,10 +49,29 @@ const IncDecInput = styled.input`
 `
 
 const InputWithIncDec = ({ handleBurnMinus, burnAmount, onBurnChange, handleBurnPlus, maxW = null }) => {
+  const [value, setValue] = useState('0')
+
+  const realValue = useMemo(() => {
+    let result = ''
+    if (Number(value) === Number(burnAmount)) {
+      result = value
+    } else {
+      result = burnAmount
+    }
+    if (result && Number(result) > 0) return ConvertToNoExponents(result)
+    else return result
+  }, [value, burnAmount])
+
   return (
     <Wrapper slot={maxW}>
       <DecButton className="fa fa-minus" onClick={handleBurnMinus} />
-      <IncDecInput type="number" value={burnAmount} onChange={onBurnChange} step=".01" min="1" />
+      <IncDecInput type="text" value={realValue}
+        onKeyPress={(event) => {
+          if (!/[0-9 .]/.test(event.key)) {
+            event.preventDefault();
+          }
+        }}
+        onChange={e => { setValue(e.target.value); onBurnChange(e); } } />
       <IncButton className="fa fa-plus" onClick={handleBurnPlus} />
     </Wrapper>
   )
