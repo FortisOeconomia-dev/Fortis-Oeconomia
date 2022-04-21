@@ -79,6 +79,18 @@ const Navbar = ({ toggle, setToggle }) => {
   const [dropsMenu, setDropsMenu] = useState(false)
   const [modulesMenu, setModulesMenu] = useState(false)
   const [showMenu, setshowMenu] = useState(false)
+  const onMouseEnterdrops = () => {
+    setDropsMenu(true)
+  }
+  const onMouseLeavedrops = () => {
+    setDropsMenu(false)
+  }
+  const onMouseEntermodules = () => {
+    setModulesMenu(true)
+  }
+  const onMouseLeavemodules = () => {
+    setModulesMenu(false)
+  }
   const toggleMenu = () => {
     setshowMenu(!showMenu)
   }
@@ -141,7 +153,7 @@ const Navbar = ({ toggle, setToggle }) => {
                 className="navbar-nav"
                 style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-around' }}
               >
-                <li className="dropdown">
+                <li className="dropdown" onMouseEnter={onMouseEnterdrops}>
                   <Link href="#" activeClassName="active">
                     <NavLink
                       className="nav-link"
@@ -166,6 +178,7 @@ const Navbar = ({ toggle, setToggle }) => {
                         border: '1px solid #080451',
                         borderRadius: '13px',
                       }}
+                      onMouseLeave={onMouseLeavedrops}
                     >
                       <li
                         style={{
@@ -224,7 +237,7 @@ const Navbar = ({ toggle, setToggle }) => {
                   )}
                 </li>
 
-                <li className="dropdown">
+                <li className="dropdown" onMouseEnter={onMouseEntermodules}>
                   <Link href="#" activeClassName="active">
                     <NavLink
                       className="nav-link"
@@ -249,6 +262,7 @@ const Navbar = ({ toggle, setToggle }) => {
                         border: '1px solid #080451',
                         borderRadius: '13px',
                       }}
+                      onMouseLeave={onMouseLeavemodules}
                     >
                       <li
                         style={{
@@ -341,17 +355,18 @@ const Navbar = ({ toggle, setToggle }) => {
                   </Link>
                 </li>
                 <Governance className="nav-item">
-                <Governance
-                  style={{fontSize:'19px', fontWeight: '600'}}
-                  href="https://daodao.zone/dao/juno1anz3mg3n0pdj6d4pulk94sqz52j3duld6cclauzxhtv7de5hahssgc3r9n"
-                  target="_SEJ"
-                  rel="noreferrer"
-                  slot={pathname}
-                  defaultChecked={toggle}>
+                  <Governance
+                    style={{ fontSize: '19px', fontWeight: '600' }}
+                    href="https://daodao.zone/dao/juno1anz3mg3n0pdj6d4pulk94sqz52j3duld6cclauzxhtv7de5hahssgc3r9n"
+                    target="_SEJ"
+                    rel="noreferrer"
+                    slot={pathname}
+                    defaultChecked={toggle}
+                  >
                     Governance
+                  </Governance>
                 </Governance>
-                </Governance>
-                {pathname !== '/fortisDungeon' && <ToggleSwitch toggle={toggle} setToggle={setToggle} /> }
+                {pathname !== '/fortisDungeon' && <ToggleSwitch toggle={toggle} setToggle={setToggle} />}
                 <button
                   className={`default-btn ${!toggle && pathname === '/gFOTmodule' ? 'secondary-btn' : ''}`}
                   onClick={handleConnect}

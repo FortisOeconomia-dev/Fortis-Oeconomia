@@ -36,8 +36,8 @@ const Wrapper = styled.div`
   }
 
   ${MaxButton} {
-    padding-left: 36px !important;
-    padding-right: 36px !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
   }
 `
 
@@ -139,11 +139,7 @@ const StakeNClaim = ({
   unstakeAmount,
   targetHour,
 }) => {
-  const {
-    fotTokenInfo,
-    walletAddress,
-    signingClient,
-  } = useSigningClient()
+  const { fotTokenInfo, walletAddress, signingClient } = useSigningClient()
   const handlegFotStaking = async (event: MouseEvent<HTMLElement>) => {
     if (!signingClient || walletAddress.length === 0) {
       NotificationManager.error('Please connect wallet first')
@@ -292,7 +288,7 @@ const StakeNClaim = ({
                 Create Unstake
               </MaxButton>
             </div>
-            {Note &&<MyStakedText>21 days Unbonding Period</MyStakedText>}
+            {Note && <MyStakedText>21 days Unbonding Period</MyStakedText>}
           </div>
           <div style={{ overflowY: 'auto' }}>
             <table className="w-full">
@@ -320,15 +316,17 @@ const StakeNClaim = ({
             </table>
           </div>
           {showDivider && <HorizontalDivider />}
-          {showStakeNClaimReward && <div className="w-full" style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-            <MyStakedText className="wallet-label">
-              My Rewards
-              <StakedValue> {convertMicroDenomToDenom2(gfotStakingMyReward, fotTokenInfo.decimals)}</StakedValue>
-            </MyStakedText>
-            <button className={`default-btn   ${!toggle && 'secondary-btn'}`} onClick={handleFotStakingClaimReward}>
-              Claim
-            </button>
-          </div>}
+          {showStakeNClaimReward && (
+            <div className="w-full" style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+              <MyStakedText className="wallet-label">
+                My Rewards
+                <StakedValue> {convertMicroDenomToDenom2(gfotStakingMyReward, fotTokenInfo.decimals)}</StakedValue>
+              </MyStakedText>
+              <button className={`default-btn   ${!toggle && 'secondary-btn'}`} onClick={handleFotStakingClaimReward}>
+                Claim
+              </button>
+            </div>
+          )}
         </MyStakedContent>
       </MyStaked>
     </Wrapper>
