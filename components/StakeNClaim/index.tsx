@@ -36,8 +36,8 @@ const Wrapper = styled.div`
   }
 
   ${MaxButton} {
-    padding-left: 36px !important;
-    padding-right: 36px !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
   }
 `
 

@@ -79,9 +79,11 @@ const Navbar = ({ toggle, setToggle }) => {
   const [dropsMenu, setDropsMenu] = useState(false)
   const [modulesMenu, setModulesMenu] = useState(false)
   const [showMenu, setshowMenu] = useState(false)
-  const toggleMenu = () => {
-    setshowMenu(!showMenu)
-  }
+  const onMouseEnterdrops = () => { setDropsMenu(true)}
+  const onMouseLeavedrops = () => { setDropsMenu(false)}
+  const onMouseEntermodules = () => { setModulesMenu(true)}
+  const onMouseLeavemodules = () => { setModulesMenu(false)}
+  const toggleMenu = () => {setshowMenu(!showMenu)}
   // useEffect(() => {
   //   let elementId = document.getElementById("navbar");
   //   document.addEventListener("scroll", () => {
@@ -141,7 +143,7 @@ const Navbar = ({ toggle, setToggle }) => {
                 className="navbar-nav"
                 style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-around' }}
               >
-                <li className="dropdown">
+                <li className="dropdown" onMouseEnter={onMouseEnterdrops}>
                   <Link href="#" activeClassName="active">
                     <NavLink
                       className="nav-link"
@@ -166,6 +168,7 @@ const Navbar = ({ toggle, setToggle }) => {
                         border: '1px solid #080451',
                         borderRadius: '13px',
                       }}
+                      onMouseLeave={onMouseLeavedrops}
                     >
                       <li
                         style={{
@@ -224,7 +227,7 @@ const Navbar = ({ toggle, setToggle }) => {
                   )}
                 </li>
 
-                <li className="dropdown">
+                <li className="dropdown" onMouseEnter={onMouseEntermodules}>
                   <Link href="#" activeClassName="active">
                     <NavLink
                       className="nav-link"
@@ -249,6 +252,7 @@ const Navbar = ({ toggle, setToggle }) => {
                         border: '1px solid #080451',
                         borderRadius: '13px',
                       }}
+                      onMouseLeave={onMouseLeavemodules}
                     >
                       <li
                         style={{
