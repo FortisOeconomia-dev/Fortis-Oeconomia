@@ -79,11 +79,21 @@ const Navbar = ({ toggle, setToggle }) => {
   const [dropsMenu, setDropsMenu] = useState(false)
   const [modulesMenu, setModulesMenu] = useState(false)
   const [showMenu, setshowMenu] = useState(false)
-  const onMouseEnterdrops = () => { setDropsMenu(true)}
-  const onMouseLeavedrops = () => { setDropsMenu(false)}
-  const onMouseEntermodules = () => { setModulesMenu(true)}
-  const onMouseLeavemodules = () => { setModulesMenu(false)}
-  const toggleMenu = () => {setshowMenu(!showMenu)}
+  const onMouseEnterdrops = () => {
+    setDropsMenu(true)
+  }
+  const onMouseLeavedrops = () => {
+    setDropsMenu(false)
+  }
+  const onMouseEntermodules = () => {
+    setModulesMenu(true)
+  }
+  const onMouseLeavemodules = () => {
+    setModulesMenu(false)
+  }
+  const toggleMenu = () => {
+    setshowMenu(!showMenu)
+  }
   // useEffect(() => {
   //   let elementId = document.getElementById("navbar");
   //   document.addEventListener("scroll", () => {
@@ -345,17 +355,18 @@ const Navbar = ({ toggle, setToggle }) => {
                   </Link>
                 </li>
                 <Governance className="nav-item">
-                <Governance
-                  style={{fontSize:'19px', fontWeight: '600'}}
-                  href="https://daodao.zone/dao/juno1anz3mg3n0pdj6d4pulk94sqz52j3duld6cclauzxhtv7de5hahssgc3r9n"
-                  target="_SEJ"
-                  rel="noreferrer"
-                  slot={pathname}
-                  defaultChecked={toggle}>
+                  <Governance
+                    style={{ fontSize: '19px', fontWeight: '600' }}
+                    href="https://daodao.zone/dao/juno1anz3mg3n0pdj6d4pulk94sqz52j3duld6cclauzxhtv7de5hahssgc3r9n"
+                    target="_SEJ"
+                    rel="noreferrer"
+                    slot={pathname}
+                    defaultChecked={toggle}
+                  >
                     Governance
+                  </Governance>
                 </Governance>
-                </Governance>
-                {pathname !== '/fortisDungeon' && <ToggleSwitch toggle={toggle} setToggle={setToggle} /> }
+                {pathname !== '/fortisDungeon' && <ToggleSwitch toggle={toggle} setToggle={setToggle} />}
                 <button
                   className={`default-btn ${!toggle && pathname === '/gFOTmodule' ? 'secondary-btn' : ''}`}
                   onClick={handleConnect}
