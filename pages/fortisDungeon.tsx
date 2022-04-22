@@ -150,10 +150,6 @@ const fortisDungeon = () => {
   const [swapBalances, setSwapBalances] = useState([0, 0])
 
   useEffect(() => {
-    if (toggle) setToggle(false)
-  }, [toggle])
-
-  useEffect(() => {
     setTheme('theme' + (asset + 2))
   }, [asset])
 

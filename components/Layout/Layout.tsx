@@ -250,7 +250,7 @@ const Layout = ({ children }) => {
           slot={pathname}
           style={{
             filter:
-              toggle &&
+              (toggle && pathname !=='/fortisDungeon') &&
               'drop-shadow(16px 16px 20px) invert(90) hue-rotate(170deg) saturate(200%) contrast(100%) brightness(90%)',
           }}
         >

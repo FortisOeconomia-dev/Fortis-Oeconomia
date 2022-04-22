@@ -2992,7 +2992,7 @@
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   .navbar-area .container {
     max-width: 992px;
-    overflow: hidden;
+    /* overflow: hidden; */
     font-size: small;
   }
   .navbar-area .container-fluid {

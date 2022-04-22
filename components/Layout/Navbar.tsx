@@ -7,6 +7,7 @@ import styled from 'styled-components'
 
 import { useSigningClient } from '../../contexts/cosmwasm'
 import ToggleSwitch from '../ToggleSwitch'
+import Dropdown from './Dropdown'
 
 const NavLink = styled.a`
   white-space: nowrap;
@@ -141,171 +142,117 @@ const Navbar = ({ toggle, setToggle }) => {
                 className="navbar-nav"
                 style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-around' }}
               >
-                <li className="dropdown">
-                  <Link href="#" activeClassName="active">
-                    <NavLink
-                      className="nav-link"
-                      style={{ display: 'flex', gap: '10px', fontWeight: '600' }}
-                      onClick={e => {
-                        e.preventDefault()
-                        setDropsMenu(!dropsMenu)
-                      }}
-                      slot={pathname}
-                      defaultChecked={toggle}
-                    >
-                      Drops
-                      <div style={{ transform: 'rotate(90deg)', fontFamily: 'cursive' }}>{`>`}</div>
-                    </NavLink>
-                  </Link>
-                  {dropsMenu && (
-                    <ul
-                      style={{
-                        position: 'absolute',
-                        minWidth: '180px',
-                        marginTop: '10px',
-                        border: '1px solid #080451',
-                        borderRadius: '13px',
-                      }}
-                    >
-                      <li
-                        style={{
-                          background: '#FBFCFD',
-                          borderRadius: '13px 13px 0px 0px',
-                        }}
+                <Dropdown title="Drops" slot={pathname} defaultChecked={toggle}>
+                  <li
+                    style={{
+                      background: '#FBFCFD',
+                      borderRadius: '13px 13px 0px 0px',
+                    }}
+                  >
+                    <Link href="/airdrop" activeClassName="active">
+                      <SubLink
+                        className="nav-link"
+                        slot={pathname}
+                        defaultChecked={toggle}
+                        onClick={() => setDropsMenu(!dropsMenu)}
                       >
-                        <Link href="/airdrop" activeClassName="active">
-                          <SubLink
-                            className="nav-link"
-                            slot={pathname}
-                            defaultChecked={toggle}
-                            onClick={() => setDropsMenu(!dropsMenu)}
-                          >
-                            Airdrop
-                          </SubLink>
-                        </Link>
-                      </li>
-                      <li
-                        style={{
-                          background: '#FBFCFD',
-                          borderBottom: '1px solid',
-                          borderTop: '1px solid',
-                          borderColor: '#080451',
-                        }}
+                        Airdrop
+                      </SubLink>
+                    </Link>
+                  </li>
+                  <li
+                    style={{
+                      background: '#FBFCFD',
+                      borderBottom: '1px solid',
+                      borderTop: '1px solid',
+                      borderColor: '#080451',
+                    }}
+                  >
+                    <Link href="/votedrops" activeClassName="active">
+                      <SubLink
+                        onClick={() => setDropsMenu(!dropsMenu)}
+                        className="nav-link"
+                        slot={pathname}
+                        defaultChecked={toggle}
                       >
-                        <Link href="/votedrops" activeClassName="active">
-                          <SubLink
-                            onClick={() => setDropsMenu(!dropsMenu)}
-                            className="nav-link"
-                            slot={pathname}
-                            defaultChecked={toggle}
-                          >
-                            Votedrops
-                          </SubLink>
-                        </Link>
-                      </li>
-                      <li
-                        style={{
-                          background: '#FBFCFD',
-                          borderRadius: '0px 0px 13px 13px',
-                        }}
+                        Votedrops
+                      </SubLink>
+                    </Link>
+                  </li>
+                  <li
+                    style={{
+                      background: '#FBFCFD',
+                      borderRadius: '0px 0px 13px 13px',
+                    }}
+                  >
+                    <Link href="/junoswap" activeClassName="active">
+                      <SubLink
+                        onClick={() => setDropsMenu(!dropsMenu)}
+                        className="nav-link"
+                        slot={pathname}
+                        defaultChecked={toggle}
                       >
-                        <Link href="/junoswap" activeClassName="active">
-                          <SubLink
-                            onClick={() => setDropsMenu(!dropsMenu)}
-                            className="nav-link"
-                            slot={pathname}
-                            defaultChecked={toggle}
-                          >
-                            Junoswap LP'ers
-                          </SubLink>
-                        </Link>
-                      </li>
-                    </ul>
-                  )}
-                </li>
+                        Junoswap LP'ers
+                      </SubLink>
+                    </Link>
+                  </li>
+                </Dropdown>
 
-                <li className="dropdown">
-                  <Link href="#" activeClassName="active">
-                    <NavLink
-                      className="nav-link"
-                      style={{ display: 'flex', gap: '10px', fontWeight: '600' }}
-                      onClick={e => {
-                        e.preventDefault()
-                        setModulesMenu(!modulesMenu)
-                      }}
-                      slot={pathname}
-                      defaultChecked={toggle}
-                    >
-                      Modules
-                      <div style={{ transform: 'rotate(90deg)', fontFamily: 'cursive' }}>{`>`}</div>
-                    </NavLink>
-                  </Link>
-                  {modulesMenu && (
-                    <ul
-                      style={{
-                        position: 'absolute',
-                        minWidth: '180px',
-                        marginTop: '10px',
-                        border: '1px solid #080451',
-                        borderRadius: '13px',
-                      }}
-                    >
-                      <li
-                        style={{
-                          background: '#FBFCFD',
-                          borderRadius: '13px 13px 0px 0px',
-                        }}
+                <Dropdown title="Modules" slot={pathname} defaultChecked={toggle}>
+                  <li
+                    style={{
+                      background: '#FBFCFD',
+                      borderRadius: '13px 13px 0px 0px',
+                    }}
+                  >
+                    <Link href="/burnmodule" activeClassName="active">
+                      <SubLink
+                        className="nav-link"
+                        slot={pathname}
+                        defaultChecked={toggle}
+                        onClick={() => setModulesMenu(!modulesMenu)}
                       >
-                        <Link href="/burnmodule" activeClassName="active">
-                          <SubLink
-                            className="nav-link"
-                            slot={pathname}
-                            defaultChecked={toggle}
-                            onClick={() => setModulesMenu(!modulesMenu)}
-                          >
-                            Burn Module (bFOT)
-                          </SubLink>
-                        </Link>
-                      </li>
-                      <li
-                        style={{
-                          background: '#FBFCFD',
-                          borderBottom: '1px solid',
-                          borderTop: '1px solid',
-                          borderColor: '#080451',
-                        }}
+                        Burn Module (bFOT)
+                      </SubLink>
+                    </Link>
+                  </li>
+                  <li
+                    style={{
+                      background: '#FBFCFD',
+                      borderBottom: '1px solid',
+                      borderTop: '1px solid',
+                      borderColor: '#080451',
+                    }}
+                  >
+                    <Link href="/gFOTmodule" activeClassName="active">
+                      <SubLink
+                        onClick={() => setModulesMenu(!modulesMenu)}
+                        className="nav-link"
+                        slot={pathname}
+                        defaultChecked={toggle}
                       >
-                        <Link href="/gFOTmodule" activeClassName="active">
-                          <SubLink
-                            onClick={() => setModulesMenu(!modulesMenu)}
-                            className="nav-link"
-                            slot={pathname}
-                            defaultChecked={toggle}
-                          >
-                            Grand Module (gFOT)
-                          </SubLink>
-                        </Link>
-                      </li>
-                      <li
-                        style={{
-                          background: '#FBFCFD',
-                          borderRadius: '0px 0px 13px 13px',
-                        }}
+                        Grand Module (gFOT)
+                      </SubLink>
+                    </Link>
+                  </li>
+                  <li
+                    style={{
+                      background: '#FBFCFD',
+                      borderRadius: '0px 0px 13px 13px',
+                    }}
+                  >
+                    <Link href="/sFOTmodule" activeClassName="active">
+                      <SubLink
+                        onClick={() => setModulesMenu(!modulesMenu)}
+                        className="nav-link"
+                        slot={pathname}
+                        defaultChecked={toggle}
                       >
-                        <Link href="/sFOTmodule" activeClassName="active">
-                          <SubLink
-                            onClick={() => setModulesMenu(!modulesMenu)}
-                            className="nav-link"
-                            slot={pathname}
-                            defaultChecked={toggle}
-                          >
-                            Stable Module (sFOT)
-                          </SubLink>
-                        </Link>
-                      </li>
-                    </ul>
-                  )}
-                </li>
+                        Stable Module (sFOT)
+                      </SubLink>
+                    </Link>
+                  </li>
+                </Dropdown>
                 {/*<li className="nav-item">
                   <Link href="/publicsale" activeClassName="active">
                     <a className="nav-link">Public Sale</a>
