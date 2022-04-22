@@ -5,10 +5,6 @@ import FromConv from './FromConv'
 import ToConv from './ToConv'
 import { useSigningClient } from '../../contexts/cosmwasm'
 
-const SubmitButton = styled.button`
-  background: var(--main-button-background-color);
-`
-
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -16,7 +12,7 @@ const Wrapper = styled.div`
   justify-content: center;
   width: ${props => (props.defaultChecked ? '100%' : 'unset')};
 
-  ${SubmitButton} {
+  button {
     border-radius: 60px;
   }
 `
@@ -78,9 +74,9 @@ const Converter = ({
         showBalance={showBalance}
       />
       {showSubmitButton && (
-        <SubmitButton className={`default-btn secondary-btn`} onClick={handleSubmit}>
+        <button className={`default-btn secondary-btn`} onClick={handleSubmit}>
           {submitTitle}
-        </SubmitButton>
+        </button>
       )}
     </Wrapper>
   )
