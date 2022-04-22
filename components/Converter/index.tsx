@@ -74,7 +74,7 @@ const Converter = ({
         showBalance={showBalance}
       />
       {button && (
-        <button className={`default-btn secondary-btn`} onClick={handleSubmit}>
+        <button className={`default-btn ${!toggle && 'secondary-btn'}`} onClick={handleSubmit}>
           {submitTitle}
         </button>
       )}
