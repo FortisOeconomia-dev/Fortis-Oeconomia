@@ -20,6 +20,8 @@ const Wrapper = styled.div`
   background: ${props =>
     !props.defaultChecked && props.slot === '/gFOTmodule'
       ? 'white'
+      : props.slot === '/sFOTVault'
+      ? 'linear-gradient(360deg, #FAFDFC 0%, #85B79D 100%, #85B79D 100%)'
       : props.slot === '/fortisDungeon'
       ? `var(--background-color)`
       : `linear-gradient(180deg, #8394DD 0%, #FFFFFF 100%)`};
