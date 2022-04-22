@@ -27,7 +27,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  filter: ${props => !props.defaultChecked && props.slot === '/sFOTVault' && 'hue-rotate(240deg)'};
+  filter: ${props => !props.defaultChecked && props.slot === '/sFOTmodule' && 'hue-rotate(240deg)'};
 `
 const AssetImageWrapper = styled.div`
   background: ${props => props.slot};
@@ -191,7 +191,7 @@ const Layout = ({ children }) => {
           },
         ]
         break
-      case '/sFOTVault':
+      case '/sFOTmodule':
         values = [
           {
             fromAmount: '1',
@@ -250,7 +250,7 @@ const Layout = ({ children }) => {
           slot={pathname}
           style={{
             filter:
-              toggle &&
+              (toggle && pathname !=='/fortisDungeon') &&
               'drop-shadow(16px 16px 20px) invert(90) hue-rotate(170deg) saturate(200%) contrast(100%) brightness(90%)',
           }}
         >
