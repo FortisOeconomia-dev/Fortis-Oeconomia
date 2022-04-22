@@ -1,13 +1,10 @@
-import React, { useState } from 'react'
-import { useEffect, MouseEvent, ChangeEvent } from 'react'
+import React, { useEffect, useContext } from 'react'
 import styled from 'styled-components'
-import { useContext } from 'react'
 import { ToggleContext } from '../components/Layout/Layout'
 import Converter from '../components/Converter'
 import StatisticBox from '../components/StatisticBox'
 import { useSigningClient } from '../contexts/cosmwasm'
 import { convertMicroDenomToDenom2 } from '../util/conversion'
-import { NotificationManager } from 'react-notifications'
 import ThemeContext from '../contexts/ThemeContext'
 import 'react-notifications/lib/notifications.css'
 
@@ -49,22 +46,12 @@ const communitySale = () => {
   const {
     walletAddress,
     signingClient,
-    nativeBalance,
-    atomBalance,
-    bfotBalance,
-    gfotBalance,
+    fotBalance,
     sfotBalance,
+    fotTokenInfo,
     sfotTokenInfo,
-    sFot2Ust,
-    ustBalance,
-    stableGfotAmount,
+    clearanceSfotAmount,
     stableExpectedSfotAmount,
-    handleStableGfotChange,
-    executeStable,
-    swapToken1,
-    calcExpectedSwapAmount,
-    swapAmount,
-    setSwapAmount,
     getSfotBalances,
     updateInterval,
   } = useSigningClient()
@@ -78,7 +65,7 @@ const communitySale = () => {
     getSfotBalances()
   }, [signingClient, walletAddress])
 
-  const { toggle, asset } = useContext(ToggleContext)
+  const { toggle } = useContext(ToggleContext)
 
   useEffect(() => {
     setTheme('theme10')
@@ -94,74 +81,11 @@ const communitySale = () => {
     },
     {
       key: 'FOT Supply',
-      value: '0',
+      value: `${convertMicroDenomToDenom2(fotTokenInfo.total_supply, fotTokenInfo.decimals)}`,
     },
   ]
 
-  //Stable Handling
-  const handleStableSubmit = async (event: MouseEvent<HTMLElement>) => {
-    if (!signingClient || walletAddress.length === 0) {
-      NotificationManager.error('Please connect wallet first')
-      return
-    }
-    if (Number(stableGfotAmount) == 0) {
-      NotificationManager.error('Please input the GFOT amount first')
-      return
-    }
-    if (Number(stableGfotAmount) > Number(gfotBalance)) {
-      NotificationManager.error('Please input correct GFOT amount')
-      return
-    }
-
-    event.preventDefault()
-    executeStable()
-  }
-
-  const onStableGfotChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const {
-      target: { value },
-    } = event
-    if (Number(value) > Number(gfotBalance)) return
-    if (Number(value) < 0) return
-    handleStableGfotChange(Number(value))
-  }
-
-  const handleStableGfotPlus = () => {
-    if (Number(stableGfotAmount) + 1 > Number(gfotBalance)) return
-
-    handleStableGfotChange(Number(stableGfotAmount) + 1)
-  }
-  const handleStableGfotMinus = () => {
-    if (Number(stableGfotAmount) - 1 < 0) return
-    handleStableGfotChange(Number(stableGfotAmount) - 1)
-  }
-
-  const [swapBalance, setSwapBalance] = useState(sfotBalance)
-  const [swapBalances, setSwapBalances] = useState([0, 0])
-
-  useEffect(() => {
-    let balances = []
-    setSwapAmount(0)
-    setSwapBalance(sfotBalance)
-    if (asset == 0) balances = [sfotBalance, ustBalance]
-    else if (asset == 1) balances = [sfotBalance, bfotBalance]
-    else if (asset == 2) balances = [sfotBalance, gfotBalance]
-    else if (asset == 3) balances = [sfotBalance, nativeBalance]
-    else if (asset == 4) balances = [sfotBalance, atomBalance]
-
-    setSwapBalances(balances)
-    if (swapToken1) {
-      setSwapBalance(balances[0])
-    } else {
-      setSwapBalance(balances[1])
-    }
-  }, [asset, sfotBalance, swapToken1, sfotBalance, ustBalance, bfotBalance, gfotBalance, atomBalance, nativeBalance])
-
-  useEffect(() => {
-    if (!signingClient || walletAddress == '') return
-
-    calcExpectedSwapAmount(asset)
-  }, [swapAmount, signingClient, walletAddress])
+  if (!signingClient || walletAddress == '') return null
 
   return (
     <Wrapper defaultChecked={toggle}>
@@ -178,10 +102,10 @@ const communitySale = () => {
         <LeftPart>
           <Converter
             wfull={false}
-            handleBurnMinus={handleStableGfotMinus}
-            burnAmount={stableGfotAmount}
-            onBurnChange={onStableGfotChange}
-            handleBurnPlus={handleStableGfotPlus}
+            handleBurnMinus={null}
+            onBurnChange={null}
+            handleBurnPlus={null}
+            burnAmount={clearanceSfotAmount}
             expectedAmount={stableExpectedSfotAmount}
             convImg={() => (
               <svg width="127" height="70" viewBox="0 0 127 94" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -191,9 +115,9 @@ const communitySale = () => {
             )}
             from={'sFOT'}
             to={'FOT'}
-            handleSubmit={handleStableSubmit}
-            balance={gfotBalance}
-            handleChange={handleStableGfotChange}
+            handleSubmit={null}
+            balance={fotBalance}
+            handleChange={null}
             sbalance={sfotBalance}
             submitTitle={'Purchase'}
             showBalance={true}
