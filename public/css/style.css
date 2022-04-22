@@ -490,7 +490,7 @@ p:last-child {
 }
 
 .secondary-btn {
-  background: linear-gradient(97.62deg, #2b064d 0%, #4d0c8b 100%);
+  background: var(--main-button-background-color, linear-gradient(97.62deg, #2b064d 0%, #4d0c8b 100%));
   border-radius: 10px;
 }
 
