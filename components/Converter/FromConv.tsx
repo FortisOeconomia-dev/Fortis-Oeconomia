@@ -16,7 +16,7 @@ const WalletTitle = styled.label`
   line-height: 48px;
   margin-bottom: 32px;
   background-color: ${props => props.slot !== '/gFOTmodule' && 'transparent !important'};
-  color: ${props => props.slot === '/sFOTVault' && '#FBFCFD'};
+  color: ${props => (props.slot === '/sFOTVault' || props.slot === '/communitySale') && '#FBFCFD'};
 `
 
 const MaxButton = styled.span`

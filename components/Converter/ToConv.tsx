@@ -16,7 +16,7 @@ const WalletTitle = styled.label`
   margin-bottom: 32px;
   margin-top: 0px !important;
   background-color: ${props => props.slot !== '/gFOTmodule' && 'transparent !important'};
-  color: ${props => props.slot === '/sFOTVault' && '#FBFCFD'};
+  color: ${props => (props.slot === '/sFOTVault' || props.slot === '/communitySale') && '#FBFCFD'};
 `
 
 const ExpectedValWrapper = styled.label`

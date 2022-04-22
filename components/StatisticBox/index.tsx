@@ -15,10 +15,12 @@ const Wrapper = styled('div')<{ slot: string; page: number }>`
   width: 100%;
   max-width: 610px;
   display: flex;
-  padding: ${props => (props.slot === '/sFOTVault' && props.page === 0 ? '0 30px' : '30px')};
+  padding: ${props =>
+    (props.slot === '/sFOTVault' && props.page === 0) || props.slot === '/communitySale' ? '0 30px' : '30px'};
   align-self: flex-start;
   margin: auto;
-  margin-left: ${props => (props.slot === '/sFOTVault' && props.page === 0 ? '-45px' : '22px')};
+  margin-left: ${props =>
+    props.slot === '/sFOTVault' && props.page === 0 ? '-45px' : props.slot === '/communitySale' ? 'auto' : '22px'};
 `
 
 const ContentWrapper = styled.div`
@@ -35,7 +37,18 @@ const StatisticLabel = styled('span')<{ slot: string; page: number }>`
     props.slot === '/gFOTmodule' || (props.slot === '/sFOTVault' && props.page === 0) ? '16.4907px' : '24px'};
   line-height: ${props =>
     props.slot === '/gFOTmodule' || (props.slot === '/sFOTVault' && props.page === 0) ? '25px' : '36px'};
-  color: ${props => (props.slot === '/gFOTmodule' ? '#080451' : props.slot === '/sFOTVault' ? '#171E0E' : '#22053D')};
+  color: ${props => {
+    switch (props.slot) {
+      case '/gFOTmodule':
+        return '#080451'
+      case '/sFOTVault':
+        return '#171E0E'
+      case '/communitySale':
+        return '#FBFCFD'
+      default:
+        return '#22053D'
+    }
+  }};
 `
 
 const StatisticValue = styled('span')<{ slot: string; page: number }>`
@@ -44,7 +57,8 @@ const StatisticValue = styled('span')<{ slot: string; page: number }>`
     props.slot === '/gFOTmodule' || (props.slot === '/sFOTVault' && props.page === 0) ? '20.6134px' : '30px'};
   line-height: ${props =>
     props.slot === '/gFOTmodule' || (props.slot === '/sFOTVault' && props.page === 0) ? '31px' : '45px'};
-  color: ${props => (props.slot === '/sFOTVault' ? '#171E0E' : '#22053d')};
+  color: ${props =>
+    props.slot === '/sFOTVault' ? '#171E0E' : props.slot === '/communitySale' ? '#233A54' : '#22053d'};
 `
 
 const StatisticItem = styled('label')<{ datatype: string; page: number }>`
@@ -191,16 +205,21 @@ const Ellipse12 = styled.div`
   filter: blur(168.364px);
 `
 
-const ShadowEllipses = styled.div`
+const ShapeWrapper = styled.div`
   z-index: -1;
 `
 
 const Divider = styled.div`
   background: ${props =>
-    props.slot === '/gFOTmodule' ? '#2E0752' : 'linear-gradient(270deg, #5F5BCD 0%, #83B8DD 100%)'};
+    props.slot === '/gFOTmodule'
+      ? '#2E0752'
+      : props.slot === '/communitySale'
+      ? 'linear-gradient(270deg, #76C893 0%, #34A0A4 100%)'
+      : 'linear-gradient(270deg, #5F5BCD 0%, #83B8DD 100%)'};
   height: ${props => (props.slot === '/gFOTmodule' ? '1.71779px' : '2.5px')};
   width: 100%;
   transform: rotate(0.01deg);
+  margin: ${props => props.slot === '/communitySale' && '20px 0'};
 `
 
 const VirticalDivider = styled.div`
@@ -223,6 +242,43 @@ const StatisticBox = ({
   const router = useRouter()
   const { pathname } = router
   const { toggle } = useContext(ToggleContext)
+  const renderShadowShapes = () => {
+    switch (pathname) {
+      case '/gFOTmodule':
+      case '/communitySale':
+        return null
+      case '/sFOTVault':
+        return (
+          <ShapeWrapper>
+            {page === 0 ? (
+              <>
+                <Ellipse5 />
+                <Ellipse6 />
+                <Ellipse7 />
+                <Ellipse8 />
+              </>
+            ) : (
+              <>
+                <Ellipse9 />
+                <Ellipse10 />
+                <Ellipse11 />
+                <Ellipse12 />
+              </>
+            )}
+          </ShapeWrapper>
+        )
+      default:
+        return (
+          <>
+            <Ellipse1 />
+            <Ellipse2 />
+            <Ellipse3 />
+            <Ellipse4 />
+          </>
+        )
+    }
+  }
+
   return (
     <div style={{ paddingLeft: '27px', maxWidth, width: '100%' }}>
       {pathname === '/sFOTVault' && (
@@ -240,7 +296,14 @@ const StatisticBox = ({
             style={{ flex: '1', minWidth: 'unset', borderRadius: '50px' }}
             onClick={() => setPage(page => (page === 0 ? 1 : 0))}
           >
-            {page === 0 ? <span>Clearance Sale<br></br><span style={{ fontSize: '0.7em' }}>gFOT to sFOT Swap</span></span> : 'Stable Module (sFOT)'}
+            {page === 0 ? (
+              <span>
+                Clearance Sale<br></br>
+                <span style={{ fontSize: '0.7em' }}>gFOT to sFOT Swap</span>
+              </span>
+            ) : (
+              'Stable Module (sFOT)'
+            )}
           </button>
           <button
             className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
@@ -253,30 +316,7 @@ const StatisticBox = ({
       )}
       {children}
       <Wrapper slot={pathname} page={page} defaultChecked={leftValues.length > 0}>
-        {pathname !== '/gFOTmodule' && pathname !== '/sFOTVault' && (
-          <>
-            <Ellipse1 />
-            <Ellipse2 />
-            <Ellipse3 />
-            <Ellipse4 />
-          </>
-        )}
-        {pathname == '/sFOTVault' && page === 0 && (
-          <ShadowEllipses>
-            <Ellipse5 />
-            <Ellipse6 />
-            <Ellipse7 />
-            <Ellipse8 />
-          </ShadowEllipses>
-        )}
-        {pathname == '/sFOTVault' && page === 1 && (
-          <ShadowEllipses>
-            <Ellipse9 />
-            <Ellipse10 />
-            <Ellipse11 />
-            <Ellipse12 />
-          </ShadowEllipses>
-        )}
+        {renderShadowShapes()}
         <ContentWrapper slot={pathname}>
           {values.map((v, idx) => {
             return (

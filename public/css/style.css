@@ -179,7 +179,7 @@ Default CSS
 }
 .countdownwrapper {
   width: 606px;
-  display:block;
+  display: block;
 }
 .wallet-text .wallet-label .wallet-span {
   margin: 0;
@@ -465,6 +465,7 @@ p:last-child {
   position: relative;
   border: none;
   background: linear-gradient(97.62deg, #5f5bcd 0%, #a8a4f7 100%);
+  background: var(--main-button-background-color);
   border-radius: 59px;
   color: var(--whiteColor);
   padding: 24px 32px;

@@ -1,10 +1,14 @@
 import { useContext, useState } from 'react'
 import styled from 'styled-components'
 import { ToggleContext } from '../Layout/Layout'
-
 import FromConv from './FromConv'
 import ToConv from './ToConv'
 import { useSigningClient } from '../../contexts/cosmwasm'
+
+const SubmitButton = styled.button`
+  background: var(--main-button-background-color);
+`
+
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -12,7 +16,7 @@ const Wrapper = styled.div`
   justify-content: center;
   width: ${props => (props.defaultChecked ? '100%' : 'unset')};
 
-  button {
+  ${SubmitButton} {
     border-radius: 60px;
   }
 `
@@ -37,7 +41,7 @@ const Converter = ({
   sbalance,
   submitTitle = 'Burn',
   showBalance = true,
-  button = true,
+  showSubmitButton = true,
 }) => {
   const { swapToken1, setSwapToken1 } = useSigningClient()
   const { toggle } = useContext(ToggleContext)
@@ -73,10 +77,10 @@ const Converter = ({
         maxW={maxW}
         showBalance={showBalance}
       />
-      {button && (
-        <button className={`default-btn secondary-btn`} onClick={handleSubmit}>
+      {showSubmitButton && (
+        <SubmitButton className={`default-btn secondary-btn`} onClick={handleSubmit}>
           {submitTitle}
-        </button>
+        </SubmitButton>
       )}
     </Wrapper>
   )

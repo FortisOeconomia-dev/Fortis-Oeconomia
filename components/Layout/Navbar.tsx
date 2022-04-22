@@ -236,7 +236,13 @@ const Navbar = ({ toggle, setToggle }) => {
                     </ul>
                   )}
                 </li>
-
+                <li className="nav-item">
+                  <Link href="/communitySale" activeClassName="active">
+                    <NavLink className="nav-link" slot={pathname} defaultChecked={toggle}>
+                      Community Sale
+                    </NavLink>
+                  </Link>
+                </li>
                 <li className="dropdown" onMouseEnter={onMouseEntermodules}>
                   <Link href="#" activeClassName="active">
                     <NavLink
