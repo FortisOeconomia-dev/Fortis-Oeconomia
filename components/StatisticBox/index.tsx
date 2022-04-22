@@ -299,7 +299,7 @@ const StatisticBox = ({
             {page === 0 ? (
               <span>
                 Clearance Sale<br></br>
-                <span style={{ fontSize: '0.7em' }}>gFOT to sFOT Swap</span>
+                <span style={{ fontSize: '0.7em' }}>sFOT to gFOT Swap</span>
               </span>
             ) : (
               'Stable Module (sFOT)'
