@@ -20,8 +20,6 @@ const Wrapper = styled.div`
   background: ${props =>
     !props.defaultChecked && props.slot === '/gFOTmodule'
       ? 'white'
-      : props.slot === '/sFOTVault'
-      ? 'linear-gradient(360deg, #FAFDFC 0%, #85B79D 100%, #85B79D 100%)'
       : props.slot === '/fortisDungeon'
       ? `var(--background-color)`
       : `linear-gradient(180deg, #8394DD 0%, #FFFFFF 100%)`};
@@ -29,7 +27,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  filter: ${props => !props.defaultChecked && props.slot === '/sFOTmodule' && 'hue-rotate(240deg)'};
+  filter: ${props => !props.defaultChecked && props.slot === '/sFOTVault' && 'hue-rotate(240deg)'};
 `
 const AssetImageWrapper = styled.div`
   background: ${props => props.slot};
