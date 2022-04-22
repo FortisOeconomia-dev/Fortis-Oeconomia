@@ -29,7 +29,6 @@ const Images = styled.div`
   justify-content: space-between;
   width: 100%;
   background: transparent;
-  color: transparent;
 `
 
 const Pool = ({ from, to, fromImage, toImage, onClick, isActive, imagesPosition = 'bottom', level = null }) => {
@@ -37,8 +36,8 @@ const Pool = ({ from, to, fromImage, toImage, onClick, isActive, imagesPosition 
 
   const renderImages = () => (
     <Images defaultChecked={toggle}>
-      {typeof fromImage === 'string' ? <img src={fromImage} /> : fromImage(toggle)}
-      {typeof toImage === 'string' ? <img src={toImage} /> : toImage(toggle)}
+      {typeof fromImage === 'string' ? <img src={fromImage} style={{ color: 'transparent' }} /> : fromImage(toggle)}
+      {typeof toImage === 'string' ? <img src={toImage} style={{ color: 'transparent' }} /> : toImage(toggle)}
     </Images>
   )
 

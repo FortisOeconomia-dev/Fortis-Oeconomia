@@ -158,6 +158,7 @@ const Tourch = styled('img')<{ visible: boolean}>`
   padding-bottom: 10px;
   visibility: ${props => (props.visible ? 'initial' : 'hidden')};
   height: ${props => (props.visible ? 'initial' : '0')};
+  filter: none !important;
 `
 
 const StakeNClaimSecond = ({
