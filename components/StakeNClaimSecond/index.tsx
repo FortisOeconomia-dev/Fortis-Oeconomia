@@ -151,6 +151,8 @@ const MyRewardsMiddle = styled('div')<{ visible: boolean }>`
 `
 const Tourch = styled('img')<{ visible: boolean}>`
   display: flex;
+  background: transparent;
+  color: transparent;
   flex-direction: column;
   align-items: center;
   padding-bottom: 10px;

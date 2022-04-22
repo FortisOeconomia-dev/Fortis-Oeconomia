@@ -166,8 +166,8 @@ const CreateWork = () => {
                 <Title>Junoswap LP Retroactive Rewards</Title>
               </TitleWrapper>
               <div className="trade-cryptocurrency-box">
-                <Ellipse2 />
-                <Ellipse3 />
+                {/* <Ellipse2 />
+                <Ellipse3 /> */}
                 <CurrencySelection className="currency-selection">
                   <label style={{ alignItems: 'center', textAlign: 'center', height: 'fit-content' }}>
                     {' '}

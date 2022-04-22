@@ -28,6 +28,8 @@ const Images = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  background: transparent;
+  color: transparent;
 `
 
 const Pool = ({ from, to, fromImage, toImage, onClick, isActive, imagesPosition = 'bottom', level = null }) => {

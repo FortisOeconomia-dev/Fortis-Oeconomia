@@ -221,10 +221,10 @@ const nwallet = () => {
   return (
     <Wallet>
       <Wrapper>
-        <Gradient1 />
+        {/* <Gradient1 />
         <Gradient2 />
         <Gradient3 />
-        <Gradient4 />
+        <Gradient4 /> */}
         <div className="currencyt-selection">
           <Title>My Assets</Title>
           <div className="wallet-text" style={{ marginTop: '32px' }}>
