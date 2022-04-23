@@ -71,8 +71,15 @@ const communitySale = () => {
     setTheme('theme10')
     getSfotBalances()
     const interval = setInterval(() => getSfotBalances(), updateInterval * 1000)
-    return () => clearInterval(interval)
+    return () => {
+      setTheme('primary')
+      clearInterval(interval)
+    }
   }, [])
+
+  useEffect(() => {
+    toggle ? setTheme('primary') : setTheme('theme10')
+  }, [toggle])
 
   const defaultValues = [
     {

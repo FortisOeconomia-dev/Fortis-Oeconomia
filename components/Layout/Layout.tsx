@@ -24,7 +24,9 @@ const Wrapper = styled.div`
       case '/fortisDungeon':
         return `var(--background-color)`
       case '/communitySale':
-        return `url('/images/MacBook Pro 14_ - 2.png')`
+        return !props.defaultChecked
+          ? `url('/images/MacBook Pro 14_ - 2.png')`
+          : `linear-gradient(180deg, #8394DD 0%, #FFFFFF 100%)`
       default:
         return `linear-gradient(180deg, #8394DD 0%, #FFFFFF 100%)`
     }
