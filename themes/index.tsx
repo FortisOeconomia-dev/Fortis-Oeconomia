@@ -1,4 +1,4 @@
-import { default as primary } from './default'
+import { default as primary } from './primary'
 import { default as theme1 } from './theme1'
 import { default as theme2 } from './theme2'
 import { default as theme3 } from './theme3'
