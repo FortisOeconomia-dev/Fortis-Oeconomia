@@ -41,8 +41,16 @@ const Pool = ({ from, to, fromImage, toImage, onClick, isActive, imagesPosition 
 
   const renderImages = () => (
     <Images defaultChecked={toggle}>
-      {typeof fromImage === 'string' ? <img src={fromImage} style={{ color: 'transparent', filter: isFortisDungeon ? 'none': null }} /> : fromImage(toggle)}
-      {typeof toImage === 'string' ? <img src={toImage} style={{ color: 'transparent', filter: isFortisDungeon ? 'none': null }} /> : toImage(toggle)}
+      {typeof fromImage === 'string' ? (
+        <img src={fromImage} style={{ color: 'transparent', filter: isFortisDungeon ? 'none' : null }} />
+      ) : (
+        fromImage(toggle)
+      )}
+      {typeof toImage === 'string' ? (
+        <img src={toImage} style={{ color: 'transparent', filter: isFortisDungeon ? 'none' : null }} />
+      ) : (
+        toImage(toggle)
+      )}
     </Images>
   )
 

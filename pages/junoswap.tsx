@@ -60,7 +60,7 @@ const AssetImageWrapper = styled.div`
 
 const OutWrapper = styled.div`
   filter: ${props => props.defaultChecked && 'drop-shadow(16px 16px 20px) invert(1) hue-rotate(-170deg) '};
-  background: linear-gradient(105deg, #98ACFF 0%, #6774AD 81.65%);
+  background: linear-gradient(105deg, #98acff 0%, #6774ad 81.65%);
   box-shadow: ${props => props.slot};
   border-radius: 100%;
   min-width: 54px;
@@ -74,7 +74,7 @@ const Title = styled.div`
   font-weight: 600;
   font-size: 36px;
   line-height: 54px;
-  color: #FBFCFD;
+  color: #fbfcfd;
 `
 
 const TitleWrapper = styled.div`
@@ -151,9 +151,12 @@ const CreateWork = () => {
           <div className="trade-cryptocurrency-box-div">
             <div className="trade-cryptocurrency-content">
               <TitleWrapper>
-                <img src="../images/juno.png" style={{width: '54px', height: '54px'}} />
+                <img src="../images/juno.png" style={{ width: '54px', height: '54px' }} />
                 <Title>-</Title>
-                <OutWrapper defaultChecked={toggle} slot="6.95467px 1.8635px 14.4px rgba(26, 30, 44, 0.338), inset -2.59641px -0.695706px 2.688px #606CA1, inset 2.59641px 0.695706px 2.688px #9FB4FF">
+                <OutWrapper
+                  defaultChecked={toggle}
+                  slot="6.95467px 1.8635px 14.4px rgba(26, 30, 44, 0.338), inset -2.59641px -0.695706px 2.688px #606CA1, inset 2.59641px 0.695706px 2.688px #9FB4FF"
+                >
                   <AssetImageWrapper slot="linear-gradient(179.97deg, #C1292E -90.61%, #FAFDFC 112.72%);">
                     <svg xmlns="http://www.w3.org/2000/svg" width="34" height="20" viewBox="0 0 34 20" fill="none">
                       <path
@@ -166,8 +169,6 @@ const CreateWork = () => {
                 <Title>Junoswap LP Retroactive Rewards</Title>
               </TitleWrapper>
               <div className="trade-cryptocurrency-box">
-                {/* <Ellipse2 />
-                <Ellipse3 /> */}
                 <CurrencySelection className="currency-selection">
                   <label style={{ alignItems: 'center', textAlign: 'center', height: 'fit-content' }}>
                     {' '}
@@ -179,7 +180,7 @@ const CreateWork = () => {
                 <button type="submit" onClick={handleSubmit} disabled={alreadyAirdropped}>
                   {alreadyAirdropped ? `Not Claimable Yet` : `Not Claimable Yet`}
                 </button>
-{/*                 {walletAddress.length == 0 ? (
+                {/*                 {walletAddress.length == 0 ? (
                   <></>
                 ) : (
                   <div className="banner-wrapper-content" style={{ marginRight: '0' }}>

@@ -4,46 +4,24 @@ import styled from "styled-components"
 const DropdownWrapper = styled.div`
   position: relative;
 `
-
-const DropdownLabel = styled.div`
-  cursor: pointer;
-  display: flex;
-  gap: 10px;
-  color: white !important;
-  font-weight: 600;
-  font-size: 19px !important;
-  line-height: 28px !important;
-  padding-left: unset !important;
-  padding-right: unset !important;
-  padding-left: unset !important;
-  padding-right: unset !important;
-  & > div {
-    transform: rotate(90deg);
-    fontFamily: cursive;
-  }
-`
-
 const NavLink = styled.a`
   white-space: nowrap;
   color: ${props => (!props.defaultChecked && props.slot === '/gFOTmodule' ? '#4B365B' : 'white')} !important;
   cursor: pointer;
   display: flex;
   gap: 10px;
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
-  font-size: 19px !important;
-  line-height: 28px !important;
-  padding-left: unset !important;
-  padding-right: unset !important;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: unset;
+  padding-right: unset;
+  font-size: 19px;
+  font-weight: 600;
+  font-family: var(--fontFamily2);
+  line-height: 28px;
   &.active {
     color: ${props => (props.slot === 'gFOTmodule' ? 'red' : 'black')} !important;
   }
-  padding-left: unset !important;
-  padding-right: unset !important;
   transition: var(--transition);
-  font-weight: 600;
-  font-size: var(--fontSize);
-  font-family: var(--fontFamily2);
   & > div {
     transform: rotate(90deg);
     fontFamily: cursive;
