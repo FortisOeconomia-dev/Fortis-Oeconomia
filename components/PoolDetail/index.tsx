@@ -439,9 +439,9 @@ const PoolDetail = ({
       <div className="w-full">
         <TitleWrapper>
           <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-            {typeof fromImage === 'string' ? <img src={`${fromImage}`} /> : fromImage(toggle)}
+            {typeof fromImage === 'string' ? <img src={`${fromImage}`} style={{ color: 'transparent' }} /> : fromImage(toggle)}
             <span>-</span>
-            {typeof toImage === 'string' ? <img src={`${toImage}`} /> : toImage(toggle)}
+            {typeof toImage === 'string' ? <img src={`${toImage}`} style={{ color: 'transparent' }} /> : toImage(toggle)}
           </div>
           <Title>
             {from}-{to} Pool {!!level && ` (Level ${level})`}

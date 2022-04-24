@@ -47,7 +47,7 @@ const ToConv = ({ to, expectedAmount, sbalance, maxW, toImage, showBalance }) =>
   return (
     <div className="gFotCurrencyt-selection">
       <WalletTitle slot={pathname}>
-        {toImage && (typeof toImage === 'string' ? <img src={toImage} /> : toImage(toggle))} {to}
+        {toImage && (typeof toImage === 'string' ? <img src={toImage} style={{background: 'transparent', color: 'transparent'}} /> : toImage(toggle))} {to}
       </WalletTitle>
       <ExpectedValWrapper className="wallet-label" slot={maxW}>
         <ExpectedVal>{expectedAmount}</ExpectedVal>
