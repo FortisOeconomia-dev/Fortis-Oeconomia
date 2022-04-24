@@ -59,28 +59,6 @@ const StatisticItem = styled('label')<{ datatype: string; page: number }>`
   justify-content: space-between;
 `
 
-const Ellipse1 = styled.div`
-  position: absolute;
-  width: 289px;
-  height: 286px;
-  left: 93px;
-  top: 51px;
-  border-radius: 100%;
-  background: #5f5bcd;
-  filter: blur(132px);
-`
-
-const Ellipse2 = styled.div`
-  position: absolute;
-  left: 69px;
-  bottom: 39px;
-  border-radius: 100%;
-  width: 245px;
-  height: 231px;
-  background: #8394dd;
-  filter: blur(60px);
-`
-
 const Ellipse3 = styled.div`
   position: absolute;
   width: 294px;
@@ -240,7 +218,7 @@ const StatisticBox = ({
             style={{ flex: '1', minWidth: 'unset', borderRadius: '50px' }}
             onClick={() => setPage(page => (page === 0 ? 1 : 0))}
           >
-            {page === 0 ? `Clearance Sale` : 'Stable Module (sFOT)'}
+            {page === 0 ? 'Clearance Sale' : 'Stable Module (sFOT)'}
           </button>
           <button
             className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
@@ -255,8 +233,6 @@ const StatisticBox = ({
       <Wrapper slot={pathname} page={page} defaultChecked={leftValues.length > 0}>
         {pathname !== '/gFOTmodule' && pathname !== '/sFOTVault' && (
           <>
-            <Ellipse1 />
-            <Ellipse2 />
             <Ellipse3 />
             <Ellipse4 />
           </>

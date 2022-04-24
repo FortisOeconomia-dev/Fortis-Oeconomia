@@ -1,8 +1,8 @@
-import { useEffect, useMemo, useState } from "react"
+import {useEffect, useMemo, useState} from "react"
 import styled from "styled-components"
-import { convertTimeToHMS } from "../../util/conversion"
+import {convertTimeToHMS} from "../../util/conversion"
 
-const Wrapper = styled.div`
+const Wrapper = styled.div `
   display: flex;
   justify-content: center;
   font-weight: 600;
@@ -13,13 +13,13 @@ const Wrapper = styled.div`
   min-width: 250px;
 `
 
-const TimePanel = styled.div`
+const TimePanel = styled.div `
   display: flex;
   align-items: center;
   justify-content: center;
 `
 
-const StyledDiv = styled.div`
+const StyledDiv = styled.div `
   font-size: 1em;
   border-radius: 5px;
   font-weight: 700;
@@ -29,8 +29,10 @@ const StyledDiv = styled.div`
   min-width: 35px;
   text-align: center;
 `
-const Countdown = ({ targetHour }: { targetHour: number | undefined }) => {
-  const [time, setTime] = useState<number | undefined>()
+const Countdown = ({targetHour} : {
+  targetHour: number | undefined
+}) => {
+  const [time, setTime] = useState < number | undefined > ()
 
   useEffect(() => {
     if (targetHour !== undefined) {
@@ -43,8 +45,7 @@ const Countdown = ({ targetHour }: { targetHour: number | undefined }) => {
         _targetDate.setDate(_targetDate.getDate() + 1)
       } else {
         _targetDate.setDate(_targetDate.getDate())
-      }
-      _targetDate.setHours(targetHour - offsetHour);
+      } _targetDate.setHours(targetHour - offsetHour);
       _targetDate.setMinutes(offsetMin);
       _targetDate.setSeconds(0);
       _targetDate.setMilliseconds(0);
@@ -59,7 +60,7 @@ const Countdown = ({ targetHour }: { targetHour: number | undefined }) => {
             setTime(24 * 60 * 60)
           }
         }, 1000)
-        return () => {
+        return() => {
           clearInterval(intervalHandler)
         }
       }
@@ -69,15 +70,34 @@ const Countdown = ({ targetHour }: { targetHour: number | undefined }) => {
   const timeObj = useMemo(() => convertTimeToHMS(time), [time])
 
   return (
-    <>
-    {timeObj && <Wrapper>
-      {timeObj?.day ? <TimePanel>{timeObj?.day}<StyledDiv>D</StyledDiv></TimePanel> : null}
-      {timeObj?.hour ? <TimePanel>{timeObj?.hour}<StyledDiv>H</StyledDiv></TimePanel> : null}
-      {(timeObj?.min || timeObj?.hour) && <TimePanel>{timeObj?.min}<StyledDiv>M</StyledDiv></TimePanel>}
-      {<TimePanel>{timeObj?.sec}<StyledDiv>S</StyledDiv></TimePanel>}
-      </Wrapper>
-    }
-    </>
+    <> {
+      timeObj ? <Wrapper> {
+        timeObj ?. day ? <TimePanel>{
+          timeObj ?. day
+        }
+          <StyledDiv>D</StyledDiv>
+        </TimePanel> : null
+      }
+        {
+        timeObj ?. hour ? <TimePanel>{
+          timeObj ?. hour
+        }
+          <StyledDiv>H</StyledDiv>
+        </TimePanel> : null
+      }
+        {
+        (timeObj ?. min || timeObj ?. hour) ? <TimePanel>{
+          timeObj ?. min
+        }
+          <StyledDiv>M</StyledDiv>
+        </TimePanel> : null
+      }
+        {
+        < TimePanel > {
+          timeObj ?. sec
+        } <StyledDiv>S</StyledDiv></TimePanel>
+      } </Wrapper> : null
+    } </>
   )
 }
 
