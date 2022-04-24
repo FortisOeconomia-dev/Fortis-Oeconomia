@@ -111,6 +111,8 @@ const CreateWork = () => {
           <div className="trade-cryptocurrency-box-div">
             <div className="trade-cryptocurrency-content" style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
               <div className="trade-cryptocurrency-box">
+                <Ellipse2/>
+                <Ellipse3/>
                 <CurrencySelection className="currency-selection">
                   <span>Votedrop Juno Proposal #14</span>
                   <label style={{ alignItems: 'center', textAlign: 'center', height: 'fit-content' }}>
@@ -133,6 +135,8 @@ const CreateWork = () => {
                 )}
               </div>
               <div className="trade-cryptocurrency-box">
+              <Ellipse2/>
+              <Ellipse3/>
                 <CurrencySelection className="currency-selection">
                   <span>Votedrop Juno Proposal #16</span>
                   <label style={{ alignItems: 'center', textAlign: 'center', height: 'fit-content' }}>
