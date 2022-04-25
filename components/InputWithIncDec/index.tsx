@@ -58,20 +58,26 @@ const InputWithIncDec = ({ handleBurnMinus, burnAmount, onBurnChange, handleBurn
     } else {
       result = burnAmount
     }
-    if (result && Number(result) > 0) return ConvertToNoExponents(result)
+    if (result && Number(result) > 0 && String(result)?.includes('e')) return ConvertToNoExponents(result)
     else return result
   }, [value, burnAmount])
 
   return (
     <Wrapper slot={maxW}>
       <DecButton className="fa fa-minus" onClick={handleBurnMinus} />
-      <IncDecInput type="text" value={realValue}
-        onKeyPress={(event) => {
+      <IncDecInput
+        type="text"
+        value={realValue}
+        onKeyPress={event => {
           if (!/[0-9 .]/.test(event.key)) {
-            event.preventDefault();
+            event.preventDefault()
           }
         }}
-        onChange={e => { setValue(e.target.value); onBurnChange(e); } } />
+        onChange={e => {
+          setValue(e.target.value)
+          onBurnChange(e)
+        }}
+      />
       <IncButton className="fa fa-plus" onClick={handleBurnPlus} />
     </Wrapper>
   )
