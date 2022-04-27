@@ -47,7 +47,13 @@ const FromConv = ({
   return (
     <div className="gFotCurrencyt-selection" style={{ maxWidth: maxW }}>
       <WalletTitle slot={pathname} defaultChecked={fromImage}>
-        {fromImage && (typeof fromImage === 'string' ? <img src={fromImage} style={{background: 'transparent', color: 'transparent'}} /> : fromImage(toggle))} {from}
+        {fromImage &&
+          (typeof fromImage === 'string' ? (
+            <img src={fromImage} style={{ background: 'transparent', color: 'transparent' }} />
+          ) : (
+            fromImage(toggle)
+          ))}{' '}
+        {from}
       </WalletTitle>
       <InputWithIncDec
         handleBurnMinus={handleBurnMinus}

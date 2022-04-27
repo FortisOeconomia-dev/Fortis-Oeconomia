@@ -203,7 +203,7 @@ const StatisticBox = ({
   const { toggle } = useContext(ToggleContext)
   return (
     <div style={{ paddingLeft: '27px', maxWidth, width: '100%' }}>
-      {pathname === '/sFOTVault' && (
+      {page < 2 && pathname === '/sFOTVault' && (
         <div
           style={{
             display: 'flex',
@@ -215,74 +215,83 @@ const StatisticBox = ({
         >
           <button
             className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
-            style={{ flex: '1', minWidth: 'unset', borderRadius: '50px' }}
+            style={{ flex: '1', minWidth: 'calc(50% - 10px)', borderRadius: '50px', maxWidth: 'calc(50% - 10px)' }}
             onClick={() => setPage(page => (page === 0 ? 1 : 0))}
           >
             {page === 0 ? 'Clearance Sale' : 'Stable Module (sFOT)'}
           </button>
           <button
             className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
-            style={{ flex: '1', minWidth: 'unset', borderRadius: '50px' }}
-            onClick={() => setPage(2)}
+            style={{ flex: '1', minWidth: 'calc(50% - 10px)', borderRadius: '50px', maxWidth: 'calc(50% - 10px)' }}
+            onClick={() => setPage(4)}
           >
             Stable Pools and Swaps
+          </button>
+          <button
+            className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
+            style={{ flex: '1', minWidth: 'calc(50% - 10px)', borderRadius: '50px', maxWidth: 'calc(50% - 10px)' }}
+            onClick={() => setPage(2)}
+          >
+            Vaulte
           </button>
         </div>
       )}
       {children}
-      <Wrapper slot={pathname} page={page} defaultChecked={leftValues.length > 0}>
-        {pathname !== '/gFOTmodule' && pathname !== '/sFOTVault' && (
-          <>
-            <Ellipse3 />
-            <Ellipse4 />
-          </>
-        )}
-        {pathname == '/sFOTVault' && page === 0 && (
-          <ShadowEllipses>
-            <Ellipse5 />
-            <Ellipse6 />
-            <Ellipse7 />
-            <Ellipse8 />
-          </ShadowEllipses>
-        )}
-        {pathname == '/sFOTVault' && page === 1 && (
-          <ShadowEllipses>
-            <Ellipse9 />
-            <Ellipse10 />
-            <Ellipse11 />
-            <Ellipse12 />
-          </ShadowEllipses>
-        )}
-        <ContentWrapper slot={pathname}>
-          {values.map((v, idx) => {
-            return (
-              <React.Fragment key={idx}>
-                <StatisticItem htmlFor={`${idx}`} slot={`${values.length}`} datatype={pathname} page={page}>
-                  <StatisticLabel slot={pathname} page={page}>
-                    {v.key.split('(').map((value, idx, self) =>
-                      self.length === 1 ? (
-                        v.key
-                      ) : idx === self.length - 1 ? (
-                        <React.Fragment key={idx}>
-                          <br />
-                          <span>{value}</span>
-                        </React.Fragment>
-                      ) : (
-                        value
-                      ),
-                    )}
-                  </StatisticLabel>
-                  <StatisticValue slot={pathname} page={page}>
-                    {convertToFixedDecimals(ConvertToNoExponents(v.value))}
-                  </StatisticValue>
-                </StatisticItem>
-                {idx < values.length - 1 && <Divider slot={pathname} />}
-              </React.Fragment>
-            )
-          })}
-        </ContentWrapper>
-        {leftValues.length > 0 ? <VirticalDivider slot={pathname} /> : <></>}
-      </Wrapper>
+      {page < 2 && (
+        <Wrapper slot={pathname} page={page} defaultChecked={leftValues.length > 0}>
+          {pathname !== '/gFOTmodule' && pathname !== '/sFOTVault' && (
+            <>
+              <Ellipse3 />
+              <Ellipse4 />
+            </>
+          )}
+          {pathname == '/sFOTVault' && page === 0 && (
+            <ShadowEllipses>
+              <Ellipse5 />
+              <Ellipse6 />
+              <Ellipse7 />
+              <Ellipse8 />
+            </ShadowEllipses>
+          )}
+          {pathname == '/sFOTVault' && page === 1 && (
+            <ShadowEllipses>
+              <Ellipse9 />
+              <Ellipse10 />
+              <Ellipse11 />
+              <Ellipse12 />
+            </ShadowEllipses>
+          )}
+          <ContentWrapper slot={pathname}>
+            {values.map((v, idx) => {
+              return (
+                <React.Fragment key={idx}>
+                  <StatisticItem htmlFor={`${idx}`} slot={`${values.length}`} datatype={pathname} page={page}>
+                    <StatisticLabel slot={pathname} page={page}>
+                      {v.key.split('(').map((value, idx, self) =>
+                        self.length === 1 ? (
+                          v.key
+                        ) : idx === self.length - 1 ? (
+                          <React.Fragment key={idx}>
+                            <br />
+                            <span>{value}</span>
+                          </React.Fragment>
+                        ) : (
+                          value
+                        ),
+                      )}
+                    </StatisticLabel>
+                    <StatisticValue slot={pathname} page={page}>
+                      {convertToFixedDecimals(ConvertToNoExponents(v.value))}
+                    </StatisticValue>
+                  </StatisticItem>
+                  {idx < values.length - 1 && <Divider slot={pathname} />}
+                </React.Fragment>
+              )
+            })}
+          </ContentWrapper>
+          {leftValues.length > 0 ? <VirticalDivider slot={pathname} /> : <></>}
+        </Wrapper>
+      )}
     </div>
   )
 }

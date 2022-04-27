@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { useSigningClient } from '../../contexts/cosmwasm'
-import { useContext } from 'react'
+import { useContext, useMemo } from 'react'
 import { useRouter } from 'next/router'
 import { ToggleContext } from '../Layout/Layout'
 import { ConvertToNoExponents } from '../../util/conversion'
@@ -44,13 +44,25 @@ const ToConv = ({ to, expectedAmount, sbalance, maxW, toImage, showBalance }) =>
   const { toggle } = useContext(ToggleContext)
   const { walletAddress } = useSigningClient()
 
+  const realValue = useMemo(() => {
+    if (expectedAmount && Number(expectedAmount) > 0 && String(expectedAmount)?.includes('e'))
+      return ConvertToNoExponents(expectedAmount)
+    else return expectedAmount
+  }, [expectedAmount])
+
   return (
     <div className="gFotCurrencyt-selection">
       <WalletTitle slot={pathname}>
-        {toImage && (typeof toImage === 'string' ? <img src={toImage} style={{background: 'transparent', color: 'transparent'}} /> : toImage(toggle))} {to}
+        {toImage &&
+          (typeof toImage === 'string' ? (
+            <img src={toImage} style={{ background: 'transparent', color: 'transparent' }} />
+          ) : (
+            toImage(toggle)
+          ))}{' '}
+        {to}
       </WalletTitle>
       <ExpectedValWrapper className="wallet-label" slot={maxW}>
-        <ExpectedVal>{expectedAmount}</ExpectedVal>
+        <ExpectedVal>{realValue}</ExpectedVal>
       </ExpectedValWrapper>
       {showBalance && walletAddress.length != 0 && (
         <div className="banner-wrapper-content" style={{ height: 'fit-content', textAlign: 'right' }}>
