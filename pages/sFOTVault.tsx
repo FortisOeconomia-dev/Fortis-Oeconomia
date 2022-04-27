@@ -590,7 +590,6 @@ const sFOTVault = () => {
                     <StakeNClaim
                       showInfoIcon={true}
                       showDivider={true}
-                      showStakeNClaimReward={false}
                       Note={true}
                       handleBurnMinus={handlesFotStakingMinus}
                       onBurnChange={onsFotStakingChange}
@@ -598,6 +597,7 @@ const sFOTVault = () => {
                       handleFotStaking={handlesFotStaking}
                       handleFotStakingClaimReward={handlesFotStakingClaimReward}
                       tokenType="sFOT"
+                      showStakeNClaimReward={true}
                       gfotTokenInfo={sfotTokenInfo}
                       gfotStakingContractInfo={sfotStakingContractInfo}
                       gfotStakingAmount={sfotStakingAmount}
