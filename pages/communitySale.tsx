@@ -1,8 +1,6 @@
 import React, { useEffect, MouseEvent, useContext, ChangeEvent } from 'react'
 import styled from 'styled-components'
 import { ToggleContext } from '../components/Layout/Layout'
-import Converter from '../components/Converter'
-import StatisticBox from '../components/StatisticBox'
 import { useSigningClient } from '../contexts/cosmwasm'
 import { convertMicroDenomToDenom2 } from '../util/conversion'
 import ThemeContext from '../contexts/ThemeContext'
@@ -24,31 +22,14 @@ const Wrapper = styled.div`
   gap: 37px;
   img {
     filter: ${props =>
-    props.defaultChecked ? 'drop-shadow(16px 16px 20px) invert(1) hue-rotate(-170deg)' : 'hue-rotate(-240deg)'};
+      props.defaultChecked ? 'drop-shadow(16px 16px 20px) invert(1) hue-rotate(-170deg)' : 'hue-rotate(-240deg)'};
   },
-`
-const LeftPart = styled.div`
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  flex: 1;
-  margin-top: 34px;
-  max-width: 100%;
-`
-
-const RightPart = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: auto;
-  flex: 2;
-  max-width: 100%;
 `
 
 const communitySale = () => {
   const {
     walletAddress,
     signingClient,
-    fotBalance,
     sfotBalance,
     fotTokenInfo,
     sfotTokenInfo,
@@ -86,17 +67,6 @@ const communitySale = () => {
   useEffect(() => {
     toggle ? setTheme('primary') : setTheme('theme10')
   }, [toggle])
-
-  const defaultValues = [
-    {
-      key: 'sFOT Supply',
-      value: `${convertMicroDenomToDenom2(sfotTokenInfo.total_supply, sfotTokenInfo.decimals)}`,
-    },
-    {
-      key: 'FOT Supply',
-      value: `${convertMicroDenomToDenom2(fotTokenInfo.total_supply, fotTokenInfo.decimals)}`,
-    },
-  ]
 
   const handlesFotDeposit = async (event: MouseEvent<HTMLElement>) => {
     if (!signingClient || walletAddress.length === 0) {
@@ -169,23 +139,23 @@ const communitySale = () => {
           to={'Fot'}
           token1TotalAmount={convertMicroDenomToDenom2(communitySaleContractInfo.sfot_amount, sfotTokenInfo.decimals)}
           token2TotalAmount={convertMicroDenomToDenom2(communitySaleContractInfo.fot_amount, fotTokenInfo.decimals)}
-          totalBurnedAmount={convertMicroDenomToDenom2(communitySaleContractInfo.burned_sfot_amount, sfotTokenInfo.decimals) }
-
+          totalBurnedAmount={convertMicroDenomToDenom2(
+            communitySaleContractInfo.burned_sfot_amount,
+            sfotTokenInfo.decimals,
+          )}
           handleToken1Minus={handlesFotDepositMinus}
           handleToken1Plus={handlesFotDepositPlus}
           onToken1Change={onsFotDepositChange}
           token1Amount={sfotDepositAmount}
-
-          myToken1Amount={sfotBalance}
-          myToken2Amount={fotBalance}
           handleToken1Deposit={handlesFotDeposit}
           handleToken2Claim={handleCommunitySaleClaim}
           communitySaleDepositList={communitySaleDepositList}
-
           handleToken1DepositChange={handlesFotDepositAll}
           maxWidth={'1000px'}
+          balance={sfotBalance}
+          walletAddress={walletAddress}
+          submitButtonTitle={'Buy'}
         />
-
       </div>
     </Wrapper>
   )

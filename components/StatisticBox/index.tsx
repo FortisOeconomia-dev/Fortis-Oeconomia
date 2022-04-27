@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import React, { useContext } from 'react'
 import { ToggleContext } from '../Layout/Layout'
-import { convertToFixedDecimals, ConvertToNoExponents } from '../../util/conversion'
+import { convertToFixedDecimals, convertToNoExponents } from '../../util/conversion'
 
 const Wrapper = styled('div')<{ slot: string; page: number }>`
   background: ${props => (props.slot === '/gFOTmodule' ? 'rgba(255, 255, 255, 0.25)' : 'rgba(251, 252, 253, 0.3)')};
@@ -330,7 +330,7 @@ const StatisticBox = ({
                     )}
                   </StatisticLabel>
                   <StatisticValue slot={pathname} page={page}>
-                    {convertToFixedDecimals(ConvertToNoExponents(v.value))}
+                    {convertToFixedDecimals(convertToNoExponents(v.value))}
                   </StatisticValue>
                 </StatisticItem>
                 {idx < values.length - 1 && <Divider slot={pathname} />}

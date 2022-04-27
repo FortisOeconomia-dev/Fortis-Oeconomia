@@ -1,15 +1,10 @@
 import InputWithIncDec from '../InputWithIncDec'
 import styled from 'styled-components'
-import { useContext, useState } from 'react'
-import { Range, getTrackBackground } from 'react-range'
+import { useContext } from 'react'
 import { ToggleContext } from '../Layout/Layout'
 import moment from 'moment'
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 
-import {
-  convertMicroDenomToDenom2, convertToFixedDecimals,
-} from '../../util/conversion'
-import Countdown from '../Countdown'
+import { convertMicroDenomToDenom2, convertToFixedDecimals, convertToNoExponents } from '../../util/conversion'
 
 const Wrapper = styled('div')<{ maxWidth: string }>`
   padding: 50px 32px;
@@ -95,38 +90,41 @@ const MyRewardsMiddle = styled('div')<{ visible: boolean }>`
   padding-bottom: 20px;
 `
 
+const BalanceWrapper = styled.div`
+  width: 100%;
+  height: fit-content;
+  text-align: right;
+  margin-bottom: 20px;
+`
+
 const DepositNClaim = ({
   token1TotalAmount,
   token2TotalAmount,
   totalBurnedAmount,
-
   handleToken1Minus,
   handleToken1Plus,
   onToken1Change,
   token1Amount,
-
-  myToken1Amount,
-  myToken2Amount,
   handleToken1Deposit,
   handleToken2Claim,
   communitySaleDepositList,
-
   handleToken1DepositChange,
-
   from,
   to,
-  maxWidth
+  maxWidth,
+  walletAddress,
+  balance,
+  submitButtonTitle = 'Deposit',
 }) => {
-  const [values, setValues] = useState([50])
   const { toggle } = useContext(ToggleContext)
 
-  let total_deposited_amount = 0;
-  let total_remained_amount = 0;
+  let total_deposited_amount = 0
+  let total_remained_amount = 0
   if (communitySaleDepositList.length > 0) {
     communitySaleDepositList.forEach(item => {
-      total_deposited_amount += Number(item[0]);
-      total_remained_amount += Number(item[1]);
-    });
+      total_deposited_amount += Number(item[0])
+      total_remained_amount += Number(item[1])
+    })
   }
 
   return (
@@ -155,11 +153,16 @@ const DepositNClaim = ({
         <div style={{ width: '100%' }}>
           <div
             className="gFotCurrencyt-selection"
-            style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '10px', width: '100%', maxWidth: 'unset' }}
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              gap: '10px',
+              width: '100%',
+              maxWidth: 'unset',
+            }}
           >
-            <span style={{ fontSize: '18px', height: 'unset' }}>
-              {from}
-            </span>
+            <span style={{ fontSize: '18px', height: 'unset' }}>{from}</span>
             <InputWithIncDec
               handleBurnMinus={handleToken1Minus}
               burnAmount={token1Amount}
@@ -168,7 +171,17 @@ const DepositNClaim = ({
             />
           </div>
         </div>
-        <MaxButton onClick={handleToken1DepositChange} className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}>
+        {walletAddress.length != 0 && (
+          <BalanceWrapper className="banner-wrapper-content">
+            <span className="sub-title ms-2" style={{ background: '#83B8DD' }}>
+              Balance {convertToNoExponents(balance)}
+            </span>
+          </BalanceWrapper>
+        )}
+        <MaxButton
+          onClick={handleToken1DepositChange}
+          className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
+        >
           Max
         </MaxButton>
         <button
@@ -176,7 +189,7 @@ const DepositNClaim = ({
           style={{ minWidth: 'unset', padding: '8px 30px' }}
           onClick={handleToken1Deposit}
         >
-          Deposit
+          {submitButtonTitle}
         </button>
       </TotalStaked>
       <MyStaked>
@@ -184,12 +197,18 @@ const DepositNClaim = ({
           <MyRewardsMiddle visible={false}>
             <div>
               <MyStakedText className="wallet-label">
-                My Deposited sFot
-                <StakedValue> {convertToFixedDecimals(convertMicroDenomToDenom2(total_deposited_amount, 10))}</StakedValue>
+                Total Deposited sFot
+                <StakedValue>
+                  {convertToFixedDecimals(convertMicroDenomToDenom2(total_deposited_amount, 10))}
+                </StakedValue>
               </MyStakedText>
               <MyStakedText className="wallet-label">
                 My burned sFot
-                <StakedValue> {convertToFixedDecimals(convertMicroDenomToDenom2(total_deposited_amount - total_remained_amount, 10))}</StakedValue>
+                <StakedValue>
+                  {convertToFixedDecimals(
+                    convertMicroDenomToDenom2(total_deposited_amount - total_remained_amount, 10),
+                  )}
+                </StakedValue>
               </MyStakedText>
             </div>
             <div
@@ -216,22 +235,24 @@ const DepositNClaim = ({
                   <tr key={`${idx}-unstakelp`}>
                     <td>{convertMicroDenomToDenom2(d[0], 10)}</td>
                     <td>{convertMicroDenomToDenom2(d[0] - d[1], 10)}</td>
-                    <td>{convertMicroDenomToDenom2(Math.floor((new Date().getTime() / 1000 - d[3])/2592000) * 0.05 * d[0], 10)}</td>
+                    <td>
+                      {convertMicroDenomToDenom2(
+                        Math.floor((new Date().getTime() / 1000 - d[3]) / 2592000) * 0.05 * d[0],
+                        10,
+                      )}
+                    </td>
                     <td>{moment(new Date((Number(d[3]) + 2592000) * 1000)).format('YYYY/MM/DD HH:mm:ss')}</td>
                     <td>
-                
                       <button
                         className={`default-btn  ${!toggle && 'secondary-btn'}`}
                         style={{ minWidth: 'unset', padding: '3px 30px' }}
-                        onClick={(e) => handleToken2Claim(e, idx)}
+                        onClick={e => handleToken2Claim(e, idx)}
                       >
                         Claim Fot
                       </button>
-                
                     </td>
                   </tr>
                 ))}
-                
               </table>
             </div>
           </MyRewardsMiddle>

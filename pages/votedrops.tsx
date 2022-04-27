@@ -10,7 +10,7 @@ import styled from 'styled-components'
 
 import { useSigningClient } from '../contexts/cosmwasm'
 import { fromBase64, toBase64 } from '@cosmjs/encoding'
-import { ConvertToNoExponents } from '../util/conversion'
+import { convertToNoExponents } from '../util/conversion'
 
 const Wrapper = styled.div`
   flex: 1;
@@ -129,7 +129,7 @@ const CreateWork = () => {
                 ) : (
                   <div className="banner-wrapper-content" style={{ marginRight: '0' }}>
                     <span className="sub-title ms-2" style={{ marginBottom: '0px' }}>
-                      {ConvertToNoExponents(fotBalanceStr)}
+                      {convertToNoExponents(fotBalanceStr)}
                     </span>
                   </div>
                 )}
@@ -156,7 +156,7 @@ const CreateWork = () => {
                 ) : (
                   <div className="banner-wrapper-content" style={{ marginRight: '0' }}>
                     <span className="sub-title ms-2" style={{ marginBottom: '0px' }}>
-                      {ConvertToNoExponents(fotBalanceStr)}
+                      {convertToNoExponents(fotBalanceStr)}
                     </span>
                   </div>
                 )}
