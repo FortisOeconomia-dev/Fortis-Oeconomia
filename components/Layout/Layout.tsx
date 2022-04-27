@@ -245,7 +245,7 @@ const Layout = ({ children }) => {
         )}
         {page === 1 && <RateShow text="Clearance Sale" action={() => setPage(0)} top={true} />}
         {page === 2 && <RateShow text="Stable Module (sFOT)" action={() => setPage(0)} left={true} />}
-        {page === 2 && <RateShow text="gBOND Swap and Stake" action={() => setPage(3)} />}
+        {/* {page === 2 && <RateShow text="gBOND Swap and Stake" action={() => setPage(3)} />} */}
         {page === 3 && <RateShow text="sBOND Swap and Stake" action={() => setPage(2)} left={true} />}
         {page === 4 && <RateShow text="Stable Module (sFOT)" action={() => setPage(0)} left={true} />}
         {pathname === '/airdrop' && eligible && <ProgressBar claimedPercent={monetaAirdropCount * 5} />}
@@ -254,13 +254,13 @@ const Layout = ({ children }) => {
           slot={pathname}
           style={{
             filter:
-              pathname === '/sFOTVault' && (page === 2 || page === 3)
-                ? toggle
-                  ? 'drop-shadow(16px 16px 20px) invert(1) hue-rotate(170deg) saturate(200%) contrast(100%) brightness(90%)'
-                  : 'none'
-                : toggle &&
-                  pathname !== '/fortisDungeon' &&
-                  'drop-shadow(16px 16px 20px) invert(90) hue-rotate(170deg) saturate(200%) contrast(100%) brightness(90%)',
+              toggle &&
+              pathname !== '/fortisDungeon' &&
+              'drop-shadow(16px 16px 20px) invert(90) hue-rotate(170deg) saturate(200%) contrast(100%) brightness(90%)',
+            background:
+              pathname === '/sFOTVault' &&
+              (page === 2 || page === 3) &&
+              'linear-gradient(113.2deg, rgb(124 81 81) -17.19%, rgb(181 115 115) 4.56%, rgb(177 111 116) 17.36%, rgb(173 97 173) 31.78%, rgb(166 79 119) 62.19%, rgb(129 80 159) 76.6%, rgb(110 81 161) 86.23%, rgb(130 115 178) 94%, rgb(155, 198, 188) 102.17%)',
           }}
         >
           <Head>

@@ -557,7 +557,7 @@ const sFOTVault = () => {
                   <StakeNClaim
                     showInfoIcon={true}
                     showDivider={true}
-                    showStakeNClaimReward={false}
+                    showStakeNClaimReward={true}
                     Note={true}
                     handleBurnMinus={handlesFotStakingMinus}
                     onBurnChange={onsFotStakingChange}

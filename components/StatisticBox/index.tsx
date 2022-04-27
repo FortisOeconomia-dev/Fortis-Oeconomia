@@ -190,6 +190,19 @@ const VirticalDivider = styled.div`
   margin-right: 20px;
 `
 
+const VaulteButton = styled.button`
+  flex: 1 1 0%;
+  min-width: calc(50% - 10px);
+  border-radius: 50px !important;
+  max-width: calc(50% - 10px);
+  border: #734242 solid !important;
+  color: #734242 !important;
+  &:hover {
+    border-color: white !important;
+    color: white !important;
+  }
+`
+
 const StatisticBox = ({
   values = [],
   leftValues = [],
@@ -227,13 +240,9 @@ const StatisticBox = ({
           >
             Stable Pools and Swaps
           </button>
-          <button
-            className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
-            style={{ flex: '1', minWidth: 'calc(50% - 10px)', borderRadius: '50px', maxWidth: 'calc(50% - 10px)' }}
-            onClick={() => setPage(2)}
-          >
+          <VaulteButton className={`default-btn  ${!toggle && 'secondary-btn outlined'}`} onClick={() => setPage(2)}>
             Vaulte
-          </button>
+          </VaulteButton>
         </div>
       )}
       {children}
