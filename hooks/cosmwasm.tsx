@@ -218,12 +218,21 @@ export interface ISigningCosmWasmClientContext {
   executeLpFetchUnstake: Function
   lpStakingInfo: any
 
+  // Community Sale
+  communitySaleDepositList: any[]
+  sfotDepositAmount: string
+  communitySaleContractInfo: any
+  handlesFotDepositChange: Function
+  executesFotDeposit: Function
+  executeFotClaim: Function
+
   getAirdropBalances: Function
   getBfotBalances: Function
   getGfotBalances: Function
   getSfotBalances: Function
   getCommonBalances: Function
   getWalletBalances: Function
+  getCommunitySaleBalances: Function
   updateInterval: number
 
   // for dungeon
@@ -298,6 +307,8 @@ export const PUBLIC_POOL5_STAKING_CONTRACT = process.env.NEXT_PUBLIC_POOL5_STAKI
 export const PUBLIC_POOL6_STAKING_CONTRACT = process.env.NEXT_PUBLIC_POOL6_STAKING_CONTRACT || ''
 export const PUBLIC_POOL7_STAKING_CONTRACT = process.env.NEXT_PUBLIC_POOL7_STAKING_CONTRACT || ''
 export const PUBLIC_POOL8_STAKING_CONTRACT = process.env.NEXT_PUBLIC_POOL8_STAKING_CONTRACT || ''
+
+export const PUBLIC_COMMUNITY_SALE_CONTRACT = process.env.NEXT_PUBLIC_COMMUNITY_SALE_CONTRACT || ''
 
 export const DUNGEON_POOL_INFO = [
   {
@@ -660,6 +671,13 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     apy_prefix: 0,
   })
 
+  const [communitySaleContractInfo, setCommunitySaleContractInfo] = useState({
+    owner: '',
+    fot_amount: 0,
+    sfot_amount: 0,
+    burned_sfot_amount: 0,
+  })
+
   const [lpStakingInfo, setLpStakingInfo] = useState([])
 
   /////////////////////////////////////////////////////////////////////
@@ -712,6 +730,13 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
   const [sFotUnstakingList, setsFotUnstakingList] = useState([])
   const [sFotUnstakeAmount, setsFotUnstakeAmount] = useState(0)
+
+  //////////////////////////////////////////////////////////////////////
+  /////////////////////  Community Sale Variables   ///////////////////////
+  //////////////////////////////////////////////////////////////////////
+
+  const [sfotDepositAmount, setsFotDepositAmount] = useState('')
+  const [communitySaleDepositList, setCommunitySaleDepositList] = useState([])
 
   //////////////////////////////////////////////////////////////////////
   /////////////////////  bFOT JUno Pool Variables   ////////////////////
@@ -1436,6 +1461,61 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         config: {},
       })
       setPool7LpFotLpStakingContractInfo(pool8StakingContractInfo)
+
+      setLoading(false)
+      if (showNotification) NotificationManager.info(`Successfully got balances`)
+    } catch (error) {
+      setLoading(false)
+      if (showNotification) NotificationManager.error(`GetBalances error : ${error}`)
+    }
+  }
+
+  const getCommunitySaleBalances = async () => {
+    setLoading(true)
+    try {
+      //FOT balance and info
+      const objectFotTokenInfo: JsonObject = await signingClient.queryContractSmart(PUBLIC_FOT_CONTRACT, {
+        token_info: {},
+      })
+      setFotTokenInfo(objectFotTokenInfo)
+
+      const objectFot: JsonObject = await signingClient.queryContractSmart(PUBLIC_FOT_CONTRACT, {
+        balance: { address: walletAddress },
+      })
+
+      SetFotBalance(parseInt(objectFot.balance) / Math.pow(10, objectFotTokenInfo.decimals))
+      SetFotBalanceStr(
+        parseInt(objectFot.balance) / Math.pow(10, objectFotTokenInfo.decimals) + ' ' + objectFotTokenInfo.symbol,
+      )
+
+      //SFOT balance and info
+      const objectSfotTokenInfo: JsonObject = await signingClient.queryContractSmart(PUBLIC_SFOT_CONTRACT, {
+        token_info: {},
+      })
+      setSfotTokenInfo(objectSfotTokenInfo)
+
+      const objectSfot: JsonObject = await signingClient.queryContractSmart(PUBLIC_SFOT_CONTRACT, {
+        balance: { address: walletAddress },
+      })
+
+      SetSfotBalance(parseInt(objectSfot.balance) / Math.pow(10, objectSfotTokenInfo.decimals))
+      SetSfotBalanceStr(
+        parseInt(objectSfot.balance) / Math.pow(10, objectSfotTokenInfo.decimals) + ' ' + objectSfotTokenInfo.symbol,
+      )
+
+      //Community Sale Contract Info
+      const communitySaleContractInfo = await signingClient.queryContractSmart(PUBLIC_COMMUNITY_SALE_CONTRACT, {
+        config: {},
+      })
+      setCommunitySaleContractInfo(communitySaleContractInfo)
+
+      const communitySaleMyInfo = await signingClient.queryContractSmart(PUBLIC_COMMUNITY_SALE_CONTRACT, {
+        staker: {
+          address: `${walletAddress}`,
+        },
+      })
+
+      setCommunitySaleDepositList(communitySaleMyInfo.list)
 
       setLoading(false)
       if (showNotification) NotificationManager.info(`Successfully got balances`)
@@ -2317,6 +2397,80 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
   const handlesFotUnstakeChange = async e => {
     setsFotUnstakeAmount(Number(e))
+  }
+
+  ////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////
+  ////////////////////    sfotstaking Functions   ////////////////////////
+  ////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////
+
+  const handlesFotDepositChange = async value => {
+    //    if (Number(value) > bfotBalance || Number(value) < 0)
+    //    return;
+    setsFotDepositAmount(value)
+  }
+
+  const executesFotDeposit = async () => {
+    setLoading(true)
+
+    try {
+      await signingClient?.execute(
+        walletAddress, // sender address
+        PUBLIC_SFOT_CONTRACT,
+        {
+          send: {
+            amount: convertDenomToMicroDenom2(sfotDepositAmount, sfotTokenInfo.decimals),
+            contract: PUBLIC_COMMUNITY_SALE_CONTRACT,
+            msg: '',
+          },
+        }, // msg
+        defaultFee,
+        undefined,
+        [],
+      )
+
+      setLoading(false)
+      setsFotDepositAmount('')
+      getCommonBalances()
+      if (showNotification) NotificationManager.success('Successfully deposited')
+    } catch (error) {
+      setLoading(false)
+      console.log(error)
+      //if (showNotification) {
+      NotificationManager.error(`Community Sale module error : ${error}`)
+      console.log(error.toString())
+      //}
+    }
+  }
+
+  const executeFotClaim = async (num) => {
+    setLoading(true)
+
+    try {
+      await signingClient?.execute(
+        walletAddress, // sender address
+        PUBLIC_COMMUNITY_SALE_CONTRACT,
+        {
+          claim_reward: {
+            index: num
+          },
+        }, // msg
+        defaultFee,
+        undefined,
+        [],
+      )
+
+      setLoading(false)
+      getCommunitySaleBalances()
+      if (showNotification) NotificationManager.success('Successfully clamied fot')
+    } catch (error) {
+      setLoading(false)
+      //if (showNotification) {
+      NotificationManager.error(`Community Sale Claim error : ${error}`)
+      console.log(error.toString())
+      //}
+    }
   }
 
   ////////////////////////////////////////////////////////////////////////
@@ -3822,12 +3976,21 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     executeLpFetchUnstake,
     lpStakingInfo,
 
+    // community sale
+    communitySaleDepositList,
+    communitySaleContractInfo,
+    sfotDepositAmount,
+    handlesFotDepositChange,
+    executesFotDeposit,
+    executeFotClaim,
+
     getAirdropBalances,
     getCommonBalances,
     getBfotBalances,
     getGfotBalances,
     getSfotBalances,
     getWalletBalances,
+    getCommunitySaleBalances,
     updateInterval,
 
     // dungeon

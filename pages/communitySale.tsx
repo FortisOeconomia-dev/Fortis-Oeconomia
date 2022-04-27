@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect, MouseEvent, useContext, ChangeEvent } from 'react'
 import styled from 'styled-components'
 import { ToggleContext } from '../components/Layout/Layout'
 import Converter from '../components/Converter'
@@ -7,6 +7,8 @@ import { useSigningClient } from '../contexts/cosmwasm'
 import { convertMicroDenomToDenom2 } from '../util/conversion'
 import ThemeContext from '../contexts/ThemeContext'
 import 'react-notifications/lib/notifications.css'
+import DepositNClaim from '../components/DepositNClaim'
+import { NotificationManager } from 'react-notifications'
 
 //styled components
 const Wrapper = styled.div`
@@ -22,7 +24,7 @@ const Wrapper = styled.div`
   gap: 37px;
   img {
     filter: ${props =>
-      props.defaultChecked ? 'drop-shadow(16px 16px 20px) invert(1) hue-rotate(-170deg)' : 'hue-rotate(-240deg)'};
+    props.defaultChecked ? 'drop-shadow(16px 16px 20px) invert(1) hue-rotate(-170deg)' : 'hue-rotate(-240deg)'};
   },
 `
 const LeftPart = styled.div`
@@ -50,9 +52,13 @@ const communitySale = () => {
     sfotBalance,
     fotTokenInfo,
     sfotTokenInfo,
-    clearanceSfotAmount,
-    stableExpectedSfotAmount,
-    getSfotBalances,
+    communitySaleDepositList,
+    communitySaleContractInfo,
+    sfotDepositAmount,
+    handlesFotDepositChange,
+    executesFotDeposit,
+    executeFotClaim,
+    getCommunitySaleBalances,
     updateInterval,
   } = useSigningClient()
 
@@ -62,15 +68,15 @@ const communitySale = () => {
     if (!signingClient || walletAddress.length === 0) {
       return
     }
-    getSfotBalances()
+    getCommunitySaleBalances()
   }, [signingClient, walletAddress])
 
   const { toggle } = useContext(ToggleContext)
 
   useEffect(() => {
     setTheme('theme10')
-    getSfotBalances()
-    const interval = setInterval(() => getSfotBalances(), updateInterval * 1000)
+    getCommunitySaleBalances()
+    const interval = setInterval(() => getCommunitySaleBalances(), updateInterval * 1000)
     return () => {
       setTheme('primary')
       clearInterval(interval)
@@ -92,6 +98,58 @@ const communitySale = () => {
     },
   ]
 
+  const handlesFotDeposit = async (event: MouseEvent<HTMLElement>) => {
+    if (!signingClient || walletAddress.length === 0) {
+      NotificationManager.error('Please connect wallet first')
+      return
+    }
+
+    if (Number(sfotDepositAmount) == 0) {
+      NotificationManager.error('Please input the sFOT amount first')
+      return
+    }
+    if (Number(sfotDepositAmount) > Number(sfotBalance)) {
+      NotificationManager.error('Please input correct sFOT amount')
+      return
+    }
+
+    event.preventDefault()
+    executesFotDeposit()
+  }
+
+  const handleCommunitySaleClaim = async (event: MouseEvent<HTMLElement>) => {
+    if (!signingClient || walletAddress.length === 0) {
+      NotificationManager.error('Please connect wallet first')
+      return
+    }
+
+    event.preventDefault()
+    executeFotClaim()
+  }
+
+  const onsFotDepositChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const {
+      target: { value },
+    } = event
+    if (Number(value) > Number(sfotBalance)) return
+    if (Number(value) < 0) return
+    handlesFotDepositChange(Number(value))
+  }
+
+  const handlesFotDepositPlus = () => {
+    if (Number(sfotDepositAmount) + 1 > Number(sfotBalance)) return
+
+    handlesFotDepositChange(Number(sfotDepositAmount) + 1)
+  }
+  const handlesFotDepositMinus = () => {
+    if (Number(sfotDepositAmount) - 1 < 0) return
+    handlesFotDepositChange(Number(sfotDepositAmount) - 1)
+  }
+
+  const handlesFotDepositAll = () => {
+    handlesFotDepositChange(Number(sfotBalance))
+  }
+
   if (!signingClient || walletAddress == '') return null
 
   return (
@@ -99,40 +157,35 @@ const communitySale = () => {
       <div
         style={{
           display: 'flex',
-          justifyContent: 'space-between',
+          justifyContent: 'center',
           flexWrap: 'wrap',
           gap: '50px',
           maxWidth: 1368,
         }}
         className="w-full"
       >
-        <LeftPart>
-          <Converter
-            wfull={false}
-            handleBurnMinus={null}
-            onBurnChange={null}
-            handleBurnPlus={null}
-            burnAmount={clearanceSfotAmount}
-            expectedAmount={stableExpectedSfotAmount}
-            convImg={() => (
-              <svg width="127" height="70" viewBox="0 0 127 94" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <line x1="1.23677" y1="2.15124" x2="63.3153" y2="92.6086" stroke="#171E0E" strokeWidth="3" />
-                <line x1="62.7632" y1="91.6095" x2="124.841" y2="1.15126" stroke="#171E0E" strokeWidth="3" />
-              </svg>
-            )}
-            from={'sFOT'}
-            to={'FOT'}
-            handleSubmit={null}
-            balance={fotBalance}
-            handleChange={null}
-            sbalance={sfotBalance}
-            submitTitle={'Purchase'}
-            showBalance={true}
-          />
-        </LeftPart>
-        <RightPart>
-          <StatisticBox values={defaultValues} maxWidth={null} />
-        </RightPart>
+        <DepositNClaim
+          from={'sFot'}
+          to={'Fot'}
+          token1TotalAmount={convertMicroDenomToDenom2(communitySaleContractInfo.sfot_amount, sfotTokenInfo.decimals)}
+          token2TotalAmount={convertMicroDenomToDenom2(communitySaleContractInfo.fot_amount, fotTokenInfo.decimals)}
+          totalBurnedAmount={convertMicroDenomToDenom2(communitySaleContractInfo.burned_sfot_amount, sfotTokenInfo.decimals) }
+
+          handleToken1Minus={handlesFotDepositMinus}
+          handleToken1Plus={handlesFotDepositPlus}
+          onToken1Change={onsFotDepositChange}
+          token1Amount={sfotDepositAmount}
+
+          myToken1Amount={sfotBalance}
+          myToken2Amount={fotBalance}
+          handleToken1Deposit={handlesFotDeposit}
+          handleToken2Claim={handleCommunitySaleClaim}
+          communitySaleDepositList={communitySaleDepositList}
+
+          handleToken1DepositChange={handlesFotDepositAll}
+          maxWidth={'1000px'}
+        />
+
       </div>
     </Wrapper>
   )
