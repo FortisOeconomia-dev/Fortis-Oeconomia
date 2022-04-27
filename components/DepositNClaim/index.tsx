@@ -124,8 +124,8 @@ const DepositNClaim = ({
   let total_remained_amount = 0;
   if (communitySaleDepositList.length > 0) {
     communitySaleDepositList.forEach(item => {
-      total_deposited_amount += item[0];
-      total_remained_amount += item[1];
+      total_deposited_amount += Number(item[0]);
+      total_remained_amount += Number(item[1]);
     });
   }
 
@@ -223,7 +223,7 @@ const DepositNClaim = ({
                       <button
                         className={`default-btn  ${!toggle && 'secondary-btn'}`}
                         style={{ minWidth: 'unset', padding: '3px 30px' }}
-                        onClick={() => handleToken2Claim(d)}
+                        onClick={(e) => handleToken2Claim(e, idx)}
                       >
                         Claim Fot
                       </button>

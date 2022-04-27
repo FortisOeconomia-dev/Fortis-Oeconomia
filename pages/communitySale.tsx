@@ -117,14 +117,14 @@ const communitySale = () => {
     executesFotDeposit()
   }
 
-  const handleCommunitySaleClaim = async (event: MouseEvent<HTMLElement>) => {
+  const handleCommunitySaleClaim = async (event: MouseEvent<HTMLElement>, idx) => {
     if (!signingClient || walletAddress.length === 0) {
       NotificationManager.error('Please connect wallet first')
       return
     }
 
     event.preventDefault()
-    executeFotClaim()
+    executeFotClaim(idx)
   }
 
   const onsFotDepositChange = (event: ChangeEvent<HTMLInputElement>) => {
