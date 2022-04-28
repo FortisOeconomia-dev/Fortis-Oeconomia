@@ -94,11 +94,11 @@ const communitySale = () => {
   useEffect(() => {
     const values = [
       {
-        key: 'Total Burned sFot',
+        key: 'Total Burned sFOT',
         value: `${convertMicroDenomToDenom2(communitySaleContractInfo.burned_sfot_amount, sfotTokenInfo.decimals)}`,
       },
       {
-        key: 'Total Sold Fot',
+        key: 'Total Sold FOT',
         value: `${convertMicroDenomToDenom2(communitySaleContractInfo.sfot_amount * 2, fotTokenInfo.decimals)}`,
       },
     ]
@@ -222,6 +222,7 @@ const communitySale = () => {
           maxWidth={'1000px'}
         /> */}
       </div>
+      <div>Bought FOTs are subject to 20 month vesting period with %5 opening per month.</div>
     </Wrapper>
   )
 }

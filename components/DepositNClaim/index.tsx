@@ -148,7 +148,7 @@ const DepositNClaim = ({
             <StakedValue> {convertToFixedDecimals(token2TotalAmount)}</StakedValue>
           </TotalStakedText>
           <TotalStakedText className="wallet-label" style={{ fontSize: '18px' }}>
-            Total Burned sFot
+            Total Burned sFOT
             <StakedValue> {convertToFixedDecimals(totalBurnedAmount)}</StakedValue>
           </TotalStakedText>
         </div>
