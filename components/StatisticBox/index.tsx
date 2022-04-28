@@ -31,7 +31,7 @@ const ContentWrapper = styled.div`
   padding: 10px;
 `
 
-const StatisticLabel = styled('span')<{ slot: string; page: number }>`
+const StatisticLabel = styled('span')<{ slot: string; page: number; toggle: boolean }>`
   font-weight: 600;
   font-size: ${props =>
     props.slot === '/gFOTmodule' || (props.slot === '/sFOTVault' && props.page === 0) ? '16.4907px' : '24px'};
@@ -44,7 +44,7 @@ const StatisticLabel = styled('span')<{ slot: string; page: number }>`
       case '/sFOTVault':
         return '#171E0E'
       case '/communitySale':
-        return '#FBFCFD'
+        return props.toggle ? '#233A54' : '#FBFCFD'
       default:
         return '#22053D'
     }
@@ -291,7 +291,7 @@ const StatisticBox = ({
             return (
               <React.Fragment key={idx}>
                 <StatisticItem htmlFor={`${idx}`} slot={`${values.length}`} datatype={pathname} page={page}>
-                  <StatisticLabel slot={pathname} page={page}>
+                  <StatisticLabel slot={pathname} page={page} toggle={toggle}>
                     {v.key.split('(').map((value, idx, self) =>
                       self.length === 1 ? (
                         v.key

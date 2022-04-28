@@ -181,7 +181,7 @@ const communitySale = () => {
             balance={sfotBalance}
             handleChange={handlesFotDepositAll}
             sbalance={fotBalance}
-            submitTitle={'Buy'}
+            submitTitle={'Purchase'}
             showBalance={true}
           />
         </LeftPart>
