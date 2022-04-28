@@ -1,23 +1,9 @@
 import { useEffect, useState, MouseEvent, ChangeEvent, useContext } from 'react'
-import TextField from '@mui/material/TextField'
-import { NotificationContainer, NotificationManager } from 'react-notifications'
+import { NotificationManager } from 'react-notifications'
 import 'react-notifications/lib/notifications.css'
-
-import AdapterDateFns from '@mui/lab/AdapterDateFns'
-import LocalizationProvider from '@mui/lab/LocalizationProvider'
-import DateTimePicker from '@mui/lab/DateTimePicker'
 import styled from 'styled-components'
-
 import { useSigningClient } from '../contexts/cosmwasm'
-import { fromBase64, toBase64 } from '@cosmjs/encoding'
-import {
-  convertMicroDenomToDenom,
-  convertDenomToMicroDenom,
-  convertMicroDenomToDenom2,
-  convertDenomToMicroDenom2,
-  convertFromMicroDenom,
-} from '../util/conversion'
-
+import { convertMicroDenomToDenom2 } from '../util/conversion'
 import Converter from '../components/Converter'
 import StatisticBox from '../components/StatisticBox'
 import ThemeContext from '../contexts/ThemeContext'
@@ -59,26 +45,13 @@ const burnmodule = () => {
   const {
     walletAddress,
     signingClient,
-    loading,
-    error,
-    connectWallet,
-    disconnect,
-    client,
-
-    getBalances,
-    nativeBalanceStr,
-    nativeBalance,
     fotBalance,
-    fotBalanceStr,
     fotTokenInfo,
-
     bfotBalance,
-    bfotBalanceStr,
     bfotTokenInfo,
     fotBurnContractInfo,
     fotBurnAmount,
     expectedBfotAmount,
-
     handleFotChange,
     executeFotBurn,
     getBfotBalances,
@@ -164,29 +137,27 @@ const burnmodule = () => {
   }
 
   return (
-    <>
-      <Wrapper>
-        <LeftPart>
-          <Converter
-            handleBurnMinus={handleFotBurnMinus}
-            burnAmount={fotBurnAmount}
-            onBurnChange={onFotBurnChange}
-            handleBurnPlus={handleFotBurnPlus}
-            convImg="/images/fire.png"
-            from="FOT"
-            to="bFOT"
-            expectedAmount={expectedBfotAmount}
-            handleSubmit={handleSubmit}
-            handleChange={handleFotChange}
-            balance={fotBalance}
-            sbalance={bfotBalance}
-          />
-        </LeftPart>
-        <RightPart>
-          <StatisticBox values={defaultValues} />
-        </RightPart>
-      </Wrapper>
-    </>
+    <Wrapper>
+      <LeftPart>
+        <Converter
+          handleBurnMinus={handleFotBurnMinus}
+          burnAmount={fotBurnAmount}
+          onBurnChange={onFotBurnChange}
+          handleBurnPlus={handleFotBurnPlus}
+          convImg="/images/fire.png"
+          from="FOT"
+          to="bFOT"
+          expectedAmount={expectedBfotAmount}
+          handleSubmit={handleSubmit}
+          handleChange={handleFotChange}
+          balance={fotBalance}
+          sbalance={bfotBalance}
+        />
+      </LeftPart>
+      <RightPart>
+        <StatisticBox values={defaultValues} />
+      </RightPart>
+    </Wrapper>
   )
 }
 
