@@ -7,7 +7,6 @@ import { useSigningClient } from '../contexts/cosmwasm'
 import { convertMicroDenomToDenom2 } from '../util/conversion'
 import ThemeContext from '../contexts/ThemeContext'
 import 'react-notifications/lib/notifications.css'
-import DepositNClaim from '../components/DepositNClaim'
 import { NotificationManager } from 'react-notifications'
 
 //styled components
@@ -24,7 +23,7 @@ const Wrapper = styled.div`
   gap: 37px;
   img {
     filter: ${props =>
-    props.defaultChecked ? 'drop-shadow(16px 16px 20px) invert(1) hue-rotate(-170deg)' : 'hue-rotate(-240deg)'};
+      props.defaultChecked ? 'drop-shadow(16px 16px 20px) invert(1) hue-rotate(-170deg)' : 'hue-rotate(-240deg)'};
   },
 `
 const LeftPart = styled.div`
@@ -52,12 +51,10 @@ const communitySale = () => {
     sfotBalance,
     fotTokenInfo,
     sfotTokenInfo,
-    communitySaleDepositList,
     communitySaleContractInfo,
     sfotDepositAmount,
     handlesFotDepositChange,
     executesFotDeposit,
-    executeFotClaim,
     getCommunitySaleBalances,
     updateInterval,
   } = useSigningClient()
@@ -117,15 +114,15 @@ const communitySale = () => {
     executesFotDeposit()
   }
 
-  const handleCommunitySaleClaim = async (event: MouseEvent<HTMLElement>, idx) => {
-    if (!signingClient || walletAddress.length === 0) {
-      NotificationManager.error('Please connect wallet first')
-      return
-    }
+  // const handleCommunitySaleClaim = async (event: MouseEvent<HTMLElement>, idx) => {
+  //   if (!signingClient || walletAddress.length === 0) {
+  //     NotificationManager.error('Please connect wallet first')
+  //     return
+  //   }
 
-    event.preventDefault()
-    executeFotClaim(idx)
-  }
+  //   event.preventDefault()
+  //   executeFotClaim(idx)
+  // }
 
   const onsFotDepositChange = (event: ChangeEvent<HTMLInputElement>) => {
     const {
@@ -146,7 +143,7 @@ const communitySale = () => {
     handlesFotDepositChange(Number(sfotDepositAmount) - 1)
   }
 
-  const handlesFotDepositAll = (balance) => {
+  const handlesFotDepositAll = balance => {
     handlesFotDepositChange(Number(balance))
   }
 
@@ -184,7 +181,7 @@ const communitySale = () => {
             balance={sfotBalance}
             handleChange={handlesFotDepositAll}
             sbalance={fotBalance}
-            submitTitle={'Deposit'}
+            submitTitle={'Buy'}
             showBalance={true}
           />
         </LeftPart>
@@ -212,7 +209,6 @@ const communitySale = () => {
           handleToken1DepositChange={handlesFotDepositAll}
           maxWidth={'1000px'}
         /> */}
-
       </div>
     </Wrapper>
   )
