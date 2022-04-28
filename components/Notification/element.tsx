@@ -16,7 +16,7 @@ const Wrapper = styled.div`
 
   border: 1px solid;
   border-color: ${props => (props.type ? 'green' : 'red')};
-  min-width: 324px;
+  min-width: 280px;
 `
 
 const ContentWrapper = styled.div`
@@ -30,16 +30,13 @@ const Title = styled.div`
   line-height: 32px;
   font-weight: 800;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  color: ${props => (props.type ? 'green;' : 'red')};
+  color: ${props => (props.type ? '#38B000' : '#B01A00')};
   & > i {
     margin-right: 10px;
   }
   & > svg {
-    fill: ${props => (props.type ? 'green;' : 'red')};
-    width: 20px;
-    height: 20px;
     margin-right: 10px;
   }
   & > span {
@@ -51,7 +48,7 @@ const Text = styled.span`
   font-size: 15px;
   font-weight: 500;
   text-decoration-line: underline;
-  color: ${props => (props.type ? 'green;' : 'red')};
+  color: ${props => (props.type ? '#38B000' : '#B01A00')};
   cursor: pointer;
 `
 
@@ -88,15 +85,31 @@ const Notification = ({ id, action, title = 'Title', txHash = 'tx', left = false
       <ContentWrapper>
         <i
           className="fas fa-times"
-          style={{ position: 'absolute', right: 10, cursor: 'pointer' }}
+          style={{ position: 'absolute', right: 10, cursor: 'pointer', color: '#7C7C7C' }}
           onClick={() => remove(id)}
         ></i>
         <Title type={type}>
           {type ? (
-            <i className="fas fa-check"></i>
+            <svg width="18" height="13" viewBox="0 0 18 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M17 1L6 12L1 7"
+                stroke="#38B000"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
           ) : (
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-              <path d="M506.3 417l-213.3-364c-16.33-28-57.54-28-73.98 0l-213.2 364C-10.59 444.9 9.849 480 42.74 480h426.6C502.1 480 522.6 445 506.3 417zM232 168c0-13.25 10.75-24 24-24S280 154.8 280 168v128c0 13.25-10.75 24-23.1 24S232 309.3 232 296V168zM256 416c-17.36 0-31.44-14.08-31.44-31.44c0-17.36 14.07-31.44 31.44-31.44s31.44 14.08 31.44 31.44C287.4 401.9 273.4 416 256 416z" />
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M10.2908 3.85996L1.82075 18C1.64612 18.3024 1.55372 18.6453 1.55274 18.9945C1.55176 19.3437 1.64224 19.6871 1.81518 19.9905C1.98812 20.2939 2.23748 20.5467 2.53846 20.7238C2.83944 20.9009 3.18155 20.9961 3.53075 21H20.4708C20.82 20.9961 21.1621 20.9009 21.463 20.7238C21.764 20.5467 22.0134 20.2939 22.1863 19.9905C22.3593 19.6871 22.4497 19.3437 22.4488 18.9945C22.4478 18.6453 22.3554 18.3024 22.1808 18L13.7108 3.85996C13.5325 3.56607 13.2815 3.32308 12.9819 3.15444C12.6824 2.98581 12.3445 2.89722 12.0008 2.89722C11.657 2.89722 11.3191 2.98581 11.0196 3.15444C10.72 3.32308 10.469 3.56607 10.2908 3.85996V3.85996Z"
+                stroke="#B01A00"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path d="M12 9V13" stroke="#B01A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M12 17H12.01" stroke="#B01A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
           )}
           <span>{title}</span>
