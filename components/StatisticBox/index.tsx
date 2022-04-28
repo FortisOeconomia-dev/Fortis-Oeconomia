@@ -241,7 +241,7 @@ const StatisticBox = ({
             Stable Pools and Swaps
           </button>
           <VaulteButton className={`default-btn  ${!toggle && 'secondary-btn outlined'}`} onClick={() => setPage(2)}>
-            Vaulte
+            Vault
           </VaulteButton>
         </div>
       )}
