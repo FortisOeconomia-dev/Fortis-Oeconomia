@@ -1,4 +1,4 @@
-import React, { useEffect, MouseEvent, useContext, ChangeEvent } from 'react'
+import React, { useState, useEffect, MouseEvent, useContext, ChangeEvent } from 'react'
 import styled from 'styled-components'
 import { ToggleContext } from '../components/Layout/Layout'
 import Converter from '../components/Converter'
@@ -60,6 +60,7 @@ const communitySale = () => {
   } = useSigningClient()
 
   const { setTheme, changeTheme } = useContext(ThemeContext)
+  const [statisticBoxValues, setStatisticBoxValues] = useState([])
 
   useEffect(() => {
     if (!signingClient || walletAddress.length === 0) {
@@ -84,16 +85,20 @@ const communitySale = () => {
     toggle ? changeTheme('primary') : changeTheme('theme10')
   }, [toggle])
 
-  const defaultValues = [
-    {
-      key: 'Total Burned sFot',
-      value: `${convertMicroDenomToDenom2(communitySaleContractInfo.burned_sfot_amount, sfotTokenInfo.decimals)}`,
-    },
-    {
-      key: 'Total Sold Fot',
-      value: `${convertMicroDenomToDenom2(communitySaleContractInfo.sfot_amount * 2, fotTokenInfo.decimals)}`,
-    },
-  ]
+  useEffect(() => {
+    const values = [
+      {
+        key: 'Total Burned sFot',
+        value: `${convertMicroDenomToDenom2(communitySaleContractInfo.burned_sfot_amount, sfotTokenInfo.decimals)}`,
+      },
+      {
+        key: 'Total Sold Fot',
+        value: `${convertMicroDenomToDenom2(communitySaleContractInfo.sfot_amount * 2, fotTokenInfo.decimals)}`,
+      },
+    ]
+
+    setStatisticBoxValues(values)
+  }, [convertMicroDenomToDenom2, communitySaleContractInfo, sfotTokenInfo, fotTokenInfo])
 
   const handlesFotDeposit = async (event: MouseEvent<HTMLElement>) => {
     if (!signingClient || walletAddress.length === 0) {
@@ -111,7 +116,8 @@ const communitySale = () => {
     }
 
     event.preventDefault()
-    executesFotDeposit()
+    await executesFotDeposit()
+    getCommunitySaleBalances()
   }
 
   // const handleCommunitySaleClaim = async (event: MouseEvent<HTMLElement>, idx) => {
@@ -186,7 +192,7 @@ const communitySale = () => {
           />
         </LeftPart>
         <RightPart>
-          <StatisticBox values={defaultValues} maxWidth={null} />
+          <StatisticBox values={statisticBoxValues} maxWidth={null} />
         </RightPart>
         {/* <DepositNClaim
           from={'sFot'}
