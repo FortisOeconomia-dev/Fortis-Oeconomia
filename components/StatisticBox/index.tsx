@@ -73,28 +73,6 @@ const StatisticItem = styled('label')<{ datatype: string; page: number }>`
   justify-content: space-between;
 `
 
-const Ellipse1 = styled.div`
-  position: absolute;
-  width: 289px;
-  height: 286px;
-  left: 93px;
-  top: 51px;
-  border-radius: 100%;
-  background: #5f5bcd;
-  filter: blur(132px);
-`
-
-const Ellipse2 = styled.div`
-  position: absolute;
-  left: 69px;
-  bottom: 39px;
-  border-radius: 100%;
-  width: 245px;
-  height: 231px;
-  background: #8394dd;
-  filter: blur(60px);
-`
-
 const Ellipse3 = styled.div`
   position: absolute;
   width: 294px;
@@ -270,8 +248,6 @@ const StatisticBox = ({
       default:
         return (
           <>
-            <Ellipse1 />
-            <Ellipse2 />
             <Ellipse3 />
             <Ellipse4 />
           </>

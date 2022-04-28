@@ -61,6 +61,7 @@ const OutWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  color: transparent;
 `
 
 export const sFOTImage = toggle => (
@@ -260,6 +261,7 @@ const Layout = ({ children }) => {
           style={{
             filter:
               toggle &&
+              pathname !== '/fortisDungeon' &&
               'drop-shadow(16px 16px 20px) invert(90) hue-rotate(170deg) saturate(200%) contrast(100%) brightness(90%)',
           }}
         >

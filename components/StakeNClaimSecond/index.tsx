@@ -6,9 +6,7 @@ import { ToggleContext } from '../Layout/Layout'
 import moment from 'moment'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 
-import {
-  convertMicroDenomToDenom2, convertToFixedDecimals,
-} from '../../util/conversion'
+import { convertMicroDenomToDenom2, convertToFixedDecimals } from '../../util/conversion'
 import Countdown from '../Countdown'
 
 const Wrapper = styled('div')<{ maxWidth: string }>`
@@ -62,7 +60,7 @@ const CountdownWrapper = styled('label')<{ visible: boolean }>`
   text-align: center;
   margin: 0 !important;
   visibility: ${props => (props.visible ? 'initial' : 'hidden')};
-  height: ${props => (props.visible ? 'initial' : '0')}
+  height: ${props => (props.visible ? 'initial' : '0')};
 `
 const DPRText = styled('label')<{ visible: boolean }>`
   width: unset !important;
@@ -70,7 +68,7 @@ const DPRText = styled('label')<{ visible: boolean }>`
   margin: 0 !important;
   font-size: 16px;
   visibility: ${props => (props.visible ? 'initial' : 'hidden')};
-  height: ${props => (props.visible ? 'initial' : '0')}
+  height: ${props => (props.visible ? 'initial' : '0')};
 `
 
 const StakedValue = styled.span`
@@ -113,7 +111,7 @@ const MyReward = styled('div')<{ visible: boolean }>`
   border-bottom: 0px !important;
   margin: 0 !important;
   visibility: ${props => (props.visible ? 'initial' : 'hidden')};
-  height: ${props => (props.visible ? 'initial' : '0')}
+  height: ${props => (props.visible ? 'initial' : '0')};
 `
 
 const MyStakedDescription = styled.span`
@@ -137,7 +135,7 @@ const MyRewardsUp = styled('div')<{ visible: boolean }>`
   padding-bottom: 16px;
   border-bottom: 2.05843px solid #2e0752;
   visibility: ${props => (props.visible ? 'initial' : 'hidden')};
-  height: ${props => (props.visible ? 'initial' : '0')}
+  height: ${props => (props.visible ? 'initial' : '0')};
 `
 
 const MyRewardsMiddle = styled('div')<{ visible: boolean }>`
@@ -149,13 +147,16 @@ const MyRewardsMiddle = styled('div')<{ visible: boolean }>`
   border-bottom: ${props => (props.visible ? '2.05843px solid #2e0752' : '0')};
   padding-bottom: 20px;
 `
-const Tourch = styled('img')<{ visible: boolean}>`
+const Tourch = styled('img')<{ visible: boolean }>`
   display: flex;
+  background: transparent;
+  color: transparent;
   flex-direction: column;
   align-items: center;
   padding-bottom: 10px;
   visibility: ${props => (props.visible ? 'initial' : 'hidden')};
   height: ${props => (props.visible ? 'initial' : '0')};
+  filter: none !important;
 `
 
 const StakeNClaimSecond = ({
@@ -207,7 +208,7 @@ const StakeNClaimSecond = ({
   showClaimForm,
   showTorch,
   showReward,
-  targetHour
+  targetHour,
 }) => {
   const [values, setValues] = useState([50])
   const { toggle } = useContext(ToggleContext)
@@ -221,7 +222,7 @@ const StakeNClaimSecond = ({
           <TotalStakedText className="wallet-label" style={{ textAlign: 'center' }}>
             Total Assets in Pool
           </TotalStakedText>
-{/*           {showEpochReward && (
+          {/*           {showEpochReward && (
             <TotalStakedText className="wallet-label" style={{ fontSize: '18px' }}>
               Epoch Reward
               <StakedValue> {0}</StakedValue>
@@ -247,20 +248,23 @@ const StakeNClaimSecond = ({
             )}
           </DPRText>
           <CountdownWrapper className="countdownwrapper" visible={showCountdownText}>
-          <CountdownText className="wallet-label">
-            Reward Distribution in
-          </CountdownText>
-          <Countdown targetHour={targetHour}/>
+            <CountdownText className="wallet-label">Reward Distribution in</CountdownText>
+            <Countdown targetHour={targetHour} />
           </CountdownWrapper>
         </div>
         <div style={{ width: '100%' }}>
           <div
             className="gFotCurrencyt-selection"
-            style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '10px', width: '100%', maxWidth: 'unset' }}
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              gap: '10px',
+              width: '100%',
+              maxWidth: 'unset',
+            }}
           >
-            <span style={{ fontSize: '18px', height: 'unset' }}>
-              {from}
-            </span>
+            <span style={{ fontSize: '18px', height: 'unset' }}>{from}</span>
             <InputWithIncDec
               handleBurnMinus={handleToken1Minus}
               burnAmount={token1Amount}
@@ -270,11 +274,16 @@ const StakeNClaimSecond = ({
           </div>
           <div
             className="gFotCurrencyt-selection"
-            style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '10px', width: '100%', maxWidth: 'unset' }}
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              gap: '10px',
+              width: '100%',
+              maxWidth: 'unset',
+            }}
           >
-            <span style={{ fontSize: '18px', height: 'unset' }}>
-              {to}
-            </span>
+            <span style={{ fontSize: '18px', height: 'unset' }}>{to}</span>
             <InputWithIncDec
               handleBurnMinus={handleToken2Minus}
               burnAmount={token2Amount}
@@ -417,7 +426,7 @@ const StakeNClaimSecond = ({
                 </MyStakedText>
               </div>
             )}
-            <div style={{marginLeft:'auto', marginRight:'auto', marginBottom:'20px'}}>
+            <div style={{ marginLeft: 'auto', marginRight: 'auto', marginBottom: '20px' }}>
               {showStakeAllButton && (
                 <button
                   className={`default-btn  ${!toggle && 'secondary-btn'}`}
@@ -437,35 +446,33 @@ const StakeNClaimSecond = ({
                 </button>
               )}
             </div>
-            {lpfetchunstake && (<div style={{ overflowY: 'auto' }}>
-              <table className="w-full">
-                {lpStakingMyUnstakingList.length > 0 && (
-                  <tr>
-                    <th>Amount</th>
-                    <th>Release date</th>
-                    <th>Action</th>
-                  </tr>
-                )}
-                {lpStakingMyUnstakingList.map((d, idx) => (
-                  <tr key={`${idx}-unstakelp`}>
-                    <td>{convertMicroDenomToDenom2(d[0], 6)}</td>
-                    <td>{moment(new Date(Number(d[1]) * 1000)).format('YYYY/MM/DD HH:mm:ss')}</td>
-                    <td>
-                
-                      <button
-                        className={`default-btn  ${!toggle && 'secondary-btn'}`}
-                        style={{ minWidth: 'unset', padding: '3px 30px' }}
-                        onClick={() => handleLpFetchUnstake(d)}
-                      >
-                        Fetch Unstake
-                      </button>
-                
-                    </td>
-                  </tr>
-                ))}
-                
-              </table>
-              {/* <table className="w-full">
+            {lpfetchunstake && (
+              <div style={{ overflowY: 'auto' }}>
+                <table className="w-full">
+                  {lpStakingMyUnstakingList.length > 0 && (
+                    <tr>
+                      <th>Amount</th>
+                      <th>Release date</th>
+                      <th>Action</th>
+                    </tr>
+                  )}
+                  {lpStakingMyUnstakingList.map((d, idx) => (
+                    <tr key={`${idx}-unstakelp`}>
+                      <td>{convertMicroDenomToDenom2(d[0], 6)}</td>
+                      <td>{moment(new Date(Number(d[1]) * 1000)).format('YYYY/MM/DD HH:mm:ss')}</td>
+                      <td>
+                        <button
+                          className={`default-btn  ${!toggle && 'secondary-btn'}`}
+                          style={{ minWidth: 'unset', padding: '3px 30px' }}
+                          onClick={() => handleLpFetchUnstake(d)}
+                        >
+                          Fetch Unstake
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </table>
+                {/* <table className="w-full">
                                 {lpStakingMyUnstakingList > 0 && <tr>
                                     <th>{moment(new Date(Number(lpStakingMyUnstakingList) * 1000)).format('YYYY/MM/DD HH:mm:ss')}</th>
                                     <th>
@@ -481,17 +488,21 @@ const StakeNClaimSecond = ({
                                 </tr>}
 
                             </table> */}
-            </div>
+              </div>
             )}
             {/*                         <MyStakedText className="wallet-label" style={{ textAlign: 'center', fontSize:"16px" }}>Unbonding period is 14 days</MyStakedText> */}
           </MyRewardsMiddle>
-          <Tourch visible={showTorch} src={`/images/torch.png`}/>
+          <Tourch visible={showTorch} src={`/images/torch.png`} />
           <MyReward visible={showClaimForm} className="w-full">
             <MyStakedText className="wallet-label">
               My Rewards
               <RewardValue visible={showReward}> {lpStakingMyReward}</RewardValue>
             </MyStakedText>
-            <button className={`default-btn ${!toggle && 'secondary-btn'}`} onClick={handleLpStakingReward} style={{display: 'flex', justifyContent:'center', margin:'auto'}}>
+            <button
+              className={`default-btn ${!toggle && 'secondary-btn'}`}
+              onClick={handleLpStakingReward}
+              style={{ display: 'flex', justifyContent: 'center', margin: 'auto' }}
+            >
               Claim
             </button>
           </MyReward>

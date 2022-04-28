@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { useContext } from 'react'
 import { ToggleContext } from '../Layout/Layout'
+import { useRouter } from 'next/router'
 
 const OutWrapper = styled.div`
   border: double ${props => (props.defaultChecked ? '2px' : '0px')};
@@ -28,15 +29,28 @@ const Images = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  background: transparent;
 `
 
 const Pool = ({ from, to, fromImage, toImage, onClick, isActive, imagesPosition = 'bottom', level = null }) => {
   const { toggle } = useContext(ToggleContext)
+  const router = useRouter()
+  const { pathname } = router
+
+  const isFortisDungeon = pathname === '/fortisDungeon'
 
   const renderImages = () => (
     <Images defaultChecked={toggle}>
-      {typeof fromImage === 'string' ? <img src={fromImage} /> : fromImage(toggle)}
-      {typeof toImage === 'string' ? <img src={toImage} /> : toImage(toggle)}
+      {typeof fromImage === 'string' ? (
+        <img src={fromImage} style={{ color: 'transparent', filter: isFortisDungeon ? 'none' : null }} />
+      ) : (
+        fromImage(toggle)
+      )}
+      {typeof toImage === 'string' ? (
+        <img src={toImage} style={{ color: 'transparent', filter: isFortisDungeon ? 'none' : null }} />
+      ) : (
+        toImage(toggle)
+      )}
     </Images>
   )
 
