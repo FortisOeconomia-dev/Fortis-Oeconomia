@@ -1,23 +1,12 @@
-import Navbar from '../components/Layout/Navbar'
-import { NotificationContainer, NotificationManager } from 'react-notifications'
+import { NotificationManager } from 'react-notifications'
 import { useEffect, useState, MouseEvent, ChangeEvent } from 'react'
 import { useSigningClient } from '../contexts/cosmwasm'
-import { fromBase64, toBase64 } from '@cosmjs/encoding'
-import {
-  convertMicroDenomToDenom,
-  convertDenomToMicroDenom,
-  convertMicroDenomToDenom2,
-  convertDenomToMicroDenom2,
-  convertFromMicroDenom,
-} from '../util/conversion'
-
+import { convertMicroDenomToDenom2 } from '../util/conversion'
 import styled from 'styled-components'
 //components
 import Converter from '../components/Converter'
 import StakeNClaim from '../components/StakeNClaim'
 import StatisticBox from '../components/StatisticBox'
-import RateShow from '../components/RateShow'
-import { clearInterval } from 'timers'
 
 //styled components
 const Wrapper = styled.div`
@@ -51,36 +40,18 @@ const gfotmodule = () => {
   const {
     walletAddress,
     signingClient,
-    loading,
-    error,
-    connectWallet,
-    disconnect,
-    client,
-
-    getBalances,
-    nativeBalanceStr,
-    nativeBalance,
-    fotBalance,
-    fotBalanceStr,
-    fotTokenInfo,
     bfotBalance,
-    bfotBalanceStr,
     bfotTokenInfo,
     gfotBalance,
-    gfotBalanceStr,
     gfotTokenInfo,
-
     fotBurnContractInfo,
     bfotBurnContractInfo,
     bfotBurnAmount,
     expectedGfotAmount,
-
     handlebFotChange,
     executebFotBurn,
-
     gfotStakingContractInfo,
     gfotStakingAmount,
-    setgFotStakingAmount,
     gfotStakingApy,
     gfotStakingMyStaked,
     gfotStakingMyReward,
@@ -92,13 +63,10 @@ const gfotmodule = () => {
     executeFetchUnstake,
     handleUnstakeChange,
     unstakeAmount,
-
-    bFot2Juno,
-    Juno2bFot,
-    poolDpr,
     getGfotBalances,
     updateInterval,
   } = useSigningClient()
+
   useEffect(() => {
     if (!signingClient || walletAddress.length === 0) {
       return
@@ -106,11 +74,17 @@ const gfotmodule = () => {
     getGfotBalances()
   }, [signingClient, walletAddress])
 
+  const [seconds, setSeconds] = useState(0)
+
   useEffect(() => {
-    getGfotBalances()
-    const interval = setInterval(() => getGfotBalances(), updateInterval * 1000)
+    if (seconds === 0) {
+      getGfotBalances()
+    }
+    const interval = setInterval(() => {
+      setSeconds(seconds => (seconds + 1) % updateInterval)
+    }, 1000)
     return () => clearInterval(interval)
-  }, [])
+  }, [seconds])
 
   const defaultValues = [
     {
@@ -130,17 +104,6 @@ const gfotmodule = () => {
       value: `${Math.floor(gfotTokenInfo.total_supply / 10000000000) + 10000}`,
     },
   ]
-
-  // const leftValues = [
-  //   {
-  //     key: 'TVB FOT',
-  //     value: `${convertMicroDenomToDenom2(fotBurnContractInfo.bfot_sent_amount, bfotTokenInfo.decimals)}`
-  //   },
-  //   {
-  //     key: 'TVB bFOT',
-  //     value: `${convertMicroDenomToDenom2(bfotBurnContractInfo.bfot_burn_amount, bfotTokenInfo.decimals)}`
-  //   }
-  // ]
 
   const handlebFotBurn = async (event: MouseEvent<HTMLElement>) => {
     if (!signingClient || walletAddress.length === 0) {
@@ -228,88 +191,61 @@ const gfotmodule = () => {
     handlegFotStakingChange(Number(gfotStakingAmount) - 1)
   }
 
-  const values = [
-    {
-      fromAmount: '',
-      toAmount: poolDpr,
-      fromPer: 'DPR',
-      toPer: '%',
-    },
-    {
-      fromAmount: '1',
-      toAmount: bFot2Juno,
-      fromPer: 'bFOT',
-      toPer: 'Juno',
-    },
-    {
-      fromAmount: '1',
-      toAmount: Juno2bFot,
-      fromPer: 'Juno',
-      toPer: 'bFot',
-    },
-  ]
-
   return (
-    <>
-      <Wrapper>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            flexWrap: 'wrap',
-            gap: '50px',
-          }}
-          className="w-full"
-        >
-          <LeftPart>
-            <Converter
-              handleBurnMinus={handlebFotBurnMinus}
-              burnAmount={bfotBurnAmount}
-              onBurnChange={onbFotBurnChange}
-              handleBurnPlus={handlebFotBurnPlus}
-              expectedAmount={expectedGfotAmount}
-              convImg="/images/gfotarrow.png"
-              from="bFOT"
-              to="gFOT"
-              handleSubmit={handlebFotBurn}
-              balance={bfotBalance}
-              handleChange={handlebFotChange}
-              sbalance={gfotBalance}
-            />
-          </LeftPart>
-          <RightPart>
-            <StakeNClaim
-              handleBurnMinus={handlegFotStakingMinus}
-              onBurnChange={ongFotStakingChange}
-              handleBurnPlus={handlegFotStakingPlus}
-              handleFotStaking={handlegFotStaking}
-              handleFotStakingClaimReward={handlegFotStakingClaimReward}
-              tokenType="gFOT"
-              gfotTokenInfo={gfotTokenInfo}
-              showStakeNClaimReward={true}
-              gfotStakingContractInfo={gfotStakingContractInfo}
-              gfotStakingAmount={gfotStakingAmount}
-              gfotStakingApy={gfotStakingApy}
-              gfotStakingMyStaked={gfotStakingMyStaked}
-              gfotStakingMyReward={gfotStakingMyReward}
-              gfotBalance={gfotBalance}
-              handlegFotStakingChange={handlegFotStakingChange}
-              unstakingList={unstakingList}
-              createUnstake={createUnstake}
-              executeFetchUnstake={executeFetchUnstake}
-              handleUnstakeChange={handleUnstakeChange}
-              unstakeAmount={unstakeAmount}
-              targetHour={0}
-            />
-            <StatisticBox values={defaultValues} />
-            {/* <StatisticBox values={defaultValues} leftValues={leftValues} /> */}
-          </RightPart>
-          {/* <RateShow values={values} action={() => {
-          window.location.href = "https://www.junoswap.com/pools";
-        }} /> */}
-        </div>
-      </Wrapper>
-    </>
+    <Wrapper>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: '50px',
+        }}
+        className="w-full"
+      >
+        <LeftPart>
+          <Converter
+            handleBurnMinus={handlebFotBurnMinus}
+            burnAmount={bfotBurnAmount}
+            onBurnChange={onbFotBurnChange}
+            handleBurnPlus={handlebFotBurnPlus}
+            expectedAmount={expectedGfotAmount}
+            convImg="/images/gfotarrow.png"
+            from="bFOT"
+            to="gFOT"
+            handleSubmit={handlebFotBurn}
+            balance={bfotBalance}
+            handleChange={handlebFotChange}
+            sbalance={gfotBalance}
+          />
+        </LeftPart>
+        <RightPart>
+          <StakeNClaim
+            handleBurnMinus={handlegFotStakingMinus}
+            onBurnChange={ongFotStakingChange}
+            handleBurnPlus={handlegFotStakingPlus}
+            handleFotStaking={handlegFotStaking}
+            handleFotStakingClaimReward={handlegFotStakingClaimReward}
+            tokenType="gFOT"
+            gfotTokenInfo={gfotTokenInfo}
+            showStakeNClaimReward={true}
+            gfotStakingContractInfo={gfotStakingContractInfo}
+            gfotStakingAmount={gfotStakingAmount}
+            gfotStakingApy={gfotStakingApy}
+            gfotStakingMyStaked={gfotStakingMyStaked}
+            gfotStakingMyReward={gfotStakingMyReward}
+            gfotBalance={gfotBalance}
+            handlegFotStakingChange={handlegFotStakingChange}
+            unstakingList={unstakingList}
+            createUnstake={createUnstake}
+            executeFetchUnstake={executeFetchUnstake}
+            handleUnstakeChange={handleUnstakeChange}
+            unstakeAmount={unstakeAmount}
+            targetHour={0}
+          />
+          <StatisticBox values={defaultValues} />
+        </RightPart>
+      </div>
+    </Wrapper>
   )
 }
 

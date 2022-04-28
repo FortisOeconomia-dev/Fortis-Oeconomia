@@ -80,23 +80,23 @@ export function convertTimeToHMS(time: number | undefined): any {
   }
 }
 
-export  function ConvertToNoExponents(value) {
-  var data = String(Number(value)).split(/[eE]/);
-  if (data.length == 1) return data[0];
+export function convertToNoExponents(value) {
+  var data = String(Number(value)).split(/[eE]/)
+  if (data.length == 1) return data[0]
 
   var z = '',
     sign = this < 0 ? '-' : '',
     str = data[0].replace('.', ''),
-    mag = Number(data[1]) + 1;
+    mag = Number(data[1]) + 1
 
   if (mag < 0) {
-    z = sign + '0.';
-    while (mag++) z += '0';
-    return z + str.replace(/^\-/, '');
+    z = sign + '0.'
+    while (mag++) z += '0'
+    return z + str.replace(/^\-/, '')
   }
-  mag -= str.length;
-  while (mag--) z += '0';
-  return str + z;
+  mag -= str.length
+  while (mag--) z += '0'
+  return str + z
 }
 
 export const zeroVotingCoin = {

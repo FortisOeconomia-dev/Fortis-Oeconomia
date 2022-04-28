@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Link from '../../util/ActiveLink'
-import { NotificationContainer, NotificationManager } from 'react-notifications'
+import { NotificationContainer } from 'react-notifications'
 import 'react-notifications/lib/notifications.css'
 import styled from 'styled-components'
 
@@ -192,6 +192,13 @@ const Navbar = ({ toggle, setToggle }) => {
                     </Link>
                   </li>
                 </Dropdown>
+                <li className="nav-item">
+                  <Link href="/communitySale" activeClassName="active">
+                    <NavLink className="nav-link" slot={pathname} defaultChecked={toggle}>
+                      Community Sale
+                    </NavLink>
+                  </Link>
+                </li>
                 <Dropdown title="Modules" slot={pathname} defaultChecked={toggle}>
                   <li
                     style={{

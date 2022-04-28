@@ -144,15 +144,18 @@ const PoolDetail = ({
     pool7LpFotPoolInfo,
   } = useSigningClient()
 
+  const [seconds, setSeconds] = useState(0)
+
   useEffect(() => {
-    getCommonBalances()
-    getSfotBalances()
-    const interval = setInterval(() => {
+    if (seconds === 0) {
       getCommonBalances()
       getSfotBalances()
-    }, updateInterval * 1000)
+    }
+    const interval = setInterval(() => {
+      setSeconds(seconds => (seconds + 1) % updateInterval)
+    }, 1000)
     return () => clearInterval(interval)
-  }, [])
+  }, [seconds])
 
   const [poolInfo, setPoolInfo] = useState(null)
   const [decimals, setDecimals] = useState([10, 10])
@@ -294,7 +297,9 @@ const PoolDetail = ({
     } else if (asset == 1) {
       setsfotbfotdpr((5000000 / token2TotalAmount) * 365)
     } else if (asset == 2) {
-      setsfotbfotdpr((5000000 / ((Math.floor(gfotTokenInfo.total_supply / 10000000000) + 10000) * token2TotalAmount)) * 365)
+      setsfotbfotdpr(
+        (5000000 / ((Math.floor(gfotTokenInfo.total_supply / 10000000000) + 10000) * token2TotalAmount)) * 365,
+      )
     } else if (asset == 3) {
       setsfotbfotdpr(((5000000 * bFot2Ust) / (token1TotalAmount * 2)) * 365)
     } else if (asset == 4) {
@@ -333,8 +338,18 @@ const PoolDetail = ({
   }
 
   const handleLiquidityMax = async () => {
-    const ret1 = await handleAddLiquidityValuesChange(asset, token1Balance, convertMicroDenomToDenom2(token2Balance, decimals[1]), 1)
-    const ret2 = await handleAddLiquidityValuesChange(asset, token1Balance, convertMicroDenomToDenom2(token2Balance, decimals[1]), 2)
+    const ret1 = await handleAddLiquidityValuesChange(
+      asset,
+      token1Balance,
+      convertMicroDenomToDenom2(token2Balance, decimals[1]),
+      1,
+    )
+    const ret2 = await handleAddLiquidityValuesChange(
+      asset,
+      token1Balance,
+      convertMicroDenomToDenom2(token2Balance, decimals[1]),
+      2,
+    )
     const token1Amount = Math.min(ret1.token1Amount, ret2.token1Amount)
     const token2Amount = Math.min(ret1.token2Amount, ret2.token2Amount)
     setToken1Amount(token1Amount)
@@ -439,9 +454,17 @@ const PoolDetail = ({
       <div className="w-full">
         <TitleWrapper>
           <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-            {typeof fromImage === 'string' ? <img src={`${fromImage}`} style={{ color: 'transparent' }} /> : fromImage(toggle)}
+            {typeof fromImage === 'string' ? (
+              <img src={`${fromImage}`} style={{ color: 'transparent' }} />
+            ) : (
+              fromImage(toggle)
+            )}
             <span>-</span>
-            {typeof toImage === 'string' ? <img src={`${toImage}`} style={{ color: 'transparent' }} /> : toImage(toggle)}
+            {typeof toImage === 'string' ? (
+              <img src={`${toImage}`} style={{ color: 'transparent' }} />
+            ) : (
+              toImage(toggle)
+            )}
           </div>
           <Title>
             {from}-{to} Pool {!!level && ` (Level ${level})`}

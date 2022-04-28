@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useReducer, useState } from 'react'
+import { useMemo, useState } from 'react'
 import styled from 'styled-components'
-import { ConvertToNoExponents } from '../../util/conversion'
+import { convertToNoExponents } from '../../util/conversion'
 
 const Wrapper = styled.label`
   background: rgba(255, 255, 255, 0.6);
@@ -58,7 +58,7 @@ const InputWithIncDec = ({ handleBurnMinus, burnAmount, onBurnChange, handleBurn
     } else {
       result = burnAmount
     }
-    if (result && Number(result) > 0 && String(result)?.includes('e')) return ConvertToNoExponents(result)
+    if (result && Number(result) > 0 && String(result)?.includes('e')) return convertToNoExponents(result)
     else return result
   }, [value, burnAmount])
 
