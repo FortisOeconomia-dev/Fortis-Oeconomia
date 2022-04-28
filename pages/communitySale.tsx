@@ -26,6 +26,14 @@ const Wrapper = styled.div`
       props.defaultChecked ? 'drop-shadow(16px 16px 20px) invert(1) hue-rotate(-170deg)' : 'hue-rotate(-240deg)'};
   },
 `
+
+const Announcement = styled.span`
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 32px;
+  color: #fbfcfd;
+`
+
 const LeftPart = styled.div`
   display: flex;
   align-items: flex-start;
@@ -163,6 +171,7 @@ const communitySale = () => {
 
   return (
     <Wrapper defaultChecked={toggle}>
+      <Announcement>Bought FOTs are subject to 20 month vesting period with %5 opening per month.</Announcement>
       <div
         style={{
           display: 'flex',
