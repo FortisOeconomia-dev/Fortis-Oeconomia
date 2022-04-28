@@ -106,11 +106,17 @@ const gfotmodule = () => {
     getGfotBalances()
   }, [signingClient, walletAddress])
 
+  const [seconds, setSeconds] = useState(0)
+
   useEffect(() => {
-    getGfotBalances()
-    const interval = setInterval(() => getGfotBalances(), updateInterval * 1000)
+    if (seconds === 0) {
+      getGfotBalances()
+    }
+    const interval = setInterval(() => {
+      setSeconds(seconds => (seconds + 1) % updateInterval)
+    }, 1000)
     return () => clearInterval(interval)
-  }, [])
+  }, [seconds])
 
   const defaultValues = [
     {

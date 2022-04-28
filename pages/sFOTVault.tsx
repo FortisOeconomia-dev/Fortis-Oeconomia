@@ -160,7 +160,6 @@ const sFOTVault = () => {
     executesFotFetchUnstake,
     handlesFotUnstakeChange,
     sFotUnstakeAmount,
-
   } = useSigningClient()
   useEffect(() => {
     if (!signingClient || walletAddress.length === 0) {
@@ -170,21 +169,23 @@ const sFOTVault = () => {
   }, [signingClient, walletAddress])
 
   const { toggle, asset, setAsset, page, setPage } = useContext(ToggleContext)
-  const [intervalInstance, setIntervalInstance] = useState(null)
+  const [seconds, setSeconds] = useState(0)
 
   useEffect(() => {
-    if (page < 2) {
+    if (seconds === 0 && page < 2) {
       getSfotBalances()
-      const interval = setInterval(() => getSfotBalances(), updateInterval * 1000)
-      setIntervalInstance(interval)
-    } else {
-      intervalInstance && clearInterval(intervalInstance)
     }
-  }, [page])
 
-  useEffect(() => {
-    return () => intervalInstance && clearInterval(intervalInstance)
-  }, [])
+    const interval = setInterval(() => {
+      setSeconds(seconds => (seconds + 1) % updateInterval)
+    }, 1000)
+
+    if (page >= 2) {
+      setSeconds(0)
+      clearInterval(interval)
+    }
+    return () => clearInterval(interval)
+  }, [seconds, page])
 
   const defaultValues0 = [
     {
@@ -493,33 +494,34 @@ const sFOTVault = () => {
                 maxWidth={null}
               >
                 {/* {page === 0 && <StakeNClaim showInfoIcon={true} showDivider={true} tokenType="sFOT" />} */}
-                {page === 0 && 
-                <StakeNClaim
-                showInfoIcon={true}
-                showDivider={true}
-                showStakeNClaimReward={true}
-                Note={true}
-                handleBurnMinus={handlesFotStakingMinus}
-                onBurnChange={onsFotStakingChange}
-                handleBurnPlus={handlesFotStakingPlus}
-                handleFotStaking={handlesFotStaking}
-                handleFotStakingClaimReward={handlesFotStakingClaimReward}
-                tokenType="sFOT"
-                gfotTokenInfo={sfotTokenInfo}
-                gfotStakingContractInfo={sfotStakingContractInfo}
-                gfotStakingAmount={sfotStakingAmount}
-                gfotStakingApy={sfotStakingApy}
-                gfotStakingMyStaked={sfotStakingMyStaked}
-                gfotStakingMyReward={sfotStakingMyReward}
-                gfotBalance={sfotBalance}
-                handlegFotStakingChange={handlesFotStakingChange}
-                unstakingList={sFotUnstakingList}
-                createUnstake={createsFotUnstake}
-                executeFetchUnstake={executesFotFetchUnstake}
-                handleUnstakeChange={handlesFotUnstakeChange}
-                unstakeAmount={sFotUnstakeAmount}
-                targetHour={12}
-              />}
+                {page === 0 && (
+                  <StakeNClaim
+                    showInfoIcon={true}
+                    showDivider={true}
+                    showStakeNClaimReward={true}
+                    Note={true}
+                    handleBurnMinus={handlesFotStakingMinus}
+                    onBurnChange={onsFotStakingChange}
+                    handleBurnPlus={handlesFotStakingPlus}
+                    handleFotStaking={handlesFotStaking}
+                    handleFotStakingClaimReward={handlesFotStakingClaimReward}
+                    tokenType="sFOT"
+                    gfotTokenInfo={sfotTokenInfo}
+                    gfotStakingContractInfo={sfotStakingContractInfo}
+                    gfotStakingAmount={sfotStakingAmount}
+                    gfotStakingApy={sfotStakingApy}
+                    gfotStakingMyStaked={sfotStakingMyStaked}
+                    gfotStakingMyReward={sfotStakingMyReward}
+                    gfotBalance={sfotBalance}
+                    handlegFotStakingChange={handlesFotStakingChange}
+                    unstakingList={sFotUnstakingList}
+                    createUnstake={createsFotUnstake}
+                    executeFetchUnstake={executesFotFetchUnstake}
+                    handleUnstakeChange={handlesFotUnstakeChange}
+                    unstakeAmount={sFotUnstakeAmount}
+                    targetHour={12}
+                  />
+                )}
               </StatisticBox>
             </RightPart>
           </div>

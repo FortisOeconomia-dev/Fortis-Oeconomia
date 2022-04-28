@@ -61,6 +61,12 @@ const communitySale = () => {
 
   const { setTheme, changeTheme } = useContext(ThemeContext)
   const [statisticBoxValues, setStatisticBoxValues] = useState([])
+  const [seconds, setSeconds] = useState(0)
+
+  useEffect(() => {
+    setTheme('theme10')
+    return () => changeTheme('primary')
+  }, [])
 
   useEffect(() => {
     if (!signingClient || walletAddress.length === 0) {
@@ -72,14 +78,14 @@ const communitySale = () => {
   const { toggle } = useContext(ToggleContext)
 
   useEffect(() => {
-    setTheme('theme10')
-    getCommunitySaleBalances()
-    const interval = setInterval(() => getCommunitySaleBalances(), updateInterval * 1000)
-    return () => {
-      changeTheme('primary')
-      clearInterval(interval)
+    if (seconds === 0) {
+      getCommunitySaleBalances()
     }
-  }, [])
+    const interval = setInterval(() => {
+      setSeconds(seconds => (seconds + 1) % updateInterval)
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [seconds])
 
   useEffect(() => {
     toggle ? changeTheme('primary') : changeTheme('theme10')
