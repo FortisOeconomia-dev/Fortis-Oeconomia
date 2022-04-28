@@ -37,9 +37,6 @@ const Wrapper = styled.div`
   background-position: left center, right center;
   background-repeat: no-repeat;
   background-size: 50% 100%;
-  img {
-    filter: ${props => props.defaultChecked && 'drop-shadow(16px 16px 20px) invert(1) hue-rotate(-170deg) '};
-  }
 `
 const Title = styled.p`
   font-weight: 600;
