@@ -17,7 +17,6 @@ import Converter from '../components/Converter'
 import StakeNClaim from '../components/StakeNClaim'
 import StatisticBox from '../components/StatisticBox'
 import RateShow from '../components/RateShow'
-import { clearInterval } from 'timers'
 
 //styled components
 const Wrapper = styled.div`
