@@ -59,7 +59,7 @@ const communitySale = () => {
     updateInterval,
   } = useSigningClient()
 
-  const { setTheme } = useContext(ThemeContext)
+  const { setTheme, changeTheme } = useContext(ThemeContext)
 
   useEffect(() => {
     if (!signingClient || walletAddress.length === 0) {
@@ -75,13 +75,13 @@ const communitySale = () => {
     getCommunitySaleBalances()
     const interval = setInterval(() => getCommunitySaleBalances(), updateInterval * 1000)
     return () => {
-      setTheme('primary')
+      changeTheme('primary')
       clearInterval(interval)
     }
   }, [])
 
   useEffect(() => {
-    toggle ? setTheme('primary') : setTheme('theme10')
+    toggle ? changeTheme('primary') : changeTheme('theme10')
   }, [toggle])
 
   const defaultValues = [
