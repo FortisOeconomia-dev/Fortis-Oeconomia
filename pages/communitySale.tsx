@@ -231,7 +231,6 @@ const communitySale = () => {
           maxWidth={'1000px'}
         /> */}
       </div>
-      <div>Bought FOTs are subject to 20 month vesting period with %5 opening per month.</div>
     </Wrapper>
   )
 }
