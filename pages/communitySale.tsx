@@ -89,12 +89,12 @@ const communitySale = () => {
 
   const defaultValues = [
     {
-      key: 'sFOT Supply',
-      value: `${convertMicroDenomToDenom2(sfotTokenInfo.total_supply, sfotTokenInfo.decimals)}`,
+      key: 'Total Burned sFot',
+      value: `${convertMicroDenomToDenom2(communitySaleContractInfo.burned_sfot_amount, sfotTokenInfo.decimals)}`,
     },
     {
-      key: 'FOT Supply',
-      value: `${convertMicroDenomToDenom2(fotTokenInfo.total_supply, fotTokenInfo.decimals)}`,
+      key: 'Total Sold Fot',
+      value: `${convertMicroDenomToDenom2(communitySaleContractInfo.sfot_amount * 2, fotTokenInfo.decimals)}`,
     },
   ]
 
@@ -146,8 +146,8 @@ const communitySale = () => {
     handlesFotDepositChange(Number(sfotDepositAmount) - 1)
   }
 
-  const handlesFotDepositAll = () => {
-    handlesFotDepositChange(Number(sfotBalance))
+  const handlesFotDepositAll = (balance) => {
+    handlesFotDepositChange(Number(balance))
   }
 
   if (!signingClient || walletAddress == '') return null
@@ -164,7 +164,34 @@ const communitySale = () => {
         }}
         className="w-full"
       >
-        <DepositNClaim
+        <LeftPart>
+          <Converter
+            wfull={false}
+            handleBurnMinus={handlesFotDepositMinus}
+            onBurnChange={onsFotDepositChange}
+            handleBurnPlus={handlesFotDepositPlus}
+            burnAmount={sfotDepositAmount}
+            expectedAmount={Number(sfotDepositAmount) * 2}
+            convImg={() => (
+              <svg width="127" height="70" viewBox="0 0 127 94" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="1.23677" y1="2.15124" x2="63.3153" y2="92.6086" stroke="#171E0E" strokeWidth="3" />
+                <line x1="62.7632" y1="91.6095" x2="124.841" y2="1.15126" stroke="#171E0E" strokeWidth="3" />
+              </svg>
+            )}
+            from={'sFOT'}
+            to={'FOT'}
+            handleSubmit={handlesFotDeposit}
+            balance={sfotBalance}
+            handleChange={handlesFotDepositAll}
+            sbalance={fotBalance}
+            submitTitle={'Deposit'}
+            showBalance={true}
+          />
+        </LeftPart>
+        <RightPart>
+          <StatisticBox values={defaultValues} maxWidth={null} />
+        </RightPart>
+        {/* <DepositNClaim
           from={'sFot'}
           to={'Fot'}
           token1TotalAmount={convertMicroDenomToDenom2(communitySaleContractInfo.sfot_amount, sfotTokenInfo.decimals)}
@@ -184,7 +211,7 @@ const communitySale = () => {
 
           handleToken1DepositChange={handlesFotDepositAll}
           maxWidth={'1000px'}
-        />
+        /> */}
 
       </div>
     </Wrapper>
