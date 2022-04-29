@@ -202,7 +202,11 @@ const sFOTVault = () => {
     },
   ]
 
-  //Stable Handling
+  /**
+   * Stable Handling
+   * Because sFot mint is halted, this function isn't used now. When user clicks this button, nothing will happen.
+   * @returns 
+   */
   const handleStableSubmit = async (event: MouseEvent<HTMLElement>) => {
     return;
   }
