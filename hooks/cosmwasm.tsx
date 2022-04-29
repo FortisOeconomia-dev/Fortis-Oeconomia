@@ -134,7 +134,6 @@ export interface ISigningCosmWasmClientContext {
   sfotBalance: number
   sfotBalanceStr: string
   sfotTokenInfo: any
-  stableContractInfo: any
   clearanceContractInfo: any
   stableGfotAmount: string
   stableExpectedSfotAmount: number
@@ -142,7 +141,6 @@ export interface ISigningCosmWasmClientContext {
   clearanceExpectedGfotAmount: number
 
   handleStableGfotChange: Function
-  executeStable: Function
   handleClearanceSfotChange: Function
   executeClearance: Function
 
@@ -256,7 +254,6 @@ export const PUBLIC_AIRDROP_CONTRACT = process.env.NEXT_PUBLIC_AIRDROP_CONTRACT 
 export const PUBLIC_FOTBURN_CONTRACT = process.env.NEXT_PUBLIC_FOTBURN_CONTRACT || ''
 export const PUBLIC_BFOTBURN_CONTRACT = process.env.NEXT_PUBLIC_BFOTBURN_CONTRACT || ''
 export const PUBLIC_GFOTSTAKING_CONTRACT = process.env.NEXT_PUBLIC_GFOTSTAKING_CONTRACT || ''
-export const PUBLIC_STABLE_CONTRACT = process.env.NEXT_PUBLIC_STABLE_CONTRACT || ''
 export const PUBLIC_CLEARANCE_CONTRACT = process.env.NEXT_PUBLIC_CLEARANCE_CONTRACT || ''
 export const PUBLIC_SFOTSTAKING_CONTRACT = process.env.NEXT_PUBLIC_SFOTSTAKING_CONTRACT || ''
 
@@ -585,12 +582,6 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     fot_amount: 0,
     gfot_amount: 0,
     apy_prefix: 0,
-  })
-  const [stableContractInfo, setStableContractInfo] = useState({
-    owner: '',
-    sfot_mint_amount: 0,
-    gfot_sent_amount: 0,
-    bfot_price: 0,
   })
   const [clearanceContractInfo, setClearanceContractInfo] = useState({
     owner: '',
@@ -1141,12 +1132,6 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       SetSfotBalanceStr(
         parseInt(objectSfot.balance) / Math.pow(10, objectSfotTokenInfo.decimals) + ' ' + objectSfotTokenInfo.symbol,
       )
-
-      //Stable Contract Info
-      const stableContractInfo = await signingClient.queryContractSmart(PUBLIC_STABLE_CONTRACT, {
-        config: {},
-      })
-      setStableContractInfo(stableContractInfo)
 
       //Clearance Contract Info
       const clearanceContractInfo = await signingClient.queryContractSmart(PUBLIC_CLEARANCE_CONTRACT, {
@@ -1792,11 +1777,6 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     //     arr.push(0)
     //   setMonetaAirdropCount(cnt)
     //   setMonetaAirdropList(arr)
-    //   //Stable Contract Info
-    //   const stableContractInfo = await signingClient.queryContractSmart(PUBLIC_STABLE_CONTRACT, {
-    //     config: {},
-    //   })
-    //   setStableContractInfo(stableContractInfo)
     //   //Clearance Contract Info
     //   const clearanceContractInfo = await signingClient.queryContractSmart(PUBLIC_CLEARANCE_CONTRACT, {
     //     config: {},
@@ -2482,48 +2462,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   const handleStableGfotChange = async value => {
     if (Number(value) > gfotBalance || Number(value) < 0) return
     setStableGfotAmount(value)
-
-    let gamount = Number(convertDenomToMicroDenom2(value, gfotTokenInfo.decimals))
-    const expectedInfo: JsonObject = await signingClient.queryContractSmart(PUBLIC_STABLE_CONTRACT, {
-      expected_amount: { gfot_amount: `${gamount}` },
-    })
-
-    setStableExpectedSfotAmount(
-      Number(convertMicroDenomToDenom2(expectedInfo.sfot_mint_amount, sfotTokenInfo.decimals)),
-    )
-  }
-
-  const executeStable = async () => {
-    return
-    setLoading(true)
-    try {
-      await signingClient?.execute(
-        walletAddress, // sender address
-        PUBLIC_GFOT_CONTRACT, // token sale contract
-        {
-          send: {
-            amount: convertDenomToMicroDenom2(stableGfotAmount, gfotTokenInfo.decimals),
-            contract: PUBLIC_STABLE_CONTRACT,
-            msg: '',
-          },
-        }, // msg
-        defaultFee,
-        undefined,
-        [],
-      )
-
-      setLoading(false)
-      setStableGfotAmount('')
-      setStableExpectedSfotAmount(0)
-      getSfotBalances()
-      if (showNotification) NotificationManager.success('Successfully swapped into SFOT')
-    } catch (error) {
-      setLoading(false)
-      if (showNotification) {
-        NotificationManager.error(`Stable Module error : ${error}`)
-        console.log(error.toString())
-      }
-    }
+    setStableExpectedSfotAmount(0)
   }
 
   const handleClearanceSfotChange = async value => {
@@ -3927,7 +3866,6 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     sfotBalance,
     sfotBalanceStr,
     sfotTokenInfo,
-    stableContractInfo,
     clearanceContractInfo,
     stableGfotAmount,
     stableExpectedSfotAmount,
@@ -3935,7 +3873,6 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     clearanceExpectedGfotAmount,
 
     handleStableGfotChange,
-    executeStable,
     handleClearanceSfotChange,
     executeClearance,
 

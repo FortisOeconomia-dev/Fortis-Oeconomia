@@ -129,11 +129,9 @@ const sFOTVault = () => {
     clearanceSfotAmount,
     clearanceExpectedGfotAmount,
 
-    stableContractInfo,
     clearanceContractInfo,
 
     handleStableGfotChange,
-    executeStable,
     handleClearanceSfotChange,
     executeClearance,
     swapToken1,
@@ -204,23 +202,13 @@ const sFOTVault = () => {
     },
   ]
 
-  //Stable Handling
+  /**
+   * Stable Handling
+   * Because sFot mint is halted, this function isn't used now. When user clicks this button, nothing will happen.
+   * @returns 
+   */
   const handleStableSubmit = async (event: MouseEvent<HTMLElement>) => {
-    if (!signingClient || walletAddress.length === 0) {
-      NotificationManager.error('Please connect wallet first')
-      return
-    }
-    if (Number(stableGfotAmount) == 0) {
-      NotificationManager.error('Please input the GFOT amount first')
-      return
-    }
-    if (Number(stableGfotAmount) > Number(gfotBalance)) {
-      NotificationManager.error('Please input correct GFOT amount')
-      return
-    }
-
-    event.preventDefault()
-    executeStable()
+    return;
   }
 
   const onStableGfotChange = (event: ChangeEvent<HTMLInputElement>) => {
