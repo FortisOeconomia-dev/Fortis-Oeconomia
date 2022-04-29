@@ -24,6 +24,7 @@ import { create } from 'ipfs-http-client'
 import { voters } from '../proposal.json'
 import { moneta_voters } from '../monetaairdrop.json'
 import { Airdrop } from '../util/merkle-airdrop-cli/airdrop'
+import { useNotification } from '../components/Notification'
 
 const atom_denom = 'ibc/C4CFF46FD6DE35CA4CF4CE031E643C8FDC9BA4B99AE598E9B0ED98FE3A2319F9'
 const osmo_denom = 'ibc/ED07A3391A112B175915CD8FAF43A2DA8E4790EDE12566649D0C2F97716B8518'
@@ -370,6 +371,8 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   const updateInterval = 20
   const [client, setClient] = useState<CosmWasmClient | null>(null)
   const [signingClient, setSigningClient] = useState<SigningCosmWasmClient | null>(null)
+
+  const { success: successNotification, error: errorNotification } = useNotification()
 
   const [walletAddress, setWalletAddress] = useState('')
   const [eligible, setEligible] = useState(false)
@@ -1143,7 +1146,8 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
       let new_reward =
         (sfotStakingContractInfo.daily_fot_amount *
-          (Math.floor((new Date().getTime() / 1000 + 43200) / 86400) - Math.floor((sfotStakingMyInfo.last_time + 43200) / 86400)) *
+          (Math.floor((new Date().getTime() / 1000 + 43200) / 86400) -
+            Math.floor((sfotStakingMyInfo.last_time + 43200) / 86400)) *
           sfotStakingMyInfo.amount) /
         sfotStakingContractInfo.gfot_amount
 
@@ -1212,7 +1216,10 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       const sfotUstPoolInfo = await signingClient.queryContractSmart(PUBLIC_SFOT_UST_POOL_CONTRACT, {
         info: {},
       })
-      const sfot2ustval = (Number(convertMicroDenomToDenom2(sfotUstPoolInfo.token2_reserve, 6)) / Number(convertMicroDenomToDenom2(sfotUstPoolInfo.token1_reserve, objectSfotTokenInfo.decimals))) * 1000000
+      const sfot2ustval =
+        (Number(convertMicroDenomToDenom2(sfotUstPoolInfo.token2_reserve, 6)) /
+          Number(convertMicroDenomToDenom2(sfotUstPoolInfo.token1_reserve, objectSfotTokenInfo.decimals))) *
+        1000000
 
       setsFot2Ust(Number(convertMicroDenomToDenom2(sfot2ustval, 6)))
 
@@ -1222,7 +1229,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       setsFotStakingApy(
         (365 * 36000000 * Number(convertMicroDenomToDenom2(bfot2ustval, 6))) /
           (Number(convertMicroDenomToDenom2(sfotStakingContractInfo.gfot_amount, objectSfotTokenInfo.decimals)) *
-          Number(convertMicroDenomToDenom2(sfot2ustval, 6)))
+            Number(convertMicroDenomToDenom2(sfot2ustval, 6))),
       )
 
       setSfotUstPoolInfo(sfotUstPoolInfo)
@@ -1965,7 +1972,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   const executeFotBurn = async () => {
     setLoading(true)
     try {
-      await signingClient?.execute(
+      const result = await signingClient?.execute(
         walletAddress, // sender address
         PUBLIC_FOT_CONTRACT, // token sale contract
         {
@@ -1984,7 +1991,10 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       setFotBurnAmount('')
       setExpectedBfotAmount(0)
       getBfotBalances()
-      NotificationManager.success(`Successfully burned`)
+      // NotificationManager.success(`Successfully burned`)
+      if (result && result.transactionHash) {
+        successNotification({ title: 'Successfully burned', txHash: result.transactionHash })
+      }
     } catch (error) {
       setLoading(false)
       if (showNotification) {
@@ -2020,7 +2030,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     setLoading(true)
 
     try {
-      await signingClient?.execute(
+      const result = await signingClient?.execute(
         walletAddress, // sender address
         PUBLIC_BFOT_CONTRACT, // token sale contract
         {
@@ -2039,7 +2049,10 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       setbFotBurnAmount('')
       setExpectedGfotAmount(0)
       getGfotBalances()
-      if (showNotification) NotificationManager.success('Successfully burned')
+      // if (showNotification) NotificationManager.success('Successfully burned')
+      if (result && result.transactionHash) {
+        successNotification({ title: 'Successfully burned', txHash: result.transactionHash })
+      }
     } catch (error) {
       setLoading(false)
       if (showNotification) {
@@ -2065,7 +2078,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     setLoading(true)
 
     try {
-      await signingClient?.execute(
+      const result = await signingClient?.execute(
         walletAddress, // sender address
         PUBLIC_GFOT_CONTRACT,
         {
@@ -2083,7 +2096,10 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       setLoading(false)
       setgFotStakingAmount('')
       getGfotBalances()
-      if (showNotification) NotificationManager.success('Successfully staked')
+      // if (showNotification) NotificationManager.success('Successfully staked')
+      if (result && result.transactionHash) {
+        successNotification({ title: 'Successfully staked', txHash: result.transactionHash })
+      }
     } catch (error) {
       setLoading(false)
       console.log(error)
@@ -2098,7 +2114,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     setLoading(true)
 
     try {
-      await signingClient?.execute(
+      const result = await signingClient?.execute(
         walletAddress, // sender address
         PUBLIC_GFOTSTAKING_CONTRACT,
         {
@@ -2111,7 +2127,10 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
       setLoading(false)
       getGfotBalances()
-      if (showNotification) NotificationManager.success('Successfully clamied reward')
+      // if (showNotification) NotificationManager.success('Successfully clamied reward')
+      if (result && result.transactionHash) {
+        successNotification({ title: 'Successfully clamied reward', txHash: result.transactionHash })
+      }
     } catch (error) {
       setLoading(false)
       //if (showNotification) {
@@ -2126,7 +2145,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     setLoading(true)
 
     try {
-      await signingClient?.execute(
+      const result = await signingClient?.execute(
         walletAddress, // sender address
         PUBLIC_GFOTSTAKING_CONTRACT,
         {
@@ -2141,7 +2160,10 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
       setLoading(false)
       getGfotBalances()
-      if (showNotification) NotificationManager.success('Successfully unstaked')
+      // if (showNotification) NotificationManager.success('Successfully unstaked')
+      if (result && result.transactionHash) {
+        successNotification({ title: 'Successfully unstaked', txHash: result.transactionHash })
+      }
     } catch (error) {
       setLoading(false)
       if (showNotification) {
@@ -2155,7 +2177,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     setLoading(true)
 
     try {
-      await signingClient?.execute(
+      const result = await signingClient?.execute(
         walletAddress, // sender address
         PUBLIC_GFOTSTAKING_CONTRACT,
         {
@@ -2170,7 +2192,10 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
       setLoading(false)
       getGfotBalances()
-      if (showNotification) NotificationManager.success('Successfully unstaked')
+      // if (showNotification) NotificationManager.success('Successfully unstaked')
+      if (result && result.transactionHash) {
+        successNotification({ title: 'Successfully unstaked', txHash: result.transactionHash })
+      }
     } catch (error) {
       setLoading(false)
       if (showNotification) {
@@ -2200,7 +2225,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     setLoading(true)
 
     try {
-      await signingClient?.execute(
+      const result = await signingClient?.execute(
         walletAddress, // sender address
         PUBLIC_SFOT_CONTRACT,
         {
@@ -2218,7 +2243,10 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       setLoading(false)
       setsFotStakingAmount('')
       getSfotBalances()
-      if (showNotification) NotificationManager.success('Successfully staked')
+      // if (showNotification) NotificationManager.success('Successfully staked')
+      if (result && result.transactionHash) {
+        successNotification({ title: 'Successfully staked', txHash: result.transactionHash })
+      }
     } catch (error) {
       setLoading(false)
       console.log(error)
@@ -2233,7 +2261,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     setLoading(true)
 
     try {
-      await signingClient?.execute(
+      const result = await signingClient?.execute(
         walletAddress, // sender address
         PUBLIC_SFOTSTAKING_CONTRACT,
         {
@@ -2246,7 +2274,10 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
       setLoading(false)
       getSfotBalances()
-      if (showNotification) NotificationManager.success('Successfully clamied reward')
+      // if (showNotification) NotificationManager.success('Successfully clamied reward')
+      if (result && result.transactionHash) {
+        successNotification({ title: 'Successfully clamied reward', txHash: result.transactionHash })
+      }
     } catch (error) {
       setLoading(false)
       //if (showNotification) {
@@ -2261,7 +2292,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     setLoading(true)
 
     try {
-      await signingClient?.execute(
+      const result = await signingClient?.execute(
         walletAddress, // sender address
         PUBLIC_SFOTSTAKING_CONTRACT,
         {
@@ -2276,7 +2307,10 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
       setLoading(false)
       getSfotBalances()
-      if (showNotification) NotificationManager.success('Successfully unstaked')
+      // if (showNotification) NotificationManager.success('Successfully unstaked')
+      if (result && result.transactionHash) {
+        successNotification({ title: 'Successfully unstaked', txHash: result.transactionHash })
+      }
     } catch (error) {
       setLoading(false)
       if (showNotification) {
@@ -2290,7 +2324,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     setLoading(true)
 
     try {
-      await signingClient?.execute(
+      const result = await signingClient?.execute(
         walletAddress, // sender address
         PUBLIC_SFOTSTAKING_CONTRACT,
         {
@@ -2305,7 +2339,10 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
       setLoading(false)
       getSfotBalances()
-      if (showNotification) NotificationManager.success('Successfully unstaked')
+      // if (showNotification) NotificationManager.success('Successfully unstaked')
+      if (result && result.transactionHash) {
+        successNotification({ title: 'Successfully unstaked', txHash: result.transactionHash })
+      }
     } catch (error) {
       setLoading(false)
       if (showNotification) {
@@ -2343,7 +2380,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     return
     setLoading(true)
     try {
-      await signingClient?.execute(
+      const result = await signingClient?.execute(
         walletAddress, // sender address
         PUBLIC_GFOT_CONTRACT, // token sale contract
         {
@@ -2362,7 +2399,10 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       setStableGfotAmount('')
       setStableExpectedSfotAmount(0)
       getSfotBalances()
-      if (showNotification) NotificationManager.success('Successfully swapped into SFOT')
+      // if (showNotification) NotificationManager.success('Successfully swapped into SFOT')
+      if (result && result.transactionHash) {
+        successNotification({ title: 'Successfully swapped into SFOT', txHash: result.transactionHash })
+      }
     } catch (error) {
       setLoading(false)
       if (showNotification) {
@@ -2388,7 +2428,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   const executeClearance = async () => {
     setLoading(true)
     try {
-      await signingClient?.execute(
+      const result = await signingClient?.execute(
         walletAddress, // sender address
         PUBLIC_SFOT_CONTRACT, // token sale contract
         {
@@ -2407,7 +2447,10 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       setClearanceSfotAmount('')
       setClearanceExpectedGfotAmount(0)
       getSfotBalances()
-      if (showNotification) NotificationManager.success('Successfully bought GFOT')
+      // if (showNotification) NotificationManager.success('Successfully bought GFOT')
+      if (result && result.transactionHash) {
+        successNotification({ title: 'Successfully bought GFOT', txHash: result.transactionHash })
+      }
     } catch (error) {
       setLoading(false)
       if (showNotification) {
@@ -2671,13 +2714,18 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
       let result = await signingClient?.signAndBroadcast(walletAddress, msglist, defaultFee)
       if (isDeliverTxFailure(result)) {
-        throw new Error(
-          `Error when broadcasting tx ${result.transactionHash} at height ${result.height}. Code: ${result.code}; Raw log: ${result.rawLog}`,
-        )
+        errorNotification({ title: 'Add liquidity Failed', txHash: result.transactionHash })
+        // throw new Error(
+        //   `Error when broadcasting tx ${result.transactionHash} at height ${result.height}. Code: ${result.code}; Raw log: ${result.rawLog}`,
+        // )
+        setLoading(false)
+        return
       }
       setLoading(false)
       getSfotBalances()
-      if (showNotification) NotificationManager.success('Successfully added liquidity')
+      if (result && result.transactionHash) {
+        successNotification({ title: 'Successfully added liquidity', txHash: result.transactionHash })
+      }
     } catch (error) {
       setLoading(false)
       //if (showNotification) {
@@ -2784,7 +2832,13 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
       setLoading(false)
       getSfotBalances()
-      if (showNotification) NotificationManager.success('Successfully removed liquidity')
+      if (result && result.transactionHash) {
+        if (isDeliverTxFailure(result)) {
+          errorNotification({ title: 'Remov liquidity Failed', txHash: result.transactionHash })
+        } else {
+          successNotification({ title: 'Successfully removed liquidity', txHash: result.transactionHash })
+        }
+      }
     } catch (error) {
       setLoading(false)
       //if (showNotification) {
@@ -2966,7 +3020,16 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
       setLoading(false)
       getSfotBalances()
-      if (showNotification) NotificationManager.success('Successfully swapped')
+      if (result && result.transactionHash) {
+        if (isDeliverTxFailure(result)) {
+          errorNotification({ title: 'Swap Failed', txHash: result.transactionHash })
+          setLoading(false)
+          return
+        } else {
+          successNotification({ title: 'Successfully swapped', txHash: result.transactionHash })
+        }
+      }
+      // if (showNotification) NotificationManager.success('Successfully swapped')
     } catch (error) {
       setLoading(false)
       //if (showNotification) {
@@ -3054,7 +3117,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     if (lpstate.lp_amount == 0) return
     setLoading(true)
     try {
-      await signingClient?.execute(
+      const result = await signingClient?.execute(
         walletAddress, // sender address
         lpstate.lp_token_address,
         {
@@ -3070,7 +3133,10 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       )
       setLoading(false)
       getSfotBalances()
-      if (showNotification) NotificationManager.success('Successfully staked')
+      // if (showNotification) NotificationManager.success('Successfully staked')
+      if (result && result.transactionHash) {
+        successNotification({ title: 'Successfully staked', txHash: result.transactionHash })
+      }
     } catch (error) {
       setLoading(false)
       console.log(error)
@@ -3087,7 +3153,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     setLoading(true)
 
     try {
-      await signingClient?.execute(
+      const result = await signingClient?.execute(
         walletAddress, // sender address
         lpstate.staking_contract,
         {
@@ -3100,7 +3166,10 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
       setLoading(false)
       getSfotBalances()
-      if (showNotification) NotificationManager.success('Successfully clamied reward')
+      // if (showNotification) NotificationManager.success('Successfully clamied reward')
+      if (result && result.transactionHash) {
+        successNotification({ title: 'Successfully clamied reward', txHash: result.transactionHash })
+      }
     } catch (error) {
       setLoading(false)
       //if (showNotification) {
@@ -3116,7 +3185,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     setLoading(true)
 
     try {
-      await signingClient?.execute(
+      const result = await signingClient?.execute(
         walletAddress, // sender address
         lpstate.staking_contract,
         {
@@ -3131,7 +3200,10 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
       setLoading(false)
       getSfotBalances()
-      if (showNotification) NotificationManager.success('Successfully unstaked')
+      // if (showNotification) NotificationManager.success('Successfully unstaked')
+      if (result && result.transactionHash) {
+        successNotification({ title: 'Successfully unstaked', txHash: result.transactionHash })
+      }
     } catch (error) {
       setLoading(false)
       if (showNotification) {
@@ -3147,7 +3219,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     setLoading(true)
 
     try {
-      await signingClient?.execute(
+      const result = await signingClient?.execute(
         walletAddress, // sender address
         stakingInfo.staking_contract,
         {
@@ -3162,7 +3234,10 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
       setLoading(false)
       getSfotBalances()
-      if (showNotification) NotificationManager.success('Successfully unstaked')
+      // if (showNotification) NotificationManager.success('Successfully unstaked')
+      if (result && result.transactionHash) {
+        successNotification({ title: 'Successfully unstaked', txHash: result.transactionHash })
+      }
     } catch (error) {
       setLoading(false)
       if (showNotification) {
@@ -3255,13 +3330,18 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
       let result = await signingClient?.signAndBroadcast(walletAddress, msglist, defaultFee)
       if (isDeliverTxFailure(result)) {
-        throw new Error(
-          `Error when broadcasting tx ${result.transactionHash} at height ${result.height}. Code: ${result.code}; Raw log: ${result.rawLog}`,
-        )
+        // throw new Error(
+        //   `Error when broadcasting tx ${result.transactionHash} at height ${result.height}. Code: ${result.code}; Raw log: ${result.rawLog}`,
+        // )
+        errorNotification({ title: 'Error when broadcasting', txHash: result.transactionHash })
+        return
       }
       setLoading(false)
       getSfotBalances()
-      if (showNotification) NotificationManager.success('Successfully added liquidity')
+      // if (showNotification) NotificationManager.success('Successfully added liquidity')
+      if (result && result.transactionHash) {
+        successNotification({ title: 'Successfully added liquidity', txHash: result.transactionHash })
+      }
     } catch (error) {
       setLoading(false)
       //if (showNotification) {
@@ -3337,10 +3417,17 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       msglist.push(msg2)
 
       let result = await signingClient?.signAndBroadcast(walletAddress, msglist, defaultFee)
-
+      if (isDeliverTxFailure(result)) {
+        errorNotification({ title: 'Remove liquidity Failed', txHash: result.transactionHash })
+        setLoading(false)
+        return
+      }
       setLoading(false)
       getSfotBalances()
-      if (showNotification) NotificationManager.success('Successfully removed liquidity')
+      // if (showNotification) NotificationManager.success('Successfully removed liquidity')
+      if (result && result.transactionHash) {
+        successNotification({ title: 'Successfully removed liquidity', txHash: result.transactionHash })
+      }
     } catch (error) {
       setLoading(false)
       //if (showNotification) {
@@ -3462,10 +3549,16 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       }
       msglist.push(msg)
       let result = await signingClient?.signAndBroadcast(walletAddress, msglist, defaultFee)
+      if (isDeliverTxFailure(result)) {
+        errorNotification({ title: 'Swap Failed', txHash: result.transactionHash })
+        setLoading(false)
+        return
+      }
 
       setLoading(false)
       getSfotBalances()
-      if (showNotification) NotificationManager.success('Successfully swapped')
+      // if (showNotification) NotificationManager.success('Successfully swapped')
+      successNotification({ title: 'Successfully swapped', txHash: result.transactionHash })
     } catch (error) {
       setLoading(false)
       //if (showNotification) {
@@ -3558,7 +3651,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     if (lpstate.lp_amount == 0) return
     setLoading(true)
     try {
-      await signingClient?.execute(
+      const result = await signingClient?.execute(
         walletAddress, // sender address
         lpstate.lp_token_address,
         {
@@ -3574,7 +3667,8 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       )
       setLoading(false)
       getSfotBalances()
-      if (showNotification) NotificationManager.success('Successfully staked')
+      // if (showNotification) NotificationManager.success('Successfully staked')
+      successNotification({ title: 'Successfully staked', txHash: result.transactionHash })
     } catch (error) {
       setLoading(false)
       console.log(error)
@@ -3591,7 +3685,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     setLoading(true)
 
     try {
-      await signingClient?.execute(
+      const result = await signingClient?.execute(
         walletAddress, // sender address
         staking_contract,
         {
@@ -3604,7 +3698,8 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
       setLoading(false)
       getSfotBalances()
-      if (showNotification) NotificationManager.success('Successfully clamied reward')
+      // if (showNotification) NotificationManager.success('Successfully clamied reward')
+      successNotification({ title: 'Successfully clamied reward', txHash: result.transactionHash })
     } catch (error) {
       setLoading(false)
       //if (showNotification) {
@@ -3620,7 +3715,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     setLoading(true)
 
     try {
-      await signingClient?.execute(
+      const result = await signingClient?.execute(
         walletAddress, // sender address
         lpstate.staking_contract,
         {
@@ -3635,7 +3730,8 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
       setLoading(false)
       getSfotBalances()
-      if (showNotification) NotificationManager.success('Successfully unstaked')
+      // if (showNotification) NotificationManager.success('Successfully unstaked')
+      successNotification({ title: 'Successfully unstaked', txHash: result.transactionHash })
     } catch (error) {
       setLoading(false)
       if (showNotification) {
@@ -3651,7 +3747,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     setLoading(true)
 
     try {
-      await signingClient?.execute(
+      const result = await signingClient?.execute(
         walletAddress, // sender address
         stakingInfo.staking_contract,
         {
@@ -3666,7 +3762,8 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
       setLoading(false)
       getSfotBalances()
-      if (showNotification) NotificationManager.success('Successfully unstaked')
+      // if (showNotification) NotificationManager.success('Successfully unstaked')
+      successNotification({ title: 'Successfully unstaked', txHash: result.transactionHash })
     } catch (error) {
       setLoading(false)
       if (showNotification) {

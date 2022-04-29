@@ -68,7 +68,7 @@ const Notification = ({ id, action, title = 'Title', txHash = 'tx', left = false
   }, [id])
 
   const onClickText = () => {
-    window.open(`https://atomscan.com/${txHash}`, '_blank')
+    window.open(`https://atomscan.com/transactions/${txHash}`, '_blank')
   }
 
   return (

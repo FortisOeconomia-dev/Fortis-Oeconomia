@@ -18,17 +18,17 @@ import { NotificationContainer } from '../components/Notification'
 export default function App({ Component, pageProps }) {
   const store = useStore(pageProps.initialReduxState)
   return (
-    <SigningCosmWasmProvider>
-      <Provider store={store}>
-        <NotificationContainer>
+    <NotificationContainer>
+      <SigningCosmWasmProvider>
+        <Provider store={store}>
           <Layout>
             <Component {...pageProps} />
 
             {/* Go Top Button */}
             {/* <GoTop/> */}
           </Layout>
-        </NotificationContainer>
-      </Provider>
-    </SigningCosmWasmProvider>
+        </Provider>
+      </SigningCosmWasmProvider>
+    </NotificationContainer>
   )
 }
