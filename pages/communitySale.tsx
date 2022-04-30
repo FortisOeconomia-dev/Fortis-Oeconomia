@@ -297,6 +297,7 @@ const communitySale = () => {
                             className={`default-btn  ${!toggle && 'secondary-btn'}`}
                             style={{ minWidth: 'unset', padding: '3px 30px' }}
                             onClick={(e) => handleCommunitySaleClaim(e, idx)}
+                            disabled={new Date().getTime() / 1000 < Number(d[3]) + 2592000}
                           >
                             Claim Fot
                           </button>
