@@ -25,7 +25,7 @@ const Wrapper = styled.div`
   gap: 37px;
   img {
     filter: ${props =>
-      props.defaultChecked ? 'drop-shadow(16px 16px 20px) invert(1) hue-rotate(-170deg)' : 'hue-rotate(-240deg)'};
+    props.defaultChecked ? 'drop-shadow(16px 16px 20px) invert(1) hue-rotate(-170deg)' : 'hue-rotate(-240deg)'};
   },
 `
 
@@ -272,18 +272,32 @@ const communitySale = () => {
                     width: '100%',
                   }}
                 ></div>
-                <div style={{ overflowY: 'auto', textAlign: 'center', margin: '0 auto' }}>
+                <div style={{ fontSize: '18px', overflowY: 'auto', textAlign: 'center', margin: '0 auto' }}>
                   <table className="w-full">
                     {communitySaleDepositList.length > 0 && (
                       <tr>
-                        <TableTh>Claimable</TableTh>
-                        <TableTh>Claim date</TableTh>
+                        <TableTh>Total Bought Fot</TableTh>
+                        <TableTh>Unlocking Fot</TableTh>
+                        <TableTh>Claim Date</TableTh>
                         <TableTh>Action</TableTh>
                       </tr>
                     )}
                     {communitySaleDepositList.map((d, idx) => (
                       <tr key={`${idx}-unstakelp`}>
-                        <td>{convertMicroDenomToDenom2(Math.floor((new Date().getTime() / 1000 - d[3]) / 2592000) * 0.05 * d[1], 10)}</td>
+                        <td>{convertMicroDenomToDenom2(d[0] * 2 - d[1], 10)}</td>
+                        <td>
+                          {
+                            <div className='col'>
+                              <div>
+                                {convertMicroDenomToDenom2(d[1], 10)}
+                              </div>
+                              <div style={{fontSize: '12px'}}>
+                                {`${convertMicroDenomToDenom2(0.1 * d[0], 10)} at Claim Date`}
+                              </div>
+                            </div>
+                          }
+                        </td>
+                        {/* <td>{convertMicroDenomToDenom2(Math.floor((new Date().getTime() / 1000 - d[3]) / 2592000) * 0.05 * d[1], 10)}</td> */}
                         <td>{moment(new Date((Number(d[3]) + 2592000) * 1000)).format('YYYY/MM/DD HH:mm:ss')}</td>
                         <td>
 
