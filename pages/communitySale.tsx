@@ -276,8 +276,8 @@ const communitySale = () => {
                   <table className="w-full">
                     {communitySaleDepositList.length > 0 && (
                       <tr>
-                        <TableTh>Total Bought Fot</TableTh>
-                        <TableTh>Unlocking Fot</TableTh>
+                        <TableTh>Total Bought FOT</TableTh>
+                        <TableTh>Unlocking FOT</TableTh>
                         <TableTh>Claim Date</TableTh>
                         <TableTh>Action</TableTh>
                       </tr>
@@ -298,7 +298,7 @@ const communitySale = () => {
                             style={{ minWidth: 'unset', padding: '3px 30px' }}
                             onClick={(e) => handleCommunitySaleClaim(e, idx)}
                           >
-                            Claim Fot
+                            Claim FOT
                           </button>
 
                         </td>
