@@ -284,7 +284,7 @@ const communitySale = () => {
                     )}
                     {communitySaleDepositList.map((d, idx) => (
                       <tr key={`${idx}-unstakelp`}>
-                        <td>{convertMicroDenomToDenom2(d[0] * 2 - d[1], 10)}</td>
+                        <td>{convertMicroDenomToDenom2(d[0] * 2, 10)}</td>
                         <td>
                           {
                             <div className='col'>
