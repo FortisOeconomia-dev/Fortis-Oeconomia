@@ -8,6 +8,8 @@ import { convertMicroDenomToDenom2 } from '../util/conversion'
 import ThemeContext from '../contexts/ThemeContext'
 import 'react-notifications/lib/notifications.css'
 import { NotificationManager } from 'react-notifications'
+import moment from 'moment'
+import { textAlign } from '@mui/system'
 
 //styled components
 const Wrapper = styled.div`
@@ -51,6 +53,54 @@ const RightPart = styled.div`
   max-width: 100%;
 `
 
+const MyStaked = styled.div`
+  display: flex;
+  padding-left: 27px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  flex: 2;
+`
+
+const MyStakedContent = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+`
+
+const MyStakedText = styled.label`
+  width: 100% !important;
+  border-bottom: 0px !important;
+  margin: 0 !important;
+`
+
+const MaxButton = styled.button`
+  margin-bottom: 20px;
+  padding: 5px !important;
+  width: 100px;
+  min-width: unset !important;
+`
+const TableTh = styled.th`
+  padding: 20px 50px;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #fbfcfd;
+  min-width: unset !important;
+`
+
+const MyRewardsMiddle = styled('div') <{ visible: boolean }>`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 1px;
+  padding-top: 16px;
+  border-bottom: ${props => (props.visible ? '2.05843px solid #2e0752' : '0')};
+  padding-bottom: 20px;
+`
+
 const communitySale = () => {
   const {
     walletAddress,
@@ -64,6 +114,8 @@ const communitySale = () => {
     handlesFotDepositChange,
     executesFotDeposit,
     getCommunitySaleBalances,
+    communitySaleDepositList,
+    executeFotClaim,
     updateInterval,
   } = useSigningClient()
 
@@ -134,15 +186,15 @@ const communitySale = () => {
     getCommunitySaleBalances()
   }
 
-  // const handleCommunitySaleClaim = async (event: MouseEvent<HTMLElement>, idx) => {
-  //   if (!signingClient || walletAddress.length === 0) {
-  //     NotificationManager.error('Please connect wallet first')
-  //     return
-  //   }
+  const handleCommunitySaleClaim = async (event: MouseEvent<HTMLElement>, idx) => {
+    if (!signingClient || walletAddress.length === 0) {
+      NotificationManager.error('Please connect wallet first')
+      return
+    }
 
-  //   event.preventDefault()
-  //   executeFotClaim(idx)
-  // }
+    event.preventDefault()
+    executeFotClaim(idx)
+  }
 
   const onsFotDepositChange = (event: ChangeEvent<HTMLInputElement>) => {
     const {
@@ -208,6 +260,50 @@ const communitySale = () => {
         </LeftPart>
         <RightPart>
           <StatisticBox values={statisticBoxValues} maxWidth={null} />
+          <MyStaked>
+            <MyStakedContent className="wallet-text">
+              <MyRewardsMiddle visible={false}>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    flexWrap: 'wrap',
+                    marginTop: '2em',
+                    width: '100%',
+                  }}
+                ></div>
+                <div style={{ overflowY: 'auto', textAlign: 'center', margin: '0 auto' }}>
+                  <table className="w-full">
+                    {communitySaleDepositList.length > 0 && (
+                      <tr>
+                        <TableTh>Claimable</TableTh>
+                        <TableTh>Claim date</TableTh>
+                        <TableTh>Action</TableTh>
+                      </tr>
+                    )}
+                    {communitySaleDepositList.map((d, idx) => (
+                      <tr key={`${idx}-unstakelp`}>
+                        <td>{convertMicroDenomToDenom2(Math.floor((new Date().getTime() / 1000 - d[3]) / 2592000) * 0.05 * d[1], 10)}</td>
+                        <td>{moment(new Date((Number(d[3]) + 2592000) * 1000)).format('YYYY/MM/DD HH:mm:ss')}</td>
+                        <td>
+
+                          <button
+                            className={`default-btn  ${!toggle && 'secondary-btn'}`}
+                            style={{ minWidth: 'unset', padding: '3px 30px' }}
+                            onClick={(e) => handleCommunitySaleClaim(e, idx)}
+                          >
+                            Claim Fot
+                          </button>
+
+                        </td>
+                      </tr>
+                    ))}
+
+                  </table>
+                </div>
+              </MyRewardsMiddle>
+            </MyStakedContent>
+          </MyStaked>
         </RightPart>
         {/* <DepositNClaim
           from={'sFot'}
