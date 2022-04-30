@@ -286,19 +286,11 @@ const communitySale = () => {
                       <tr key={`${idx}-unstakelp`}>
                         <td>{convertMicroDenomToDenom2(d[0] * 2, 10)}</td>
                         <td>
-                          {
-                            <div className='col'>
-                              <div>
-                                {convertMicroDenomToDenom2(d[1], 10)}
-                              </div>
-                              <div style={{fontSize: '12px'}}>
-                                {`${convertMicroDenomToDenom2(0.1 * d[0], 10)} at Claim Date`}
-                              </div>
-                            </div>
-                          }
+                          <span> {`${convertMicroDenomToDenom2(0.1 * d[0], 10)}`} </span>
+                          <span style={{fontSize: '14px'}}> (at Claim Date)</span>
                         </td>
                         {/* <td>{convertMicroDenomToDenom2(Math.floor((new Date().getTime() / 1000 - d[3]) / 2592000) * 0.05 * d[1], 10)}</td> */}
-                        <td>{moment(new Date((Number(d[3]) + 2592000) * 1000)).format('YYYY/MM/DD HH:mm:ss')}</td>
+                        < td > {moment(new Date((Number(d[3]) + 2592000) * 1000)).format('YYYY/MM/DD HH:mm:ss')}</td>
                         <td>
 
                           <button
@@ -340,8 +332,8 @@ const communitySale = () => {
           handleToken1DepositChange={handlesFotDepositAll}
           maxWidth={'1000px'}
         /> */}
-      </div>
-    </Wrapper>
+      </div >
+    </Wrapper >
   )
 }
 
