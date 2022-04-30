@@ -276,8 +276,8 @@ const communitySale = () => {
                   <table className="w-full">
                     {communitySaleDepositList.length > 0 && (
                       <tr>
-                        <TableTh>Total Bought Fot</TableTh>
-                        <TableTh>Unlocking Fot</TableTh>
+                        <TableTh>Total Bought FOT</TableTh>
+                        <TableTh>Unlocking FOT</TableTh>
                         <TableTh>Claim Date</TableTh>
                         <TableTh>Action</TableTh>
                       </tr>
@@ -299,7 +299,7 @@ const communitySale = () => {
                             onClick={(e) => handleCommunitySaleClaim(e, idx)}
                             disabled={new Date().getTime() / 1000 < Number(d[3]) + 2592000}
                           >
-                            Claim Fot
+                            Claim FOT
                           </button>
 
                         </td>
