@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Link from '../../util/ActiveLink'
-import { NotificationContainer, NotificationManager } from 'react-notifications'
+import { NotificationContainer } from 'react-notifications'
 import 'react-notifications/lib/notifications.css'
 import styled from 'styled-components'
 
@@ -175,7 +175,7 @@ const Navbar = ({ toggle, setToggle }) => {
                   <li
                     style={{
                       background: '#FBFCFD',
-                      borderBottom: '1px solid',
+                      borderRadius: '0px 0px 13px 13px',
                       borderTop: '1px solid',
                       borderColor: '#080451',
                     }}
@@ -191,24 +191,14 @@ const Navbar = ({ toggle, setToggle }) => {
                       </SubLink>
                     </Link>
                   </li>
-                  <li
-                    style={{
-                      background: '#FBFCFD',
-                      borderRadius: '0px 0px 13px 13px',
-                    }}
-                  >
-                    <Link href="/junoswap" activeClassName="active">
-                      <SubLink
-                        onClick={() => setDropsMenu(!dropsMenu)}
-                        className="nav-link"
-                        slot={pathname}
-                        defaultChecked={toggle}
-                      >
-                        Junoswap LP'ers
-                      </SubLink>
-                    </Link>
-                  </li>
                 </Dropdown>
+                <li className="nav-item">
+                  <Link href="/communitySale" activeClassName="active">
+                    <NavLink className="nav-link" slot={pathname} defaultChecked={toggle}>
+                      Community Sale
+                    </NavLink>
+                  </Link>
+                </li>
                 <Dropdown title="Modules" slot={pathname} defaultChecked={toggle}>
                   <li
                     style={{

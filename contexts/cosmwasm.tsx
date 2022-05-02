@@ -100,7 +100,6 @@ let { Provider } = (CosmWasmContext = createContext<ISigningCosmWasmClientContex
   sfotBalance: 0,
   sfotBalanceStr: '',
   sfotTokenInfo: null,
-  stableContractInfo: null,
   clearanceContractInfo: null,
   stableGfotAmount: '',
   stableExpectedSfotAmount: 0,
@@ -108,7 +107,6 @@ let { Provider } = (CosmWasmContext = createContext<ISigningCosmWasmClientContex
   clearanceExpectedGfotAmount: 0,
 
   handleStableGfotChange: () => {},
-  executeStable: () => {},
   handleClearanceSfotChange: () => {},
   executeClearance: () => {},
 
@@ -154,6 +152,7 @@ let { Provider } = (CosmWasmContext = createContext<ISigningCosmWasmClientContex
   getSfotBalances: () => {},
   getCommonBalances: () => {},
   getWalletBalances: () => {},
+  getCommunitySaleBalances: () => {},
   updateInterval: 0,
 
   // dungeon
@@ -198,6 +197,13 @@ let { Provider } = (CosmWasmContext = createContext<ISigningCosmWasmClientContex
   pool5LpAtomLpStakingContractInfo: null,
   pool6LpGfotLpStakingContractInfo: null,
   pool7LpFotLpStakingContractInfo: null,
+
+  communitySaleDepositList: null,
+  communitySaleContractInfo: null,
+  sfotDepositAmount: null,
+  handlesFotDepositChange: () => {},
+  executesFotDeposit: () => {},
+  executeFotClaim: () => {},
 }))
 
 export const useSigningClient = (): ISigningCosmWasmClientContext => useContext(CosmWasmContext)

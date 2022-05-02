@@ -4,7 +4,7 @@ import { ToggleContext } from '../Layout/Layout'
 import InputWithIncDec from '../InputWithIncDec'
 import { useRouter } from 'next/router'
 import { useSigningClient } from '../../contexts/cosmwasm'
-import { ConvertToNoExponents } from '../../util/conversion'
+import { convertToNoExponents } from '../../util/conversion'
 
 const WalletTitle = styled.label`
   display: flex;
@@ -16,7 +16,7 @@ const WalletTitle = styled.label`
   line-height: 48px;
   margin-bottom: 32px;
   background-color: ${props => props.slot !== '/gFOTmodule' && 'transparent !important'};
-  color: ${props => props.slot === '/sFOTVault' && '#FBFCFD'};
+  color: ${props => (props.slot === '/sFOTVault' || props.slot === '/communitySale') && '#FBFCFD'};
 `
 
 const MaxButton = styled.span`
@@ -64,7 +64,7 @@ const FromConv = ({
       {showBalance && walletAddress.length != 0 && (
         <div className="banner-wrapper-content" style={{ height: 'fit-content', textAlign: 'right' }}>
           <span className="sub-title ms-2" style={{ background: '#83B8DD' }}>
-            Balance {ConvertToNoExponents(balance)}
+            Balance {convertToNoExponents(balance)}
           </span>
         </div>
       )}

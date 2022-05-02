@@ -146,11 +146,9 @@ const sFOTVault = () => {
     clearanceSfotAmount,
     clearanceExpectedGfotAmount,
 
-    stableContractInfo,
     clearanceContractInfo,
 
     handleStableGfotChange,
-    executeStable,
     handleClearanceSfotChange,
     executeClearance,
     swapToken1,
@@ -177,7 +175,6 @@ const sFOTVault = () => {
     executesFotFetchUnstake,
     handlesFotUnstakeChange,
     sFotUnstakeAmount,
-
     gfotStakingContractInfo,
     gfotStakingAmount,
     setgFotStakingAmount,
@@ -201,21 +198,23 @@ const sFOTVault = () => {
   }, [signingClient, walletAddress])
 
   const { toggle, asset, setAsset, page, setPage } = useContext(ToggleContext)
-  const [intervalInstance, setIntervalInstance] = useState(null)
+  const [seconds, setSeconds] = useState(0)
 
   useEffect(() => {
-    if (page < 4) {
+    if (seconds === 0 && page < 4) {
       getSfotBalances()
-      const interval = setInterval(() => getSfotBalances(), updateInterval * 1000)
-      setIntervalInstance(interval)
-    } else {
-      intervalInstance && clearInterval(intervalInstance)
     }
-  }, [page])
 
-  useEffect(() => {
-    return () => intervalInstance && clearInterval(intervalInstance)
-  }, [])
+    const interval = setInterval(() => {
+      setSeconds(seconds => (seconds + 1) % updateInterval)
+    }, 1000)
+
+    if (page >= 2) {
+      setSeconds(0)
+      clearInterval(interval)
+    }
+    return () => clearInterval(interval)
+  }, [seconds, page])
 
   const defaultValues0 = [
     {
@@ -234,23 +233,13 @@ const sFOTVault = () => {
     },
   ]
 
-  //Stable Handling
+  /**
+   * Stable Handling
+   * Because sFot mint is halted, this function isn't used now. When user clicks this button, nothing will happen.
+   * @returns 
+   */
   const handleStableSubmit = async (event: MouseEvent<HTMLElement>) => {
-    if (!signingClient || walletAddress.length === 0) {
-      NotificationManager.error('Please connect wallet first')
-      return
-    }
-    if (Number(stableGfotAmount) == 0) {
-      NotificationManager.error('Please input the GFOT amount first')
-      return
-    }
-    if (Number(stableGfotAmount) > Number(gfotBalance)) {
-      NotificationManager.error('Please input correct GFOT amount')
-      return
-    }
-
-    event.preventDefault()
-    executeStable()
+    return;
   }
 
   const onStableGfotChange = (event: ChangeEvent<HTMLInputElement>) => {

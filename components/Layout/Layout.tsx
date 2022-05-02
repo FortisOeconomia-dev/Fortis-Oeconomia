@@ -17,12 +17,21 @@ import useTheme from '../../hooks/useTheme'
 
 //styled components
 const Wrapper = styled.div`
-  background: ${props =>
-    !props.defaultChecked && props.slot === '/gFOTmodule'
-      ? 'white'
-      : props.slot === '/fortisDungeon'
-      ? `var(--background-color)`
-      : `linear-gradient(180deg, #8394DD 0%, #FFFFFF 100%)`};
+  background: ${props => {
+    switch (props.slot) {
+      case '/gFOTmodule':
+        return !props.defaultChecked ? 'white' : `linear-gradient(180deg, #8394DD 0%, #FFFFFF 100%)`
+      case '/fortisDungeon':
+        return `var(--background-color)`
+      case '/communitySale':
+        return !props.defaultChecked
+          ? `url('/images/MacBook Pro 14_ - 2.png')`
+          : `linear-gradient(180deg, #8394DD 0%, #FFFFFF 100%)`
+      default:
+        return `linear-gradient(180deg, #8394DD 0%, #FFFFFF 100%)`
+    }
+  }};
+  background-repeat: round;
   min-height: 100vh;
   display: flex;
   flex-direction: column;

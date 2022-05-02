@@ -3,7 +3,7 @@ import { useSigningClient } from '../../contexts/cosmwasm'
 import { useContext, useMemo } from 'react'
 import { useRouter } from 'next/router'
 import { ToggleContext } from '../Layout/Layout'
-import { ConvertToNoExponents } from '../../util/conversion'
+import { convertToNoExponents } from '../../util/conversion'
 
 const WalletTitle = styled.label`
   gap: 10px;
@@ -16,7 +16,7 @@ const WalletTitle = styled.label`
   margin-bottom: 32px;
   margin-top: 0px !important;
   background-color: ${props => props.slot !== '/gFOTmodule' && 'transparent !important'};
-  color: ${props => props.slot === '/sFOTVault' && '#FBFCFD'};
+  color: ${props => (props.slot === '/sFOTVault' || props.slot === '/communitySale') && '#FBFCFD'};
 `
 
 const ExpectedValWrapper = styled.label`
@@ -67,7 +67,7 @@ const ToConv = ({ to, expectedAmount, sbalance, maxW, toImage, showBalance }) =>
       {showBalance && walletAddress.length != 0 && (
         <div className="banner-wrapper-content" style={{ height: 'fit-content', textAlign: 'right' }}>
           <span className="sub-title ms-2" style={{ background: '#83B8DD', marginTop: '10px', marginBottom: '32px' }}>
-            Balance {ConvertToNoExponents(sbalance)}
+            Balance {convertToNoExponents(sbalance)}
           </span>
         </div>
       )}

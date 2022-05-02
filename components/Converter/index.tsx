@@ -1,10 +1,10 @@
 import { useContext, useState } from 'react'
 import styled from 'styled-components'
 import { ToggleContext } from '../Layout/Layout'
-
 import FromConv from './FromConv'
 import ToConv from './ToConv'
 import { useSigningClient } from '../../contexts/cosmwasm'
+
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -37,7 +37,7 @@ const Converter = ({
   sbalance,
   submitTitle = 'Burn',
   showBalance = true,
-  button = true,
+  showSubmitButton = true,
 }) => {
   const { swapToken1, setSwapToken1 } = useSigningClient()
   const { toggle } = useContext(ToggleContext)
@@ -73,7 +73,7 @@ const Converter = ({
         maxW={maxW}
         showBalance={showBalance}
       />
-      {button && (
+      {showSubmitButton && (
         <button className={`default-btn ${!toggle && 'secondary-btn'}`} onClick={handleSubmit}>
           {submitTitle}
         </button>
