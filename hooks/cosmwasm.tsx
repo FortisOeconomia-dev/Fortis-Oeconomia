@@ -2451,7 +2451,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       setsFotDepositAmount('')
       getCommonBalances()
       if (result && result.transactionHash) {
-        successNotification({ title: 'Successfully swapped into SFOT', txHash: result.transactionHash })
+        successNotification({ title: 'Successfully purchased', txHash: result.transactionHash })
       }
     } catch (error) {
       setLoading(false)
@@ -2463,7 +2463,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     }
   }
 
-  const executeFotClaim = async (num) => {
+  const executeFotClaim = async num => {
     setLoading(true)
 
     try {
@@ -2472,7 +2472,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         PUBLIC_COMMUNITY_SALE_CONTRACT,
         {
           claim_reward: {
-            index: num
+            index: num,
           },
         }, // msg
         defaultFee,
