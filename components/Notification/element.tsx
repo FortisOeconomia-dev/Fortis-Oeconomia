@@ -68,7 +68,7 @@ const Notification = ({ id, action, title = 'Title', txHash = 'tx', left = false
   }, [id])
 
   const onClickText = () => {
-    window.open(`https://atomscan.com/juno/transactions/${txHash}`, '_blank')
+    window.open(`https://www.mintscan.io/juno/txs/${txHash}`, '_blank')
   }
 
   return (
