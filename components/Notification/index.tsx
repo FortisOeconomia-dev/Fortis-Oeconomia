@@ -10,7 +10,7 @@ const NotificationContainer = ({ children }) => {
   return (
     <NotificationContext.Provider value={{ success, error }}>
       {notifications.map(({ id, title, txHash, type }) => (
-        <Notification key={id} id={id} action={() => {}} title={title} txHash={txHash} type={type} remove={remove} />
+        <Notification key={id} id={id} title={title} txHash={txHash} type={type} remove={remove} />
       ))}
       {children}
     </NotificationContext.Provider>

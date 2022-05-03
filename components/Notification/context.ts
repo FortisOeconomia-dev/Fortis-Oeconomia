@@ -1,5 +1,8 @@
 import { createContext } from 'react'
-
-const NotificationContext = createContext(null)
+// create notification context with initial value
+const NotificationContext = createContext({
+  success: undefined,
+  error: undefined,
+})
 
 export default NotificationContext

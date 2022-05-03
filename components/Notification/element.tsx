@@ -26,12 +26,12 @@ const ContentWrapper = styled.div`
 `
 
 const Title = styled.div`
-  font-size: 20px;
-  line-height: 32px;
-  font-weight: 800;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 32px;
   color: ${props => (props.type ? '#38B000' : '#B01A00')};
   & > i {
     margin-right: 10px;
@@ -52,7 +52,7 @@ const Text = styled.span`
   cursor: pointer;
 `
 
-const Notification = ({ id, action, title = 'Title', txHash = 'tx', left = false, type = false, remove }) => {
+const Notification = ({ id, title = 'Title', txHash = 'tx', left = false, type = false, remove }) => {
   // type is success or error. true is success, false is error
 
   useEffect(() => {
@@ -80,7 +80,6 @@ const Notification = ({ id, action, title = 'Title', txHash = 'tx', left = false
         filter: 'none',
       }}
       type={type}
-      onClick={action}
     >
       <ContentWrapper>
         <i
