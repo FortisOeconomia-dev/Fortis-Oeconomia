@@ -1,7 +1,12 @@
 import styled from 'styled-components'
 import { useEffect } from 'react'
 
-const Wrapper = styled.div`
+interface ElementProps {
+  type?: boolean
+  defaultChecked?: boolean
+}
+
+const Wrapper = styled.div<ElementProps>`
   position: fixed;
   z-index: 9999;
   right: ${props => !props.defaultChecked && '0px'};
@@ -24,7 +29,7 @@ const ContentWrapper = styled.div`
   flex-direction: column;
 `
 
-const Title = styled.div`
+const Title = styled.div<ElementProps>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -43,7 +48,7 @@ const Title = styled.div`
   }
 `
 
-const Text = styled.span`
+const Text = styled.span<ElementProps>`
   cursor: pointer;
   font-size: 15px;
   font-weight: 500;
