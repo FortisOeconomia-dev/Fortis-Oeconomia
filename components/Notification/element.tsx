@@ -2,21 +2,20 @@ import styled from 'styled-components'
 import { useEffect } from 'react'
 
 const Wrapper = styled.div`
-  background: white;
-  box-shadow: 0px 8px 24px rgba(71, 94, 82, 0.25);
-  border-radius: 200px 0px 0px 200px;
-  padding: ${props => (!props.defaultChecked ? '5px 10px 5px 21px' : '5px 21px 5px 10px')};
-  display: flex;
-  justify-content: center;
   position: fixed;
   z-index: 9999;
   right: ${props => !props.defaultChecked && '0px'};
   top: 30px;
   left: ${props => props.defaultChecked && '0px'};
-
+  display: flex;
+  justify-content: center;
+  border-radius: 200px 0px 0px 200px;
+  box-shadow: 0px 8px 24px rgba(71, 94, 82, 0.25);
   border: 1px solid;
   border-color: ${props => (props.type ? 'green' : 'red')};
   min-width: 280px;
+  padding: ${props => (!props.defaultChecked ? '5px 10px 5px 21px' : '5px 21px 5px 10px')};
+  background: white;
 `
 
 const ContentWrapper = styled.div`
@@ -45,11 +44,11 @@ const Title = styled.div`
 `
 
 const Text = styled.span`
+  cursor: pointer;
   font-size: 15px;
   font-weight: 500;
   text-decoration-line: underline;
   color: ${props => (props.type ? '#38B000' : '#B01A00')};
-  cursor: pointer;
 `
 
 const Notification = ({ id, title = 'Title', txHash = 'tx', left = false, type = false, remove }) => {
