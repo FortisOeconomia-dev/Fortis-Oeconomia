@@ -46,7 +46,7 @@ const ToConv = ({ to, expectedAmount, sbalance, maxW, toImage, showBalance }) =>
 
   const realValue = useMemo(() => {
     if (expectedAmount && Number(expectedAmount) > 0 && String(expectedAmount)?.includes('e'))
-      return ConvertToNoExponents(expectedAmount)
+      return convertToNoExponents(expectedAmount)
     else return expectedAmount
   }, [expectedAmount])
 
