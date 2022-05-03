@@ -209,6 +209,19 @@ const VirticalDivider = styled.div`
   margin-right: 20px;
 `
 
+const VaulteButton = styled.button`
+  flex: 1 1 0%;
+  min-width: calc(50% - 10px);
+  border-radius: 50px !important;
+  max-width: calc(50% - 10px);
+  border: #734242 solid !important;
+  color: #734242 !important;
+  &:hover {
+    border-color: white !important;
+    color: white !important;
+  }
+`
+
 const StatisticBox = ({
   values = [],
   leftValues = [],
@@ -257,7 +270,7 @@ const StatisticBox = ({
 
   return (
     <div style={{ paddingLeft: '27px', maxWidth, width: '100%' }}>
-      {pathname === '/sFOTVault' && (
+      {page < 2 && pathname === '/sFOTVault' && (
         <div
           style={{
             display: 'flex',
@@ -269,53 +282,58 @@ const StatisticBox = ({
         >
           <button
             className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
-            style={{ flex: '1', minWidth: 'unset', borderRadius: '50px' }}
+            style={{ flex: '1', minWidth: 'calc(50% - 10px)', borderRadius: '50px', maxWidth: 'calc(50% - 10px)' }}
             onClick={() => setPage(page => (page === 0 ? 1 : 0))}
           >
             {page === 0 ? 'Clearance Sale' : 'Stable Module (sFOT)'}
           </button>
           <button
             className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
-            style={{ flex: '1', minWidth: 'unset', borderRadius: '50px' }}
-            onClick={() => setPage(2)}
+            style={{ flex: '1', minWidth: 'calc(50% - 10px)', borderRadius: '50px', maxWidth: 'calc(50% - 10px)' }}
+            onClick={() => setPage(4)}
           >
             Stable Pools and Swaps
           </button>
+          {/* <VaulteButton className={`default-btn  ${!toggle && 'secondary-btn outlined'}`} onClick={() => setPage(2)}>
+            Vault
+          </VaulteButton> */}
         </div>
       )}
       {children}
-      <Wrapper slot={pathname} page={page} defaultChecked={leftValues.length > 0}>
-        {renderShadowShapes()}
-        <ContentWrapper slot={pathname}>
-          {values.map((v, idx) => {
-            return (
-              <React.Fragment key={idx}>
-                <StatisticItem htmlFor={`${idx}`} slot={`${values.length}`} datatype={pathname} page={page}>
-                  <StatisticLabel slot={pathname} page={page} toggle={toggle}>
-                    {v.key.split('(').map((value, idx, self) =>
-                      self.length === 1 ? (
-                        v.key
-                      ) : idx === self.length - 1 ? (
-                        <React.Fragment key={idx}>
-                          <br />
-                          <span>{value}</span>
-                        </React.Fragment>
-                      ) : (
-                        value
-                      ),
-                    )}
-                  </StatisticLabel>
-                  <StatisticValue slot={pathname} page={page}>
-                    {convertToFixedDecimals(convertToNoExponents(v.value))}
-                  </StatisticValue>
-                </StatisticItem>
-                {idx < values.length - 1 && <Divider slot={pathname} />}
-              </React.Fragment>
-            )
-          })}
-        </ContentWrapper>
-        {leftValues.length > 0 ? <VirticalDivider slot={pathname} /> : <></>}
-      </Wrapper>
+      {page < 2 && (
+        <Wrapper slot={pathname} page={page} defaultChecked={leftValues.length > 0}>
+          {renderShadowShapes()}
+          <ContentWrapper slot={pathname}>
+            {values.map((v, idx) => {
+              return (
+                <React.Fragment key={idx}>
+                  <StatisticItem htmlFor={`${idx}`} slot={`${values.length}`} datatype={pathname} page={page}>
+                    <StatisticLabel slot={pathname} page={page} toggle={toggle}>
+                      {v.key.split('(').map((value, idx, self) =>
+                        self.length === 1 ? (
+                          v.key
+                        ) : idx === self.length - 1 ? (
+                          <React.Fragment key={idx}>
+                            <br />
+                            <span>{value}</span>
+                          </React.Fragment>
+                        ) : (
+                          value
+                        ),
+                      )}
+                    </StatisticLabel>
+                    <StatisticValue slot={pathname} page={page}>
+                      {convertToFixedDecimals(convertToNoExponents(v.value))}
+                    </StatisticValue>
+                  </StatisticItem>
+                  {idx < values.length - 1 && <Divider slot={pathname} />}
+                </React.Fragment>
+              )
+            })}
+          </ContentWrapper>
+          {leftValues.length > 0 ? <VirticalDivider slot={pathname} /> : <></>}
+        </Wrapper>
+      )}
     </div>
   )
 }

@@ -13,19 +13,22 @@ import '../public/css/custom.css'
 import Layout from '../components/Layout/Layout'
 import GoTop from '../components/Shared/GoTop'
 import { SigningCosmWasmProvider } from '../contexts/cosmwasm'
+import { NotificationContainer } from '../components/Notification'
 
 export default function App({ Component, pageProps }) {
   const store = useStore(pageProps.initialReduxState)
   return (
-    <SigningCosmWasmProvider>
-      <Provider store={store}>
-        <Layout>
-          <Component {...pageProps} />
+    <NotificationContainer>
+      <SigningCosmWasmProvider>
+        <Provider store={store}>
+          <Layout>
+            <Component {...pageProps} />
 
-          {/* Go Top Button */}
-          {/* <GoTop/> */}
-        </Layout>
-      </Provider>
-    </SigningCosmWasmProvider>
+            {/* Go Top Button */}
+            {/* <GoTop/> */}
+          </Layout>
+        </Provider>
+      </SigningCosmWasmProvider>
+    </NotificationContainer>
   )
 }

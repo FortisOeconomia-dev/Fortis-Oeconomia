@@ -57,6 +57,7 @@ const OutWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  color: transparent;
 `
 
 const Title = styled.p`
@@ -98,6 +99,22 @@ const RightPart = styled.div`
   flex-direction: column;
   flex: 2;
   max-width: 100%;
+`
+
+const WalletTitle = styled.label`
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 48px;
+  margin-bottom: 32px;
+  background-color: ${props => props.slot !== '/gFOTmodule' && 'transparent !important'};
+  color: ${props => props.slot === '/sFOTVault' && '#FBFCFD'};
+  & > * {
+    filter: ${props => !props.defaultChecked && 'none'};
+  }
 `
 
 const sFOTVault = () => {
@@ -158,6 +175,20 @@ const sFOTVault = () => {
     executesFotFetchUnstake,
     handlesFotUnstakeChange,
     sFotUnstakeAmount,
+    gfotStakingContractInfo,
+    gfotStakingAmount,
+    setgFotStakingAmount,
+    gfotStakingApy,
+    gfotStakingMyStaked,
+    gfotStakingMyReward,
+    handlegFotStakingChange,
+    executegFotStaking,
+    executegFotClaimReward,
+    unstakingList,
+    createUnstake,
+    executeFetchUnstake,
+    handleUnstakeChange,
+    unstakeAmount,
   } = useSigningClient()
   useEffect(() => {
     if (!signingClient || walletAddress.length === 0) {
@@ -170,7 +201,7 @@ const sFOTVault = () => {
   const [seconds, setSeconds] = useState(0)
 
   useEffect(() => {
-    if (seconds === 0 && page < 2) {
+    if (seconds === 0 && page < 4) {
       getSfotBalances()
     }
 
@@ -340,7 +371,7 @@ const sFOTVault = () => {
     calcExpectedSwapAmount(asset)
   }, [swapAmount, signingClient, walletAddress])
 
-  const sFOTImage = () => (
+  const sFOTImage = toggle => (
     <OutWrapper
       defaultChecked={toggle}
       slot={`101.76px 27.2666px 210.7px rgba(26, 30, 44, 0.338), inset -37.9905px -10.1795px 39.3307px #606CA1, inset 37.9905px 10.1795px 39.3307px #9FB4FF`}
@@ -356,7 +387,7 @@ const sFOTVault = () => {
     </OutWrapper>
   )
 
-  const bFOTImage = () => (
+  const bFOTImage = toggle => (
     <OutWrapper
       defaultChecked={toggle}
       slot={`77.5316px 20.7745px 160.533px rgba(26, 30, 44, 0.338), inset -28.9451px -7.75583px 29.9662px #606CA1, inset 28.9451px 7.75583px 29.9662px #9FB4FF`}
@@ -372,7 +403,7 @@ const sFOTVault = () => {
     </OutWrapper>
   )
 
-  const gFOTImage = () => (
+  const gFOTImage = toggle => (
     <OutWrapper
       defaultChecked={toggle}
       slot={`77.5316px 20.7745px 160.533px rgba(26, 30, 44, 0.338), inset -28.9451px -7.75583px 29.9662px #606CA1, inset 28.9451px 7.75583px 29.9662px #9FB4FF`}
@@ -436,9 +467,12 @@ const sFOTVault = () => {
     handlesFotStakingChange(Number(sfotStakingAmount) - 1)
   }
 
+  const handleBurnMinus =
+    page === 0 ? handleStableGfotMinus : page === 1 ? handleClearanceSfotMinus : handleClearanceSfotMinus
+
   return (
     <Wrapper defaultChecked={toggle}>
-      {page < 2 ? (
+      {page < 4 ? (
         <>
           <div
             style={{
@@ -453,7 +487,7 @@ const sFOTVault = () => {
             <LeftPart>
               <Converter
                 wfull={false}
-                handleBurnMinus={page === 0 ? handleStableGfotMinus : handleClearanceSfotMinus}
+                handleBurnMinus={handleBurnMinus}
                 burnAmount={page === 0 ? stableGfotAmount : clearanceSfotAmount}
                 onBurnChange={page === 0 ? onStableGfotChange : onClearanceSfotChange}
                 handleBurnPlus={page === 0 ? handleStableGfotPlus : handleClearanceSfotPlus}
@@ -464,19 +498,45 @@ const sFOTVault = () => {
                     <line x1="62.7632" y1="91.6095" x2="124.841" y2="1.15126" stroke="#171E0E" strokeWidth="3" />
                   </svg>
                 )}
+                convImg2={
+                  page !== 0
+                    ? (func: any) => {
+                        return (
+                          <svg
+                            onClick={func}
+                            cursor="pointer"
+                            width="32"
+                            height="70"
+                            viewBox="0 0 32 70"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M8.76721 1.23279C8.34349 0.809067 7.65651 0.809067 7.23279 1.23279L0.327891 8.13769C-0.0958281 8.56141 -0.0958281 9.24839 0.327891 9.67211C0.75161 10.0958 1.43859 10.0958 1.86231 9.67211L8 3.53442L14.1377 9.67211C14.5614 10.0958 15.2484 10.0958 15.6721 9.67211C16.0958 9.24839 16.0958 8.56141 15.6721 8.13769L8.76721 1.23279ZM9.085 68L9.085 2H6.915L6.915 68H9.085Z"
+                              fill="#171E0E"
+                            />
+                            <path
+                              d="M23.2328 68.7672C23.6565 69.1909 24.3435 69.1909 24.7672 68.7672L31.6721 61.8623C32.0958 61.4386 32.0958 60.7516 31.6721 60.3279C31.2484 59.9042 30.5614 59.9042 30.1377 60.3279L24 66.4656L17.8623 60.3279C17.4386 59.9042 16.7516 59.9042 16.3279 60.3279C15.9042 60.7516 15.9042 61.4386 16.3279 61.8623L23.2328 68.7672ZM22.915 2L22.915 68H25.085L25.085 2L22.915 2Z"
+                              fill="#171E0E"
+                            />
+                          </svg>
+                        )
+                      }
+                    : null
+                }
                 from={page === 0 ? 'gFOT' : 'sFOT'}
-                to={page === 0 ? 'sFOT' : 'gFOT'}
+                to={page === 0 ? 'sFOT' : page === 1 ? 'gFOT' : page === 2 ? 'sBOND' : 'gBOND'}
                 handleSubmit={page === 0 ? handleStableSubmit : handleClearanceSubmit}
                 balance={page === 0 ? gfotBalance : sfotBalance}
                 handleChange={page === 0 ? handleStableGfotChange : handleClearanceSfotChange}
                 sbalance={page === 0 ? sfotBalance : gfotBalance}
-                submitTitle={page === 0 ? 'Mint' : 'Purchase'}
+                submitTitle={page === 0 ? 'Mint' : page === 1 ? 'Purchase' : page === 2 || page === 3 ? 'Swap' : ''}
                 showBalance={true}
               />
             </LeftPart>
             <RightPart>
               <StatisticBox
-                values={page === 0 ? defaultValues0 : defaultValues1}
+                values={page === 0 ? defaultValues0 : page === 1 ? defaultValues1 : []}
                 page={page}
                 setPage={setPage}
                 maxWidth={null}
@@ -509,6 +569,74 @@ const sFOTVault = () => {
                     unstakeAmount={sFotUnstakeAmount}
                     targetHour={12}
                   />
+                )}
+                {page === 2 && (
+                  <>
+                    <WalletTitle defaultChecked={toggle}>
+                      {sFOTImage(toggle)}
+                      {'sFOT'}
+                    </WalletTitle>
+                    <StakeNClaim
+                      showInfoIcon={true}
+                      showDivider={true}
+                      Note={true}
+                      handleBurnMinus={handlesFotStakingMinus}
+                      onBurnChange={onsFotStakingChange}
+                      handleBurnPlus={handlesFotStakingPlus}
+                      handleFotStaking={handlesFotStaking}
+                      handleFotStakingClaimReward={handlesFotStakingClaimReward}
+                      tokenType="sFOT"
+                      showStakeNClaimReward={true}
+                      gfotTokenInfo={sfotTokenInfo}
+                      gfotStakingContractInfo={sfotStakingContractInfo}
+                      gfotStakingAmount={sfotStakingAmount}
+                      gfotStakingApy={sfotStakingApy}
+                      gfotStakingMyStaked={sfotStakingMyStaked}
+                      gfotStakingMyReward={sfotStakingMyReward}
+                      gfotBalance={sfotBalance}
+                      handlegFotStakingChange={handlesFotStakingChange}
+                      unstakingList={sFotUnstakingList}
+                      createUnstake={createsFotUnstake}
+                      executeFetchUnstake={executesFotFetchUnstake}
+                      handleUnstakeChange={handlesFotUnstakeChange}
+                      unstakeAmount={sFotUnstakeAmount}
+                      targetHour={12}
+                    />
+                  </>
+                )}
+                {page === 3 && (
+                  <>
+                    <WalletTitle defaultChecked={toggle}>
+                      {gFOTImage(!toggle)}
+                      {'gFOT'}
+                    </WalletTitle>
+                    <StakeNClaim
+                      showInfoIcon={true}
+                      showDivider={true}
+                      showStakeNClaimReward={false}
+                      Note={true}
+                      handleBurnMinus={handlesFotStakingMinus}
+                      onBurnChange={onsFotStakingChange}
+                      handleBurnPlus={handlesFotStakingPlus}
+                      handleFotStaking={handlesFotStaking}
+                      handleFotStakingClaimReward={handlesFotStakingClaimReward}
+                      tokenType="gFOT"
+                      gfotTokenInfo={gfotTokenInfo}
+                      gfotStakingContractInfo={gfotStakingContractInfo}
+                      gfotStakingAmount={gfotStakingAmount}
+                      gfotStakingApy={gfotStakingApy}
+                      gfotStakingMyStaked={gfotStakingMyStaked}
+                      gfotStakingMyReward={gfotStakingMyReward}
+                      gfotBalance={gfotBalance}
+                      handlegFotStakingChange={handlegFotStakingChange}
+                      unstakingList={unstakingList}
+                      createUnstake={createUnstake}
+                      executeFetchUnstake={executeFetchUnstake}
+                      handleUnstakeChange={handleUnstakeChange}
+                      unstakeAmount={unstakeAmount}
+                      targetHour={12}
+                    />
+                  </>
                 )}
               </StatisticBox>
             </RightPart>
