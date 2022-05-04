@@ -10,7 +10,7 @@ const Wrapper = styled.div<ElementProps>`
   position: fixed;
   z-index: 9999;
   right: ${props => !props.defaultChecked && '0px'};
-  top: 30px;
+  top: 110px;
   left: ${props => props.defaultChecked && '0px'};
   display: flex;
   justify-content: center;
