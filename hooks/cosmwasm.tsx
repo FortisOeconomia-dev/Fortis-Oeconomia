@@ -1016,7 +1016,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       // apr formula is 365xdpr
       setgFotStakingApy(
         (365 * 100 * 30.0) /
-          Number(convertMicroDenomToDenom2(gfotStakingContractInfo.gfot_amount, objectGfotTokenInfo.decimals)),
+        Number(convertMicroDenomToDenom2(gfotStakingContractInfo.gfot_amount, objectGfotTokenInfo.decimals)),
       )
 
       const gfotStakingMyInfo = await signingClient.queryContractSmart(PUBLIC_GFOTSTAKING_CONTRACT, {
@@ -1039,7 +1039,12 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
           address: `${walletAddress}`,
         },
       })
-      setUnstakingList(unstaking_list)
+
+      let unstakingList = [];
+      if (unstaking_list.length > 0) {
+        unstakingList = unstaking_list.filter(item => item.amount != 0);
+      }
+      setUnstakingList(unstakingList)
 
       // bFOT Juno Pool related
       const poolInfo = await signingClient.queryContractSmart(PUBLIC_BFOT_JUNO_POOL_CONTRACT, {
@@ -1169,7 +1174,12 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
           address: `${walletAddress}`,
         },
       })
-      setsFotUnstakingList(unstaking_list)
+
+      let unstakingList = [];
+      if (unstaking_list.length > 0) {
+        unstakingList = unstaking_list.filter(item => item.amount != 0);
+      }
+      setsFotUnstakingList(unstakingList)
 
       //Lp Staking contract Info
       //SFOT-UST Contract Info
@@ -1238,8 +1248,8 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       // dpr * 365 for APR on sFOT
       setsFotStakingApy(
         (365 * 36000000 * Number(convertMicroDenomToDenom2(bfot2ustval, 6))) /
-          (Number(convertMicroDenomToDenom2(sfotStakingContractInfo.gfot_amount, objectSfotTokenInfo.decimals)) *
-            Number(convertMicroDenomToDenom2(sfot2ustval, 6))),
+        (Number(convertMicroDenomToDenom2(sfotStakingContractInfo.gfot_amount, objectSfotTokenInfo.decimals)) *
+          Number(convertMicroDenomToDenom2(sfot2ustval, 6))),
       )
 
       setSfotUstPoolInfo(sfotUstPoolInfo)
@@ -3185,14 +3195,15 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     })
     staked_amount = Number(response.amount)
     staked_reward = Number(response.reward)
-    const unstakingList: JsonObject = await signingClient.queryContractSmart(staking_contract, {
+    const unstaking_list: JsonObject = await signingClient.queryContractSmart(staking_contract, {
       unstaking: {
         address: walletAddress,
       },
     })
-    if (unstakingList.length > 0) {
-      // unstaking_amount = Number(response2[0][0])
-      // deadline = Number(response2[0][1])
+
+    let unstakingList = [];
+    if (unstaking_list.length > 0) {
+      unstakingList = unstaking_list.filter(item => item.amount != 0);
     }
 
     if (lpStakingInfo.gfot_amount > 0 && response.last_time > 0) {
@@ -3715,14 +3726,15 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
       staked_amount = Number(response.amount)
       staked_reward = Number(response.reward)
-      const unstakingList: JsonObject = await signingClient.queryContractSmart(staking_contract, {
+      const unstaking_list: JsonObject = await signingClient.queryContractSmart(staking_contract, {
         unstaking: {
           address: walletAddress,
         },
       })
-      if (unstakingList.length > 0) {
-        // unstaking_amount = Number(response2[0][0])
-        // deadline = Number(response2[0][1])
+
+      let unstakingList = [];
+      if (unstaking_list.length > 0) {
+        unstakingList = unstaking_list.filter(item => item.amount != 0);
       }
 
       if (lpStakingInfo.gfot_amount > 0 && response.last_time > 0) {
