@@ -2053,7 +2053,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       getBfotBalances()
       // NotificationManager.success(`Successfully burned`)
       if (result && result.transactionHash) {
-        successNotification({ title: 'Successfully burned', txHash: result.transactionHash })
+        successNotification({ title: 'Burn Successful', txHash: result.transactionHash })
       }
     } catch (error) {
       setLoading(false)
@@ -2111,7 +2111,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       getGfotBalances()
       // if (showNotification) NotificationManager.success('Successfully burned')
       if (result && result.transactionHash) {
-        successNotification({ title: 'Successfully burned', txHash: result.transactionHash })
+        successNotification({ title: 'Burn Successful', txHash: result.transactionHash })
       }
     } catch (error) {
       setLoading(false)
@@ -2158,7 +2158,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       getGfotBalances()
       // if (showNotification) NotificationManager.success('Successfully staked')
       if (result && result.transactionHash) {
-        successNotification({ title: 'Successfully staked', txHash: result.transactionHash })
+        successNotification({ title: 'Stake Successful', txHash: result.transactionHash })
       }
     } catch (error) {
       setLoading(false)
@@ -2187,9 +2187,9 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
       setLoading(false)
       getGfotBalances()
-      // if (showNotification) NotificationManager.success('Successfully clamied reward')
+      // if (showNotification) NotificationManager.success('Successfully claimed reward')
       if (result && result.transactionHash) {
-        successNotification({ title: 'Successfully clamied reward', txHash: result.transactionHash })
+        successNotification({ title: 'Claim Successful', txHash: result.transactionHash })
       }
     } catch (error) {
       setLoading(false)
@@ -2222,7 +2222,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       getGfotBalances()
       // if (showNotification) NotificationManager.success('Successfully unstaked')
       if (result && result.transactionHash) {
-        successNotification({ title: 'Successfully unstaked', txHash: result.transactionHash })
+        successNotification({ title: 'Unstake Successful', txHash: result.transactionHash })
       }
     } catch (error) {
       setLoading(false)
@@ -2254,7 +2254,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       getGfotBalances()
       // if (showNotification) NotificationManager.success('Successfully unstaked')
       if (result && result.transactionHash) {
-        successNotification({ title: 'Successfully unstaked', txHash: result.transactionHash })
+        successNotification({ title: 'Unstake Successful', txHash: result.transactionHash })
       }
     } catch (error) {
       setLoading(false)
@@ -2305,7 +2305,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       getSfotBalances()
       // if (showNotification) NotificationManager.success('Successfully staked')
       if (result && result.transactionHash) {
-        successNotification({ title: 'Successfully staked', txHash: result.transactionHash })
+        successNotification({ title: 'Stake Successful', txHash: result.transactionHash })
       }
     } catch (error) {
       setLoading(false)
@@ -2334,9 +2334,9 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
       setLoading(false)
       getSfotBalances()
-      // if (showNotification) NotificationManager.success('Successfully clamied reward')
+      // if (showNotification) NotificationManager.success('Successfully claimed reward')
       if (result && result.transactionHash) {
-        successNotification({ title: 'Successfully clamied reward', txHash: result.transactionHash })
+        successNotification({ title: 'Claim Successful', txHash: result.transactionHash })
       }
     } catch (error) {
       setLoading(false)
@@ -2369,7 +2369,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       getSfotBalances()
       // if (showNotification) NotificationManager.success('Successfully unstaked')
       if (result && result.transactionHash) {
-        successNotification({ title: 'Successfully unstaked', txHash: result.transactionHash })
+        successNotification({ title: 'Unstake Successful', txHash: result.transactionHash })
       }
     } catch (error) {
       setLoading(false)
@@ -2401,7 +2401,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       getSfotBalances()
       // if (showNotification) NotificationManager.success('Successfully unstaked')
       if (result && result.transactionHash) {
-        successNotification({ title: 'Successfully unstaked', txHash: result.transactionHash })
+        successNotification({ title: 'Unstake Successful', txHash: result.transactionHash })
       }
     } catch (error) {
       setLoading(false)
@@ -2451,7 +2451,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       setsFotDepositAmount('')
       getCommonBalances()
       if (result && result.transactionHash) {
-        successNotification({ title: 'Successfully purchased', txHash: result.transactionHash })
+        successNotification({ title: 'Purchase Successful', txHash: result.transactionHash })
       }
     } catch (error) {
       setLoading(false)
@@ -2482,7 +2482,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
       setLoading(false)
       getCommunitySaleBalances()
-      if (showNotification) NotificationManager.success('Successfully clamied fot')
+      if (showNotification) NotificationManager.success('Successfully claimed FOT')
     } catch (error) {
       setLoading(false)
       //if (showNotification) {
@@ -2541,7 +2541,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       getSfotBalances()
       // if (showNotification) NotificationManager.success('Successfully bought GFOT')
       if (result && result.transactionHash) {
-        successNotification({ title: 'Successfully bought GFOT', txHash: result.transactionHash })
+        successNotification({ title: 'Purchase Successful', txHash: result.transactionHash })
       }
     } catch (error) {
       setLoading(false)
@@ -2816,7 +2816,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       setLoading(false)
       getSfotBalances()
       if (result && result.transactionHash) {
-        successNotification({ title: 'Successfully added liquidity', txHash: result.transactionHash })
+        successNotification({ title: 'Add Liquidty Successful', txHash: result.transactionHash })
       }
     } catch (error) {
       setLoading(false)
@@ -2926,9 +2926,9 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       getSfotBalances()
       if (result && result.transactionHash) {
         if (isDeliverTxFailure(result)) {
-          errorNotification({ title: 'Remov liquidity Failed', txHash: result.transactionHash })
+          errorNotification({ title: 'Remove Liquidity Failed', txHash: result.transactionHash })
         } else {
-          successNotification({ title: 'Successfully removed liquidity', txHash: result.transactionHash })
+          successNotification({ title: 'Remove Liquidity Successful', txHash: result.transactionHash })
         }
       }
     } catch (error) {
@@ -3118,7 +3118,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
           setLoading(false)
           return
         } else {
-          successNotification({ title: 'Successfully swapped', txHash: result.transactionHash })
+          successNotification({ title: 'Swap Successful', txHash: result.transactionHash })
         }
       }
       // if (showNotification) NotificationManager.success('Successfully swapped')
@@ -3227,7 +3227,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       getSfotBalances()
       // if (showNotification) NotificationManager.success('Successfully staked')
       if (result && result.transactionHash) {
-        successNotification({ title: 'Successfully staked', txHash: result.transactionHash })
+        successNotification({ title: 'Stake Successful', txHash: result.transactionHash })
       }
     } catch (error) {
       setLoading(false)
@@ -3258,9 +3258,9 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
       setLoading(false)
       getSfotBalances()
-      // if (showNotification) NotificationManager.success('Successfully clamied reward')
+      // if (showNotification) NotificationManager.success('Successfully claimed reward')
       if (result && result.transactionHash) {
-        successNotification({ title: 'Successfully clamied reward', txHash: result.transactionHash })
+        successNotification({ title: 'Claim Successful', txHash: result.transactionHash })
       }
     } catch (error) {
       setLoading(false)
@@ -3294,7 +3294,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       getSfotBalances()
       // if (showNotification) NotificationManager.success('Successfully unstaked')
       if (result && result.transactionHash) {
-        successNotification({ title: 'Successfully unstaked', txHash: result.transactionHash })
+        successNotification({ title: 'Unstake Successful', txHash: result.transactionHash })
       }
     } catch (error) {
       setLoading(false)
@@ -3328,7 +3328,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       getSfotBalances()
       // if (showNotification) NotificationManager.success('Successfully unstaked')
       if (result && result.transactionHash) {
-        successNotification({ title: 'Successfully unstaked', txHash: result.transactionHash })
+        successNotification({ title: 'Unstake Successful', txHash: result.transactionHash })
       }
     } catch (error) {
       setLoading(false)
@@ -3432,7 +3432,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       getSfotBalances()
       // if (showNotification) NotificationManager.success('Successfully added liquidity')
       if (result && result.transactionHash) {
-        successNotification({ title: 'Successfully added liquidity', txHash: result.transactionHash })
+        successNotification({ title: 'Add Liquidity Successful', txHash: result.transactionHash })
       }
     } catch (error) {
       setLoading(false)
@@ -3510,7 +3510,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
       let result = await signingClient?.signAndBroadcast(walletAddress, msglist, defaultFee)
       if (isDeliverTxFailure(result)) {
-        errorNotification({ title: 'Remove liquidity Failed', txHash: result.transactionHash })
+        errorNotification({ title: 'Remove Liquidity Failed', txHash: result.transactionHash })
         setLoading(false)
         return
       }
@@ -3518,7 +3518,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       getSfotBalances()
       // if (showNotification) NotificationManager.success('Successfully removed liquidity')
       if (result && result.transactionHash) {
-        successNotification({ title: 'Successfully removed liquidity', txHash: result.transactionHash })
+        successNotification({ title: 'Remove Liquidity Successful', txHash: result.transactionHash })
       }
     } catch (error) {
       setLoading(false)
@@ -3650,7 +3650,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       setLoading(false)
       getSfotBalances()
       // if (showNotification) NotificationManager.success('Successfully swapped')
-      successNotification({ title: 'Successfully swapped', txHash: result.transactionHash })
+      successNotification({ title: 'Swap Successful', txHash: result.transactionHash })
     } catch (error) {
       setLoading(false)
       //if (showNotification) {
@@ -3760,7 +3760,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       setLoading(false)
       getSfotBalances()
       // if (showNotification) NotificationManager.success('Successfully staked')
-      successNotification({ title: 'Successfully staked', txHash: result.transactionHash })
+      successNotification({ title: 'Stake Successful', txHash: result.transactionHash })
     } catch (error) {
       setLoading(false)
       console.log(error)
@@ -3790,8 +3790,8 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
       setLoading(false)
       getSfotBalances()
-      // if (showNotification) NotificationManager.success('Successfully clamied reward')
-      successNotification({ title: 'Successfully clamied reward', txHash: result.transactionHash })
+      // if (showNotification) NotificationManager.success('Successfully claimed reward')
+      successNotification({ title: 'Claim Successful', txHash: result.transactionHash })
     } catch (error) {
       setLoading(false)
       //if (showNotification) {
@@ -3823,7 +3823,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       setLoading(false)
       getSfotBalances()
       // if (showNotification) NotificationManager.success('Successfully unstaked')
-      successNotification({ title: 'Successfully unstaked', txHash: result.transactionHash })
+      successNotification({ title: 'Unstake Successful', txHash: result.transactionHash })
     } catch (error) {
       setLoading(false)
       if (showNotification) {
@@ -3855,7 +3855,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       setLoading(false)
       getSfotBalances()
       // if (showNotification) NotificationManager.success('Successfully unstaked')
-      successNotification({ title: 'Successfully unstaked', txHash: result.transactionHash })
+      successNotification({ title: 'Unstake Successful', txHash: result.transactionHash })
     } catch (error) {
       setLoading(false)
       if (showNotification) {
