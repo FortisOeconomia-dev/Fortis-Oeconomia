@@ -179,28 +179,6 @@ const Layout = ({ children }) => {
   useEffect(() => {
     let values = []
     switch (pathname) {
-      case '/gFOTmodule':
-        values = [
-          {
-            fromAmount: '',
-            toAmount: poolDpr,
-            fromPer: 'DPR',
-            toPer: '%',
-          },
-          {
-            fromAmount: '1',
-            toAmount: bFot2Juno,
-            fromPer: 'bFOT',
-            toPer: 'Juno',
-          },
-          {
-            fromAmount: '1',
-            toAmount: Juno2bFot,
-            fromPer: 'Juno',
-            toPer: 'bFot',
-          },
-        ]
-        break
       case '/sFOTVault':
         values = [
           {
@@ -242,16 +220,6 @@ const Layout = ({ children }) => {
   return (
     <ThemeContext.Provider value={themeContext}>
       <ToggleContext.Provider value={{ toggle, setToggle, asset, setAsset, page, setPage }}>
-        {rateShow.length > 0 ? (
-          <RateShow
-            values={rateShow}
-            action={() => {
-              window.open('https://www.junoswap.com/pools', '_SEJ', 'noreferrer')
-            }}
-          />
-        ) : (
-          <></>
-        )}
         {page === 1 && <RateShow text="Clearance Sale" action={() => setPage(0)} top={true} />}
         {page === 2 && <RateShow text="Stable Module (sFOT)" action={() => setPage(0)} left={true} />}
         {/* {page === 2 && <RateShow text="gBOND Swap and Stake" action={() => setPage(3)} />} */}
