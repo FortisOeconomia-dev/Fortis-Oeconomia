@@ -2457,7 +2457,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       //}
     }
   }
-  
+
   ////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////
   ///////////////////////    Pool Related Functions   ////////////////////
@@ -3042,7 +3042,6 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   ////////////////////    Lpstaking Functions   ////////////////////////
   ////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////
-
   const getLpStakingInfo = async asset => {
     let lp_token_address = ''
     let staking_contract = ''
@@ -3084,27 +3083,30 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         lpStakingInfo = sfotAtomLpStakingContractInfo
         break
     }
-    const response: JsonObject = await signingClient.queryContractSmart(staking_contract, {
-      staker: {
-        address: walletAddress,
-      },
-    })
-    staked_amount = Number(response.amount)
-    staked_reward = Number(response.reward)
+    if (signingClient) {
+      const response: JsonObject = await signingClient.queryContractSmart(staking_contract, {
+        staker: {
+          address: walletAddress,
+        },
+      })
+      staked_amount = Number(response.amount)
+      staked_reward = Number(response.reward)
 
-    let unstakingList = await signingClient.queryContractSmart(staking_contract, {
-      unstaking: {
-        address: walletAddress,
-      },
-    })
-    unstakingList = unstakingList.filter(item => item[0])
+      let unstakingList = await signingClient.queryContractSmart(staking_contract, {
+        unstaking: {
+          address: walletAddress,
+        },
+      })
+      unstakingList = unstakingList.filter(item => item[0])
 
-    if (lpStakingInfo.gfot_amount > 0 && response.last_time > 0) {
-      let delay = Math.floor(new Date().getTime() / 1000 / 86400) - Math.floor(response.last_time / 86400)
-      staked_reward +=
-        ((delay > 0 ? delay : 0) * lpStakingInfo.daily_fot_amount * staked_amount) / lpStakingInfo.gfot_amount
+      if (lpStakingInfo.gfot_amount > 0 && response.last_time > 0) {
+        let delay = Math.floor(new Date().getTime() / 1000 / 86400) - Math.floor(response.last_time / 86400)
+        staked_reward +=
+          ((delay > 0 ? delay : 0) * lpStakingInfo.daily_fot_amount * staked_amount) / lpStakingInfo.gfot_amount
+      }
+
+      return { lp_token_address, staking_contract, staked_amount, unstakingList, lp_amount, staked_reward }
     }
-
     return { lp_token_address, staking_contract, staked_amount, unstakingList, lp_amount, staked_reward }
   }
 
