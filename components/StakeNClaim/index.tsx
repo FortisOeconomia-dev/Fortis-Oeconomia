@@ -307,6 +307,7 @@ const StakeNClaim = ({
                     <MaxButton
                       onClick={() => executeFetchUnstake(idx)}
                       className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
+                      disabled={new Date().getTime() < Number(d[1]) * 1000}
                     >
                       Unstake
                     </MaxButton>
