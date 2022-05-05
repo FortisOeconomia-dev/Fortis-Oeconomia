@@ -4,23 +4,19 @@ import {
   SigningCosmWasmClient,
   CosmWasmClient,
   JsonObject,
-  cosmWasmTypes,
   MsgExecuteContractEncodeObject,
 } from '@cosmjs/cosmwasm-stargate'
 import { MsgExecuteContract } from 'cosmjs-types/cosmwasm/wasm/v1/tx'
-import { fromBase64, toBase64 } from '@cosmjs/encoding'
 import {
   convertMicroDenomToDenom,
-  convertDenomToMicroDenom,
   convertMicroDenomToDenom2,
   convertDenomToMicroDenom2,
   convertFromMicroDenom,
 } from '../util/conversion'
-import { StdFee, isDeliverTxFailure } from '@cosmjs/stargate'
+import { isDeliverTxFailure } from '@cosmjs/stargate'
 import { toUtf8 } from '@cosmjs/encoding'
 import { coin } from '@cosmjs/launchpad'
-import { NotificationContainer, NotificationManager } from 'react-notifications'
-import { create } from 'ipfs-http-client'
+import { NotificationManager } from 'react-notifications'
 import { voters } from '../proposal.json'
 import { moneta_voters } from '../monetaairdrop.json'
 import { Airdrop } from '../util/merkle-airdrop-cli/airdrop'
@@ -1016,7 +1012,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       // apr formula is 365xdpr
       setgFotStakingApy(
         (365 * 100 * 30.0) /
-        Number(convertMicroDenomToDenom2(gfotStakingContractInfo.gfot_amount, objectGfotTokenInfo.decimals)),
+          Number(convertMicroDenomToDenom2(gfotStakingContractInfo.gfot_amount, objectGfotTokenInfo.decimals)),
       )
 
       const gfotStakingMyInfo = await signingClient.queryContractSmart(PUBLIC_GFOTSTAKING_CONTRACT, {
@@ -1025,25 +1021,22 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         },
       })
 
-      let new_reward =
+      let newReward =
         (gfotStakingContractInfo.daily_fot_amount *
           (Math.floor(new Date().getTime() / 1000 / 86400) - Math.floor(gfotStakingMyInfo.last_time / 86400)) *
           gfotStakingMyInfo.amount) /
         gfotStakingContractInfo.gfot_amount
 
       setgFotStakingMyStaked(gfotStakingMyInfo.amount)
-      setgFotStakingMyReward(gfotStakingMyInfo.reward + new_reward)
+      setgFotStakingMyReward(gfotStakingMyInfo.reward + newReward)
 
-      const unstaking_list = await signingClient.queryContractSmart(PUBLIC_GFOTSTAKING_CONTRACT, {
+      let unstakingList = await signingClient.queryContractSmart(PUBLIC_GFOTSTAKING_CONTRACT, {
         unstaking: {
           address: `${walletAddress}`,
         },
       })
+      unstakingList = unstakingList.filter(item => item[0])
 
-      let unstakingList = [];
-      if (unstaking_list.length > 0) {
-        unstakingList = unstaking_list.filter(item => item[0] != 0);
-      }
       setUnstakingList(unstakingList)
 
       // bFOT Juno Pool related
@@ -1159,7 +1152,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         },
       })
 
-      let new_reward =
+      let newReward =
         (sfotStakingContractInfo.daily_fot_amount *
           (Math.floor((new Date().getTime() / 1000 + 43200) / 86400) -
             Math.floor((sfotStakingMyInfo.last_time + 43200) / 86400)) *
@@ -1167,18 +1160,15 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         sfotStakingContractInfo.gfot_amount
 
       setsFotStakingMyStaked(sfotStakingMyInfo.amount)
-      setsFotStakingMyReward(sfotStakingMyInfo.reward + new_reward)
+      setsFotStakingMyReward(sfotStakingMyInfo.reward + newReward)
 
-      const unstaking_list = await signingClient.queryContractSmart(PUBLIC_SFOTSTAKING_CONTRACT, {
+      let unstakingList = await signingClient.queryContractSmart(PUBLIC_SFOTSTAKING_CONTRACT, {
         unstaking: {
           address: `${walletAddress}`,
         },
       })
+      unstakingList = unstakingList.filter(item => item[0])
 
-      let unstakingList = [];
-      if (unstaking_list.length > 0) {
-        unstakingList = unstaking_list.filter(item => item[0] != 0);
-      }
       setsFotUnstakingList(unstakingList)
 
       //Lp Staking contract Info
@@ -1248,8 +1238,8 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       // dpr * 365 for APR on sFOT
       setsFotStakingApy(
         (365 * 36000000 * Number(convertMicroDenomToDenom2(bfot2ustval, 6))) /
-        (Number(convertMicroDenomToDenom2(sfotStakingContractInfo.gfot_amount, objectSfotTokenInfo.decimals)) *
-          Number(convertMicroDenomToDenom2(sfot2ustval, 6))),
+          (Number(convertMicroDenomToDenom2(sfotStakingContractInfo.gfot_amount, objectSfotTokenInfo.decimals)) *
+            Number(convertMicroDenomToDenom2(sfot2ustval, 6))),
       )
 
       setSfotUstPoolInfo(sfotUstPoolInfo)
@@ -1731,9 +1721,9 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     //       address: `${walletAddress}`
     //     },
     //   })
-    //   let new_reward = gfotStakingContractInfo.daily_fot_amount * (Math.floor((new Date().getTime()) /1000 / 86400) - Math.floor(gfotStakingMyInfo.last_time/86400) ) * gfotStakingMyInfo.amount / gfotStakingContractInfo.gfot_amount
+    //   let newReward = gfotStakingContractInfo.daily_fot_amount * (Math.floor((new Date().getTime()) /1000 / 86400) - Math.floor(gfotStakingMyInfo.last_time/86400) ) * gfotStakingMyInfo.amount / gfotStakingContractInfo.gfot_amount
     //   setgFotStakingMyStaked(gfotStakingMyInfo.amount)
-    //   setgFotStakingMyReward(gfotStakingMyInfo.reward + new_reward)
+    //   setgFotStakingMyReward(gfotStakingMyInfo.reward + newReward)
     //   const unstaking_list = await signingClient.queryContractSmart(PUBLIC_GFOTSTAKING_CONTRACT, {
     //     unstaking: {
     //       address: `${walletAddress}`
@@ -3195,16 +3185,13 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     })
     staked_amount = Number(response.amount)
     staked_reward = Number(response.reward)
-    const unstaking_list: JsonObject = await signingClient.queryContractSmart(staking_contract, {
+
+    let unstakingList = await signingClient.queryContractSmart(staking_contract, {
       unstaking: {
         address: walletAddress,
       },
     })
-
-    let unstakingList = [];
-    if (unstaking_list.length > 0) {
-      unstakingList = unstaking_list.filter(item => item[0] != 0);
-    }
+    unstakingList = unstakingList.filter(item => item[0])
 
     if (lpStakingInfo.gfot_amount > 0 && response.last_time > 0) {
       let delay = Math.floor(new Date().getTime() / 1000 / 86400) - Math.floor(response.last_time / 86400)
@@ -3726,16 +3713,13 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
       staked_amount = Number(response.amount)
       staked_reward = Number(response.reward)
-      const unstaking_list: JsonObject = await signingClient.queryContractSmart(staking_contract, {
+
+      let unstakingList = await signingClient.queryContractSmart(staking_contract, {
         unstaking: {
           address: walletAddress,
         },
       })
-
-      let unstakingList = [];
-      if (unstaking_list.length > 0) {
-        unstakingList = unstaking_list.filter(item => item[0] != 0);
-      }
+      unstakingList = unstakingList.filter(item => item[0])
 
       if (lpStakingInfo.gfot_amount > 0 && response.last_time > 0) {
         let delay =
