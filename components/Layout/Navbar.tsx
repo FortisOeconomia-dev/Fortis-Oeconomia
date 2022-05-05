@@ -249,7 +249,7 @@ const Navbar = ({ toggle, setToggle }) => {
                         slot={pathname}
                         defaultChecked={toggle}
                       >
-                        sFOT Pools
+                        sFOT Pools and Swaps
                       </SubLink>
                     </Link>
                   </li>
