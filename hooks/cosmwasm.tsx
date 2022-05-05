@@ -1042,7 +1042,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
       let unstakingList = [];
       if (unstaking_list.length > 0) {
-        unstakingList = unstaking_list.filter(item => item.amount != 0);
+        unstakingList = unstaking_list.filter(item => item[0] != 0);
       }
       setUnstakingList(unstakingList)
 
@@ -1177,7 +1177,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
       let unstakingList = [];
       if (unstaking_list.length > 0) {
-        unstakingList = unstaking_list.filter(item => item.amount != 0);
+        unstakingList = unstaking_list.filter(item => item[0] != 0);
       }
       setsFotUnstakingList(unstakingList)
 
@@ -3203,7 +3203,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
     let unstakingList = [];
     if (unstaking_list.length > 0) {
-      unstakingList = unstaking_list.filter(item => item.amount != 0);
+      unstakingList = unstaking_list.filter(item => item[0] != 0);
     }
 
     if (lpStakingInfo.gfot_amount > 0 && response.last_time > 0) {
@@ -3734,7 +3734,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
       let unstakingList = [];
       if (unstaking_list.length > 0) {
-        unstakingList = unstaking_list.filter(item => item.amount != 0);
+        unstakingList = unstaking_list.filter(item => item[0] != 0);
       }
 
       if (lpStakingInfo.gfot_amount > 0 && response.last_time > 0) {
