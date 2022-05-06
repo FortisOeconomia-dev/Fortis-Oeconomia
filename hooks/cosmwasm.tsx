@@ -127,21 +127,10 @@ export interface ISigningCosmWasmClientContext {
   unstakeAmount: number
   handleUnstakeChange: Function
 
-  //Stable and Clearance
+  //pools
   sfotBalance: number
   sfotBalanceStr: string
   sfotTokenInfo: any
-  clearanceContractInfo: any
-  stableGfotAmount: string
-  stableExpectedSfotAmount: number
-  clearanceSfotAmount: string
-  clearanceExpectedGfotAmount: number
-
-  handleStableGfotChange: Function
-  handleClearanceSfotChange: Function
-  executeClearance: Function
-
-  //pools
   sfotUstLpBalance: number
   sfotBfotLpBalance: number
   sfotGfotLpBalance: number
@@ -251,7 +240,6 @@ export const PUBLIC_AIRDROP_CONTRACT = process.env.NEXT_PUBLIC_AIRDROP_CONTRACT 
 export const PUBLIC_FOTBURN_CONTRACT = process.env.NEXT_PUBLIC_FOTBURN_CONTRACT || ''
 export const PUBLIC_BFOTBURN_CONTRACT = process.env.NEXT_PUBLIC_BFOTBURN_CONTRACT || ''
 export const PUBLIC_GFOTSTAKING_CONTRACT = process.env.NEXT_PUBLIC_GFOTSTAKING_CONTRACT || ''
-export const PUBLIC_CLEARANCE_CONTRACT = process.env.NEXT_PUBLIC_CLEARANCE_CONTRACT || ''
 export const PUBLIC_SFOTSTAKING_CONTRACT = process.env.NEXT_PUBLIC_SFOTSTAKING_CONTRACT || ''
 
 export const PUBLIC_FOT_CONTRACT = process.env.NEXT_PUBLIC_FOT_CONTRACT || ''
@@ -582,13 +570,6 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     gfot_amount: 0,
     apy_prefix: 0,
   })
-  const [clearanceContractInfo, setClearanceContractInfo] = useState({
-    owner: '',
-    gfot_amount: 0,
-    gfot_sell_amount: 0,
-    sfot_burn_amount: 0,
-    sfot_price: 0,
-  })
   const [sfotStakingContractInfo, setsFotStakingContractInfo] = useState({
     owner: '',
     fot_amount: 0,
@@ -738,15 +719,6 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   const [bFot2Ust, setbFot2Ust] = useState(0)
   const [sFot2Ust, setsFot2Ust] = useState(0)
   const [poolDpr, setPoolDpr] = useState(0)
-
-  //////////////////////////////////////////////////////////////////////
-  /////////////////////  Stable and Clearance Variables   //////////////
-  //////////////////////////////////////////////////////////////////////
-  const [stableGfotAmount, setStableGfotAmount] = useState('')
-  const [stableExpectedSfotAmount, setStableExpectedSfotAmount] = useState(0)
-
-  const [clearanceSfotAmount, setClearanceSfotAmount] = useState('')
-  const [clearanceExpectedGfotAmount, setClearanceExpectedGfotAmount] = useState(0)
 
   //////////////////////////////////////////////////////////////////////
   /////////////////////  Pool Variables   //////////////////////////////
@@ -1133,12 +1105,6 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       SetSfotBalanceStr(
         parseInt(objectSfot.balance) / Math.pow(10, objectSfotTokenInfo.decimals) + ' ' + objectSfotTokenInfo.symbol,
       )
-
-      //Clearance Contract Info
-      const clearanceContractInfo = await signingClient.queryContractSmart(PUBLIC_CLEARANCE_CONTRACT, {
-        config: {},
-      })
-      setClearanceContractInfo(clearanceContractInfo)
 
       //sFotStaking Contract Info
       const sfotStakingContractInfo = await signingClient.queryContractSmart(PUBLIC_SFOTSTAKING_CONTRACT, {
@@ -2494,66 +2460,6 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
   ////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////
-  ///////////////////////    Stable and Clearance Functions   ////////////
-  ////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////
-
-  const handleStableGfotChange = async value => {
-    if (Number(value) > gfotBalance || Number(value) < 0) return
-    setStableGfotAmount(value)
-    setStableExpectedSfotAmount(0)
-  }
-
-  const handleClearanceSfotChange = async value => {
-    if (Number(value) > sfotBalance || Number(value) < 0) return
-    setClearanceSfotAmount(value)
-
-    let samount = Number(convertDenomToMicroDenom2(value, sfotTokenInfo.decimals))
-    const expectedInfo: JsonObject = await signingClient.queryContractSmart(PUBLIC_CLEARANCE_CONTRACT, {
-      expected_amount: { sfot_amount: `${samount}` },
-    })
-    setClearanceExpectedGfotAmount(
-      Number(convertMicroDenomToDenom2(expectedInfo.gfot_sell_amount, gfotTokenInfo.decimals)),
-    )
-  }
-
-  const executeClearance = async () => {
-    setLoading(true)
-    try {
-      const result = await signingClient?.execute(
-        walletAddress, // sender address
-        PUBLIC_SFOT_CONTRACT, // token sale contract
-        {
-          send: {
-            amount: convertDenomToMicroDenom2(clearanceSfotAmount, sfotTokenInfo.decimals),
-            contract: PUBLIC_CLEARANCE_CONTRACT,
-            msg: '',
-          },
-        }, // msg
-        defaultFee,
-        undefined,
-        [],
-      )
-
-      setLoading(false)
-      setClearanceSfotAmount('')
-      setClearanceExpectedGfotAmount(0)
-      getSfotBalances()
-      // if (showNotification) NotificationManager.success('Successfully bought GFOT')
-      if (result && result.transactionHash) {
-        successNotification({ title: 'Purchase Successful', txHash: result.transactionHash })
-      }
-    } catch (error) {
-      setLoading(false)
-      if (showNotification) {
-        NotificationManager.error(`Clearance Module error : ${error}`)
-        console.log(error.toString())
-      }
-    }
-  }
-
-  ////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////
   ///////////////////////    Pool Related Functions   ////////////////////
   ////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////
@@ -3136,7 +3042,6 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   ////////////////////    Lpstaking Functions   ////////////////////////
   ////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////
-
   const getLpStakingInfo = async asset => {
     let lp_token_address = ''
     let staking_contract = ''
@@ -3178,27 +3083,30 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         lpStakingInfo = sfotAtomLpStakingContractInfo
         break
     }
-    const response: JsonObject = await signingClient.queryContractSmart(staking_contract, {
-      staker: {
-        address: walletAddress,
-      },
-    })
-    staked_amount = Number(response.amount)
-    staked_reward = Number(response.reward)
+    if (signingClient) {
+      const response: JsonObject = await signingClient.queryContractSmart(staking_contract, {
+        staker: {
+          address: walletAddress,
+        },
+      })
+      staked_amount = Number(response.amount)
+      staked_reward = Number(response.reward)
 
-    let unstakingList = await signingClient.queryContractSmart(staking_contract, {
-      unstaking: {
-        address: walletAddress,
-      },
-    })
-    unstakingList = unstakingList.filter(item => item[0])
+      let unstakingList = await signingClient.queryContractSmart(staking_contract, {
+        unstaking: {
+          address: walletAddress,
+        },
+      })
+      unstakingList = unstakingList.filter(item => item[0])
 
-    if (lpStakingInfo.gfot_amount > 0 && response.last_time > 0) {
-      let delay = Math.floor(new Date().getTime() / 1000 / 86400) - Math.floor(response.last_time / 86400)
-      staked_reward +=
-        ((delay > 0 ? delay : 0) * lpStakingInfo.daily_fot_amount * staked_amount) / lpStakingInfo.gfot_amount
+      if (lpStakingInfo.gfot_amount > 0 && response.last_time > 0) {
+        let delay = Math.floor(new Date().getTime() / 1000 / 86400) - Math.floor(response.last_time / 86400)
+        staked_reward +=
+          ((delay > 0 ? delay : 0) * lpStakingInfo.daily_fot_amount * staked_amount) / lpStakingInfo.gfot_amount
+      }
+
+      return { lp_token_address, staking_contract, staked_amount, unstakingList, lp_amount, staked_reward }
     }
-
     return { lp_token_address, staking_contract, staked_amount, unstakingList, lp_amount, staked_reward }
   }
 
@@ -3958,15 +3866,6 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     sfotBalance,
     sfotBalanceStr,
     sfotTokenInfo,
-    clearanceContractInfo,
-    stableGfotAmount,
-    stableExpectedSfotAmount,
-    clearanceSfotAmount,
-    clearanceExpectedGfotAmount,
-
-    handleStableGfotChange,
-    handleClearanceSfotChange,
-    executeClearance,
 
     sfotUstLpBalance,
     sfotBfotLpBalance,

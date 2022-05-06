@@ -100,15 +100,6 @@ let { Provider } = (CosmWasmContext = createContext<ISigningCosmWasmClientContex
   sfotBalance: 0,
   sfotBalanceStr: '',
   sfotTokenInfo: null,
-  clearanceContractInfo: null,
-  stableGfotAmount: '',
-  stableExpectedSfotAmount: 0,
-  clearanceSfotAmount: '',
-  clearanceExpectedGfotAmount: 0,
-
-  handleStableGfotChange: () => {},
-  handleClearanceSfotChange: () => {},
-  executeClearance: () => {},
 
   sfotUstLpBalance: 0,
   sfotBfotLpBalance: 0,

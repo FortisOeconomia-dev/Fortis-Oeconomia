@@ -280,20 +280,6 @@ const StatisticBox = ({
             flexWrap: 'wrap',
           }}
         >
-          <button
-            className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
-            style={{ flex: '1', minWidth: 'calc(50% - 10px)', borderRadius: '50px', maxWidth: 'calc(50% - 10px)' }}
-            onClick={() => setPage(page => (page === 0 ? 1 : 0))}
-          >
-            {page === 0 ? 'Clearance Sale' : 'Stable Module (sFOT)'}
-          </button>
-          <button
-            className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
-            style={{ flex: '1', minWidth: 'calc(50% - 10px)', borderRadius: '50px', maxWidth: 'calc(50% - 10px)' }}
-            onClick={() => setPage(4)}
-          >
-            Stable Pools and Swaps
-          </button>
           {/* <VaulteButton className={`default-btn  ${!toggle && 'secondary-btn outlined'}`} onClick={() => setPage(2)}>
             Vault
           </VaulteButton> */}

@@ -220,11 +220,8 @@ const Layout = ({ children }) => {
   return (
     <ThemeContext.Provider value={themeContext}>
       <ToggleContext.Provider value={{ toggle, setToggle, asset, setAsset, page, setPage }}>
-        {page === 1 && <RateShow text="Clearance Sale" action={() => setPage(0)} top={true} />}
-        {page === 2 && <RateShow text="Stable Module (sFOT)" action={() => setPage(0)} left={true} />}
         {/* {page === 2 && <RateShow text="gBOND Swap and Stake" action={() => setPage(3)} />} */}
         {page === 3 && <RateShow text="sBOND Swap and Stake" action={() => setPage(2)} left={true} />}
-        {page === 4 && <RateShow text="Stable Module (sFOT)" action={() => setPage(0)} left={true} />}
         {pathname === '/airdrop' && eligible && <ProgressBar claimedPercent={monetaAirdropCount * 5} />}
         <Wrapper
           defaultChecked={toggle}
