@@ -120,17 +120,22 @@ export interface ISigningCosmWasmClientContext {
   monetaLatestStage: number
   monetaAirdropCount: number
   monetaAirdropList: any
-
   unstakingList: any[]
   createUnstake: Function
   executeFetchUnstake: Function
   unstakeAmount: number
   handleUnstakeChange: Function
 
-  //pools
+  //Stable
   sfotBalance: number
   sfotBalanceStr: string
   sfotTokenInfo: any
+  stableGfotAmount: string
+  stableExpectedSfotAmount: number
+
+  handleStableGfotChange: Function
+
+  //pools
   sfotUstLpBalance: number
   sfotBfotLpBalance: number
   sfotGfotLpBalance: number
@@ -719,6 +724,13 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
   const [bFot2Ust, setbFot2Ust] = useState(0)
   const [sFot2Ust, setsFot2Ust] = useState(0)
   const [poolDpr, setPoolDpr] = useState(0)
+
+  //////////////////////////////////////////////////////////////////////
+  /////////////////////  Stable Variables   //////////////
+  //////////////////////////////////////////////////////////////////////
+
+  const [stableGfotAmount, setStableGfotAmount] = useState('')
+  const [stableExpectedSfotAmount, setStableExpectedSfotAmount] = useState(0)
 
   //////////////////////////////////////////////////////////////////////
   /////////////////////  Pool Variables   //////////////////////////////
@@ -2460,6 +2472,18 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
   ////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////
+  ///////////////////////    Stable Functions   ////////////
+  ////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////
+
+  const handleStableGfotChange = async value => {
+    if (Number(value) > gfotBalance || Number(value) < 0) return
+    setStableGfotAmount(value)
+    setStableExpectedSfotAmount(0)
+  }
+
+  ////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////
   ///////////////////////    Pool Related Functions   ////////////////////
   ////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////
@@ -3866,6 +3890,10 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     sfotBalance,
     sfotBalanceStr,
     sfotTokenInfo,
+    stableGfotAmount,
+    stableExpectedSfotAmount,
+
+    handleStableGfotChange,
 
     sfotUstLpBalance,
     sfotBfotLpBalance,
