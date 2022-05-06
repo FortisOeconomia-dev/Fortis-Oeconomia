@@ -422,11 +422,11 @@ const sFOTVault = () => {
             <LeftPart>
               <Converter
                 wfull={false}
-                handleBurnMinus={handleBurnMinus}
-                burnAmount={page === 0 ? stableGfotAmount : null}
-                onBurnChange={page === 0 ? onStableGfotChange : null}
-                handleBurnPlus={page === 0 ? handleStableGfotPlus : null}
-                expectedAmount={page === 0 ? stableExpectedSfotAmount : null}
+                handleBurnMinus={null}
+                burnAmount={page === 0 ? null : null}
+                onBurnChange={page === 0 ? null : null}
+                handleBurnPlus={page === 0 ? null : null}
+                expectedAmount={page === 0 ? null : null}
                 convImg={() => (
                   <svg width="127" height="70" viewBox="0 0 127 94" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <line x1="1.23677" y1="2.15124" x2="63.3153" y2="92.6086" stroke="#171E0E" strokeWidth="3" />
@@ -461,9 +461,9 @@ const sFOTVault = () => {
                 }
                 from={page === 0 ? 'gFOT' : 'sFOT'}
                 to={page === 0 ? 'sFOT' : page === 1 ? 'gFOT' : page === 2 ? 'sBOND' : 'gBOND'}
-                handleSubmit={page === 0 ? handleStableSubmit : null}
+                handleSubmit={page === 0 ? null : null}
                 balance={page === 0 ? gfotBalance : sfotBalance}
-                handleChange={page === 0 ? handleStableGfotChange : null}
+                handleChange={page === 0 ? null : null}
                 sbalance={page === 0 ? sfotBalance : gfotBalance}
                 submitTitle={page === 0 ? 'Mint' : page === 1 ? 'Purchase' : page === 2 || page === 3 ? 'Swap' : ''}
                 showBalance={true}
@@ -471,7 +471,6 @@ const sFOTVault = () => {
             </LeftPart>
             <RightPart>
               <StatisticBox
-                values={page === 0 ? defaultValues0 : null}
                 page={page}
                 setPage={setPage}
                 maxWidth={null}
