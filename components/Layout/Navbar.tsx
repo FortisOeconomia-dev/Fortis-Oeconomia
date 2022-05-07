@@ -275,6 +275,13 @@ const Navbar = ({ toggle, setToggle }) => {
                   </Link>
                 </li> */}
                 <li className="nav-item">
+                  <Link href="/castleDex" activeClassName="active">
+                    <NavLink className="nav-link" slot={pathname} defaultChecked={toggle}>
+                      Castle Dex
+                    </NavLink>
+                  </Link>
+                </li>
+                <li className="nav-item">
                   <Link href="/fortisDungeon" activeClassName="active">
                     <NavLink className="nav-link" slot={pathname} defaultChecked={toggle}>
                       Fortis Dungeon
@@ -288,7 +295,7 @@ const Navbar = ({ toggle, setToggle }) => {
                     </NavLink>
                   </Link>
                 </li>
-{/*                 <Governance className="nav-item">
+                {/*                 <Governance className="nav-item">
                   <Governance
                     style={{ fontSize: '19px', fontWeight: '600' }}
                     href="https://daodao.zone/dao/juno1anz3mg3n0pdj6d4pulk94sqz52j3duld6cclauzxhtv7de5hahssgc3r9n"
