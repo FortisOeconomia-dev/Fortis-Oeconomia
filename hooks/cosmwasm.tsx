@@ -996,7 +996,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       // apr formula is 365xdpr
       setgFotStakingApy(
         (365 * 100 * 30.0) /
-          Number(convertMicroDenomToDenom2(gfotStakingContractInfo.gfot_amount, objectGfotTokenInfo.decimals)),
+        Number(convertMicroDenomToDenom2(gfotStakingContractInfo.gfot_amount, objectGfotTokenInfo.decimals)),
       )
 
       const gfotStakingMyInfo = await signingClient.queryContractSmart(PUBLIC_GFOTSTAKING_CONTRACT, {
@@ -1019,7 +1019,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
           address: `${walletAddress}`,
         },
       })
-      unstakingList = unstakingList.filter(item => item[0])
+      unstakingList = unstakingList.filter(item => item[0] != 0)
 
       setUnstakingList(unstakingList)
 
@@ -1145,7 +1145,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
           address: `${walletAddress}`,
         },
       })
-      unstakingList = unstakingList.filter(item => item[0])
+      unstakingList = unstakingList.filter(item => item[0] != 0)
 
       setsFotUnstakingList(unstakingList)
 
@@ -1216,8 +1216,8 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       // dpr * 365 for APR on sFOT
       setsFotStakingApy(
         (365 * 36000000 * Number(convertMicroDenomToDenom2(bfot2ustval, 6))) /
-          (Number(convertMicroDenomToDenom2(sfotStakingContractInfo.gfot_amount, objectSfotTokenInfo.decimals)) *
-            Number(convertMicroDenomToDenom2(sfot2ustval, 6))),
+        (Number(convertMicroDenomToDenom2(sfotStakingContractInfo.gfot_amount, objectSfotTokenInfo.decimals)) *
+          Number(convertMicroDenomToDenom2(sfot2ustval, 6))),
       )
 
       setSfotUstPoolInfo(sfotUstPoolInfo)
@@ -3121,7 +3121,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
           address: walletAddress,
         },
       })
-      unstakingList = unstakingList.filter(item => item[0])
+      unstakingList = unstakingList.filter(item => item[0] != 0)
 
       if (lpStakingInfo.gfot_amount > 0 && response.last_time > 0) {
         let delay = Math.floor(new Date().getTime() / 1000 / 86400) - Math.floor(response.last_time / 86400)
@@ -3651,7 +3651,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
           address: walletAddress,
         },
       })
-      unstakingList = unstakingList.filter(item => item[0])
+      unstakingList = unstakingList.filter(item => item[0] != 0)
 
       if (lpStakingInfo.gfot_amount > 0 && response.last_time > 0) {
         let delay =
