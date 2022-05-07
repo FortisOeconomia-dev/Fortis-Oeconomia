@@ -140,6 +140,10 @@ const sFOTVault = () => {
     sfotTokenInfo,
     sFot2Ust,
     ustBalance,
+
+    stableGfotAmount,
+    stableExpectedSfotAmount,
+    handleStableGfotChange,
     swapToken1,
     setSwapToken1,
     expectedToken2Amount,
@@ -205,9 +209,49 @@ const sFOTVault = () => {
     return () => clearInterval(interval)
   }, [seconds, page])
 
+  const defaultValues0 = [
+    {
+      key: 'sFOT Supply',
+      value: `${convertMicroDenomToDenom2(sfotTokenInfo.total_supply, sfotTokenInfo.decimals)}`,
+    },
+    {
+      key: 'sFOT Price',
+      value: sFot2Ust,
+    },
+  ]
+
+  /**
+   * Stable Handling
+   * Because sFot mint is halted, this function isn't used now. When user clicks this button, nothing will happen.
+   * @returns 
+   */
+  const handleStableSubmit = async (event: MouseEvent<HTMLElement>) => {
+    return;
+  }
+
+  const onStableGfotChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const {
+      target: { value },
+    } = event
+    if (Number(value) > Number(gfotBalance)) return
+    if (Number(value) < 0) return
+    handleStableGfotChange(Number(value))
+  }
+
+  const handleStableGfotPlus = () => {
+    if (Number(stableGfotAmount) + 1 > Number(gfotBalance)) return
+
+    handleStableGfotChange(Number(stableGfotAmount) + 1)
+  }
+  const handleStableGfotMinus = () => {
+    if (Number(stableGfotAmount) - 1 < 0) return
+    handleStableGfotChange(Number(stableGfotAmount) - 1)
+  }
+
   ///////////////////////////////////////////////////////////////////////
   //swap
   ///////////////////////////////////////////////////////////////////////
+
   const [swapBalance, setSwapBalance] = useState(sfotBalance)
 
   const onSwapAmountChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -358,8 +402,181 @@ const sFOTVault = () => {
     handlesFotStakingChange(Number(sfotStakingAmount) - 1)
   }
 
+  const handleBurnMinus =
+    page === 0 ? handleStableGfotMinus : null
+
   return (
     <Wrapper defaultChecked={toggle}>
+      {page < 4 ? (
+        <>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              flexWrap: 'wrap',
+              gap: '50px',
+              maxWidth: 1368,
+            }}
+            className="w-full"
+          >
+            <LeftPart>
+              <Converter
+                wfull={false}
+                handleBurnMinus={null}
+                burnAmount={page === 0 ? null : null}
+                onBurnChange={page === 0 ? null : null}
+                handleBurnPlus={page === 0 ? null : null}
+                expectedAmount={page === 0 ? null : null}
+                convImg={() => (
+                  <svg width="127" height="70" viewBox="0 0 127 94" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="1.23677" y1="2.15124" x2="63.3153" y2="92.6086" stroke="#171E0E" strokeWidth="3" />
+                    <line x1="62.7632" y1="91.6095" x2="124.841" y2="1.15126" stroke="#171E0E" strokeWidth="3" />
+                  </svg>
+                )}
+                convImg2={
+                  page !== 0
+                    ? (func: any) => {
+                        return (
+                          <svg
+                            onClick={func}
+                            cursor="pointer"
+                            width="32"
+                            height="70"
+                            viewBox="0 0 32 70"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M8.76721 1.23279C8.34349 0.809067 7.65651 0.809067 7.23279 1.23279L0.327891 8.13769C-0.0958281 8.56141 -0.0958281 9.24839 0.327891 9.67211C0.75161 10.0958 1.43859 10.0958 1.86231 9.67211L8 3.53442L14.1377 9.67211C14.5614 10.0958 15.2484 10.0958 15.6721 9.67211C16.0958 9.24839 16.0958 8.56141 15.6721 8.13769L8.76721 1.23279ZM9.085 68L9.085 2H6.915L6.915 68H9.085Z"
+                              fill="#171E0E"
+                            />
+                            <path
+                              d="M23.2328 68.7672C23.6565 69.1909 24.3435 69.1909 24.7672 68.7672L31.6721 61.8623C32.0958 61.4386 32.0958 60.7516 31.6721 60.3279C31.2484 59.9042 30.5614 59.9042 30.1377 60.3279L24 66.4656L17.8623 60.3279C17.4386 59.9042 16.7516 59.9042 16.3279 60.3279C15.9042 60.7516 15.9042 61.4386 16.3279 61.8623L23.2328 68.7672ZM22.915 2L22.915 68H25.085L25.085 2L22.915 2Z"
+                              fill="#171E0E"
+                            />
+                          </svg>
+                        )
+                      }
+                    : null
+                }
+                from={page === 0 ? 'gFOT' : 'sFOT'}
+                to={page === 0 ? 'sFOT' : page === 1 ? 'gFOT' : page === 2 ? 'sBOND' : 'gBOND'}
+                handleSubmit={page === 0 ? null : null}
+                balance={page === 0 ? gfotBalance : sfotBalance}
+                handleChange={page === 0 ? null : null}
+                sbalance={page === 0 ? sfotBalance : gfotBalance}
+                submitTitle={page === 0 ? 'Mint' : page === 1 ? 'Purchase' : page === 2 || page === 3 ? 'Swap' : ''}
+                showBalance={true}
+              />
+            </LeftPart>
+            <RightPart>
+              <StatisticBox
+                page={page}
+                setPage={setPage}
+                maxWidth={null}
+              >
+                {/* {page === 0 && <StakeNClaim showInfoIcon={true} showDivider={true} tokenType="sFOT" />} */}
+                {page === 0 && (
+                  <StakeNClaim
+                    showInfoIcon={true}
+                    showDivider={true}
+                    showStakeNClaimReward={true}
+                    Note={true}
+                    handleBurnMinus={handlesFotStakingMinus}
+                    onBurnChange={onsFotStakingChange}
+                    handleBurnPlus={handlesFotStakingPlus}
+                    handleFotStaking={handlesFotStaking}
+                    handleFotStakingClaimReward={handlesFotStakingClaimReward}
+                    tokenType="sFOT"
+                    gfotTokenInfo={sfotTokenInfo}
+                    gfotStakingContractInfo={sfotStakingContractInfo}
+                    gfotStakingAmount={sfotStakingAmount}
+                    gfotStakingApy={sfotStakingApy}
+                    gfotStakingMyStaked={sfotStakingMyStaked}
+                    gfotStakingMyReward={sfotStakingMyReward}
+                    gfotBalance={sfotBalance}
+                    handlegFotStakingChange={handlesFotStakingChange}
+                    unstakingList={sFotUnstakingList}
+                    createUnstake={createsFotUnstake}
+                    executeFetchUnstake={executesFotFetchUnstake}
+                    handleUnstakeChange={handlesFotUnstakeChange}
+                    unstakeAmount={sFotUnstakeAmount}
+                    targetHour={12}
+                  />
+                )}
+                {page === 2 && (
+                  <>
+                    <WalletTitle defaultChecked={toggle}>
+                      {sFOTImage(toggle)}
+                      {'sFOT'}
+                    </WalletTitle>
+                    <StakeNClaim
+                      showInfoIcon={true}
+                      showDivider={true}
+                      Note={true}
+                      handleBurnMinus={handlesFotStakingMinus}
+                      onBurnChange={onsFotStakingChange}
+                      handleBurnPlus={handlesFotStakingPlus}
+                      handleFotStaking={handlesFotStaking}
+                      handleFotStakingClaimReward={handlesFotStakingClaimReward}
+                      tokenType="sFOT"
+                      showStakeNClaimReward={true}
+                      gfotTokenInfo={sfotTokenInfo}
+                      gfotStakingContractInfo={sfotStakingContractInfo}
+                      gfotStakingAmount={sfotStakingAmount}
+                      gfotStakingApy={sfotStakingApy}
+                      gfotStakingMyStaked={sfotStakingMyStaked}
+                      gfotStakingMyReward={sfotStakingMyReward}
+                      gfotBalance={sfotBalance}
+                      handlegFotStakingChange={handlesFotStakingChange}
+                      unstakingList={sFotUnstakingList}
+                      createUnstake={createsFotUnstake}
+                      executeFetchUnstake={executesFotFetchUnstake}
+                      handleUnstakeChange={handlesFotUnstakeChange}
+                      unstakeAmount={sFotUnstakeAmount}
+                      targetHour={12}
+                    />
+                  </>
+                )}
+                {page === 3 && (
+                  <>
+                    <WalletTitle defaultChecked={toggle}>
+                      {gFOTImage(!toggle)}
+                      {'gFOT'}
+                    </WalletTitle>
+                    <StakeNClaim
+                      showInfoIcon={true}
+                      showDivider={true}
+                      showStakeNClaimReward={false}
+                      Note={true}
+                      handleBurnMinus={handlesFotStakingMinus}
+                      onBurnChange={onsFotStakingChange}
+                      handleBurnPlus={handlesFotStakingPlus}
+                      handleFotStaking={handlesFotStaking}
+                      handleFotStakingClaimReward={handlesFotStakingClaimReward}
+                      tokenType="gFOT"
+                      gfotTokenInfo={gfotTokenInfo}
+                      gfotStakingContractInfo={gfotStakingContractInfo}
+                      gfotStakingAmount={gfotStakingAmount}
+                      gfotStakingApy={gfotStakingApy}
+                      gfotStakingMyStaked={gfotStakingMyStaked}
+                      gfotStakingMyReward={gfotStakingMyReward}
+                      gfotBalance={gfotBalance}
+                      handlegFotStakingChange={handlegFotStakingChange}
+                      unstakingList={unstakingList}
+                      createUnstake={createUnstake}
+                      executeFetchUnstake={executeFetchUnstake}
+                      handleUnstakeChange={handleUnstakeChange}
+                      unstakeAmount={unstakeAmount}
+                      targetHour={12}
+                    />
+                  </>
+                )}
+              </StatisticBox>
+            </RightPart>
+          </div>
+        </>
+      ) : (
         <>
           <Pools>
             <PoolsContent>
@@ -465,6 +682,7 @@ const sFOTVault = () => {
             />
           </div>
         </>
+      )}
     </Wrapper>
   )
 }
