@@ -7,7 +7,7 @@ import { convertMicroDenomToDenom2 } from '../util/conversion'
 import ThemeContext from '../contexts/ThemeContext'
 import 'react-notifications/lib/notifications.css'
 import { NotificationManager } from 'react-notifications'
-import Pool from '../components/Pool'
+import Pool from '../components/Pool/WidePool'
 
 //styled components
 const Wrapper = styled.div`
@@ -24,7 +24,7 @@ const Wrapper = styled.div`
   gap: 37px;
   color: #fbfcfd;
   img {
-    filter: ${props => props.defaultChecked && 'drop-shadow(16px 16px 20px) invert(1) hue-rotate(-170deg)'};
+    filter: ${props => props.defaultChecked && 'invert(1) hue-rotate(-170deg)'};
   }
 `
 
