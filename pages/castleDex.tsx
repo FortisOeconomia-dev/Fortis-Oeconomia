@@ -87,22 +87,26 @@ const castleDex = () => {
   const {
     walletAddress,
     signingClient,
-    fotBalance,
+    swapAmount,
+    setSwapAmount,
+    nativeBalance,
+    atomBalance,
+    bfotBalance,
+    gfotBalance,
     sfotBalance,
-    fotTokenInfo,
-    sfotTokenInfo,
-    communitySaleContractInfo,
-    sfotDepositAmount,
-    handlesFotDepositChange,
-    executesFotDeposit,
-    getCommunitySaleBalances,
-    communitySaleDepositList,
-    executeFotClaim,
+    ustBalance,
+    expectedToken2Amount,
+    getSfotBalances,
+    getCommonBalances,
+    swapToken1,
+    executeSwap,
     updateInterval,
+    calcExpectedSwapAmount,
   } = useSigningClient()
 
-  const { setTheme, changeTheme } = useContext(ThemeContext)
-  const [statisticBoxValues, setStatisticBoxValues] = useState([])
+  const { setTheme } = useContext(ThemeContext)
+  const [swapBalances, setSwapBalances] = useState([0, 0])
+  const [swapBalance, setSwapBalance] = useState(sfotBalance)
   const [seconds, setSeconds] = useState(0)
   const [asset, setAsset] = useState(0)
   const { toggle } = useContext(ToggleContext)
@@ -226,12 +230,14 @@ const castleDex = () => {
     if (!signingClient || walletAddress.length === 0) {
       return
     }
-    getCommunitySaleBalances()
+    getSfotBalances()
+    getCommonBalances()
   }, [signingClient, walletAddress])
 
   useEffect(() => {
     if (seconds === 0) {
-      getCommunitySaleBalances()
+      getSfotBalances()
+      getCommonBalances()
     }
     const interval = setInterval(() => {
       setSeconds(seconds => (seconds + 1) % updateInterval)
@@ -240,71 +246,48 @@ const castleDex = () => {
   }, [seconds])
 
   useEffect(() => {
-    const values = [
-      {
-        key: 'Total Burned sFOT',
-        value: `${convertMicroDenomToDenom2(communitySaleContractInfo.burned_sfot_amount, sfotTokenInfo.decimals)}`,
-      },
-      {
-        key: 'Total Sold FOT',
-        value: `${convertMicroDenomToDenom2(communitySaleContractInfo.sfot_amount * 2, fotTokenInfo.decimals)}`,
-      },
-    ]
+    let balances = []
+    setSwapAmount(0)
+    setSwapBalance(sfotBalance)
+    if (asset == 0) balances = [sfotBalance, ustBalance]
+    else if (asset == 1) balances = [sfotBalance, bfotBalance]
+    else if (asset == 2) balances = [sfotBalance, gfotBalance]
+    else if (asset == 3) balances = [sfotBalance, nativeBalance]
+    else if (asset == 4) balances = [sfotBalance, atomBalance]
 
-    setStatisticBoxValues(values)
-  }, [convertMicroDenomToDenom2, communitySaleContractInfo, sfotTokenInfo, fotTokenInfo])
-
-  const handlesFotDeposit = async (event: MouseEvent<HTMLElement>) => {
-    if (!signingClient || walletAddress.length === 0) {
-      NotificationManager.error('Please connect wallet first')
-      return
+    setSwapBalances(balances)
+    if (swapToken1) {
+      setSwapBalance(balances[0])
+    } else {
+      setSwapBalance(balances[1])
     }
+  }, [asset, sfotBalance, swapToken1, sfotBalance, ustBalance, bfotBalance, gfotBalance, atomBalance, nativeBalance])
 
-    if (Number(sfotDepositAmount) == 0) {
-      NotificationManager.error('Please input the sFOT amount first')
-      return
-    }
-    if (Number(sfotDepositAmount) > Number(sfotBalance)) {
-      NotificationManager.error('Please input correct sFOT amount')
-      return
-    }
-
-    event.preventDefault()
-    await executesFotDeposit()
-    getCommunitySaleBalances()
-  }
-
-  const handleCommunitySaleClaim = async (event: MouseEvent<HTMLElement>, idx) => {
-    if (!signingClient || walletAddress.length === 0) {
-      NotificationManager.error('Please connect wallet first')
-      return
-    }
-
-    event.preventDefault()
-    executeFotClaim(idx)
-  }
-
-  const onsFotDepositChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const onSwapAmountChange = (event: ChangeEvent<HTMLInputElement>) => {
     const {
       target: { value },
     } = event
-    if (Number(value) > Number(sfotBalance)) return
+    if (Number(value) > Number(swapBalance)) return
     if (Number(value) < 0) return
-    handlesFotDepositChange(Number(value))
+    setSwapAmount(Number(value))
   }
 
-  const handlesFotDepositPlus = () => {
-    if (Number(sfotDepositAmount) + 1 > Number(sfotBalance)) return
+  const handleSwapAmountPlus = () => {
+    if (Number(swapAmount) + 1 > Number(swapBalance)) return
 
-    handlesFotDepositChange(Number(sfotDepositAmount) + 1)
+    setSwapAmount(Number(swapAmount) + 1)
   }
-  const handlesFotDepositMinus = () => {
-    if (Number(sfotDepositAmount) - 1 < 0) return
-    handlesFotDepositChange(Number(sfotDepositAmount) - 1)
+  const handleSwapAmountMinus = () => {
+    if (Number(swapAmount) - 1 < 0) return
+    setSwapAmount(Number(swapAmount) - 1)
   }
 
-  const handlesFotDepositAll = balance => {
-    handlesFotDepositChange(Number(balance))
+  const handleChange = balance => {
+    setSwapAmount(balance)
+  }
+
+  const handleSwap = () => {
+    executeSwap(asset)
   }
 
   const handleChangeAsset = name => {
@@ -315,7 +298,11 @@ const castleDex = () => {
     }
   }
 
-  if (!signingClient || walletAddress == '') return null
+  useEffect(() => {
+    if (!signingClient || walletAddress == '') return
+
+    calcExpectedSwapAmount(asset)
+  }, [swapAmount, signingClient, walletAddress])
 
   return (
     <Wrapper defaultChecked={toggle}>
@@ -331,11 +318,11 @@ const castleDex = () => {
         <LeftPart>
           <Converter
             wfull={false}
-            handleBurnMinus={handlesFotDepositMinus}
-            onBurnChange={onsFotDepositChange}
-            handleBurnPlus={handlesFotDepositPlus}
-            burnAmount={sfotDepositAmount}
-            expectedAmount={Number(sfotDepositAmount) * 2}
+            handleBurnMinus={handleSwapAmountMinus}
+            burnAmount={swapAmount}
+            onBurnChange={onSwapAmountChange}
+            handleBurnPlus={handleSwapAmountPlus}
+            expectedAmount={expectedToken2Amount}
             convImg={() => (
               <svg width="127" height="70" viewBox="0 0 127 94" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <line x1="1.23677" y1="2.15124" x2="63.3153" y2="92.6086" stroke="#171E0E" strokeWidth="3" />
@@ -369,10 +356,10 @@ const castleDex = () => {
             fromImage={assets[asset].fromImage}
             to={assets[asset].to}
             toImage={assets[asset].toImage}
-            handleSubmit={handlesFotDeposit}
-            balance={sfotBalance}
-            handleChange={handlesFotDepositAll}
-            sbalance={fotBalance}
+            handleSubmit={handleSwap}
+            balance={swapBalances[0]}
+            handleChange={handleChange}
+            sbalance={swapBalances[1]}
             submitTitle={'Swap'}
             showBalance={true}
             handleChangeAsset={handleChangeAsset}

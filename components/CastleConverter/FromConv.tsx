@@ -75,18 +75,20 @@ const FromConv = ({
         handleBurnPlus={handleBurnPlus}
       />
       <BottomArea>
-        <MaxButton
-          onClick={() => handleChange(balance)}
-          className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
-        >
-          Max
-        </MaxButton>
-        <MaxButton
-          onClick={() => handleChange(balance / 2)}
-          className={`default-btn  ${!toggle && 'secondary-btn outlined mr-2'}`}
-        >
-          Half
-        </MaxButton>
+        <div>
+          <MaxButton
+            onClick={() => handleChange(balance)}
+            className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
+          >
+            Max
+          </MaxButton>
+          <MaxButton
+            onClick={() => handleChange(balance / 2)}
+            className={`default-btn  ${!toggle && 'secondary-btn outlined mr-2'}`}
+          >
+            Half
+          </MaxButton>
+        </div>
         {showBalance && walletAddress.length != 0 && (
           <div
             className="banner-wrapper-content"
