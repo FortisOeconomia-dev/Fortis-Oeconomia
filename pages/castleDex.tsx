@@ -2,7 +2,6 @@ import React, { useState, useEffect, MouseEvent, useContext, ChangeEvent } from 
 import styled from 'styled-components'
 import { ToggleContext } from '../components/Layout/Layout'
 import Converter from '../components/CastleConverter'
-import StatisticBox from '../components/StatisticBox'
 import { useSigningClient } from '../contexts/cosmwasm'
 import { convertMicroDenomToDenom2 } from '../util/conversion'
 import ThemeContext from '../contexts/ThemeContext'
@@ -29,46 +28,19 @@ const Wrapper = styled.div`
   }
 `
 
-const Announcement = styled.span`
-  font-size: 28px;
-  font-weight: 600;
-  line-height: 32px;
-  color: #fbfcfd;
-`
-
 const LeftPart = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: center;
   flex: 2;
-  margin-top: 34px;
+  margin-top: 10px;
   max-width: 100%;
 `
 
 const RightPart = styled.div`
   display: flex;
   flex-direction: column;
-  margin: auto;
-  flex: 1;
-  max-width: 100%;
-`
-
-const Assets = styled.div`
-  display: flex;
-  width: 240px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin: 0 43px 0 32px;
-`
-
-const Title = styled.p`
-  font-weight: 600;
-  font-size: 32px;
-  line-height: 48px;
-  color: #fbfcfd;
-  text-align: center;
+  margin-top: 60px;
 `
 
 const Pools = styled.div`
@@ -82,7 +54,6 @@ const PoolsContent = styled.div`
   padding-right: 27px;
   padding-left: 27px;
 `
-
 interface ElementProps {
   small?: boolean
 }
@@ -354,7 +325,6 @@ const castleDex = () => {
           justifyContent: 'center',
           flexWrap: 'wrap',
           gap: '50px',
-          maxWidth: 1368,
         }}
         className="w-full"
       >

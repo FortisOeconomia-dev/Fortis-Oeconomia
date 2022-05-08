@@ -36,7 +36,12 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  filter: ${props => !props.defaultChecked && props.slot === '/sFOTVault' && 'hue-rotate(240deg)'};
+  filter: ${props =>
+    !props.defaultChecked && props.slot === '/sFOTVault'
+      ? 'hue-rotate(240deg)'
+      : !props.defaultChecked && props.slot === '/castleDex'
+      ? 'hue-rotate(15deg)'
+      : ''};
 `
 const AssetImageWrapper = styled.div`
   background: ${props => props.slot};
