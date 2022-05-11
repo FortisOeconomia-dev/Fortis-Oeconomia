@@ -258,6 +258,26 @@ const StatisticBox = ({
             )}
           </ShapeWrapper>
         )
+      case '/castleDex':
+        return (
+          <ShapeWrapper>
+            {page === 0 ? (
+              <>
+                <Ellipse5 />
+                <Ellipse6 />
+                <Ellipse7 />
+                <Ellipse8 />
+              </>
+            ) : (
+              <>
+                <Ellipse9 />
+                <Ellipse10 />
+                <Ellipse11 />
+                <Ellipse12 />
+              </>
+            )}
+          </ShapeWrapper>
+        )
       default:
         return (
           <>
@@ -282,7 +302,14 @@ const StatisticBox = ({
         >
           <button
             className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
-            style={{ flex: '1', minWidth: 'calc(50% - 10px)', borderRadius: '50px', maxWidth: 'calc(50% - 10px)', marginLeft:'auto', marginRight:'auto'}}
+            style={{
+              flex: '1',
+              minWidth: 'calc(50% - 10px)',
+              borderRadius: '50px',
+              maxWidth: 'calc(50% - 10px)',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+            }}
             onClick={() => setPage(4)}
           >
             Stable Pools and Swaps
@@ -292,8 +319,36 @@ const StatisticBox = ({
           </VaulteButton> */}
         </div>
       )}
+      {page < 2 && pathname === '/castleDex' && (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            marginBottom: '10px',
+            gap: '20px',
+            flexWrap: 'wrap',
+          }}
+        >
+          <button
+            className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
+            style={{
+              flex: '1',
+              minWidth: 'calc(50% - 10px)',
+              borderRadius: '50px',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+            }}
+            onClick={() => setPage(4)}
+          >
+            Castle Dex Pools
+          </button>
+          {/* <VaulteButton className={`default-btn  ${!toggle && 'secondary-btn outlined'}`} onClick={() => setPage(2)}>
+            Vault
+          </VaulteButton> */}
+        </div>
+      )}
       {children}
-      {page < 2 && (
+      {page < 2 && pathname !== '/castleDex' && (
         <Wrapper slot={pathname} page={page} defaultChecked={leftValues.length > 0}>
           {renderShadowShapes()}
           <ContentWrapper slot={pathname}>
