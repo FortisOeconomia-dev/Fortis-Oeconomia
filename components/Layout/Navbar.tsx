@@ -275,6 +275,13 @@ const Navbar = ({ toggle, setToggle }) => {
                   </Link>
                 </li> */}
                 <li className="nav-item">
+                  <Link href="/castleDex" activeClassName="active">
+                    <NavLink className="nav-link" slot={pathname} defaultChecked={toggle}>
+                      Castle Dex
+                    </NavLink>
+                  </Link>
+                </li>
+                <li className="nav-item">
                   <Link href="/fortisDungeon" activeClassName="active">
                     <NavLink className="nav-link" slot={pathname} defaultChecked={toggle}>
                       Fortis Dungeon
