@@ -29,13 +29,6 @@ const Wrapper = styled.div`
     filter: ${props => props.defaultChecked && 'invert(1) hue-rotate(-170deg)'};
   }
 `
-const Title = styled.p`
-  font-weight: 600;
-  font-size: 32px;
-  line-height: 48px;
-  color: #fbfcfd;
-  text-align: center;
-`
 const Divider = styled.div`
   width: 2.06px;
   background: linear-gradient(180deg, #171e0e 0%, #ffffff 100%);
@@ -44,15 +37,16 @@ const LeftPart = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  flex: 2;
   margin-top: 10px;
-  max-width: 100%;
+  width: 40%;
 `
 
 const RightPart = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 60px;
+  align-self: center;
+  min-width: 40%;
 `
 
 const Pools = styled.div`
@@ -63,8 +57,7 @@ const PoolsContent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 24px;
-  padding-right: 27px;
-  padding-left: 27px;
+  width: 100%;
 `
 interface ElementProps {
   small?: boolean
@@ -382,21 +375,51 @@ const castleDex = () => {
           <RightPart>
             <Pools>
               <PoolsContent>
-                {assets.map(({ from, to, fromImage, toImage }, index) => {
-                  return (
-                    <div key={index}>
-                      {to === 'Juno' && <StatisticBox page={page} setPage={setPage} maxWidth={null}></StatisticBox>}
-                      <Pool
-                        from={from}
-                        to={to}
-                        fromImage={fromImage}
-                        toImage={toImage}
-                        onClick={() => setAsset(index)}
-                        isActive={asset === index}
-                      />
-                    </div>
-                  )
-                })}
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <Pool
+                    from="sFOT"
+                    to="UST"
+                    fromImage={sFOTImage}
+                    toImage="/images/ust.png"
+                    onClick={() => setAsset(0)}
+                    isActive={asset === 0}
+                  />
+                  <Pool
+                    from="sFOT"
+                    to="bFOT"
+                    fromImage={sFOTImage}
+                    toImage={bFOTImage}
+                    onClick={() => setAsset(1)}
+                    isActive={asset === 1}
+                  />
+                  <Pool
+                    from="sFOT"
+                    to="gFOT"
+                    fromImage={sFOTImage}
+                    toImage={gFOTImage}
+                    onClick={() => setAsset(2)}
+                    isActive={asset === 2}
+                  />
+                </div>
+                <StatisticBox page={page} setPage={setPage} maxWidth={null}></StatisticBox>
+                <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+                  <Pool
+                    from="sFOT"
+                    to="Juno"
+                    fromImage={sFOTImage}
+                    toImage="/images/juno.png"
+                    onClick={() => setAsset(3)}
+                    isActive={asset === 3}
+                  />
+                  <Pool
+                    from="sFOT"
+                    to="Atom"
+                    fromImage={sFOTImage}
+                    toImage="/images/atom.png"
+                    onClick={() => setAsset(4)}
+                    isActive={asset === 4}
+                  />
+                </div>
               </PoolsContent>
             </Pools>
           </RightPart>
@@ -405,7 +428,6 @@ const castleDex = () => {
         <>
           <Pools>
             <PoolsContent>
-              <Title>Pools</Title>
               <Pool
                 from="sFOT"
                 to="UST"

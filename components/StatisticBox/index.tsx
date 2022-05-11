@@ -238,26 +238,6 @@ const StatisticBox = ({
       case '/gFOTmodule':
       case '/communitySale':
         return null
-      case '/sFOTVault':
-        return (
-          <ShapeWrapper>
-            {page === 0 ? (
-              <>
-                <Ellipse5 />
-                <Ellipse6 />
-                <Ellipse7 />
-                <Ellipse8 />
-              </>
-            ) : (
-              <>
-                <Ellipse9 />
-                <Ellipse10 />
-                <Ellipse11 />
-                <Ellipse12 />
-              </>
-            )}
-          </ShapeWrapper>
-        )
       case '/castleDex':
         return (
           <ShapeWrapper>
@@ -289,36 +269,7 @@ const StatisticBox = ({
   }
 
   return (
-    <div style={{ paddingLeft: '27px', maxWidth, width: '100%' }}>
-      {page < 2 && pathname === '/sFOTVault' && (
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            marginBottom: '50px',
-            gap: '20px',
-            flexWrap: 'wrap',
-          }}
-        >
-          <button
-            className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
-            style={{
-              flex: '1',
-              minWidth: 'calc(50% - 10px)',
-              borderRadius: '50px',
-              maxWidth: 'calc(50% - 10px)',
-              marginLeft: 'auto',
-              marginRight: 'auto',
-            }}
-            onClick={() => setPage(4)}
-          >
-            Stable Pools and Swaps
-          </button>
-          {/* <VaulteButton className={`default-btn  ${!toggle && 'secondary-btn outlined'}`} onClick={() => setPage(2)}>
-            Vault
-          </VaulteButton> */}
-        </div>
-      )}
+    <div style={{ maxWidth, width: '100%' }}>
       {page < 2 && pathname === '/castleDex' && (
         <div
           style={{

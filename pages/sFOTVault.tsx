@@ -5,13 +5,7 @@ import styled from 'styled-components'
 import { useContext } from 'react'
 import { ToggleContext } from '../components/Layout/Layout'
 import { assets } from '../components/Layout/Layout'
-
-import Converter from '../components/Converter'
-import StatisticBox from '../components/StatisticBox'
-import Pool from '../components/Pool'
-import PoolDetail from '../components/PoolDetail'
 import StakeNClaim from '../components/StakeNClaim'
-
 import { useSigningClient } from '../contexts/cosmwasm'
 import { convertMicroDenomToDenom2 } from '../util/conversion'
 import { NotificationManager } from 'react-notifications'
@@ -60,40 +54,6 @@ const OutWrapper = styled.div`
   color: transparent;
 `
 
-const Title = styled.p`
-  font-weight: 600;
-  font-size: 32px;
-  line-height: 48px;
-  color: #fbfcfd;
-  text-align: center;
-`
-
-const Pools = styled.div`
-  display: flex;
-`
-
-const PoolsContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  padding-right: 27px;
-  padding-left: 27px;
-`
-
-const Divider = styled.div`
-  width: 2.06px;
-  background: linear-gradient(180deg, #171e0e 0%, #ffffff 100%);
-`
-
-// const LeftPart = styled.div`
-//   display: flex;
-//   align-items: flex-start;
-//   justify-content: center;
-//   flex: 1;
-//   margin-top: 34px;
-//   max-width: 100%;
-// `
-
 const RightPart = styled.div`
   display: flex;
   flex-direction: column;
@@ -121,42 +81,21 @@ const sFOTVault = () => {
   const {
     walletAddress,
     signingClient,
-
-    getBalances,
-    nativeBalanceStr,
-    nativeBalance,
-    atomBalance,
-    fotBalance,
-    fotBalanceStr,
-    fotTokenInfo,
-    bfotBalance,
-    bfotBalanceStr,
-    bfotTokenInfo,
     gfotBalance,
-    gfotBalanceStr,
     gfotTokenInfo,
     sfotBalance,
-    sfotBalanceStr,
     sfotTokenInfo,
     sFot2Ust,
-    ustBalance,
 
     stableGfotAmount,
-    stableExpectedSfotAmount,
     handleStableGfotChange,
-    swapToken1,
-    setSwapToken1,
-    expectedToken2Amount,
-    executeSwap,
     calcExpectedSwapAmount,
     swapAmount,
-    setSwapAmount,
     getSfotBalances,
     updateInterval,
 
     sfotStakingContractInfo,
     sfotStakingAmount,
-    setsFotStakingAmount,
     sfotStakingApy,
     sfotStakingMyStaked,
     sfotStakingMyReward,
@@ -170,13 +109,11 @@ const sFOTVault = () => {
     sFotUnstakeAmount,
     gfotStakingContractInfo,
     gfotStakingAmount,
-    setgFotStakingAmount,
     gfotStakingApy,
     gfotStakingMyStaked,
     gfotStakingMyReward,
     handlegFotStakingChange,
-    executegFotStaking,
-    executegFotClaimReward,
+
     unstakingList,
     createUnstake,
     executeFetchUnstake,
@@ -354,177 +291,114 @@ const sFOTVault = () => {
 
   return (
     <Wrapper defaultChecked={toggle}>
-      {page < 4 ? (
-        <>
-          <div
-            style={{
-              display: 'flex',
-              gap: '50px',
-              flexBasis: 'content',
-            }}
-            className="w-full"
-          >
-            <RightPart>
-              <StatisticBox page={page} setPage={setPage} maxWidth={null}>
-                {/* {page === 0 && <StakeNClaim showInfoIcon={true} showDivider={true} tokenType="sFOT" />} */}
-                {page === 0 && (
-                  <StakeNClaim
-                    showInfoIcon={true}
-                    showDivider={true}
-                    showStakeNClaimReward={true}
-                    Note={true}
-                    handleBurnMinus={handlesFotStakingMinus}
-                    onBurnChange={onsFotStakingChange}
-                    handleBurnPlus={handlesFotStakingPlus}
-                    handleFotStaking={handlesFotStaking}
-                    handleFotStakingClaimReward={handlesFotStakingClaimReward}
-                    tokenType="sFOT"
-                    gfotTokenInfo={sfotTokenInfo}
-                    gfotStakingContractInfo={sfotStakingContractInfo}
-                    gfotStakingAmount={sfotStakingAmount}
-                    gfotStakingApy={sfotStakingApy}
-                    gfotStakingMyStaked={sfotStakingMyStaked}
-                    gfotStakingMyReward={sfotStakingMyReward}
-                    gfotBalance={sfotBalance}
-                    handlegFotStakingChange={handlesFotStakingChange}
-                    unstakingList={sFotUnstakingList}
-                    createUnstake={createsFotUnstake}
-                    executeFetchUnstake={executesFotFetchUnstake}
-                    handleUnstakeChange={handlesFotUnstakeChange}
-                    unstakeAmount={sFotUnstakeAmount}
-                    targetHour={12}
-                  />
-                )}
-                {page === 2 && (
-                  <>
-                    <WalletTitle defaultChecked={toggle}>
-                      {sFOTImage(toggle)}
-                      {'sFOT'}
-                    </WalletTitle>
-                    <StakeNClaim
-                      showInfoIcon={true}
-                      showDivider={true}
-                      Note={true}
-                      handleBurnMinus={handlesFotStakingMinus}
-                      onBurnChange={onsFotStakingChange}
-                      handleBurnPlus={handlesFotStakingPlus}
-                      handleFotStaking={handlesFotStaking}
-                      handleFotStakingClaimReward={handlesFotStakingClaimReward}
-                      tokenType="sFOT"
-                      showStakeNClaimReward={true}
-                      gfotTokenInfo={sfotTokenInfo}
-                      gfotStakingContractInfo={sfotStakingContractInfo}
-                      gfotStakingAmount={sfotStakingAmount}
-                      gfotStakingApy={sfotStakingApy}
-                      gfotStakingMyStaked={sfotStakingMyStaked}
-                      gfotStakingMyReward={sfotStakingMyReward}
-                      gfotBalance={sfotBalance}
-                      handlegFotStakingChange={handlesFotStakingChange}
-                      unstakingList={sFotUnstakingList}
-                      createUnstake={createsFotUnstake}
-                      executeFetchUnstake={executesFotFetchUnstake}
-                      handleUnstakeChange={handlesFotUnstakeChange}
-                      unstakeAmount={sFotUnstakeAmount}
-                      targetHour={12}
-                    />
-                  </>
-                )}
-                {page === 3 && (
-                  <>
-                    <WalletTitle defaultChecked={toggle}>
-                      {gFOTImage(!toggle)}
-                      {'gFOT'}
-                    </WalletTitle>
-                    <StakeNClaim
-                      showInfoIcon={true}
-                      showDivider={true}
-                      showStakeNClaimReward={false}
-                      Note={true}
-                      handleBurnMinus={handlesFotStakingMinus}
-                      onBurnChange={onsFotStakingChange}
-                      handleBurnPlus={handlesFotStakingPlus}
-                      handleFotStaking={handlesFotStaking}
-                      handleFotStakingClaimReward={handlesFotStakingClaimReward}
-                      tokenType="gFOT"
-                      gfotTokenInfo={gfotTokenInfo}
-                      gfotStakingContractInfo={gfotStakingContractInfo}
-                      gfotStakingAmount={gfotStakingAmount}
-                      gfotStakingApy={gfotStakingApy}
-                      gfotStakingMyStaked={gfotStakingMyStaked}
-                      gfotStakingMyReward={gfotStakingMyReward}
-                      gfotBalance={gfotBalance}
-                      handlegFotStakingChange={handlegFotStakingChange}
-                      unstakingList={unstakingList}
-                      createUnstake={createUnstake}
-                      executeFetchUnstake={executeFetchUnstake}
-                      handleUnstakeChange={handleUnstakeChange}
-                      unstakeAmount={unstakeAmount}
-                      targetHour={12}
-                    />
-                  </>
-                )}
-              </StatisticBox>
-            </RightPart>
-          </div>
-        </>
-      ) : (
-        <>
-          <Pools>
-            <PoolsContent>
-              <Title>Pools</Title>
-              <Pool
-                from="sFOT"
-                to="UST"
-                fromImage={sFOTImage}
-                toImage="/images/ust.png"
-                onClick={() => setAsset(0)}
-                isActive={asset === 0}
+      <div
+        style={{
+          display: 'flex',
+          gap: '50px',
+          flexBasis: 'content',
+        }}
+        className="w-full"
+      >
+        <RightPart>
+          {/* {page === 0 && <StakeNClaim showInfoIcon={true} showDivider={true} tokenType="sFOT" />} */}
+          {page === 0 && (
+            <StakeNClaim
+              showInfoIcon={true}
+              showDivider={true}
+              showStakeNClaimReward={true}
+              Note={true}
+              handleBurnMinus={handlesFotStakingMinus}
+              onBurnChange={onsFotStakingChange}
+              handleBurnPlus={handlesFotStakingPlus}
+              handleFotStaking={handlesFotStaking}
+              handleFotStakingClaimReward={handlesFotStakingClaimReward}
+              tokenType="sFOT"
+              gfotTokenInfo={sfotTokenInfo}
+              gfotStakingContractInfo={sfotStakingContractInfo}
+              gfotStakingAmount={sfotStakingAmount}
+              gfotStakingApy={sfotStakingApy}
+              gfotStakingMyStaked={sfotStakingMyStaked}
+              gfotStakingMyReward={sfotStakingMyReward}
+              gfotBalance={sfotBalance}
+              handlegFotStakingChange={handlesFotStakingChange}
+              unstakingList={sFotUnstakingList}
+              createUnstake={createsFotUnstake}
+              executeFetchUnstake={executesFotFetchUnstake}
+              handleUnstakeChange={handlesFotUnstakeChange}
+              unstakeAmount={sFotUnstakeAmount}
+              targetHour={12}
+            />
+          )}
+          {page === 2 && (
+            <>
+              <WalletTitle defaultChecked={toggle}>
+                {sFOTImage(toggle)}
+                {'sFOT'}
+              </WalletTitle>
+              <StakeNClaim
+                showInfoIcon={true}
+                showDivider={true}
+                Note={true}
+                handleBurnMinus={handlesFotStakingMinus}
+                onBurnChange={onsFotStakingChange}
+                handleBurnPlus={handlesFotStakingPlus}
+                handleFotStaking={handlesFotStaking}
+                handleFotStakingClaimReward={handlesFotStakingClaimReward}
+                tokenType="sFOT"
+                showStakeNClaimReward={true}
+                gfotTokenInfo={sfotTokenInfo}
+                gfotStakingContractInfo={sfotStakingContractInfo}
+                gfotStakingAmount={sfotStakingAmount}
+                gfotStakingApy={sfotStakingApy}
+                gfotStakingMyStaked={sfotStakingMyStaked}
+                gfotStakingMyReward={sfotStakingMyReward}
+                gfotBalance={sfotBalance}
+                handlegFotStakingChange={handlesFotStakingChange}
+                unstakingList={sFotUnstakingList}
+                createUnstake={createsFotUnstake}
+                executeFetchUnstake={executesFotFetchUnstake}
+                handleUnstakeChange={handlesFotUnstakeChange}
+                unstakeAmount={sFotUnstakeAmount}
+                targetHour={12}
               />
-              <Pool
-                from="sFOT"
-                to="bFOT"
-                fromImage={sFOTImage}
-                toImage={bFOTImage}
-                onClick={() => setAsset(1)}
-                isActive={asset === 1}
+            </>
+          )}
+          {page === 3 && (
+            <>
+              <WalletTitle defaultChecked={toggle}>
+                {gFOTImage(!toggle)}
+                {'gFOT'}
+              </WalletTitle>
+              <StakeNClaim
+                showInfoIcon={true}
+                showDivider={true}
+                showStakeNClaimReward={false}
+                Note={true}
+                handleBurnMinus={handlesFotStakingMinus}
+                onBurnChange={onsFotStakingChange}
+                handleBurnPlus={handlesFotStakingPlus}
+                handleFotStaking={handlesFotStaking}
+                handleFotStakingClaimReward={handlesFotStakingClaimReward}
+                tokenType="gFOT"
+                gfotTokenInfo={gfotTokenInfo}
+                gfotStakingContractInfo={gfotStakingContractInfo}
+                gfotStakingAmount={gfotStakingAmount}
+                gfotStakingApy={gfotStakingApy}
+                gfotStakingMyStaked={gfotStakingMyStaked}
+                gfotStakingMyReward={gfotStakingMyReward}
+                gfotBalance={gfotBalance}
+                handlegFotStakingChange={handlegFotStakingChange}
+                unstakingList={unstakingList}
+                createUnstake={createUnstake}
+                executeFetchUnstake={executeFetchUnstake}
+                handleUnstakeChange={handleUnstakeChange}
+                unstakeAmount={unstakeAmount}
+                targetHour={12}
               />
-              <Pool
-                from="sFOT"
-                to="gFOT"
-                fromImage={sFOTImage}
-                toImage={gFOTImage}
-                onClick={() => setAsset(2)}
-                isActive={asset === 2}
-              />
-              <Pool
-                from="sFOT"
-                to="Juno"
-                fromImage={sFOTImage}
-                toImage="/images/juno.png"
-                onClick={() => setAsset(3)}
-                isActive={asset === 3}
-              />
-              <Pool
-                from="sFOT"
-                to="Atom"
-                fromImage={sFOTImage}
-                toImage="/images/atom.png"
-                onClick={() => setAsset(4)}
-                isActive={asset === 4}
-              />
-            </PoolsContent>
-            <Divider />
-          </Pools>
-          <PoolDetail
-            asset={asset}
-            from={assets[asset].from}
-            to={assets[asset].to}
-            fromImage={assets[asset].fromImage}
-            toImage={assets[asset].toImage}
-            maxWidth={'none'}
-          />
-        </>
-      )}
+            </>
+          )}
+        </RightPart>
+      </div>
     </Wrapper>
   )
 }
