@@ -249,7 +249,7 @@ const Navbar = ({ toggle, setToggle }) => {
                         slot={pathname}
                         defaultChecked={toggle}
                       >
-                        sFOT Vault/Module
+                        sFOT Vault
                       </SubLink>
                     </Link>
                   </li>
@@ -288,7 +288,7 @@ const Navbar = ({ toggle, setToggle }) => {
                     </NavLink>
                   </Link>
                 </li>
-{/*                 <Governance className="nav-item">
+                {/*                 <Governance className="nav-item">
                   <Governance
                     style={{ fontSize: '19px', fontWeight: '600' }}
                     href="https://daodao.zone/dao/juno1anz3mg3n0pdj6d4pulk94sqz52j3duld6cclauzxhtv7de5hahssgc3r9n"
