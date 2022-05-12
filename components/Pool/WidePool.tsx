@@ -11,7 +11,7 @@ const OutWrapper = styled.div`
 `
 
 const Wrapper = styled.div`
-  padding: 12px;
+  padding: 1rem 2rem;
   background: rgba(255, 255, 255, 0.3);
   box-shadow: 0px 7.28px 18.11px rgba(41, 54, 24, 0.25);
   border-radius: 9.95992px;

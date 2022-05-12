@@ -87,6 +87,17 @@ const AssetImageWrapper = styled.div<ElementProps>`
   align-items: center;
   justify-content: center;
 `
+const PoolButtonsLower = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  width: 90%;
+  margin-left: 5%;
+`
+
+const PoolButtonsUpper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
 
 const castleDex = () => {
   const {
@@ -114,6 +125,7 @@ const castleDex = () => {
   const [swapBalance, setSwapBalance] = useState(sfotBalance)
   const [seconds, setSeconds] = useState(0)
   const [asset, setAsset] = useState(0)
+  const [poolAsset, setPoolAsset] = useState(0)
   const { toggle } = useContext(ToggleContext)
 
   const sFOTImage = (toggle, small = false) => (
@@ -310,6 +322,10 @@ const castleDex = () => {
     calcExpectedSwapAmount(asset)
   }, [swapAmount, signingClient, walletAddress])
 
+  const handlePoolAssetChange = (poolAsset: number) => {
+    setPoolAsset(poolAsset)
+    setPage(4)
+  }
   return (
     <Wrapper defaultChecked={toggle}>
       {page < 4 ? (
@@ -375,51 +391,52 @@ const castleDex = () => {
           <RightPart>
             <Pools>
               <PoolsContent>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <StatisticBox page={page} setPage={setPage} maxWidth={null}></StatisticBox>
+
+                <PoolButtonsUpper>
                   <Pool
                     from="sFOT"
                     to="UST"
                     fromImage={sFOTImage}
                     toImage="/images/ust.png"
-                    onClick={() => setAsset(0)}
-                    isActive={asset === 0}
+                    onClick={() => handlePoolAssetChange(0)}
+                    isActive={poolAsset === 0}
                   />
                   <Pool
                     from="sFOT"
                     to="bFOT"
                     fromImage={sFOTImage}
                     toImage={bFOTImage}
-                    onClick={() => setAsset(1)}
-                    isActive={asset === 1}
+                    onClick={() => handlePoolAssetChange(1)}
+                    isActive={poolAsset === 1}
                   />
                   <Pool
                     from="sFOT"
                     to="gFOT"
                     fromImage={sFOTImage}
                     toImage={gFOTImage}
-                    onClick={() => setAsset(2)}
-                    isActive={asset === 2}
+                    onClick={() => handlePoolAssetChange(2)}
+                    isActive={poolAsset === 2}
                   />
-                </div>
-                <StatisticBox page={page} setPage={setPage} maxWidth={null}></StatisticBox>
-                <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+                </PoolButtonsUpper>
+                <PoolButtonsLower>
                   <Pool
                     from="sFOT"
                     to="Juno"
                     fromImage={sFOTImage}
                     toImage="/images/juno.png"
-                    onClick={() => setAsset(3)}
-                    isActive={asset === 3}
+                    onClick={() => handlePoolAssetChange(3)}
+                    isActive={poolAsset === 3}
                   />
                   <Pool
                     from="sFOT"
                     to="Atom"
                     fromImage={sFOTImage}
                     toImage="/images/atom.png"
-                    onClick={() => setAsset(4)}
-                    isActive={asset === 4}
+                    onClick={() => handlePoolAssetChange(4)}
+                    isActive={poolAsset === 4}
                   />
-                </div>
+                </PoolButtonsLower>
               </PoolsContent>
             </Pools>
           </RightPart>
@@ -428,55 +445,26 @@ const castleDex = () => {
         <>
           <Pools>
             <PoolsContent>
-              <Pool
-                from="sFOT"
-                to="UST"
-                fromImage={sFOTImage}
-                toImage="/images/ust.png"
-                onClick={() => setAsset(0)}
-                isActive={asset === 0}
-              />
-              <Pool
-                from="sFOT"
-                to="bFOT"
-                fromImage={sFOTImage}
-                toImage={bFOTImage}
-                onClick={() => setAsset(1)}
-                isActive={asset === 1}
-              />
-              <Pool
-                from="sFOT"
-                to="gFOT"
-                fromImage={sFOTImage}
-                toImage={gFOTImage}
-                onClick={() => setAsset(2)}
-                isActive={asset === 2}
-              />
-              <Pool
-                from="sFOT"
-                to="Juno"
-                fromImage={sFOTImage}
-                toImage="/images/juno.png"
-                onClick={() => setAsset(3)}
-                isActive={asset === 3}
-              />
-              <Pool
-                from="sFOT"
-                to="Atom"
-                fromImage={sFOTImage}
-                toImage="/images/atom.png"
-                onClick={() => setAsset(4)}
-                isActive={asset === 4}
-              />
+              {assets.map(({ from, to, fromImage, toImage }, index) => (
+                <Pool
+                  key={index}
+                  from={from}
+                  to={to}
+                  fromImage={fromImage}
+                  toImage={toImage}
+                  onClick={() => setPoolAsset(index)}
+                  isActive={poolAsset === index}
+                />
+              ))}
             </PoolsContent>
             <Divider />
           </Pools>
           <PoolDetail
-            asset={asset}
-            from={assets[asset].from}
-            to={assets[asset].to}
-            fromImage={assets[asset].fromImage}
-            toImage={assets[asset].toImage}
+            asset={poolAsset}
+            from={assets[poolAsset].from}
+            to={assets[poolAsset].to}
+            fromImage={assets[poolAsset].fromImage}
+            toImage={assets[poolAsset].toImage}
             maxWidth={'none'}
           />
         </>
