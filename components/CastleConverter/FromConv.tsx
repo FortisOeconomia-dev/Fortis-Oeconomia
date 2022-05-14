@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { ToggleContext } from '../Layout/Layout'
 import InputWithIncDec from '../InputWithIncDec'
 import { useRouter } from 'next/router'
@@ -53,6 +53,7 @@ const FromConv = ({
   const { pathname } = router
   const { walletAddress } = useSigningClient()
   const { toggle } = useContext(ToggleContext)
+  const [isMax, setIsMax] = useState(false)
 
   return (
     <div className="gFotCurrencyt-selection" style={{ maxWidth: maxW }}>
@@ -74,10 +75,14 @@ const FromConv = ({
         onBurnChange={onBurnChange}
         handleBurnPlus={handleBurnPlus}
       />
+      {isMax && <div style={{ padding: '5px' }}>Please do not forget to allocate funds for the gass fee!</div>}
       <BottomArea>
         <div>
           <MaxButton
-            onClick={() => handleChange(balance)}
+            onClick={() => {
+              setIsMax(true)
+              handleChange(balance)
+            }}
             className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
           >
             Max
