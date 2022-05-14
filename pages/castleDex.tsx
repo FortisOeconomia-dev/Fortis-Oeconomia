@@ -121,7 +121,7 @@ const castleDex = () => {
 
   const { setTheme } = useContext(ThemeContext)
   const [swapBalances, setSwapBalances] = useState([0, 0])
-  const [swapBalance, setSwapBalance] = useState(sfotBalance)
+  const [swapBalance, setSwapBalance] = useState(ustBalance)
   const [seconds, setSeconds] = useState(0)
 
   const [asset, setAsset] = useState(0)
@@ -279,7 +279,6 @@ const castleDex = () => {
     else if (asset == 3) balances = [sfotBalance, sfotBalance]
     else if (asset == 4) balances = [sfotBalance, nativeBalance]
     else if (asset == 5) balances = [sfotBalance, atomBalance]
-    setSwapBalances(balances)
 
     let swapToBalances = []
     if (swapTo == 0) swapToBalances = [ustBalance]
@@ -297,15 +296,26 @@ const castleDex = () => {
     else if (swapFrom == 3) swapFromBalance = [sfotBalance]
     else if (swapFrom == 4) swapFromBalance = [nativeBalance]
     else if (swapFrom == 5) swapFromBalance = [atomBalance]
-    setSwapFromBalance(swapFromBalance[0])
 
-    setSwapBalance(balances[1])
+    setSwapBalances([swapFromBalance[0], swapToBalances[0]])
 
-    console.log('----------------')
-    console.log('USE EFFECT current from:', asset)
-    console.log('USE EFFECT current TO:', swapTo)
-    console.log('----------------')
-  }, [asset, swapTo, swapAmount, sfotBalance, ustBalance, bfotBalance, gfotBalance, atomBalance, nativeBalance])
+    if (swapToken1) {
+      setSwapBalance(swapFromBalance[0])
+    } else {
+      setSwapBalance(swapToBalances[0])
+    }
+  }, [
+    swapTo,
+    swapFrom,
+    swapToken1,
+    swapFromBalance,
+    sfotBalance,
+    ustBalance,
+    bfotBalance,
+    gfotBalance,
+    atomBalance,
+    nativeBalance,
+  ])
 
   const onSwapAmountChange = (event: ChangeEvent<HTMLInputElement>) => {
     const {
@@ -331,7 +341,7 @@ const castleDex = () => {
   }
 
   const handleSwap = () => {
-    executeSwap(asset)
+    executeSwap(swapFrom)
   }
 
   function handleChangeAsset(name, from: boolean, to: boolean, exchange: boolean) {
@@ -355,7 +365,7 @@ const castleDex = () => {
   useEffect(() => {
     if (!signingClient || walletAddress == '') return
 
-    calcExpectedSwapAmount(asset)
+    calcExpectedSwapAmount(swapFrom)
   }, [swapAmount, signingClient, walletAddress])
 
   const handlePoolAssetChange = (poolAsset: number) => {
