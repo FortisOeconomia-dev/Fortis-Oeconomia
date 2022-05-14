@@ -122,10 +122,16 @@ const castleDex = () => {
   const { setTheme } = useContext(ThemeContext)
   const [swapBalances, setSwapBalances] = useState([0, 0])
   const [swapBalance, setSwapBalance] = useState(sfotBalance)
-  const [swapToBalance, setSwapToBalance] = useState([])
   const [seconds, setSeconds] = useState(0)
+
   const [asset, setAsset] = useState(0)
+
   const [swapTo, setSwapTo] = useState(3)
+  const [swapToBalance, setSwapToBalance] = useState([])
+
+  const [swapFrom, setSwapFrom] = useState(0)
+  const [swapFromBalance, setSwapFromBalance] = useState([])
+
   const [poolAsset, setPoolAsset] = useState(0)
   const { toggle } = useContext(ToggleContext)
 
@@ -273,31 +279,33 @@ const castleDex = () => {
     else if (asset == 3) balances = [sfotBalance, sfotBalance]
     else if (asset == 4) balances = [sfotBalance, nativeBalance]
     else if (asset == 5) balances = [sfotBalance, atomBalance]
-
-    let swapBalances = []
-    if (swapTo == 0) swapBalances = [ustBalance]
-    else if (swapTo == 1) swapBalances = [bfotBalance]
-    else if (swapTo == 2) swapBalances = [gfotBalance]
-    else if (swapTo == 3) swapBalances = [sfotBalance]
-    else if (swapTo == 4) swapBalances = [nativeBalance]
-    else if (swapTo == 5) swapBalances = [atomBalance]
     setSwapBalances(balances)
-    if (swapToken1) {
-      setSwapBalance(balances[1])
-      setSwapToBalance(swapBalances[0])
-    }
-  }, [
-    asset,
-    swapTo,
-    sfotBalance,
-    swapToken1,
-    sfotBalance,
-    ustBalance,
-    bfotBalance,
-    gfotBalance,
-    atomBalance,
-    nativeBalance,
-  ])
+
+    let swapToBalances = []
+    if (swapTo == 0) swapToBalances = [ustBalance]
+    else if (swapTo == 1) swapToBalances = [bfotBalance]
+    else if (swapTo == 2) swapToBalances = [gfotBalance]
+    else if (swapTo == 3) swapToBalances = [sfotBalance]
+    else if (swapTo == 4) swapToBalances = [nativeBalance]
+    else if (swapTo == 5) swapToBalances = [atomBalance]
+    setSwapToBalance(swapToBalances[0])
+
+    let swapFromBalance = []
+    if (swapFrom == 0) swapFromBalance = [ustBalance]
+    else if (swapFrom == 1) swapFromBalance = [bfotBalance]
+    else if (swapFrom == 2) swapFromBalance = [gfotBalance]
+    else if (swapFrom == 3) swapFromBalance = [sfotBalance]
+    else if (swapFrom == 4) swapFromBalance = [nativeBalance]
+    else if (swapFrom == 5) swapFromBalance = [atomBalance]
+    setSwapFromBalance(swapFromBalance[0])
+
+    setSwapBalance(balances[1])
+
+    console.log('----------------')
+    console.log('USE EFFECT current from:', asset)
+    console.log('USE EFFECT current TO:', swapTo)
+    console.log('----------------')
+  }, [asset, swapTo, swapAmount, sfotBalance, ustBalance, bfotBalance, gfotBalance, atomBalance, nativeBalance])
 
   const onSwapAmountChange = (event: ChangeEvent<HTMLInputElement>) => {
     const {
@@ -326,15 +334,22 @@ const castleDex = () => {
     executeSwap(asset)
   }
 
-  const handleChangeAsset = (name, from: boolean, to: boolean) => {
+  function handleChangeAsset(name, from: boolean, to: boolean, exchange: boolean) {
     const newAsset = assetArray.findIndex(item => item.name === name)
-    if (from) {
+    if (exchange) {
+      from = !from
+      to = !to
+    }
+
+    if (from && newAsset !== swapTo) {
+      setSwapFrom(newAsset)
       setAsset(newAsset)
     }
-    if (to) {
+    if (to && newAsset !== swapFrom) {
       setSwapTo(newAsset)
     }
   }
+
   const { page, setPage } = useContext(ToggleContext)
 
   useEffect(() => {
@@ -396,14 +411,14 @@ const castleDex = () => {
                 )
               }}
               assets={assetArray}
-              from={assetArray[asset].name}
-              fromImage={assetArray[asset].image}
+              from={assetArray[swapFrom].name}
+              fromImage={assetArray[swapFrom].image}
               to={assetArray[swapTo].name}
               toImage={assetArray[swapTo].image}
               handleSubmit={handleSwap}
               balance={swapToBalance}
               handleChange={handleChange}
-              sbalance={swapBalances[1]}
+              sbalance={swapFromBalance}
               submitTitle={'Swap'}
               showBalance={true}
               handleChangeAsset={handleChangeAsset}

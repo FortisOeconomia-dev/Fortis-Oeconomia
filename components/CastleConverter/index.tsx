@@ -47,12 +47,12 @@ const Converter = ({
   const [exchange, setExchange] = useState(false)
 
   const handleSelect = useCallback(
-    (name, isFrom, isTo) => {
+    (name, isFrom, isTo, exchange) => {
       if (isFrom && name !== to) {
-        handleChangeAsset(name, isFrom, isTo)
+        handleChangeAsset(name, isFrom, isTo, exchange)
       }
       if (isTo && name !== from) {
-        handleChangeAsset(name, isFrom, isTo)
+        handleChangeAsset(name, isFrom, isTo, exchange)
       }
     },
     [to],
@@ -72,7 +72,7 @@ const Converter = ({
         handleChange={handleChange}
         maxW={maxW}
         showBalance={showBalance}
-        onSelect={name => handleSelect(name, true, false)}
+        onSelect={name => handleSelect(name, true, false, exchange)}
       />
       <div style={{ marginBottom: '58px', display: 'flex', gap: '16px' }}>
         {typeof convImg === 'string' ? <img src={convImg} /> : convImg()}
@@ -90,7 +90,7 @@ const Converter = ({
         sbalance={!exchange ? balance : sbalance}
         maxW={maxW}
         showBalance={showBalance}
-        onSelect={name => handleSelect(name, false, true)}
+        onSelect={name => handleSelect(name, false, true, exchange)}
       />
       {showSubmitButton && (
         <button className={`default-btn`} onClick={handleSubmit}>
