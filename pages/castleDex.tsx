@@ -296,6 +296,7 @@ const castleDex = () => {
     else if (swapFrom == 3) swapFromBalance = [sfotBalance]
     else if (swapFrom == 4) swapFromBalance = [nativeBalance]
     else if (swapFrom == 5) swapFromBalance = [atomBalance]
+    setSwapFromBalance(swapFromBalance[0])
 
     setSwapBalances([swapFromBalance[0], swapToBalances[0]])
 
@@ -304,18 +305,7 @@ const castleDex = () => {
     } else {
       setSwapBalance(swapToBalances[0])
     }
-  }, [
-    swapTo,
-    swapFrom,
-    swapToken1,
-    swapFromBalance,
-    sfotBalance,
-    ustBalance,
-    bfotBalance,
-    gfotBalance,
-    atomBalance,
-    nativeBalance,
-  ])
+  }, [swapTo, swapFrom, swapToken1, sfotBalance, ustBalance, bfotBalance, gfotBalance, atomBalance, nativeBalance])
 
   const onSwapAmountChange = (event: ChangeEvent<HTMLInputElement>) => {
     const {
@@ -354,9 +344,11 @@ const castleDex = () => {
     if (from && newAsset !== swapTo) {
       setSwapFrom(newAsset)
       setAsset(newAsset)
+      setSwapBalance(0)
     }
     if (to && newAsset !== swapFrom) {
       setSwapTo(newAsset)
+      setSwapBalance(0)
     }
   }
 
