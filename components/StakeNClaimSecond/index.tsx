@@ -159,6 +159,14 @@ const Tourch = styled('img')<{ visible: boolean }>`
   filter: none !important;
 `
 
+const CustomHeaderCell = styled.th`
+  color: '#030f49 !important';
+`
+
+const CustomDataCell = styled.td`
+  color: '#030f49 !important';
+`
+
 const StakeNClaimSecond = ({
   middletext = 'My Liquidity',
   token1TotalAmount,
@@ -449,29 +457,33 @@ const StakeNClaimSecond = ({
             {lpfetchunstake && (
               <div style={{ overflowY: 'auto' }}>
                 <table className="w-full">
-                  {lpStakingMyUnstakingList.length > 0 && (
-                    <tr>
-                      <th>Amount</th>
-                      <th>Release date</th>
-                      <th>Action</th>
-                    </tr>
-                  )}
-                  {lpStakingMyUnstakingList.map((d, idx) => (
-                    <tr key={`${idx}-unstakelp`}>
-                      <td>{convertMicroDenomToDenom2(d[0], 6)}</td>
-                      <td>{moment(new Date(Number(d[1]) * 1000)).format('YYYY/MM/DD HH:mm:ss')}</td>
-                      <td>
-                        <button
-                          className={`default-btn  ${!toggle && 'secondary-btn'}`}
-                          style={{ minWidth: 'unset', padding: '3px 30px' }}
-                          onClick={() => handleLpFetchUnstake(d)}
-                          disabled={new Date().getTime() < Number(d[1]) * 1000}
-                        >
-                          Fetch Unstake
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
+                  <tbody>
+                    {lpStakingMyUnstakingList.length > 0 && (
+                      <tr>
+                        <CustomHeaderCell>Amount</CustomHeaderCell>
+                        <CustomHeaderCell>Release date</CustomHeaderCell>
+                        <CustomHeaderCell>Action</CustomHeaderCell>
+                      </tr>
+                    )}
+                    {lpStakingMyUnstakingList.map((d, idx) => (
+                      <tr key={`${idx}-unstakelp`}>
+                        <CustomDataCell>{convertMicroDenomToDenom2(d[0], 6)}</CustomDataCell>
+                        <CustomDataCell>
+                          {moment(new Date(Number(d[1]) * 1000)).format('YYYY/MM/DD HH:mm:ss')}
+                        </CustomDataCell>
+                        <td>
+                          <button
+                            className={`default-btn  ${!toggle && 'secondary-btn'}`}
+                            style={{ minWidth: 'unset', padding: '3px 30px' }}
+                            onClick={() => handleLpFetchUnstake(d)}
+                            disabled={new Date().getTime() < Number(d[1]) * 1000}
+                          >
+                            Fetch Unstake
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
                 </table>
                 {/* <table className="w-full">
                                 {lpStakingMyUnstakingList > 0 && <tr>

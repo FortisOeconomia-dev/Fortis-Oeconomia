@@ -47,22 +47,12 @@ const Converter = ({
   const [exchange, setExchange] = useState(false)
 
   const handleSelect = useCallback(
-    (name, isFrom) => {
-      if (name !== 'sFOT') {
-        if (name === to || name === from) {
-          if (isFrom) setExchange(true)
-          else setExchange(false)
-        } else {
-          handleChangeAsset(name)
-          if (isFrom) setExchange(true)
-          else setExchange(false)
-        }
-      } else {
-        if (isFrom) {
-          setExchange(false)
-        } else {
-          setExchange(true)
-        }
+    (name, isFrom, isTo) => {
+      if (isFrom && name !== to) {
+        handleChangeAsset(name, isFrom, isTo)
+      }
+      if (isTo && name !== from) {
+        handleChangeAsset(name, isFrom, isTo)
       }
     },
     [to],
@@ -78,11 +68,11 @@ const Converter = ({
         burnAmount={burnAmount}
         onBurnChange={onBurnChange}
         handleBurnPlus={handleBurnPlus}
-        balance={!exchange ? balance : sbalance}
+        balance={!exchange ? sbalance : balance}
         handleChange={handleChange}
         maxW={maxW}
         showBalance={showBalance}
-        onSelect={name => handleSelect(name, true)}
+        onSelect={name => handleSelect(name, true, false)}
       />
       <div style={{ marginBottom: '58px', display: 'flex', gap: '16px' }}>
         {typeof convImg === 'string' ? <img src={convImg} /> : convImg()}
@@ -97,10 +87,10 @@ const Converter = ({
         to={!exchange ? to : from}
         toImage={!exchange ? toImage : fromImage}
         expectedAmount={expectedAmount}
-        sbalance={!exchange ? sbalance : balance}
+        sbalance={!exchange ? balance : sbalance}
         maxW={maxW}
         showBalance={showBalance}
-        onSelect={name => handleSelect(name, false)}
+        onSelect={name => handleSelect(name, false, true)}
       />
       {showSubmitButton && (
         <button className={`default-btn`} onClick={handleSubmit}>

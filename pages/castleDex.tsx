@@ -24,7 +24,6 @@ const Wrapper = styled.div`
   margin-top: 0;
   padding: 0 20px;
   gap: 37px;
-  color: #fbfcfd;
   img {
     filter: ${props => props.defaultChecked && 'invert(1) hue-rotate(-170deg)'};
   }
@@ -123,8 +122,10 @@ const castleDex = () => {
   const { setTheme } = useContext(ThemeContext)
   const [swapBalances, setSwapBalances] = useState([0, 0])
   const [swapBalance, setSwapBalance] = useState(sfotBalance)
+  const [swapToBalance, setSwapToBalance] = useState([])
   const [seconds, setSeconds] = useState(0)
   const [asset, setAsset] = useState(0)
+  const [swapTo, setSwapTo] = useState(3)
   const [poolAsset, setPoolAsset] = useState(0)
   const { toggle } = useContext(ToggleContext)
 
@@ -266,19 +267,37 @@ const castleDex = () => {
     let balances = []
     setSwapAmount(0)
     setSwapBalance(sfotBalance)
-    if (asset == 0) balances = [sfotBalance, ustBalance]
+    if (asset == 0) balances = [ustBalance, ustBalance]
     else if (asset == 1) balances = [sfotBalance, bfotBalance]
     else if (asset == 2) balances = [sfotBalance, gfotBalance]
-    else if (asset == 3) balances = [sfotBalance, nativeBalance]
-    else if (asset == 4) balances = [sfotBalance, atomBalance]
+    else if (asset == 3) balances = [sfotBalance, sfotBalance]
+    else if (asset == 4) balances = [sfotBalance, nativeBalance]
+    else if (asset == 5) balances = [sfotBalance, atomBalance]
 
+    let swapBalances = []
+    if (swapTo == 0) swapBalances = [ustBalance]
+    else if (swapTo == 1) swapBalances = [bfotBalance]
+    else if (swapTo == 2) swapBalances = [gfotBalance]
+    else if (swapTo == 3) swapBalances = [sfotBalance]
+    else if (swapTo == 4) swapBalances = [nativeBalance]
+    else if (swapTo == 5) swapBalances = [atomBalance]
     setSwapBalances(balances)
     if (swapToken1) {
-      setSwapBalance(balances[0])
-    } else {
       setSwapBalance(balances[1])
+      setSwapToBalance(swapBalances[0])
     }
-  }, [asset, sfotBalance, swapToken1, sfotBalance, ustBalance, bfotBalance, gfotBalance, atomBalance, nativeBalance])
+  }, [
+    asset,
+    swapTo,
+    sfotBalance,
+    swapToken1,
+    sfotBalance,
+    ustBalance,
+    bfotBalance,
+    gfotBalance,
+    atomBalance,
+    nativeBalance,
+  ])
 
   const onSwapAmountChange = (event: ChangeEvent<HTMLInputElement>) => {
     const {
@@ -307,11 +326,13 @@ const castleDex = () => {
     executeSwap(asset)
   }
 
-  const handleChangeAsset = name => {
-    const currentAsset = assets[asset]
-    if (name !== 'sFOT' && currentAsset.to !== name) {
-      const newAsset = assets.findIndex(item => item.to === name)
+  const handleChangeAsset = (name, from: boolean, to: boolean) => {
+    const newAsset = assetArray.findIndex(item => item.name === name)
+    if (from) {
       setAsset(newAsset)
+    }
+    if (to) {
+      setSwapTo(newAsset)
     }
   }
   const { page, setPage } = useContext(ToggleContext)
@@ -375,12 +396,12 @@ const castleDex = () => {
                 )
               }}
               assets={assetArray}
-              from={assets[asset].from}
-              fromImage={assets[asset].fromImage}
-              to={assets[asset].to}
-              toImage={assets[asset].toImage}
+              from={assetArray[asset].name}
+              fromImage={assetArray[asset].image}
+              to={assetArray[swapTo].name}
+              toImage={assetArray[swapTo].image}
               handleSubmit={handleSwap}
-              balance={swapBalances[0]}
+              balance={swapToBalance}
               handleChange={handleChange}
               sbalance={swapBalances[1]}
               submitTitle={'Swap'}

@@ -91,8 +91,9 @@ const AssetSelector = ({
       <DropdownWrapper>
         {open && (
           <DropdownItems>
-            {assets.map(asset => (
+            {assets.map((asset, index) => (
               <DropdownItem
+                key={index}
                 onClick={() => {
                   setOpen(false)
                   onSelect(asset.name)
