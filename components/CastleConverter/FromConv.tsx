@@ -54,7 +54,6 @@ const FromConv = ({
   const { walletAddress } = useSigningClient()
   const { toggle } = useContext(ToggleContext)
   const [isMax, setIsMax] = useState(false)
-
   return (
     <div className="gFotCurrencyt-selection" style={{ maxWidth: maxW }}>
       <span style={{ fontSize: 18, fontWeight: 700 }}>From</span>
@@ -75,7 +74,9 @@ const FromConv = ({
         onBurnChange={onBurnChange}
         handleBurnPlus={handleBurnPlus}
       />
-      {isMax && <div style={{ padding: '5px' }}>Please do not forget to allocate funds for the gass fee!</div>}
+      {isMax && from === 'Juno' && (
+        <div style={{ padding: '5px' }}>Please do not forget to allocate funds for the gass fee!</div>
+      )}
       <BottomArea>
         <div>
           <MaxButton
