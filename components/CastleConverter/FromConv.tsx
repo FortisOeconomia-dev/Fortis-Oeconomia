@@ -75,7 +75,7 @@ const FromConv = ({
         handleBurnPlus={handleBurnPlus}
       />
       {isMax && from === 'Juno' && (
-        <div style={{ padding: '5px' }}>Please do not forget to allocate funds for the gass fee!</div>
+        <div style={{ padding: '5px' }}>Please do not forget to allocate funds for the gas fee!</div>
       )}
       <BottomArea>
         <div>
