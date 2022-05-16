@@ -76,8 +76,6 @@ const FromConv = ({
         onClick={() => {
           setIsMax(true)
           handleChange(balance)
-          console.log(isMax)
-          console.log(from)
         }}
         className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
       >
