@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import { useSigningClient } from '../../contexts/cosmwasm'
 import { convertToNoExponents } from '../../util/conversion'
 import AssetSelector from './AssetSelector'
+import classnames from 'classnames'
 
 const WalletTitle = styled.label`
   display: flex;
@@ -84,7 +85,7 @@ const FromConv = ({
               setIsMax(true)
               handleChange(balance)
             }}
-            className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
+            className={classnames('default-btn', !toggle && 'secondary-btn outlined')}
           >
             Max
           </MaxButton>
