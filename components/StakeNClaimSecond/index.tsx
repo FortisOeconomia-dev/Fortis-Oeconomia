@@ -50,25 +50,25 @@ const TotalStakedText = styled.label`
 const CountdownText = styled.label`
   width: unset !important;
   border-bottom: 0px !important;
-  font-size: 16px;
   margin: 0 !important;
+  font-size: 16px;
   text-align: center;
 `
 const CountdownWrapper = styled('label')<{ visible: boolean }>`
+  height: ${props => (props.visible ? 'initial' : '0')};
   width: unset !important;
   border-bottom: 0px !important;
   text-align: center;
   margin: 0 !important;
   visibility: ${props => (props.visible ? 'initial' : 'hidden')};
-  height: ${props => (props.visible ? 'initial' : '0')};
 `
 const DPRText = styled('label')<{ visible: boolean }>`
+  height: ${props => (props.visible ? 'initial' : '0')};
   width: unset !important;
   border-bottom: 0px !important;
   margin: 0 !important;
   font-size: 16px;
   visibility: ${props => (props.visible ? 'initial' : 'hidden')};
-  height: ${props => (props.visible ? 'initial' : '0')};
 `
 
 const StakedValue = styled.span`
@@ -93,11 +93,11 @@ const MyStaked = styled.div`
 `
 
 const MyStakedContent = styled.div`
+  height: 100%;
   width: 100%;
   display: flex;
   align-items: center;
   flex-direction: column;
-  height: 100%;
 `
 
 const MyStakedText = styled.label`
@@ -113,19 +113,19 @@ const InformationText = styled.label`
 `
 
 const MyReward = styled('div')<{ visible: boolean }>`
+  height: ${props => (props.visible ? 'initial' : '0')};
   width: 100% !important;
   border-bottom: 0px !important;
   margin: 0 !important;
   visibility: ${props => (props.visible ? 'initial' : 'hidden')};
-  height: ${props => (props.visible ? 'initial' : '0')};
 `
 
 const Information = styled('div')<{ visible: boolean }>`
+  height: ${props => (props.visible ? 'initial' : '0')};
   width: 100% !important;
   border-bottom: 0px !important;
   margin: 0 !important;
   visibility: ${props => (props.visible ? 'initial' : 'hidden')};
-  height: ${props => (props.visible ? 'initial' : '0')};
 `
 
 const MyStakedDescription = styled.span`
@@ -223,7 +223,7 @@ const StakeNClaimSecond = ({
   showTorch,
   showReward,
   targetHour,
-  information,
+  showInformation,
 }) => {
   const [values, setValues] = useState([50])
   const { toggle } = useContext(ToggleContext)
@@ -509,7 +509,7 @@ const StakeNClaimSecond = ({
             {/*                         <MyStakedText className="wallet-label" style={{ textAlign: 'center', fontSize:"16px" }}>Unbonding period is 14 days</MyStakedText> */}
           </MyRewardsMiddle>
           <Tourch visible={showTorch} src={`/images/torch.png`} />
-          <Information visible={information} className="w-full">
+          <Information visible={showInformation} className="w-full">
             <InformationText className="wallet-label">
               Dungeon incentivization has ended on the date of 15 May. Users who claim their pending rewards until 17
               May.
