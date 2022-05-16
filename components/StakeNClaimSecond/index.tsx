@@ -508,13 +508,12 @@ const StakeNClaimSecond = ({
             )}
             {/*                         <MyStakedText className="wallet-label" style={{ textAlign: 'center', fontSize:"16px" }}>Unbonding period is 14 days</MyStakedText> */}
           </MyRewardsMiddle>
-          <Tourch visible={showTorch} src={`/images/torch.png`} />
           <Information visible={showInformation} className="w-full">
             <InformationText className="wallet-label">
-              Dungeon incentivization has ended on the date of 15 May. Users who claim their pending rewards until 17
-              May.
+              Dungeon incentivization has ended on the date of 15 May.
             </InformationText>
           </Information>
+          <Tourch visible={showTorch} src={`/images/torch.png`} />
           <MyReward visible={showClaimForm} className="w-full">
             <MyStakedText className="wallet-label">
               My Rewards
