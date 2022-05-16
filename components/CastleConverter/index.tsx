@@ -49,20 +49,12 @@ const Converter = ({
   const handleSelect = useCallback(
     (name, isFrom) => {
       if (name !== 'sFOT') {
-        if (name === to || name === from) {
-          if (isFrom) setExchange(true)
-          else setExchange(false)
-        } else {
+        if (name !== to && name !== from) {
           handleChangeAsset(name)
-          if (isFrom) setExchange(true)
-          else setExchange(false)
         }
+        setExchange(isFrom)
       } else {
-        if (isFrom) {
-          setExchange(false)
-        } else {
-          setExchange(true)
-        }
+        setExchange(!isFrom)
       }
     },
     [to],
