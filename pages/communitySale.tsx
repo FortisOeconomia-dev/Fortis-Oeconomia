@@ -1,15 +1,15 @@
 import React, { useState, useEffect, MouseEvent, useContext, ChangeEvent } from 'react'
 import styled from 'styled-components'
+import moment from 'moment'
+import 'react-notifications/lib/notifications.css'
+import { NotificationManager } from 'react-notifications'
+
 import { ToggleContext } from '../components/Layout/Layout'
 import Converter from '../components/Converter'
 import StatisticBox from '../components/StatisticBox'
 import { useSigningClient } from '../contexts/cosmwasm'
 import { convertMicroDenomToDenom2 } from '../util/conversion'
 import ThemeContext from '../contexts/ThemeContext'
-import 'react-notifications/lib/notifications.css'
-import { NotificationManager } from 'react-notifications'
-import moment from 'moment'
-import { textAlign } from '@mui/system'
 
 //styled components
 const Wrapper = styled.div`
@@ -25,7 +25,7 @@ const Wrapper = styled.div`
   gap: 37px;
   img {
     filter: ${props =>
-    props.defaultChecked ? 'drop-shadow(16px 16px 20px) invert(1) hue-rotate(-170deg)' : 'hue-rotate(-240deg)'};
+      props.defaultChecked ? 'drop-shadow(16px 16px 20px) invert(1) hue-rotate(-170deg)' : 'hue-rotate(-240deg)'};
   },
 `
 
@@ -91,7 +91,7 @@ const TableTh = styled.th`
   min-width: unset !important;
 `
 
-const MyRewardsMiddle = styled('div') <{ visible: boolean }>`
+const MyRewardsMiddle = styled('div')<{ visible: boolean }>`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -290,22 +290,19 @@ const communitySale = () => {
                           <span style={{ fontSize: '14px' }}> (at Claim Date)</span>
                         </td>
                         {/* <td>{convertMicroDenomToDenom2(Math.floor((new Date().getTime() / 1000 - d[3]) / 2592000) * 0.05 * d[1], 10)}</td> */}
-                        < td > {moment(new Date((Number(d[3]) + 2592000) * 1000)).format('YYYY/MM/DD HH:mm:ss')}</td>
+                        <td> {moment(new Date((Number(d[3]) + 2592000) * 1000)).format('YYYY/MM/DD HH:mm:ss')}</td>
                         <td>
-
                           <button
                             className={`default-btn  ${!toggle && 'secondary-btn'}`}
                             style={{ minWidth: 'unset', padding: '3px 30px' }}
-                            onClick={(e) => handleCommunitySaleClaim(e, idx)}
+                            onClick={e => handleCommunitySaleClaim(e, idx)}
                             disabled={new Date().getTime() / 1000 < Number(d[3]) + 2592000}
                           >
                             Claim FOT
                           </button>
-
                         </td>
                       </tr>
                     ))}
-
                   </table>
                 </div>
               </MyRewardsMiddle>

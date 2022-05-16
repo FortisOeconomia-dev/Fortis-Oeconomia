@@ -1,8 +1,9 @@
 import styled from 'styled-components'
 import { useContext, useState } from 'react'
+import { useRouter } from 'next/router'
+
 import { ToggleContext } from '../Layout/Layout'
 import InputWithIncDec from '../InputWithIncDec'
-import { useRouter } from 'next/router'
 import { useSigningClient } from '../../contexts/cosmwasm'
 import { convertToNoExponents } from '../../util/conversion'
 

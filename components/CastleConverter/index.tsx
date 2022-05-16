@@ -1,10 +1,10 @@
 import { useCallback, useContext, useState } from 'react'
 import styled from 'styled-components'
+
 import { ToggleContext } from '../Layout/Layout'
 import FromConv from './FromConv'
 import ToConv from './ToConv'
 import { useSigningClient } from '../../contexts/cosmwasm'
-import AssetSelector from './AssetSelector'
 
 const Wrapper = styled.div`
   display: flex;

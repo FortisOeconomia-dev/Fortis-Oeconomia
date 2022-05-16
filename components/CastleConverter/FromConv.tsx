@@ -1,12 +1,13 @@
 import styled from 'styled-components'
 import { useContext, useState } from 'react'
+import { useRouter } from 'next/router'
+import classnames from 'classnames'
+
 import { ToggleContext } from '../Layout/Layout'
 import InputWithIncDec from '../InputWithIncDec'
-import { useRouter } from 'next/router'
 import { useSigningClient } from '../../contexts/cosmwasm'
 import { convertToNoExponents } from '../../util/conversion'
 import AssetSelector from './AssetSelector'
-import classnames from 'classnames'
 
 const WalletTitle = styled.label`
   display: flex;

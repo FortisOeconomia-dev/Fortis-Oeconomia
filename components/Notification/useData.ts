@@ -1,6 +1,4 @@
-import styled from 'styled-components'
 import { useContext, useReducer } from 'react'
-import Notification from './element'
 
 const notificationReducer = (state, action) => {
   switch (action.type) {

@@ -1,15 +1,9 @@
 import { useEffect, useState, MouseEvent, ChangeEvent } from 'react'
-import TextField from '@mui/material/TextField'
 import { NotificationContainer, NotificationManager } from 'react-notifications'
 import 'react-notifications/lib/notifications.css'
-
-import AdapterDateFns from '@mui/lab/AdapterDateFns'
-import LocalizationProvider from '@mui/lab/LocalizationProvider'
-import DateTimePicker from '@mui/lab/DateTimePicker'
 import styled from 'styled-components'
 
 import { useSigningClient } from '../contexts/cosmwasm'
-import { fromBase64, toBase64 } from '@cosmjs/encoding'
 import { convertToNoExponents } from '../util/conversion'
 
 const Wrapper = styled.div`

@@ -1,7 +1,8 @@
 import styled from 'styled-components'
 import { useContext } from 'react'
-import { ToggleContext } from '../Layout/Layout'
 import { useRouter } from 'next/router'
+
+import { ToggleContext } from '../Layout/Layout'
 
 const OutWrapper = styled.div`
   border: double ${props => (props.defaultChecked ? '2px' : '0px')};

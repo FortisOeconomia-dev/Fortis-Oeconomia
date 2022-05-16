@@ -1,9 +1,9 @@
-import { borderBottom } from '@mui/system'
-import { useSigningClient } from '../contexts/cosmwasm'
 import styled from 'styled-components'
 import { useContext, useEffect, useState } from 'react'
+
 import { ToggleContext } from '../components/Layout/Layout'
 import { convertToNoExponents } from '../util/conversion'
+import { useSigningClient } from '../contexts/cosmwasm'
 
 const Wallet = styled.div`
   flex: 1;

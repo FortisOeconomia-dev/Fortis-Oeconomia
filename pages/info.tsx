@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 import { useContext, useState } from 'react'
+
 import Panel from '../components/Panel'
 import { ToggleContext } from '../components/Layout/Layout'
-import Pool from '../components/Pool'
 
 const Wrapper = styled.div`
   display: flex;

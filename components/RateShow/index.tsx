@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { useContext } from 'react'
+
 import { ToggleContext } from '../../components/Layout/Layout'
 
 const Wrapper = styled.div`

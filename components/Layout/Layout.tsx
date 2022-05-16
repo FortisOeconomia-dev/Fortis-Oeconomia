@@ -2,6 +2,7 @@ import Head from 'next/head'
 import React, { useState, createContext, useContext, useEffect } from 'react'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
+
 import RateShow from '../../components/RateShow'
 import { useSigningClient } from '../../contexts/cosmwasm'
 import ProgressBar from '../../components/ProgressBar'

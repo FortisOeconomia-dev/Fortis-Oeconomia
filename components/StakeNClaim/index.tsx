@@ -1,15 +1,14 @@
+import { useContext, MouseEvent, ChangeEvent } from 'react'
+import moment from 'moment'
+import styled from 'styled-components'
+import { useRouter } from 'next/router'
+import { NotificationManager } from 'react-notifications'
+
 import { useSigningClient } from '../../contexts/cosmwasm'
 import { convertMicroDenomToDenom2, convertToFixedDecimals } from '../../util/conversion'
 import InputWithIncDec from '../InputWithIncDec'
-import styled from 'styled-components'
-import classnames from 'classnames'
-import { useContext, MouseEvent, ChangeEvent } from 'react'
-import { useRouter } from 'next/router'
 import { ToggleContext } from '../Layout/Layout'
-import { NotificationManager } from 'react-notifications'
-import moment from 'moment'
 import Countdown from '../Countdown'
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 
 const MaxButton = styled.button`
   margin-bottom: 20px;

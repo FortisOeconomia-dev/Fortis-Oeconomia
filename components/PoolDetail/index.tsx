@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 import StakeNClaimSecond from '../StakeNClaimSecond'
 import { useContext, useEffect, useState, ChangeEvent, MouseEvent } from 'react'
+import { NotificationContainer, NotificationManager } from 'react-notifications'
+
 import { ToggleContext } from '../Layout/Layout'
 import {
   convertMicroDenomToDenom,
@@ -10,7 +12,6 @@ import {
   convertFromMicroDenom,
 } from '../../util/conversion'
 import { useSigningClient } from '../../contexts/cosmwasm'
-import { NotificationContainer, NotificationManager } from 'react-notifications'
 
 const Wrapper = styled.div`
   display: flex;

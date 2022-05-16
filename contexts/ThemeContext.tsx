@@ -1,5 +1,6 @@
-import { createContext } from "react";
-import { ThemeContextInterface } from "../hooks/useTheme";
+import { createContext } from 'react'
+
+import { ThemeContextInterface } from '../hooks/useTheme'
 
 const ThemeContext = createContext<ThemeContextInterface>(null)
 

@@ -1,12 +1,11 @@
 import React, { useState, useEffect, MouseEvent, useContext, ChangeEvent } from 'react'
 import styled from 'styled-components'
+import 'react-notifications/lib/notifications.css'
+
 import { ToggleContext } from '../components/Layout/Layout'
 import Converter from '../components/CastleConverter'
 import { useSigningClient } from '../contexts/cosmwasm'
-import { convertMicroDenomToDenom2 } from '../util/conversion'
 import ThemeContext from '../contexts/ThemeContext'
-import 'react-notifications/lib/notifications.css'
-import { NotificationManager } from 'react-notifications'
 import Pool from '../components/Pool/WidePool'
 
 //styled components

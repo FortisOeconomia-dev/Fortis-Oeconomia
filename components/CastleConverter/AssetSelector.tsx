@@ -1,5 +1,6 @@
 import { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import styled from 'styled-components'
+
 import { ToggleContext } from '../Layout/Layout'
 
 const MainContent = styled.div`
