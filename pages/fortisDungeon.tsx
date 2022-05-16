@@ -249,11 +249,12 @@ const fortisDungeon = () => {
       showUnstakeAllButton: true,
       showClaimForm: true,
       level: 3,
-      showDPR: true,
+      showDPR: false,
       showStakeAllButton: true,
       showLpAmount: true,
       lpfetchunstake: true,
       showReward: true,
+      information: true,
     },
     {
       from: 'UST',
@@ -333,11 +334,12 @@ const fortisDungeon = () => {
       showUnstakeAllButton: true,
       showClaimForm: true,
       level: 8,
-      showDPR: true,
+      showDPR: false,
       showStakeAllButton: true,
       showLpAmount: true,
       lpfetchunstake: true,
       showReward: true,
+      information: true,
     },
   ]
 
@@ -375,6 +377,7 @@ const fortisDungeon = () => {
         maxWidth={'none'}
         showStakeForm={assets[asset].showStakeForm}
         showClaimForm={assets[asset].showClaimForm}
+        information={assets[asset].information}
         showReward={assets[asset].showReward}
         showMaxButtonInLiquidityForm={assets[asset].showMaxButton}
         showStakeAllButton={assets[asset].showStakeAllButton}

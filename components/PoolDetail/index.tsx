@@ -56,6 +56,7 @@ const PoolDetail = ({
   unstakeButtonText = 'Unstake All',
   showClaimForm = true,
   middletext = 'My Liquidity',
+  information = false,
 }) => {
   const { toggle } = useContext(ToggleContext)
   const {
@@ -513,6 +514,7 @@ const PoolDetail = ({
           lpfetchunstake={lpfetchunstake}
           unstakeButtonText={unstakeButtonText}
           showClaimForm={showClaimForm}
+          information={information}
           showReward={showReward}
           middletext={middletext}
           targetHour={targetHour}
