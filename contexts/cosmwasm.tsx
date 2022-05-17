@@ -156,8 +156,6 @@ let { Provider } = (CosmWasmContext = createContext<ISigningCosmWasmClientContex
   calcExpectedSwapAmountForDungeon: () => {},
   executeSwapForDungeon: () => {},
   getLpStakingInfoForDungeon: () => {},
-  executeLpStakeAllForDungeon: () => {},
-  executeLpClaimRewardForDungeon: () => {},
   executeLpCreateUnstakeForDungeon: () => {},
   executeLpFetchUnstakeForDungeon: () => {},
 

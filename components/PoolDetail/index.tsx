@@ -115,8 +115,6 @@ const PoolDetail = ({
     calcExpectedSwapAmountForDungeon,
     executeSwapForDungeon,
     getLpStakingInfoForDungeon,
-    executeLpStakeAllForDungeon,
-    executeLpClaimRewardForDungeon,
     executeLpCreateUnstakeForDungeon,
     executeLpFetchUnstakeForDungeon,
 
@@ -422,7 +420,6 @@ const PoolDetail = ({
 
   const handleLpStaking = async () => {
     if (asset < 10) await executeLpStakeAll(asset)
-    else await executeLpStakeAllForDungeon(asset - 10)
   }
   const handleLpCreateUnstake = async () => {
     if (asset < 10) await executeLpCreateUnstake(asset)
@@ -432,7 +429,6 @@ const PoolDetail = ({
     // if (asset == 2)
     //     return
     if (asset < 10) await executeLpClaimReward(asset)
-    else await executeLpClaimRewardForDungeon(asset - 10)
   }
   const handleLpFetchUnstake = async lpState => {
     if (asset < 10) await executeLpFetchUnstake(lpState, asset)
