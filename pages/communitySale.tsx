@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import moment from 'moment'
 import 'react-notifications/lib/notifications.css'
 import { NotificationManager } from 'react-notifications'
+import classnames from 'classnames'
 
 import { ToggleContext } from '../components/Layout/Layout'
 import Converter from '../components/Converter'
@@ -293,7 +294,7 @@ const communitySale = () => {
                         <td> {moment(new Date((Number(d[3]) + 2592000) * 1000)).format('YYYY/MM/DD HH:mm:ss')}</td>
                         <td>
                           <button
-                            className={`default-btn  ${!toggle && 'secondary-btn'}`}
+                            className={classnames('default-btn', !toggle && 'secondary-btn')}
                             style={{ minWidth: 'unset', padding: '3px 30px' }}
                             onClick={e => handleCommunitySaleClaim(e, idx)}
                             disabled={new Date().getTime() / 1000 < Number(d[3]) + 2592000}

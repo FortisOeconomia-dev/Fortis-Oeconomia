@@ -92,7 +92,7 @@ const FromConv = ({
           </MaxButton>
           <MaxButton
             onClick={() => handleChange(balance / 2)}
-            className={`default-btn  ${!toggle && 'secondary-btn outlined mr-2'}`}
+            className={classnames('default-btn', !toggle && 'secondary-btn outlined mr-2')}
           >
             Half
           </MaxButton>

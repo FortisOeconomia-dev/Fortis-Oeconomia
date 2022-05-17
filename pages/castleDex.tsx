@@ -266,19 +266,15 @@ const castleDex = () => {
     const {
       target: { value },
     } = event
-    if (Number(value) > Number(swapBalance)) return
-    if (Number(value) < 0) return
+    if (Number(value) > Number(swapBalance) || Number(value) < 0) return
     setSwapAmount(Number(value))
   }
 
   const handleSwapAmountPlus = () => {
-    if (Number(swapAmount) + 1 > Number(swapBalance)) return
-
-    setSwapAmount(Number(swapAmount) + 1)
+    Number(swapAmount) + 1 <= Number(swapBalance) && setSwapAmount(Number(swapAmount) + 1)
   }
   const handleSwapAmountMinus = () => {
-    if (Number(swapAmount) - 1 < 0) return
-    setSwapAmount(Number(swapAmount) - 1)
+    Number(swapAmount) >= 1 && setSwapAmount(Number(swapAmount) - 1)
   }
 
   const handleChange = balance => {

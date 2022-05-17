@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import StakeNClaimSecond from '../StakeNClaimSecond'
 import { useContext, useEffect, useState, ChangeEvent, MouseEvent } from 'react'
 import { NotificationContainer, NotificationManager } from 'react-notifications'
 
@@ -12,6 +11,7 @@ import {
   convertFromMicroDenom,
 } from '../../util/conversion'
 import { useSigningClient } from '../../contexts/cosmwasm'
+import StakeNClaimSecond from '../StakeNClaimSecond'
 
 const Wrapper = styled.div`
   display: flex;
