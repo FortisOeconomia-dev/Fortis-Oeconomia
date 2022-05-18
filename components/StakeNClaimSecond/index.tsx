@@ -9,7 +9,7 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 import { convertMicroDenomToDenom2, convertToFixedDecimals } from '../../util/conversion'
 import Countdown from '../Countdown'
 
-const Wrapper = styled('div') <{ maxWidth: string }>`
+const Wrapper = styled('div')<{ maxWidth: string }>`
   padding: 50px 32px;
   background: rgba(255, 255, 255, 0.25);
   box-shadow: 2.74846px 5.49692px 57.0305px rgba(161, 164, 176, 0.25);
@@ -50,25 +50,25 @@ const TotalStakedText = styled.label`
 const CountdownText = styled.label`
   width: unset !important;
   border-bottom: 0px !important;
-  font-size: 16px;
   margin: 0 !important;
+  font-size: 16px;
   text-align: center;
 `
-const CountdownWrapper = styled('label') <{ visible: boolean }>`
+const CountdownWrapper = styled('label')<{ visible: boolean }>`
+  height: ${props => (props.visible ? 'initial' : '0')};
   width: unset !important;
   border-bottom: 0px !important;
   text-align: center;
   margin: 0 !important;
   visibility: ${props => (props.visible ? 'initial' : 'hidden')};
-  height: ${props => (props.visible ? 'initial' : '0')};
 `
-const DPRText = styled('label') <{ visible: boolean }>`
+const DPRText = styled('label')<{ visible: boolean }>`
+  height: ${props => (props.visible ? 'initial' : '0')};
   width: unset !important;
   border-bottom: 0px !important;
   margin: 0 !important;
   font-size: 16px;
   visibility: ${props => (props.visible ? 'initial' : 'hidden')};
-  height: ${props => (props.visible ? 'initial' : '0')};
 `
 
 const StakedValue = styled.span`
@@ -77,7 +77,7 @@ const StakedValue = styled.span`
   float: right;
 `
 
-const RewardValue = styled('span') <{ visible: boolean }>`
+const RewardValue = styled('span')<{ visible: boolean }>`
   font-size: 16px;
   display: block;
   float: right;
@@ -93,11 +93,11 @@ const MyStaked = styled.div`
 `
 
 const MyStakedContent = styled.div`
+  height: 100%;
   width: 100%;
   display: flex;
   align-items: center;
   flex-direction: column;
-  height: 100%;
 `
 
 const MyStakedText = styled.label`
@@ -106,12 +106,26 @@ const MyStakedText = styled.label`
   margin: 0 !important;
 `
 
-const MyReward = styled('div') <{ visible: boolean }>`
+const InformationText = styled.label`
+  width: 100% !important;
+  border-bottom: 0px !important;
+  margin: 0 !important;
+`
+
+const MyReward = styled('div')<{ visible: boolean }>`
+  height: ${props => (props.visible ? 'initial' : '0')};
   width: 100% !important;
   border-bottom: 0px !important;
   margin: 0 !important;
   visibility: ${props => (props.visible ? 'initial' : 'hidden')};
+`
+
+const Information = styled('div')<{ visible: boolean }>`
   height: ${props => (props.visible ? 'initial' : '0')};
+  width: 100% !important;
+  border-bottom: 0px !important;
+  margin: 0 !important;
+  visibility: ${props => (props.visible ? 'initial' : 'hidden')};
 `
 
 const MyStakedDescription = styled.span`
@@ -127,7 +141,7 @@ const MaxButton = styled.button`
   min-width: unset !important;
 `
 
-const MyRewardsUp = styled('div') <{ visible: boolean }>`
+const MyRewardsUp = styled('div')<{ visible: boolean }>`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -138,7 +152,7 @@ const MyRewardsUp = styled('div') <{ visible: boolean }>`
   height: ${props => (props.visible ? 'initial' : '0')};
 `
 
-const MyRewardsMiddle = styled('div') <{ visible: boolean }>`
+const MyRewardsMiddle = styled('div')<{ visible: boolean }>`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -147,7 +161,7 @@ const MyRewardsMiddle = styled('div') <{ visible: boolean }>`
   border-bottom: ${props => (props.visible ? '2.05843px solid #2e0752' : '0')};
   padding-bottom: 20px;
 `
-const Tourch = styled('img') <{ visible: boolean }>`
+const Tourch = styled('img')<{ visible: boolean }>`
   display: flex;
   background: transparent;
   color: transparent;
@@ -209,6 +223,7 @@ const StakeNClaimSecond = ({
   showTorch,
   showReward,
   targetHour,
+  showInformation,
 }) => {
   const [values, setValues] = useState([50])
   const { toggle } = useContext(ToggleContext)
@@ -493,6 +508,11 @@ const StakeNClaimSecond = ({
             )}
             {/*                         <MyStakedText className="wallet-label" style={{ textAlign: 'center', fontSize:"16px" }}>Unbonding period is 14 days</MyStakedText> */}
           </MyRewardsMiddle>
+          <Information visible={showInformation} className="w-full">
+            <InformationText className="wallet-label">
+              Dungeon incentivization has ended on the date of 15 May.
+            </InformationText>
+          </Information>
           <Tourch visible={showTorch} src={`/images/torch.png`} />
           <MyReward visible={showClaimForm} className="w-full">
             <MyStakedText className="wallet-label">

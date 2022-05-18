@@ -230,8 +230,6 @@ export interface ISigningCosmWasmClientContext {
   calcExpectedSwapAmountForDungeon: Function
   executeSwapForDungeon: Function
   getLpStakingInfoForDungeon: Function
-  executeLpStakeAllForDungeon: Function
-  executeLpClaimRewardForDungeon: Function
   executeLpCreateUnstakeForDungeon: Function
   executeLpFetchUnstakeForDungeon: Function
 }
@@ -996,7 +994,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       // apr formula is 365xdpr
       setgFotStakingApy(
         (365 * 100 * 30.0) /
-        Number(convertMicroDenomToDenom2(gfotStakingContractInfo.gfot_amount, objectGfotTokenInfo.decimals)),
+          Number(convertMicroDenomToDenom2(gfotStakingContractInfo.gfot_amount, objectGfotTokenInfo.decimals)),
       )
 
       const gfotStakingMyInfo = await signingClient.queryContractSmart(PUBLIC_GFOTSTAKING_CONTRACT, {
@@ -1216,8 +1214,8 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       // dpr * 365 for APR on sFOT
       setsFotStakingApy(
         (365 * 36000000 * Number(convertMicroDenomToDenom2(bfot2ustval, 6))) /
-        (Number(convertMicroDenomToDenom2(sfotStakingContractInfo.gfot_amount, objectSfotTokenInfo.decimals)) *
-          Number(convertMicroDenomToDenom2(sfot2ustval, 6))),
+          (Number(convertMicroDenomToDenom2(sfotStakingContractInfo.gfot_amount, objectSfotTokenInfo.decimals)) *
+            Number(convertMicroDenomToDenom2(sfot2ustval, 6))),
       )
 
       setSfotUstPoolInfo(sfotUstPoolInfo)
@@ -3592,13 +3590,11 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
   // ######### lp staking ##########
   const getLpStakingInfoForDungeon = async (asset: number) => {
-    let contract = DUNGEON_POOL_INFO[asset].pool_contract
     let lp_token_address = DUNGEON_POOL_INFO[asset].lp_contract
     let staking_contract = DUNGEON_POOL_INFO[asset].staking_contract
 
     let lp_amount = 0
     let staked_amount = 0
-    let staked_reward = 0
     let lpStakingInfo = null
 
     switch (asset) {
@@ -3644,7 +3640,6 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       })
 
       staked_amount = Number(response.amount)
-      staked_reward = Number(response.reward)
 
       let unstakingList = await signingClient.queryContractSmart(staking_contract, {
         unstaking: {
@@ -3653,80 +3648,10 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       })
       unstakingList = unstakingList.filter(item => item[0] != 0)
 
-      if (lpStakingInfo.gfot_amount > 0 && response.last_time > 0) {
-        let delay =
-          Math.floor((new Date().getTime() / 1000 + 43200) / 86400) - Math.floor((response.last_time + 43200) / 86400)
-        staked_reward +=
-          ((delay > 0 ? delay : 0) * lpStakingInfo.daily_fot_amount * staked_amount) / lpStakingInfo.gfot_amount
-      }
-
-      return { lp_token_address, staking_contract, staked_amount, unstakingList, lp_amount, staked_reward }
+      return { lp_token_address, staking_contract, staked_amount, unstakingList, lp_amount }
     }
 
-    return { lp_token_address, staking_contract, staked_amount, unstakingList, lp_amount, staked_reward }
-  }
-
-  const executeLpStakeAllForDungeon = async asset => {
-    let lpstate = await getLpStakingInfoForDungeon(asset)
-    if (lpstate.lp_amount == 0) return
-    setLoading(true)
-    try {
-      const result = await signingClient?.execute(
-        walletAddress, // sender address
-        lpstate.lp_token_address,
-        {
-          send: {
-            amount: `${lpstate.lp_amount}`,
-            contract: `${lpstate.staking_contract}`,
-            msg: ``,
-          },
-        }, // msg
-        defaultFee,
-        undefined,
-        [],
-      )
-      setLoading(false)
-      getSfotBalances()
-      // if (showNotification) NotificationManager.success('Successfully staked')
-      successNotification({ title: 'Stake Successful', txHash: result.transactionHash })
-    } catch (error) {
-      setLoading(false)
-      console.log(error)
-      //if (showNotification) {
-      NotificationManager.error(`Stakemodule error : ${error}`)
-      console.log(error.toString())
-      //}
-    }
-  }
-
-  const executeLpClaimRewardForDungeon = async asset => {
-    let staking_contract = DUNGEON_POOL_INFO[asset].staking_contract
-
-    setLoading(true)
-
-    try {
-      const result = await signingClient?.execute(
-        walletAddress, // sender address
-        staking_contract,
-        {
-          claim_reward: {},
-        }, // msg
-        defaultFee,
-        undefined,
-        [],
-      )
-
-      setLoading(false)
-      getSfotBalances()
-      // if (showNotification) NotificationManager.success('Successfully claimed reward')
-      successNotification({ title: 'Claim Successful', txHash: result.transactionHash })
-    } catch (error) {
-      setLoading(false)
-      //if (showNotification) {
-      NotificationManager.error(`Stakemodule claim error : ${error}`)
-      console.log(error.toString())
-      //}
-    }
+    return { lp_token_address, staking_contract, staked_amount, unstakingList, lp_amount }
   }
 
   const executeLpCreateUnstakeForDungeon = async asset => {
@@ -3955,8 +3880,6 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     calcExpectedSwapAmountForDungeon,
     executeSwapForDungeon,
     getLpStakingInfoForDungeon,
-    executeLpStakeAllForDungeon,
-    executeLpClaimRewardForDungeon,
     executeLpCreateUnstakeForDungeon,
     executeLpFetchUnstakeForDungeon,
 
