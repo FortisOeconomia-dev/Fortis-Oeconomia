@@ -996,7 +996,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       // apr formula is 365xdpr
       setgFotStakingApy(
         (365 * 100 * 30.0) /
-        Number(convertMicroDenomToDenom2(gfotStakingContractInfo.gfot_amount, objectGfotTokenInfo.decimals)),
+          Number(convertMicroDenomToDenom2(gfotStakingContractInfo.gfot_amount, objectGfotTokenInfo.decimals)),
       )
 
       const gfotStakingMyInfo = await signingClient.queryContractSmart(PUBLIC_GFOTSTAKING_CONTRACT, {
@@ -1216,8 +1216,8 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       // dpr * 365 for APR on sFOT
       setsFotStakingApy(
         (365 * 36000000 * Number(convertMicroDenomToDenom2(bfot2ustval, 6))) /
-        (Number(convertMicroDenomToDenom2(sfotStakingContractInfo.gfot_amount, objectSfotTokenInfo.decimals)) *
-          Number(convertMicroDenomToDenom2(sfot2ustval, 6))),
+          (Number(convertMicroDenomToDenom2(sfotStakingContractInfo.gfot_amount, objectSfotTokenInfo.decimals)) *
+            Number(convertMicroDenomToDenom2(sfot2ustval, 6))),
       )
 
       setSfotUstPoolInfo(sfotUstPoolInfo)
@@ -2870,13 +2870,13 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     }
   }
 
-  const calcExpectedSwapAmount = async asset => {
-    // console.log(swapToken1)
-
+  const calcSfotExpectedSwapAmount = async (from: Number) => {
+    console.log('calcSfotExpectedSwapAmount', from)
+    //Old version for sFor Swap
     let contract = ''
     let decimals = [10, 10]
     let poolInfo = null
-    switch (asset) {
+    switch (from) {
       case 0:
         contract = PUBLIC_SFOT_UST_POOL_CONTRACT
         decimals = [10, 6]
@@ -2890,12 +2890,12 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         contract = PUBLIC_SFOT_GFOT_POOL_CONTRACT
         poolInfo = sfotGfotPoolInfo
         break
-      case 3:
+      case 4:
         contract = PUBLIC_SFOT_JUNO_POOL_CONTRACT
         decimals = [10, 6]
         poolInfo = sfotJunoPoolInfo
         break
-      case 4:
+      case 5:
         contract = PUBLIC_SFOT_ATOM_POOL_CONTRACT
         decimals = [10, 6]
         poolInfo = sfotAtomPoolInfo
@@ -2908,18 +2908,140 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     if (!swapToken1) {
       decimals = [decimals[1], decimals[0]]
     }
-    const price1to2 = await signingClient.queryContractSmart(contract, {
-      token1_for_token2_price: { token1_amount: `${Math.pow(10, decimals[0])}` },
-    })
 
-    const price2to1 = await signingClient.queryContractSmart(contract, {
-      token2_for_token1_price: { token2_amount: `${Math.pow(10, decimals[1])}` },
-    })
+    console.log(swapToken1)
     let input_amount_with_fee = Number(convertDenomToMicroDenom2(swapAmount, decimals[0])) * 990.0
+    console.log('input_amount_with_fee', input_amount_with_fee)
     let numerator = input_amount_with_fee * (swapToken1 ? poolInfo.token2_reserve : poolInfo.token1_reserve)
+    console.log('numerator', numerator)
     let denominator = (swapToken1 ? poolInfo.token1_reserve : poolInfo.token2_reserve) * 1000.0 + input_amount_with_fee
+    console.log('denominator', denominator)
     let out_amount = convertMicroDenomToDenom2(numerator / denominator, decimals[1])
-    setExpectedToken2Amount(out_amount)
+    console.log('out_amount', out_amount)
+    setExpectedToken2Amount(Number.isNaN(out_amount) ? 0 : out_amount)
+  }
+
+  const calcExpectedSwapAmount = async (from: Number, to: Number) => {
+    console.log('from', from)
+    console.log('to', to)
+    //Old version for sFor Swap
+    if (from === 3 || to === 3) {
+      if (from === 3) {
+        calcSfotExpectedSwapAmount(to)
+      } else {
+        calcSfotExpectedSwapAmount(from)
+      }
+    } else {
+      //Calculate token to token swap from sFot values
+      console.log('-----------------------------')
+      console.log('calcExpectedSwapAmount')
+      console.log('-----------------------------')
+      /*
+          0: 'UST',
+          1: 'bFOT',
+          2: 'gFOT',
+          3: 'sFOT',
+          4: 'Juno',
+          5: 'Atom',
+        */
+
+      let contractFrom = ''
+      let decimalsFrom = [10, 10]
+      let poolInfoFrom = null
+
+      switch (from) {
+        case 0:
+          contractFrom = PUBLIC_SFOT_UST_POOL_CONTRACT
+          decimalsFrom = [10, 6]
+          poolInfoFrom = sfotUstPoolInfo
+          break
+        case 1:
+          contractFrom = PUBLIC_SFOT_BFOT_POOL_CONTRACT
+          poolInfoFrom = sfotBfotPoolInfo
+          break
+        case 2:
+          contractFrom = PUBLIC_SFOT_GFOT_POOL_CONTRACT
+          poolInfoFrom = sfotGfotPoolInfo
+          break
+        case 4:
+          contractFrom = PUBLIC_SFOT_JUNO_POOL_CONTRACT
+          decimalsFrom = [10, 6]
+          poolInfoFrom = sfotJunoPoolInfo
+          break
+        case 5:
+          contractFrom = PUBLIC_SFOT_ATOM_POOL_CONTRACT
+          decimalsFrom = [10, 6]
+          poolInfoFrom = sfotAtomPoolInfo
+          break
+
+        default:
+          return
+      }
+
+      let contractTo = ''
+      let decimalsTo = [10, 10]
+      let poolInfoTo = null
+      switch (to) {
+        case 0:
+          contractTo = PUBLIC_SFOT_UST_POOL_CONTRACT
+          decimalsTo = [10, 6]
+          poolInfoTo = sfotUstPoolInfo
+          break
+        case 1:
+          contractTo = PUBLIC_SFOT_BFOT_POOL_CONTRACT
+          poolInfoTo = sfotBfotPoolInfo
+          break
+        case 2:
+          contractTo = PUBLIC_SFOT_GFOT_POOL_CONTRACT
+          poolInfoTo = sfotGfotPoolInfo
+          break
+        case 4:
+          contractTo = PUBLIC_SFOT_JUNO_POOL_CONTRACT
+          decimalsTo = [10, 6]
+          poolInfoTo = sfotJunoPoolInfo
+          break
+        case 5:
+          contractTo = PUBLIC_SFOT_ATOM_POOL_CONTRACT
+          decimalsTo = [10, 6]
+          poolInfoTo = sfotAtomPoolInfo
+          break
+
+        default:
+          return
+      }
+      if (!swapToken1) {
+        decimalsFrom = [decimalsFrom[1], decimalsFrom[0]]
+        decimalsTo = [decimalsTo[1], decimalsTo[0]]
+      }
+
+      //FROM TOKEN TO SFOT
+      console.log(swapAmount, '------')
+      let input_amount_with_fee = Number(convertDenomToMicroDenom2(swapAmount, decimalsFrom[0])) * 990.0
+      console.log('input_amount_with_fee_from', Number(convertDenomToMicroDenom2(swapAmount, decimalsFrom[0])))
+      let numerator_from =
+        input_amount_with_fee * (swapToken1 ? poolInfoFrom.token2_reserve : poolInfoFrom.token1_reserve)
+      console.log('numerator_from', numerator_from)
+      let denominator_from =
+        (swapToken1 ? poolInfoFrom.token1_reserve : poolInfoFrom.token2_reserve) * 1000.0 + input_amount_with_fee
+      console.log('denominator_from', denominator_from)
+      let out_amount_from = convertMicroDenomToDenom2(numerator_from / denominator_from, decimalsFrom[1])
+
+      console.log('-----------------------------')
+      console.log('FROM TOKEN TO SFOT: ', out_amount_from)
+      console.log('-----------------------------')
+
+      //FROM SFOT TO TOKEN
+      let numerator_to = input_amount_with_fee * (swapToken1 ? poolInfoTo.token2_reserve : poolInfoTo.token1_reserve)
+      console.log('numerator_to', numerator_to)
+      let denominator_to =
+        (swapToken1 ? poolInfoTo.token1_reserve : poolInfoTo.token2_reserve) * 1000.0 + input_amount_with_fee
+      console.log('denominator_to', denominator_to)
+      let out_amount_to = convertMicroDenomToDenom2(numerator_to / denominator_to, decimalsTo[1])
+      console.log('SWAP SFOT TO TOKEN: ', out_amount_to)
+
+      let out_amount = (out_amount_to / out_amount_from) * swapAmount
+      setExpectedToken2Amount(Number.isNaN(out_amount) ? 0 : out_amount)
+    }
   }
 
   const executeSwap = async asset => {

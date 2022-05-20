@@ -3,10 +3,8 @@ import styled from 'styled-components'
 import { ToggleContext } from '../components/Layout/Layout'
 import Converter from '../components/CastleConverter'
 import { useSigningClient } from '../contexts/cosmwasm'
-import { convertMicroDenomToDenom2 } from '../util/conversion'
 import ThemeContext from '../contexts/ThemeContext'
 import 'react-notifications/lib/notifications.css'
-import { NotificationManager } from 'react-notifications'
 import Pool from '../components/Pool/WidePool'
 import StatisticBox from '../components/StatisticBox'
 import PoolDetail from '../components/PoolDetail'
@@ -270,15 +268,8 @@ const castleDex = () => {
   }, [seconds])
 
   useEffect(() => {
-    let balances = []
     setSwapAmount(0)
     setSwapBalance(sfotBalance)
-    if (asset == 0) balances = [ustBalance, ustBalance]
-    else if (asset == 1) balances = [sfotBalance, bfotBalance]
-    else if (asset == 2) balances = [sfotBalance, gfotBalance]
-    else if (asset == 3) balances = [sfotBalance, sfotBalance]
-    else if (asset == 4) balances = [sfotBalance, nativeBalance]
-    else if (asset == 5) balances = [sfotBalance, atomBalance]
 
     let swapToBalances = []
     if (swapTo == 0) swapToBalances = [ustBalance]
@@ -331,7 +322,7 @@ const castleDex = () => {
   }
 
   const handleSwap = () => {
-    executeSwap(swapFrom)
+    executeSwap(asset, swapFrom, swapTo)
   }
 
   function handleChangeAsset(name, from: boolean, to: boolean, exchange: boolean) {
@@ -339,6 +330,7 @@ const castleDex = () => {
     if (exchange) {
       from = !from
       to = !to
+      setSwapBalance(0)
     }
 
     if (from && newAsset !== swapTo) {
@@ -348,6 +340,7 @@ const castleDex = () => {
     }
     if (to && newAsset !== swapFrom) {
       setSwapTo(newAsset)
+      setAsset(newAsset)
       setSwapBalance(0)
     }
   }
@@ -357,7 +350,7 @@ const castleDex = () => {
   useEffect(() => {
     if (!signingClient || walletAddress == '') return
 
-    calcExpectedSwapAmount(swapFrom)
+    calcExpectedSwapAmount(swapFrom, swapTo)
   }, [swapAmount, signingClient, walletAddress])
 
   const handlePoolAssetChange = (poolAsset: number) => {
