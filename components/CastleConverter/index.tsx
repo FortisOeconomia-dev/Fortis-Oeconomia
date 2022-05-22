@@ -25,6 +25,7 @@ const Converter = ({
   convImg2 = null,
   assets,
   handleChangeAsset,
+  handleExchange,
   from,
   to,
   fromImage = null,
@@ -46,51 +47,56 @@ const Converter = ({
   const { toggle } = useContext(ToggleContext)
   const [exchange, setExchange] = useState(false)
 
+  const handleExchangeClick = useCallback(() => {
+    setSwapToken1(exchange)
+    setExchange(!exchange)
+    handleExchange(to, from)
+  }, [to, from, exchange])
+
   const handleSelect = useCallback(
-    (name, isFrom, isTo, exchange) => {
+    (name, isFrom, isTo) => {
       if (isFrom && name !== to) {
-        handleChangeAsset(name, isFrom, isTo, exchange)
+        handleChangeAsset(name, isFrom, isTo)
       }
       if (isTo && name !== from) {
-        handleChangeAsset(name, isFrom, isTo, exchange)
+        handleChangeAsset(name, isFrom, isTo)
       }
     },
-    [to],
+    [from, to, handleChangeAsset],
   )
 
   return (
     <Wrapper defaultChecked={wfull}>
       <FromConv
         assets={assets}
-        from={!exchange ? from : to}
-        fromImage={!exchange ? fromImage : toImage}
+        from={from}
+        fromImage={fromImage}
         handleBurnMinus={handleBurnMinus}
         burnAmount={burnAmount}
         onBurnChange={onBurnChange}
         handleBurnPlus={handleBurnPlus}
-        balance={!exchange ? sbalance : balance}
+        balance={sbalance}
         handleChange={handleChange}
         maxW={maxW}
         showBalance={showBalance}
-        onSelect={name => handleSelect(name, true, false, exchange)}
+        onSelect={name => handleSelect(name, true, false)}
       />
       <div style={{ marginBottom: '58px', display: 'flex', gap: '16px' }}>
         {typeof convImg === 'string' ? <img src={convImg} /> : convImg()}
         {convImg2 &&
           convImg2(() => {
-            setSwapToken1(exchange)
-            setExchange(!exchange)
+            handleExchangeClick()
           })}
       </div>
       <ToConv
         assets={assets}
-        to={!exchange ? to : from}
-        toImage={!exchange ? toImage : fromImage}
+        to={to}
+        toImage={toImage}
         expectedAmount={expectedAmount}
-        sbalance={!exchange ? balance : sbalance}
+        sbalance={balance}
         maxW={maxW}
         showBalance={showBalance}
-        onSelect={name => handleSelect(name, false, true, exchange)}
+        onSelect={name => handleSelect(name, false, true)}
       />
       {showSubmitButton && (
         <button className={`default-btn`} onClick={handleSubmit}>

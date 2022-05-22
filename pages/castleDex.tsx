@@ -1,4 +1,4 @@
-import React, { useState, useEffect, MouseEvent, useContext, ChangeEvent } from 'react'
+import React, { useState, useEffect, MouseEvent, useContext, ChangeEvent, useCallback } from 'react'
 import styled from 'styled-components'
 import { ToggleContext } from '../components/Layout/Layout'
 import Converter from '../components/CastleConverter'
@@ -269,8 +269,6 @@ const castleDex = () => {
 
   useEffect(() => {
     setSwapAmount(0)
-    setSwapBalance(sfotBalance)
-
     let swapToBalances = []
     if (swapTo == 0) swapToBalances = [ustBalance]
     else if (swapTo == 1) swapToBalances = [bfotBalance]
@@ -321,29 +319,43 @@ const castleDex = () => {
     setSwapAmount(balance)
   }
 
-  const handleSwap = () => {
-    executeSwap(asset, swapFrom, swapTo)
+  const handleExchangeToFrom = useCallback(
+    (to: string, from: string) => {
+      let toIndex = findAssetFromName(to)
+      let fromIndex = findAssetFromName(from)
+      setSwapFrom(toIndex)
+      setSwapTo(fromIndex)
+    },
+    [swapFrom, swapTo],
+  )
+
+  const findAssetFromName = (name: string): number => {
+    return assetArray.findIndex(item => item.name === name)
+  }
+  const handleSwap = async () => {
+    let swap1 = await executeSwap(swapFrom, true)
+    console.log(swap1, 'SWAP 1 RES')
+    if (swap1 && swapFrom !== 3 && swapTo !== 3) {
+      console.log('transaction do not included SFOT')
+      await executeSwap(swapTo, false)
+    }
   }
 
-  function handleChangeAsset(name, from: boolean, to: boolean, exchange: boolean) {
-    const newAsset = assetArray.findIndex(item => item.name === name)
-    if (exchange) {
-      from = !from
-      to = !to
-      setSwapBalance(0)
-    }
+  const handleChangeAsset = useCallback(
+    (name: string, from: boolean, to: boolean) => {
+      const newAsset = findAssetFromName(name)
 
-    if (from && newAsset !== swapTo) {
-      setSwapFrom(newAsset)
-      setAsset(newAsset)
-      setSwapBalance(0)
-    }
-    if (to && newAsset !== swapFrom) {
-      setSwapTo(newAsset)
-      setAsset(newAsset)
-      setSwapBalance(0)
-    }
-  }
+      if (from && newAsset !== swapTo) {
+        setSwapFrom(newAsset)
+        setAsset(newAsset)
+      }
+      if (to && newAsset !== swapFrom) {
+        setSwapTo(newAsset)
+        setAsset(newAsset)
+      }
+    },
+    [swapFrom, swapTo],
+  )
 
   const { page, setPage } = useContext(ToggleContext)
 
@@ -377,6 +389,7 @@ const castleDex = () => {
               onBurnChange={onSwapAmountChange}
               handleBurnPlus={handleSwapAmountPlus}
               expectedAmount={expectedToken2Amount}
+              handleExchange={handleExchangeToFrom}
               convImg={() => (
                 <svg width="127" height="70" viewBox="0 0 127 94" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <line x1="1.23677" y1="2.15124" x2="63.3153" y2="92.6086" stroke="#171E0E" strokeWidth="3" />
