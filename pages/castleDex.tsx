@@ -333,12 +333,8 @@ const castleDex = () => {
     return assetArray.findIndex(item => item.name === name)
   }
   const handleSwap = async () => {
-    let swap1 = await executeSwap(swapFrom, true)
-    console.log(swap1, 'SWAP 1 RES')
-    if (swap1 && swapFrom !== 3 && swapTo !== 3) {
-      console.log('transaction do not included SFOT')
-      await executeSwap(swapTo, false)
-    }
+    let res = await executeSwap(swapFrom, swapTo)
+    console.log(res)
   }
 
   const handleChangeAsset = useCallback(
