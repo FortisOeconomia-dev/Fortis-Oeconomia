@@ -312,8 +312,6 @@ const castleDex = () => {
   }
 
   const handleSwapAmountPlus = () => {
-    console.log('current amount', swapAmount)
-    console.log('balance', swapFromBalance)
     if (Number(swapAmount) + 1 > Number(swapFromBalance)) return
     setSwapAmount(Number(swapAmount + 1))
   }
@@ -340,8 +338,7 @@ const castleDex = () => {
     return assetArray.findIndex(item => item.name === name)
   }
   const handleSwap = async () => {
-    let res = await executeSwap(swapFrom, swapTo)
-    console.log(res)
+    await executeSwap(swapFrom, swapTo)
   }
 
   const handleChangeAsset = useCallback(

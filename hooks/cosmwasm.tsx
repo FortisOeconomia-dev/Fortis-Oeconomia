@@ -2931,12 +2931,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     setExpectedToken2Amount(Number.isNaN(out_amount) ? 0 : out_amount)
   }
 
-  const executeSfotSwap = async (
-    asset: Number,
-    fromSfot: boolean,
-    token1Amount?: number,
-    token2Amount?: number,
-  ): Promise<Boolean> => {
+  const setSwapMsg = (asset: Number, fromSfot: boolean, token1Amount?: number, token2Amount?: number) => {
     let contract = ''
     let decimals = [10, 10]
     switch (asset) {
@@ -2968,33 +2963,14 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
 
     let token2 = convertDenomToMicroDenom2(token2Amount ? token2Amount : expectedToken2Amount, decimals[1])
 
-    try {
-      let msglist = []
-      let funds = []
-      if (asset == 0 || asset == 4 || asset == 5) {
-        if (!fromSfot) {
-          if (asset == 0) funds = [coin(token1, ust_denom)]
-          else if (asset == 4) funds = [coin(token1, 'ujuno')]
-          else if (asset == 5) funds = [coin(token1, atom_denom)]
-        } else {
-          const jsonmsg = {
-            increase_allowance: {
-              amount: `${token1}`,
-              spender: `${contract}`,
-            },
-          }
-          const msg: MsgExecuteContractEncodeObject = {
-            typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
-            value: MsgExecuteContract.fromPartial({
-              sender: walletAddress,
-              contract: PUBLIC_SFOT_CONTRACT,
-              msg: toUtf8(JSON.stringify(jsonmsg)),
-              funds: [],
-            }),
-          }
-          msglist.push(msg)
-        }
-      } else if (asset == 1) {
+    let msglist = []
+    let funds = []
+    if (asset == 0 || asset == 4 || asset == 5) {
+      if (!fromSfot) {
+        if (asset == 0) funds = [coin(token1, ust_denom)]
+        else if (asset == 4) funds = [coin(token1, 'ujuno')]
+        else if (asset == 5) funds = [coin(token1, atom_denom)]
+      } else {
         const jsonmsg = {
           increase_allowance: {
             amount: `${token1}`,
@@ -3005,52 +2981,92 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
           typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
           value: MsgExecuteContract.fromPartial({
             sender: walletAddress,
-            contract: fromSfot ? PUBLIC_SFOT_CONTRACT : PUBLIC_BFOT_CONTRACT,
+            contract: PUBLIC_SFOT_CONTRACT,
             msg: toUtf8(JSON.stringify(jsonmsg)),
             funds: [],
           }),
         }
-        msglist.push(msg)
-      } else if (asset == 2) {
-        const jsonmsg = {
-          increase_allowance: {
-            amount: `${token1}`,
-            spender: `${contract}`,
-          },
-        }
-        const msg: MsgExecuteContractEncodeObject = {
-          typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
-          value: MsgExecuteContract.fromPartial({
-            sender: walletAddress,
-            contract: fromSfot ? PUBLIC_SFOT_CONTRACT : PUBLIC_GFOT_CONTRACT,
-            msg: toUtf8(JSON.stringify(jsonmsg)),
-            funds: [],
-          }),
-        }
-
         msglist.push(msg)
       }
-
+    } else if (asset == 1) {
       const jsonmsg = {
-        swap: {
-          input_token: `${fromSfot ? 'Token1' : 'Token2'}`,
-          input_amount: `${token1}`,
-          min_output: `${token2}`,
+        increase_allowance: {
+          amount: `${token1}`,
+          spender: `${contract}`,
         },
       }
       const msg: MsgExecuteContractEncodeObject = {
         typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
         value: MsgExecuteContract.fromPartial({
           sender: walletAddress,
-          contract: contract,
+          contract: fromSfot ? PUBLIC_SFOT_CONTRACT : PUBLIC_BFOT_CONTRACT,
           msg: toUtf8(JSON.stringify(jsonmsg)),
-          funds,
+          funds: [],
+        }),
+      }
+      msglist.push(msg)
+    } else if (asset == 2) {
+      const jsonmsg = {
+        increase_allowance: {
+          amount: `${token1}`,
+          spender: `${contract}`,
+        },
+      }
+      const msg: MsgExecuteContractEncodeObject = {
+        typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
+        value: MsgExecuteContract.fromPartial({
+          sender: walletAddress,
+          contract: fromSfot ? PUBLIC_SFOT_CONTRACT : PUBLIC_GFOT_CONTRACT,
+          msg: toUtf8(JSON.stringify(jsonmsg)),
+          funds: [],
         }),
       }
 
       msglist.push(msg)
+    }
 
-      let result = await signingClient?.signAndBroadcast(walletAddress, msglist, defaultFee)
+    const jsonmsg = {
+      swap: {
+        input_token: `${fromSfot ? 'Token1' : 'Token2'}`,
+        input_amount: `${token1}`,
+        min_output: `${token2}`,
+      },
+    }
+    const msg: MsgExecuteContractEncodeObject = {
+      typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
+      value: MsgExecuteContract.fromPartial({
+        sender: walletAddress,
+        contract: contract,
+        msg: toUtf8(JSON.stringify(jsonmsg)),
+        funds,
+      }),
+    }
+
+    msglist.push(msg)
+    return msglist
+  }
+
+  const executeSwap = async (from: Number, to: Number) => {
+    let msgList = []
+    try {
+      if (from === 3) {
+        //SFOT to TOKEN swap
+        msgList = setSwapMsg(to, true)
+      } else if (to === 3) {
+        //TOKEN to SFOT
+        msgList = setSwapMsg(from, false)
+      } else {
+        //TOKEN1 to TOKEN2 swap -> Token 1 to SFOT then SFOT to token2
+        // For 105bFot -> 0.08Juno
+        // 105bFot -> 6.8sFot
+        // For 6.8sFOT -> 0.08Juno
+        let token1ToSfotAmount = calcSfotExpectedSwapAmount(from, false)
+        let fromToken1ToSfotMsg = setSwapMsg(from, false, swapAmount, token1ToSfotAmount)
+        let sfotToToken2Amount = calcSfotExpectedSwapAmount(to, true, token1ToSfotAmount)
+        let fromSfotToToken2Msg = setSwapMsg(to, true, token1ToSfotAmount, sfotToToken2Amount)
+        msgList.push(...fromToken1ToSfotMsg, ...fromSfotToToken2Msg)
+      }
+      let result = await signingClient?.signAndBroadcast(walletAddress, msgList, defaultFee)
 
       setLoading(false)
       getSfotBalances()
@@ -3073,31 +3089,6 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
       return false
       //}
     }
-  }
-
-  const executeSwap = async (from: Number, to: Number) => {
-    let res
-    if (from === 3) {
-      //SFOT to TOKEN swap
-      res = await executeSfotSwap(to, true)
-    } else if (to === 3) {
-      //TOKEN to SFOT
-      res = await executeSfotSwap(from, false)
-    } else {
-      //TOKEN1 to TOKEN2 swap -> Token 1 to SFOT then SFOT to token2
-      // For 105bFot -> 0.08Juno
-      // 105bFot -> 6.8sFot
-      let token1ToSfotAmount = calcSfotExpectedSwapAmount(from, false)
-      let fromFROMToSfot = await executeSfotSwap(from, false, swapAmount, token1ToSfotAmount)
-      if (fromFROMToSfot) {
-        // 6.8sFot -> 0.08Juno
-        let sfotToToken2Amount = calcSfotExpectedSwapAmount(to, true, token1ToSfotAmount)
-        res = await executeSfotSwap(to, true, token1ToSfotAmount, sfotToToken2Amount)
-      } else {
-        return false
-      }
-    }
-    return res
   }
 
   ////////////////////////////////////////////////////////////////////////
