@@ -26,10 +26,16 @@ const Wrapper = styled.div`
     filter: ${props => props.defaultChecked && 'invert(1) hue-rotate(-170deg)'};
   }
 `
-const Divider = styled.div`
-  width: 2.06px;
-  background: linear-gradient(180deg, #171e0e 0%, #ffffff 100%);
+const Title = styled.p`
+  font-weight: 600;
+  font-size: 32px;
+  margin-bottom: 24px;
+  margin-top: 24px;
+  line-height: 0px;
+  color: #fbfcfd;
+  text-align: center;
 `
+
 const LeftPart = styled.div`
   display: flex;
   align-items: flex-start;
@@ -486,6 +492,8 @@ const castleDex = () => {
         <>
           <Pools>
             <PoolsContent>
+              <Title>Pools</Title>
+
               {assets.map(({ from, to, fromImage, toImage }, index) => (
                 <Pool
                   key={index}
