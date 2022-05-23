@@ -275,15 +275,15 @@ const StatisticBox = ({
           style={{
             display: 'flex',
             justifyContent: 'space-between',
-            marginBottom: '10px',
-            gap: '20px',
+            marginTop: '20px',
+            gap: '30px',
             flexWrap: 'wrap',
           }}
         >
           <button
             className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
             style={{
-              flex: '1',
+              flex: '0',
               minWidth: 'calc(50% - 10px)',
               borderRadius: '50px',
               marginLeft: 'auto',

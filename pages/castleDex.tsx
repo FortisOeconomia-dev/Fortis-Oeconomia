@@ -438,8 +438,6 @@ const castleDex = () => {
           <RightPart>
             <Pools>
               <PoolsContent>
-                <StatisticBox page={page} setPage={setPage} maxWidth={null}></StatisticBox>
-
                 <PoolButtonsUpper>
                   <Pool
                     from="sFOT"
@@ -484,6 +482,7 @@ const castleDex = () => {
                     isActive={poolAsset === 4}
                   />
                 </PoolButtonsLower>
+                <StatisticBox page={page} setPage={setPage} maxWidth={null}></StatisticBox>
               </PoolsContent>
             </Pools>
           </RightPart>
