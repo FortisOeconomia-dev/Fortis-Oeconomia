@@ -20,7 +20,7 @@ const Wrapper = styled('div')<{ slot: string; page: number }>`
   align-self: flex-start;
   margin: auto;
   margin-left: ${props =>
-    props.slot === '/sFOTVault' && props.page === 0 ? '-45px' : props.slot === '/communitySale' ? 'auto' : '22px'};
+    props.slot === '/sFOTVault' && props.page === 0 ? '-45px' : props.slot === '/communitySale' ? 'auto' : '0px'};
 `
 
 const ContentWrapper = styled.div`

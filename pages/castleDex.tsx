@@ -300,15 +300,16 @@ const castleDex = () => {
     const {
       target: { value },
     } = event
-    if (Number(value) > Number(swapBalance)) return
+    if (Number(value) > Number(swapFromBalance)) return
     if (Number(value) < 0) return
     setSwapAmount(Number(value))
   }
 
   const handleSwapAmountPlus = () => {
-    if (Number(swapAmount) + 1 > Number(swapBalance)) return
-
-    setSwapAmount(Number(swapAmount) + 1)
+    console.log('current amount', swapAmount)
+    console.log('balance', swapFromBalance)
+    if (Number(swapAmount) + 1 > Number(swapFromBalance)) return
+    setSwapAmount(Number(swapAmount + 1))
   }
   const handleSwapAmountMinus = () => {
     if (Number(swapAmount) - 1 < 0) return
@@ -497,7 +498,6 @@ const castleDex = () => {
                 />
               ))}
             </PoolsContent>
-            <Divider />
           </Pools>
           <PoolDetail
             asset={poolAsset}
