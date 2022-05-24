@@ -1,10 +1,11 @@
-import InputWithIncDec from '../InputWithIncDec'
-import styled from 'styled-components'
 import { useContext, useState } from 'react'
-import { Range, getTrackBackground } from 'react-range'
-import { ToggleContext } from '../Layout/Layout'
-import moment from 'moment'
+import styled from 'styled-components'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
+import { Range, getTrackBackground } from 'react-range'
+import moment from 'moment'
+
+import InputWithIncDec from '../InputWithIncDec'
+import { ToggleContext } from '../Layout/Layout'
 
 import { convertMicroDenomToDenom2, convertToFixedDecimals } from '../../util/conversion'
 import Countdown from '../Countdown'
@@ -106,6 +107,12 @@ const MyStakedText = styled.label`
   margin: 0 !important;
 `
 
+const InformationText = styled.label`
+  width: 100% !important;
+  border-bottom: 0px !important;
+  margin: 0 !important;
+`
+
 const MyReward = styled('div')<{ visible: boolean }>`
   height: ${props => (props.visible ? 'initial' : '0')};
   width: 100% !important;
@@ -166,7 +173,6 @@ const Tourch = styled('img')<{ visible: boolean }>`
   height: ${props => (props.visible ? 'initial' : '0')};
   filter: none !important;
 `
-
 const CustomHeaderCell = styled.th`
   color: '#030f49 !important';
 `
@@ -281,7 +287,7 @@ const StakeNClaimSecond = ({
               maxWidth: 'unset',
             }}
           >
-            <span style={{ fontSize: '18px', height: 'unset', color: '#030f49' }}>{from}</span>
+            <span style={{ fontSize: '18px', height: 'unset' }}>{from}</span>
             <InputWithIncDec
               handleBurnMinus={handleToken1Minus}
               burnAmount={token1Amount}
@@ -300,7 +306,7 @@ const StakeNClaimSecond = ({
               maxWidth: 'unset',
             }}
           >
-            <span style={{ fontSize: '18px', height: 'unset', color: '#030f49' }}>{to}</span>
+            <span style={{ fontSize: '18px', height: 'unset' }}>{to}</span>
             <InputWithIncDec
               handleBurnMinus={handleToken2Minus}
               burnAmount={token2Amount}
