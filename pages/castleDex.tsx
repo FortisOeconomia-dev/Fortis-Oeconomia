@@ -337,6 +337,9 @@ const castleDex = () => {
   }
 
   const handleChange = balance => {
+    if (balance <= Number(swapFromBalance)) {
+      setDisableSwap(false)
+    }
     setSwapAmount(balance)
   }
 
