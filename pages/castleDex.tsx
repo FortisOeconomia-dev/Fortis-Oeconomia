@@ -62,15 +62,17 @@ const PoolsContent = styled.div`
   gap: 24px;
   width: 100%;
   margin-left: 40px;
+  margin-right: 40px;
 `
 const PoolsContainer = styled.div`
   width: 70%;
-  margin-left: 110px;
+  margin-left: 8px;
 `
 
 const Divider = styled.div`
   width: 2.06px;
   background: linear-gradient(180deg, #171e0e 0%, #ffffff 100%);
+  margin-top: 72px;
 `
 interface ElementProps {
   small?: boolean
@@ -145,6 +147,8 @@ const castleDex = () => {
 
   const [swapFrom, setSwapFrom] = useState(1)
   const [swapFromBalance, setSwapFromBalance] = useState([])
+
+  const [disableSwap, setDisableSwap] = useState(false)
 
   const [poolAsset, setPoolAsset] = useState(0)
   const { toggle } = useContext(ToggleContext)
@@ -269,7 +273,7 @@ const castleDex = () => {
       getSfotBalances()
       getCommonBalances()
     }
-  }, [signingClient, walletAddress, getSfotBalances, getCommonBalances])
+  }, [signingClient, walletAddress])
 
   useEffect(() => {
     if (seconds === 0) {
@@ -315,19 +319,20 @@ const castleDex = () => {
     const {
       target: { value },
     } = event
-    if (Number(value) >= 0 && Number(value) <= Number(swapFromBalance)) {
+    if (Number(value) >= 0) {
       setSwapAmount(Number(value))
+      Number(value) > Number(swapFromBalance) ? setDisableSwap(true) : setDisableSwap(false)
     }
   }
 
   const handleSwapAmountPlus = () => {
-    if (Number(swapAmount) + 1 <= Number(swapFromBalance)) {
-      setSwapAmount(Number(swapAmount + 1))
-    }
+    setSwapAmount(Number(swapAmount + 1))
+    Number(swapAmount + 1) > Number(swapFromBalance) ? setDisableSwap(true) : setDisableSwap(false)
   }
   const handleSwapAmountMinus = () => {
     if (Number(swapAmount) >= 1) {
       setSwapAmount(Number(swapAmount) - 1)
+      Number(swapAmount - 1) > Number(swapFromBalance) ? setDisableSwap(true) : setDisableSwap(false)
     }
   }
 
@@ -441,6 +446,7 @@ const castleDex = () => {
               submitTitle={'Swap'}
               showBalance={true}
               handleChangeAsset={handleChangeAsset}
+              disableSwap={disableSwap}
             />
           </LeftPart>
           <RightPart>

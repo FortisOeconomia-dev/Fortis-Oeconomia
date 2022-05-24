@@ -47,7 +47,7 @@ const BannerWrapperContent = styled.div`
 
 const SubTitle = styled.span`
   background: #83b8dd;
-  margin-top: 10px;
+  margin-top: 10px !important;
   margin-bottom: 32px;
 `
 

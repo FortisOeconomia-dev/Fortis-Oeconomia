@@ -1,10 +1,11 @@
 import { useCallback, useContext, useState } from 'react'
 import styled from 'styled-components'
+import classnames from 'classnames'
+
 import { ToggleContext } from '../Layout/Layout'
 import FromConv from './FromConv'
 import ToConv from './ToConv'
 import { useSigningClient } from '../../contexts/cosmwasm'
-import AssetSelector from './AssetSelector'
 
 const Wrapper = styled.div`
   display: flex;
@@ -42,6 +43,7 @@ const Converter = ({
   submitTitle = 'Burn',
   showBalance = true,
   showSubmitButton = true,
+  disableSwap,
 }) => {
   const { setSwapToken1 } = useSigningClient()
   const { toggle } = useContext(ToggleContext)
@@ -99,7 +101,11 @@ const Converter = ({
         onSelect={name => handleSelect(name, false, true)}
       />
       {showSubmitButton && (
-        <button className="default-btn" onClick={handleSubmit}>
+        <button
+          onClick={handleSubmit}
+          disabled={disableSwap}
+          className={classnames('default-btn', disableSwap && 'disabled-btn')}
+        >
           {submitTitle}
         </button>
       )}
