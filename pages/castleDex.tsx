@@ -15,7 +15,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: flex-start;
   flex: 1;
   width: 100%;
   margin: 20px;
@@ -61,6 +61,11 @@ const PoolsContent = styled.div`
   flex-direction: column;
   gap: 24px;
   width: 100%;
+  margin-left: 40px;
+`
+const PoolsContainer = styled.div`
+  width: 70%;
+  margin-left: 110px;
 `
 interface ElementProps {
   small?: boolean
@@ -503,6 +508,7 @@ const castleDex = () => {
               ))}
             </PoolsContent>
           </Pools>
+          <PoolsContainer>
           <PoolDetail
             asset={poolAsset}
             from={assets[poolAsset].from}
@@ -511,6 +517,7 @@ const castleDex = () => {
             toImage={assets[poolAsset].toImage}
             maxWidth={'none'}
           />
+          </PoolsContainer>
         </>
       )}
     </Wrapper>
