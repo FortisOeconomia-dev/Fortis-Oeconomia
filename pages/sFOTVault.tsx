@@ -85,9 +85,9 @@ const sFOTVault = () => {
    */
 
   useEffect(() => {
-    if (!signingClient || walletAddress == '') return
-
-    calcExpectedSwapAmount(asset)
+    if (signingClient && walletAddress != '') {
+      calcExpectedSwapAmount(asset)
+    }
   }, [swapAmount, signingClient, walletAddress])
 
   const handlesFotStaking = async (event: MouseEvent<HTMLElement>) => {

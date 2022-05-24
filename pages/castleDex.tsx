@@ -67,6 +67,11 @@ const PoolsContainer = styled.div`
   width: 70%;
   margin-left: 110px;
 `
+
+const Divider = styled.div`
+  width: 2.06px;
+  background: linear-gradient(180deg, #171e0e 0%, #ffffff 100%);
+`
 interface ElementProps {
   small?: boolean
 }
@@ -135,10 +140,10 @@ const castleDex = () => {
 
   const [asset, setAsset] = useState(0)
 
-  const [swapTo, setSwapTo] = useState(3)
+  const [swapTo, setSwapTo] = useState(4)
   const [swapToBalance, setSwapToBalance] = useState([])
 
-  const [swapFrom, setSwapFrom] = useState(0)
+  const [swapFrom, setSwapFrom] = useState(1)
   const [swapFromBalance, setSwapFromBalance] = useState([])
 
   const [poolAsset, setPoolAsset] = useState(0)
@@ -260,12 +265,11 @@ const castleDex = () => {
   }, [])
 
   useEffect(() => {
-    if (!signingClient || walletAddress.length === 0) {
-      return
+    if (signingClient && walletAddress.length !== 0) {
+      getSfotBalances()
+      getCommonBalances()
     }
-    getSfotBalances()
-    getCommonBalances()
-  }, [signingClient, walletAddress])
+  }, [signingClient, walletAddress, getSfotBalances, getCommonBalances])
 
   useEffect(() => {
     if (seconds === 0) {
@@ -311,18 +315,20 @@ const castleDex = () => {
     const {
       target: { value },
     } = event
-    if (Number(value) > Number(swapFromBalance)) return
-    if (Number(value) < 0) return
-    setSwapAmount(Number(value))
+    if (Number(value) >= 0 && Number(value) <= Number(swapFromBalance)) {
+      setSwapAmount(Number(value))
+    }
   }
 
   const handleSwapAmountPlus = () => {
-    if (Number(swapAmount) + 1 > Number(swapFromBalance)) return
-    setSwapAmount(Number(swapAmount + 1))
+    if (Number(swapAmount) + 1 <= Number(swapFromBalance)) {
+      setSwapAmount(Number(swapAmount + 1))
+    }
   }
   const handleSwapAmountMinus = () => {
-    if (Number(swapAmount) - 1 < 0) return
-    setSwapAmount(Number(swapAmount) - 1)
+    if (Number(swapAmount) >= 1) {
+      setSwapAmount(Number(swapAmount) - 1)
+    }
   }
 
   const handleChange = balance => {
@@ -494,7 +500,6 @@ const castleDex = () => {
           <Pools>
             <PoolsContent>
               <Title>Pools</Title>
-
               {assets.map(({ from, to, fromImage, toImage }, index) => (
                 <Pool
                   key={index}
@@ -507,16 +512,17 @@ const castleDex = () => {
                 />
               ))}
             </PoolsContent>
+            <Divider />
           </Pools>
           <PoolsContainer>
-          <PoolDetail
-            asset={poolAsset}
-            from={assets[poolAsset].from}
-            to={assets[poolAsset].to}
-            fromImage={assets[poolAsset].fromImage}
-            toImage={assets[poolAsset].toImage}
-            maxWidth={'none'}
-          />
+            <PoolDetail
+              asset={poolAsset}
+              from={assets[poolAsset].from}
+              to={assets[poolAsset].to}
+              fromImage={assets[poolAsset].fromImage}
+              toImage={assets[poolAsset].toImage}
+              maxWidth={'none'}
+            />
           </PoolsContainer>
         </>
       )}

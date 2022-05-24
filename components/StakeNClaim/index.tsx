@@ -1,12 +1,13 @@
+import { useContext, MouseEvent, ChangeEvent } from 'react'
+import moment from 'moment'
+import styled from 'styled-components'
+import { useRouter } from 'next/router'
+import { NotificationManager } from 'react-notifications'
+
 import { useSigningClient } from '../../contexts/cosmwasm'
 import { convertMicroDenomToDenom2, convertToFixedDecimals } from '../../util/conversion'
 import InputWithIncDec from '../InputWithIncDec'
-import styled from 'styled-components'
-import { useContext, MouseEvent, ChangeEvent } from 'react'
-import { useRouter } from 'next/router'
 import { ToggleContext } from '../Layout/Layout'
-import { NotificationManager } from 'react-notifications'
-import moment from 'moment'
 import Countdown from '../Countdown'
 
 const MaxButton = styled.button`
@@ -24,7 +25,7 @@ const Wrapper = styled.div`
   margin-bottom: ${props => (props.slot === '/sFOTVault' ? '32px' : '16px')};
   display: flex;
   max-width: ${props => (props.slot === '/sFOTVault' ? '1200px' : '950px')};
-  min-width: ${props => (props.slot === '/sFOTVault' ? '70%' : '70%')};
+  min-width: 70%;
   @media (max-width: 768px) {
     flex-direction: column;
   }

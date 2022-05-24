@@ -1,8 +1,6 @@
-import { useContext, useEffect, useMemo, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { ToggleContext } from '../Layout/Layout'
-
-const Wrapper = styled.div``
 
 const MainContent = styled.div`
   display: flex;
@@ -83,7 +81,7 @@ const AssetSelector = ({
   }, [ref, open])
 
   return (
-    <Wrapper ref={ref}>
+    <div ref={ref}>
       <MainContent onClick={() => setOpen(!open)}>
         {children}
         <div className="arrow">{`>`}</div>
@@ -111,7 +109,7 @@ const AssetSelector = ({
           </DropdownItems>
         )}
       </DropdownWrapper>
-    </Wrapper>
+    </div>
   )
 }
 

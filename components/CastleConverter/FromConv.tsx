@@ -1,8 +1,10 @@
 import styled from 'styled-components'
 import { useContext } from 'react'
+import { useRouter } from 'next/router'
+import classnames from 'classnames'
+
 import { ToggleContext } from '../Layout/Layout'
 import InputWithIncDec from '../InputWithIncDec'
-import { useRouter } from 'next/router'
 import { useSigningClient } from '../../contexts/cosmwasm'
 import { convertToNoExponents } from '../../util/conversion'
 import AssetSelector from './AssetSelector'
@@ -33,6 +35,16 @@ const BottomArea = styled.span`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
+`
+
+const BalanceWrapper = styled.div`
+  height: fit-content;
+  width: fit-content;
+  textalign: right;
+`
+
+const BalanceSubtitle = styled.span`
+  background: #83b8dd;
 `
 
 const FromConv = ({
@@ -84,20 +96,15 @@ const FromConv = ({
           </MaxButton>
           <MaxButton
             onClick={() => handleChange(balance / 2)}
-            className={`default-btn  ${!toggle && 'secondary-btn outlined mr-2'}`}
+            className={classnames('default-btn', !toggle && 'secondary-btn outlined mr-2')}
           >
             Half
           </MaxButton>
         </div>
         {showBalance && walletAddress.length != 0 && (
-          <div
-            className="banner-wrapper-content"
-            style={{ height: 'fit-content', width: 'fit-content', textAlign: 'right' }}
-          >
-            <span className="sub-title ms-2" style={{ background: '#83B8DD' }}>
-              Balance {convertToNoExponents(balance)}
-            </span>
-          </div>
+          <BalanceWrapper className="banner-wrapper-content">
+            <BalanceSubtitle className="sub-title ms-2">Balance {convertToNoExponents(balance)}</BalanceSubtitle>
+          </BalanceWrapper>
         )}
       </BottomArea>
     </div>

@@ -99,7 +99,7 @@ const Converter = ({
         onSelect={name => handleSelect(name, false, true)}
       />
       {showSubmitButton && (
-        <button className={`default-btn`} onClick={handleSubmit}>
+        <button className="default-btn" onClick={handleSubmit}>
           {submitTitle}
         </button>
       )}
