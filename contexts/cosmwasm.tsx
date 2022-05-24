@@ -101,6 +101,10 @@ let { Provider } = (CosmWasmContext = createContext<ISigningCosmWasmClientContex
   sfotBalance: 0,
   sfotBalanceStr: '',
   sfotTokenInfo: null,
+  stableGfotAmount: '',
+  stableExpectedSfotAmount: 0,
+
+  handleStableGfotChange: () => {},
 
   sfotUstLpBalance: 0,
   sfotBfotLpBalance: 0,
@@ -153,8 +157,6 @@ let { Provider } = (CosmWasmContext = createContext<ISigningCosmWasmClientContex
   calcExpectedSwapAmountForDungeon: () => {},
   executeSwapForDungeon: () => {},
   getLpStakingInfoForDungeon: () => {},
-  executeLpStakeAllForDungeon: () => {},
-  executeLpClaimRewardForDungeon: () => {},
   executeLpCreateUnstakeForDungeon: () => {},
   executeLpFetchUnstakeForDungeon: () => {},
 

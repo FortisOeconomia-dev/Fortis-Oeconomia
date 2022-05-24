@@ -281,6 +281,13 @@ const StatisticBox = ({
             flexWrap: 'wrap',
           }}
         >
+          <button
+            className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
+            style={{ flex: '1', minWidth: 'calc(50% - 10px)', borderRadius: '50px', maxWidth: 'calc(50% - 10px)', marginLeft:'auto', marginRight:'auto'}}
+            onClick={() => setPage(4)}
+          >
+            Stable Pools and Swaps
+          </button>
           {/* <VaulteButton className={`default-btn  ${!toggle && 'secondary-btn outlined'}`} onClick={() => setPage(2)}>
             Vault
           </VaulteButton> */}

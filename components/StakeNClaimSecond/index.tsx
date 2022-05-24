@@ -51,25 +51,25 @@ const TotalStakedText = styled.label`
 const CountdownText = styled.label`
   width: unset !important;
   border-bottom: 0px !important;
-  font-size: 16px;
   margin: 0 !important;
+  font-size: 16px;
   text-align: center;
 `
 const CountdownWrapper = styled('label')<{ visible: boolean }>`
+  height: ${props => (props.visible ? 'initial' : '0')};
   width: unset !important;
   border-bottom: 0px !important;
   text-align: center;
   margin: 0 !important;
   visibility: ${props => (props.visible ? 'initial' : 'hidden')};
-  height: ${props => (props.visible ? 'initial' : '0')};
 `
 const DPRText = styled('label')<{ visible: boolean }>`
+  height: ${props => (props.visible ? 'initial' : '0')};
   width: unset !important;
   border-bottom: 0px !important;
   margin: 0 !important;
   font-size: 16px;
   visibility: ${props => (props.visible ? 'initial' : 'hidden')};
-  height: ${props => (props.visible ? 'initial' : '0')};
 `
 
 const StakedValue = styled.span`
@@ -94,11 +94,11 @@ const MyStaked = styled.div`
 `
 
 const MyStakedContent = styled.div`
+  height: 100%;
   width: 100%;
   display: flex;
   align-items: center;
   flex-direction: column;
-  height: 100%;
 `
 
 const MyStakedText = styled.label`
@@ -107,12 +107,26 @@ const MyStakedText = styled.label`
   margin: 0 !important;
 `
 
+const InformationText = styled.label`
+  width: 100% !important;
+  border-bottom: 0px !important;
+  margin: 0 !important;
+`
+
 const MyReward = styled('div')<{ visible: boolean }>`
+  height: ${props => (props.visible ? 'initial' : '0')};
   width: 100% !important;
   border-bottom: 0px !important;
   margin: 0 !important;
   visibility: ${props => (props.visible ? 'initial' : 'hidden')};
+`
+
+const Information = styled('div')<{ visible: boolean }>`
   height: ${props => (props.visible ? 'initial' : '0')};
+  width: 100% !important;
+  border-bottom: 0px !important;
+  margin: 0 !important;
+  visibility: ${props => (props.visible ? 'initial' : 'hidden')};
 `
 
 const MyStakedDescription = styled.span`
@@ -158,6 +172,13 @@ const Tourch = styled('img')<{ visible: boolean }>`
   visibility: ${props => (props.visible ? 'initial' : 'hidden')};
   height: ${props => (props.visible ? 'initial' : '0')};
   filter: none !important;
+`
+const CustomHeaderCell = styled.th`
+  color: '#030f49 !important';
+`
+
+const CustomDataCell = styled.td`
+  color: '#030f49 !important';
 `
 
 const StakeNClaimSecond = ({
@@ -210,6 +231,7 @@ const StakeNClaimSecond = ({
   showTorch,
   showReward,
   targetHour,
+  showInformation,
 }) => {
   const [values, setValues] = useState([50])
   const { toggle } = useContext(ToggleContext)
@@ -450,29 +472,33 @@ const StakeNClaimSecond = ({
             {lpfetchunstake && (
               <div style={{ overflowY: 'auto' }}>
                 <table className="w-full">
-                  {lpStakingMyUnstakingList.length > 0 && (
-                    <tr>
-                      <th>Amount</th>
-                      <th>Release date</th>
-                      <th>Action</th>
-                    </tr>
-                  )}
-                  {lpStakingMyUnstakingList.map((d, idx) => (
-                    <tr key={`${idx}-unstakelp`}>
-                      <td>{convertMicroDenomToDenom2(d[0], 6)}</td>
-                      <td>{moment(new Date(Number(d[1]) * 1000)).format('YYYY/MM/DD HH:mm:ss')}</td>
-                      <td>
-                        <button
-                          className={`default-btn  ${!toggle && 'secondary-btn'}`}
-                          style={{ minWidth: 'unset', padding: '3px 30px' }}
-                          onClick={() => handleLpFetchUnstake(d)}
-                          disabled={new Date().getTime() < Number(d[1]) * 1000}
-                        >
-                          Fetch Unstake
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
+                  <tbody>
+                    {lpStakingMyUnstakingList.length > 0 && (
+                      <tr>
+                        <CustomHeaderCell>Amount</CustomHeaderCell>
+                        <CustomHeaderCell>Release date</CustomHeaderCell>
+                        <CustomHeaderCell>Action</CustomHeaderCell>
+                      </tr>
+                    )}
+                    {lpStakingMyUnstakingList.map((d, idx) => (
+                      <tr key={`${idx}-unstakelp`}>
+                        <CustomDataCell>{convertMicroDenomToDenom2(d[0], 6)}</CustomDataCell>
+                        <CustomDataCell>
+                          {moment(new Date(Number(d[1]) * 1000)).format('YYYY/MM/DD HH:mm:ss')}
+                        </CustomDataCell>
+                        <td>
+                          <button
+                            className={`default-btn  ${!toggle && 'secondary-btn'}`}
+                            style={{ minWidth: 'unset', padding: '3px 30px' }}
+                            onClick={() => handleLpFetchUnstake(d)}
+                            disabled={new Date().getTime() < Number(d[1]) * 1000}
+                          >
+                            Fetch Unstake
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
                 </table>
                 {/* <table className="w-full">
                                 {lpStakingMyUnstakingList > 0 && <tr>
@@ -494,6 +520,11 @@ const StakeNClaimSecond = ({
             )}
             {/*                         <MyStakedText className="wallet-label" style={{ textAlign: 'center', fontSize:"16px" }}>Unbonding period is 14 days</MyStakedText> */}
           </MyRewardsMiddle>
+          <Information visible={showInformation} className="w-full">
+            <InformationText className="wallet-label">
+              Dungeon incentivization has ended on the date of 15 May.
+            </InformationText>
+          </Information>
           <Tourch visible={showTorch} src={`/images/torch.png`} />
           <MyReward visible={showClaimForm} className="w-full">
             <MyStakedText className="wallet-label">
