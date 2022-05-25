@@ -143,10 +143,10 @@ const castleDex = () => {
 
   const [asset, setAsset] = useState(0)
 
-  const [swapTo, setSwapTo] = useState(4)
+  const [swapTo, setSwapTo] = useState(1)
   const [swapToBalance, setSwapToBalance] = useState([])
 
-  const [swapFrom, setSwapFrom] = useState(1)
+  const [swapFrom, setSwapFrom] = useState(4)
   const [swapFromBalance, setSwapFromBalance] = useState([])
 
   const [disableSwap, setDisableSwap] = useState(false)
@@ -451,7 +451,7 @@ const castleDex = () => {
               showBalance={true}
               handleChangeAsset={handleChangeAsset}
               disableSwap={disableSwap}
-              fromCastleDex = {true}
+              fromCastleDex={true}
             />
           </LeftPart>
           <RightPart>
