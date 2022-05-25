@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+
 import * as themes from '../themes'
 
 export interface ThemeContextInterface {

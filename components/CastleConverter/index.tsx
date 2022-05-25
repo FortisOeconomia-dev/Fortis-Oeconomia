@@ -1,8 +1,7 @@
-import { useCallback, useContext, useState } from 'react'
+import { useCallback, useState } from 'react'
 import styled from 'styled-components'
 import classnames from 'classnames'
 
-import { ToggleContext } from '../Layout/Layout'
 import FromConv from './FromConv'
 import ToConv from './ToConv'
 import { useSigningClient } from '../../contexts/cosmwasm'
@@ -44,13 +43,15 @@ const Converter = ({
   showBalance = true,
   showSubmitButton = true,
   disableSwap,
+  fromCastleDex,
 }) => {
   const { setSwapToken1 } = useSigningClient()
-  const { toggle } = useContext(ToggleContext)
   const [exchange, setExchange] = useState(false)
 
   const handleExchangeClick = useCallback(() => {
-    setSwapToken1(exchange)
+    if (!fromCastleDex) {
+      setSwapToken1(exchange)
+    }
     setExchange(!exchange)
     handleExchange(to, from)
   }, [to, from, exchange])
@@ -85,10 +86,7 @@ const Converter = ({
       />
       <div style={{ marginBottom: '58px', display: 'flex', gap: '16px' }}>
         {typeof convImg === 'string' ? <img src={convImg} /> : convImg()}
-        {convImg2 &&
-          convImg2(() => {
-            handleExchangeClick()
-          })}
+        {convImg2 && convImg2(handleExchangeClick)}
       </div>
       <ToConv
         assets={assets}

@@ -1,5 +1,3 @@
-import { useContext } from 'react'
-import { ToggleContext } from '../components/Layout/Layout'
 import styled from 'styled-components'
 
 const AssetImageWrapper = styled.div`
@@ -16,10 +14,10 @@ const AssetImageWrapper = styled.div`
 `
 // ${props =>
 const OutWrapper = styled.div`
-  // filter: 
-  
+  // filter:
+
   //   props.defaultChecked ? 'drop-shadow(16px 16px 20px) hue-rotate(-170deg)' : 'hue-rotate(-240deg)'};
-  background: linear-gradient(105deg, #98ACFF 0%, #6774AD 81.65%);
+  background: linear-gradient(105deg, #98acff 0%, #6774ad 81.65%);
   box-shadow: ${props => props.slot};
   border-radius: 100%;
   width: 48px;

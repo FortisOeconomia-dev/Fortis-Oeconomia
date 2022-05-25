@@ -1,10 +1,11 @@
-import React, { useState, useEffect, MouseEvent, useContext, ChangeEvent, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, useContext, ChangeEvent } from 'react'
 import styled from 'styled-components'
+import 'react-notifications/lib/notifications.css'
+
 import { ToggleContext } from '../components/Layout/Layout'
 import Converter from '../components/CastleConverter'
 import { useSigningClient } from '../contexts/cosmwasm'
 import ThemeContext from '../contexts/ThemeContext'
-import 'react-notifications/lib/notifications.css'
 import Pool from '../components/Pool/WidePool'
 import StatisticBox from '../components/StatisticBox'
 import PoolDetail from '../components/PoolDetail'
@@ -142,10 +143,10 @@ const castleDex = () => {
 
   const [asset, setAsset] = useState(0)
 
-  const [swapTo, setSwapTo] = useState(4)
+  const [swapTo, setSwapTo] = useState(1)
   const [swapToBalance, setSwapToBalance] = useState([])
 
-  const [swapFrom, setSwapFrom] = useState(1)
+  const [swapFrom, setSwapFrom] = useState(4)
   const [swapFromBalance, setSwapFromBalance] = useState([])
 
   const [disableSwap, setDisableSwap] = useState(false)
@@ -450,6 +451,7 @@ const castleDex = () => {
               showBalance={true}
               handleChangeAsset={handleChangeAsset}
               disableSwap={disableSwap}
+              fromCastleDex={true}
             />
           </LeftPart>
           <RightPart>

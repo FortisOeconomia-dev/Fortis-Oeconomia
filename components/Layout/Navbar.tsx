@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import Link from '../../util/ActiveLink'
 import { NotificationContainer } from 'react-notifications'
 import 'react-notifications/lib/notifications.css'
 import styled from 'styled-components'
 
+import Link from '../../util/ActiveLink'
 import { useSigningClient } from '../../contexts/cosmwasm'
 import ToggleSwitch from '../ToggleSwitch'
 import Dropdown from './Dropdown'

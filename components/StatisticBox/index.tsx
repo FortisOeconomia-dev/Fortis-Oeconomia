@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import React, { useContext } from 'react'
+
 import { ToggleContext } from '../Layout/Layout'
 import { convertToFixedDecimals, convertToNoExponents } from '../../util/conversion'
 

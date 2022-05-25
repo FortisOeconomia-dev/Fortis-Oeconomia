@@ -1,15 +1,9 @@
 import { useEffect, useState, MouseEvent, ChangeEvent, useContext } from 'react'
-import TextField from '@mui/material/TextField'
 import { NotificationContainer, NotificationManager } from 'react-notifications'
 import 'react-notifications/lib/notifications.css'
-
-import AdapterDateFns from '@mui/lab/AdapterDateFns'
-import LocalizationProvider from '@mui/lab/LocalizationProvider'
-import DateTimePicker from '@mui/lab/DateTimePicker'
 import styled from 'styled-components'
 
 import { useSigningClient } from '../contexts/cosmwasm'
-import { fromBase64, toBase64 } from '@cosmjs/encoding'
 import { ToggleContext } from '../components/Layout/Layout'
 
 const Wrapper = styled.div`
@@ -375,7 +369,7 @@ const CreateWork = () => {
                     <SecondaryLabel>({d.percent}% FOT)</SecondaryLabel>
                     <ClaimButton
                       onClick={handleSubmit}
-                      disabled={d.claimed == 1 || (d.id != monetaLatestStage)}
+                      disabled={d.claimed == 1 || d.id != monetaLatestStage}
                       className={`default-btn secondary-btn outlined`}
                       defaultChecked={d.claimed == 1}
                     >

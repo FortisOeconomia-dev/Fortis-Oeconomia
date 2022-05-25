@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { connectKeplr } from '../services/keplr'
 import {
   SigningCosmWasmClient,
   CosmWasmClient,
@@ -7,16 +6,18 @@ import {
   MsgExecuteContractEncodeObject,
 } from '@cosmjs/cosmwasm-stargate'
 import { MsgExecuteContract } from 'cosmjs-types/cosmwasm/wasm/v1/tx'
+import { isDeliverTxFailure } from '@cosmjs/stargate'
+import { toUtf8 } from '@cosmjs/encoding'
+import { coin } from '@cosmjs/launchpad'
+import { NotificationManager } from 'react-notifications'
+
 import {
   convertMicroDenomToDenom,
   convertMicroDenomToDenom2,
   convertDenomToMicroDenom2,
   convertFromMicroDenom,
 } from '../util/conversion'
-import { isDeliverTxFailure } from '@cosmjs/stargate'
-import { toUtf8 } from '@cosmjs/encoding'
-import { coin } from '@cosmjs/launchpad'
-import { NotificationManager } from 'react-notifications'
+import { connectKeplr } from '../services/keplr'
 import { voters } from '../proposal.json'
 import { moneta_voters } from '../monetaairdrop.json'
 import { Airdrop } from '../util/merkle-airdrop-cli/airdrop'

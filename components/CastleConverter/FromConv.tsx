@@ -1,5 +1,5 @@
+import { useContext, useState } from 'react'
 import styled from 'styled-components'
-import { useContext } from 'react'
 import { useRouter } from 'next/router'
 import classnames from 'classnames'
 
@@ -65,6 +65,7 @@ const FromConv = ({
   const { pathname } = router
   const { walletAddress } = useSigningClient()
   const { toggle } = useContext(ToggleContext)
+  const [isMax, setIsMax] = useState(false)
 
   return (
     <div className="gFotCurrencyt-selection" style={{ maxWidth: maxW }}>
@@ -86,11 +87,17 @@ const FromConv = ({
         onBurnChange={onBurnChange}
         handleBurnPlus={handleBurnPlus}
       />
+      {isMax && from === 'Juno' && (
+        <div style={{ padding: '5px' }}>Please do not forget to allocate funds for the gas fee!</div>
+      )}
       <BottomArea>
         <div>
           <MaxButton
-            onClick={() => handleChange(balance)}
-            className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
+            onClick={() => {
+              setIsMax(true)
+              handleChange(balance)
+            }}
+            className={classnames('default-btn', !toggle && 'secondary-btn outlined')}
           >
             Max
           </MaxButton>
