@@ -20,7 +20,7 @@ const Wrapper = styled('div')<{ slot: string; page: number }>`
   align-self: flex-start;
   margin: auto;
   margin-left: ${props =>
-    props.slot === '/sFOTVault' && props.page === 0 ? '-45px' : props.slot === '/communitySale' ? 'auto' : '22px'};
+    props.slot === '/sFOTVault' && props.page === 0 ? '-45px' : props.slot === '/communitySale' ? 'auto' : '0px'};
 `
 
 const ContentWrapper = styled.div`
@@ -238,7 +238,7 @@ const StatisticBox = ({
       case '/gFOTmodule':
       case '/communitySale':
         return null
-      case '/sFOTVault':
+      case '/castleDex':
         return (
           <ShapeWrapper>
             {page === 0 ? (
@@ -269,23 +269,29 @@ const StatisticBox = ({
   }
 
   return (
-    <div style={{ paddingLeft: '27px', maxWidth, width: '100%' }}>
-      {page < 2 && pathname === '/sFOTVault' && (
+    <div style={{ maxWidth, width: '100%' }}>
+      {page < 2 && pathname === '/castleDex' && (
         <div
           style={{
             display: 'flex',
             justifyContent: 'space-between',
-            marginBottom: '50px',
-            gap: '20px',
+            marginTop: '20px',
+            gap: '30px',
             flexWrap: 'wrap',
           }}
         >
           <button
             className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
-            style={{ flex: '1', minWidth: 'calc(50% - 10px)', borderRadius: '50px', maxWidth: 'calc(50% - 10px)', marginLeft:'auto', marginRight:'auto'}}
+            style={{
+              flex: '0',
+              minWidth: 'calc(50% - 10px)',
+              borderRadius: '50px',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+            }}
             onClick={() => setPage(4)}
           >
-            Stable Pools and Swaps
+            Castle Dex Pools
           </button>
           {/* <VaulteButton className={`default-btn  ${!toggle && 'secondary-btn outlined'}`} onClick={() => setPage(2)}>
             Vault
@@ -293,7 +299,7 @@ const StatisticBox = ({
         </div>
       )}
       {children}
-      {page < 2 && (
+      {page < 2 && pathname !== '/castleDex' && (
         <Wrapper slot={pathname} page={page} defaultChecked={leftValues.length > 0}>
           {renderShadowShapes()}
           <ContentWrapper slot={pathname}>

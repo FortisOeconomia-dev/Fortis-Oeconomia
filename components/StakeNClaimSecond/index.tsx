@@ -1,10 +1,11 @@
-import InputWithIncDec from '../InputWithIncDec'
-import styled from 'styled-components'
 import { useContext, useState } from 'react'
-import { Range, getTrackBackground } from 'react-range'
-import { ToggleContext } from '../Layout/Layout'
-import moment from 'moment'
+import styled from 'styled-components'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
+import { Range, getTrackBackground } from 'react-range'
+import moment from 'moment'
+
+import InputWithIncDec from '../InputWithIncDec'
+import { ToggleContext } from '../Layout/Layout'
 
 import { convertMicroDenomToDenom2, convertToFixedDecimals } from '../../util/conversion'
 import Countdown from '../Countdown'
@@ -171,6 +172,13 @@ const Tourch = styled('img')<{ visible: boolean }>`
   visibility: ${props => (props.visible ? 'initial' : 'hidden')};
   height: ${props => (props.visible ? 'initial' : '0')};
   filter: none !important;
+`
+const CustomHeaderCell = styled.th`
+  color: '#030f49 !important';
+`
+
+const CustomDataCell = styled.td`
+  color: '#030f49 !important';
 `
 
 const StakeNClaimSecond = ({
@@ -464,29 +472,33 @@ const StakeNClaimSecond = ({
             {lpfetchunstake && (
               <div style={{ overflowY: 'auto' }}>
                 <table className="w-full">
-                  {lpStakingMyUnstakingList.length > 0 && (
-                    <tr>
-                      <th>Amount</th>
-                      <th>Release date</th>
-                      <th>Action</th>
-                    </tr>
-                  )}
-                  {lpStakingMyUnstakingList.map((d, idx) => (
-                    <tr key={`${idx}-unstakelp`}>
-                      <td>{convertMicroDenomToDenom2(d[0], 6)}</td>
-                      <td>{moment(new Date(Number(d[1]) * 1000)).format('YYYY/MM/DD HH:mm:ss')}</td>
-                      <td>
-                        <button
-                          className={`default-btn  ${!toggle && 'secondary-btn'}`}
-                          style={{ minWidth: 'unset', padding: '3px 30px' }}
-                          onClick={() => handleLpFetchUnstake(d)}
-                          disabled={new Date().getTime() < Number(d[1]) * 1000}
-                        >
-                          Fetch Unstake
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
+                  <tbody>
+                    {lpStakingMyUnstakingList.length > 0 && (
+                      <tr>
+                        <CustomHeaderCell>Amount</CustomHeaderCell>
+                        <CustomHeaderCell>Release date</CustomHeaderCell>
+                        <CustomHeaderCell>Action</CustomHeaderCell>
+                      </tr>
+                    )}
+                    {lpStakingMyUnstakingList.map((d, idx) => (
+                      <tr key={`${idx}-unstakelp`}>
+                        <CustomDataCell>{convertMicroDenomToDenom2(d[0], 6)}</CustomDataCell>
+                        <CustomDataCell>
+                          {moment(new Date(Number(d[1]) * 1000)).format('YYYY/MM/DD HH:mm:ss')}
+                        </CustomDataCell>
+                        <td>
+                          <button
+                            className={`default-btn  ${!toggle && 'secondary-btn'}`}
+                            style={{ minWidth: 'unset', padding: '3px 30px' }}
+                            onClick={() => handleLpFetchUnstake(d)}
+                            disabled={new Date().getTime() < Number(d[1]) * 1000}
+                          >
+                            Fetch Unstake
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
                 </table>
                 {/* <table className="w-full">
                                 {lpStakingMyUnstakingList > 0 && <tr>

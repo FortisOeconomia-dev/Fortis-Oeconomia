@@ -501,6 +501,10 @@ p:last-child {
   border-radius: 8.23373px;
 }
 
+.disabled-btn {
+  opacity: 0.4;
+}
+
 .connect-btn {
   position: fixed;
   top: 111px;

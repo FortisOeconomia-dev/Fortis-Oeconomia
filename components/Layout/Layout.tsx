@@ -36,7 +36,12 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  filter: ${props => !props.defaultChecked && props.slot === '/sFOTVault' && 'hue-rotate(240deg)'};
+  filter: ${props =>
+    !props.defaultChecked && props.slot === '/sFOTVault'
+      ? 'hue-rotate(240deg)'
+      : !props.defaultChecked && props.slot === '/castleDex'
+      ? 'hue-rotate(15deg)'
+      : ''};
 `
 const AssetImageWrapper = styled.div`
   background: ${props => props.slot};
@@ -220,10 +225,10 @@ const Layout = ({ children }) => {
   return (
     <ThemeContext.Provider value={themeContext}>
       <ToggleContext.Provider value={{ toggle, setToggle, asset, setAsset, page, setPage }}>
-        {page === 2 && <RateShow text="Stable Module (sFOT)" action={() => setPage(0)} left={true} />}
+        {page === 2 && <RateShow text="Castle Dex" action={() => setPage(0)} left={false} />}
         {/* {page === 2 && <RateShow text="gBOND Swap and Stake" action={() => setPage(3)} />} */}
         {page === 3 && <RateShow text="sBOND Swap and Stake" action={() => setPage(2)} left={true} />}
-        {page === 4 && <RateShow text="Stable Module (sFOT)" action={() => setPage(0)} left={true} />}
+        {page === 4 && <RateShow text="Castle Dex" action={() => setPage(0)} left={false} />}
         {pathname === '/airdrop' && eligible && <ProgressBar claimedPercent={monetaAirdropCount * 5} />}
         <Wrapper
           defaultChecked={toggle}
