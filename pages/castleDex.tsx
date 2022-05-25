@@ -1,24 +1,14 @@
-<<<<<<< HEAD
-import React, { useState, useEffect, MouseEvent, useContext, ChangeEvent } from 'react'
+import React, { useState, useEffect, useCallback, useContext, ChangeEvent } from 'react'
 import styled from 'styled-components'
 import 'react-notifications/lib/notifications.css'
 
-=======
-import React, { useState, useEffect, MouseEvent, useContext, ChangeEvent, useCallback } from 'react'
-import styled from 'styled-components'
->>>>>>> main
 import { ToggleContext } from '../components/Layout/Layout'
 import Converter from '../components/CastleConverter'
 import { useSigningClient } from '../contexts/cosmwasm'
 import ThemeContext from '../contexts/ThemeContext'
-<<<<<<< HEAD
-import Pool from '../components/Pool/WidePool'
-=======
-import 'react-notifications/lib/notifications.css'
 import Pool from '../components/Pool/WidePool'
 import StatisticBox from '../components/StatisticBox'
 import PoolDetail from '../components/PoolDetail'
->>>>>>> main
 
 //styled components
 const Wrapper = styled.div`
@@ -26,27 +16,17 @@ const Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
-<<<<<<< HEAD
-  justify-content: center;
-=======
   justify-content: flex-start;
->>>>>>> main
   flex: 1;
   width: 100%;
   margin: 20px;
   margin-top: 0;
   padding: 0 20px;
   gap: 37px;
-<<<<<<< HEAD
-  color: #fbfcfd;
-=======
->>>>>>> main
   img {
     filter: ${props => props.defaultChecked && 'invert(1) hue-rotate(-170deg)'};
   }
 `
-<<<<<<< HEAD
-=======
 const Title = styled.p`
   font-weight: 600;
   font-size: 32px;
@@ -56,31 +36,21 @@ const Title = styled.p`
   color: #fbfcfd;
   text-align: center;
 `
->>>>>>> main
 
 const LeftPart = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: center;
-<<<<<<< HEAD
-  flex: 2;
-  margin-top: 10px;
-  max-width: 100%;
-=======
   margin-top: 10px;
   width: 40%;
->>>>>>> main
 `
 
 const RightPart = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 60px;
-<<<<<<< HEAD
-=======
   align-self: center;
   min-width: 40%;
->>>>>>> main
 `
 
 const Pools = styled.div`
@@ -91,10 +61,6 @@ const PoolsContent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 24px;
-<<<<<<< HEAD
-  padding-right: 27px;
-  padding-left: 27px;
-=======
   width: 100%;
   margin-left: 40px;
   margin-right: 40px;
@@ -108,7 +74,6 @@ const Divider = styled.div`
   width: 2.06px;
   background: linear-gradient(180deg, #171e0e 0%, #ffffff 100%);
   margin-top: 72px;
->>>>>>> main
 `
 interface ElementProps {
   small?: boolean
@@ -138,8 +103,6 @@ const AssetImageWrapper = styled.div<ElementProps>`
   align-items: center;
   justify-content: center;
 `
-<<<<<<< HEAD
-=======
 const PoolButtonsLower = styled.div`
   display: flex;
   justify-content: space-evenly;
@@ -151,7 +114,6 @@ const PoolButtonsUpper = styled.div`
   display: flex;
   justify-content: space-between;
 `
->>>>>>> main
 
 const castleDex = () => {
   const {
@@ -176,11 +138,6 @@ const castleDex = () => {
 
   const { setTheme } = useContext(ThemeContext)
   const [swapBalances, setSwapBalances] = useState([0, 0])
-<<<<<<< HEAD
-  const [swapBalance, setSwapBalance] = useState(sfotBalance)
-  const [seconds, setSeconds] = useState(0)
-  const [asset, setAsset] = useState(0)
-=======
   const [swapBalance, setSwapBalance] = useState(ustBalance)
   const [seconds, setSeconds] = useState(0)
 
@@ -195,7 +152,6 @@ const castleDex = () => {
   const [disableSwap, setDisableSwap] = useState(false)
 
   const [poolAsset, setPoolAsset] = useState(0)
->>>>>>> main
   const { toggle } = useContext(ToggleContext)
 
   const sFOTImage = (toggle, small = false) => (
@@ -314,18 +270,10 @@ const castleDex = () => {
   }, [])
 
   useEffect(() => {
-<<<<<<< HEAD
-    if (!signingClient || walletAddress.length === 0) {
-      return
-    }
-    getSfotBalances()
-    getCommonBalances()
-=======
     if (signingClient && walletAddress.length !== 0) {
       getSfotBalances()
       getCommonBalances()
     }
->>>>>>> main
   }, [signingClient, walletAddress])
 
   useEffect(() => {
@@ -340,24 +288,6 @@ const castleDex = () => {
   }, [seconds])
 
   useEffect(() => {
-<<<<<<< HEAD
-    let balances = []
-    setSwapAmount(0)
-    setSwapBalance(sfotBalance)
-    if (asset == 0) balances = [sfotBalance, ustBalance]
-    else if (asset == 1) balances = [sfotBalance, bfotBalance]
-    else if (asset == 2) balances = [sfotBalance, gfotBalance]
-    else if (asset == 3) balances = [sfotBalance, nativeBalance]
-    else if (asset == 4) balances = [sfotBalance, atomBalance]
-
-    setSwapBalances(balances)
-    if (swapToken1) {
-      setSwapBalance(balances[0])
-    } else {
-      setSwapBalance(balances[1])
-    }
-  }, [asset, sfotBalance, swapToken1, sfotBalance, ustBalance, bfotBalance, gfotBalance, atomBalance, nativeBalance])
-=======
     setSwapAmount(0)
     let swapToBalances = []
     if (swapTo == 0) swapToBalances = [ustBalance]
@@ -385,111 +315,11 @@ const castleDex = () => {
       setSwapBalance(swapToBalances[0])
     }
   }, [swapTo, swapFrom, swapToken1, sfotBalance, ustBalance, bfotBalance, gfotBalance, atomBalance, nativeBalance])
->>>>>>> main
 
   const onSwapAmountChange = (event: ChangeEvent<HTMLInputElement>) => {
     const {
       target: { value },
     } = event
-<<<<<<< HEAD
-    if (Number(value) > Number(swapBalance) || Number(value) < 0) return
-    setSwapAmount(Number(value))
-  }
-
-  const handleSwapAmountPlus = () => {
-    Number(swapAmount) + 1 <= Number(swapBalance) && setSwapAmount(Number(swapAmount) + 1)
-  }
-  const handleSwapAmountMinus = () => {
-    Number(swapAmount) >= 1 && setSwapAmount(Number(swapAmount) - 1)
-  }
-
-  const handleChange = balance => {
-    setSwapAmount(balance)
-  }
-
-  const handleSwap = () => {
-    executeSwap(asset)
-  }
-
-  const handleChangeAsset = name => {
-    const currentAsset = assets[asset]
-    if (name !== 'sFOT' && currentAsset.to !== name) {
-      const newAsset = assets.findIndex(item => item.to === name)
-      setAsset(newAsset)
-    }
-  }
-
-  useEffect(() => {
-    if (!signingClient || walletAddress == '') return
-
-    calcExpectedSwapAmount(asset)
-  }, [swapAmount, signingClient, walletAddress])
-
-  return (
-    <Wrapper defaultChecked={toggle}>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          flexWrap: 'wrap',
-          gap: '50px',
-        }}
-        className="w-full"
-      >
-        <LeftPart>
-          <Converter
-            wfull={false}
-            handleBurnMinus={handleSwapAmountMinus}
-            burnAmount={swapAmount}
-            onBurnChange={onSwapAmountChange}
-            handleBurnPlus={handleSwapAmountPlus}
-            expectedAmount={expectedToken2Amount}
-            convImg={() => (
-              <svg width="127" height="70" viewBox="0 0 127 94" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <line x1="1.23677" y1="2.15124" x2="63.3153" y2="92.6086" stroke="#171E0E" strokeWidth="3" />
-                <line x1="62.7632" y1="91.6095" x2="124.841" y2="1.15126" stroke="#171E0E" strokeWidth="3" />
-              </svg>
-            )}
-            convImg2={(func: any) => {
-              return (
-                <svg
-                  onClick={func}
-                  cursor="pointer"
-                  width="32"
-                  height="70"
-                  viewBox="0 0 32 70"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M8.76721 1.23279C8.34349 0.809067 7.65651 0.809067 7.23279 1.23279L0.327891 8.13769C-0.0958281 8.56141 -0.0958281 9.24839 0.327891 9.67211C0.75161 10.0958 1.43859 10.0958 1.86231 9.67211L8 3.53442L14.1377 9.67211C14.5614 10.0958 15.2484 10.0958 15.6721 9.67211C16.0958 9.24839 16.0958 8.56141 15.6721 8.13769L8.76721 1.23279ZM9.085 68L9.085 2H6.915L6.915 68H9.085Z"
-                    fill="#171E0E"
-                  />
-                  <path
-                    d="M23.2328 68.7672C23.6565 69.1909 24.3435 69.1909 24.7672 68.7672L31.6721 61.8623C32.0958 61.4386 32.0958 60.7516 31.6721 60.3279C31.2484 59.9042 30.5614 59.9042 30.1377 60.3279L24 66.4656L17.8623 60.3279C17.4386 59.9042 16.7516 59.9042 16.3279 60.3279C15.9042 60.7516 15.9042 61.4386 16.3279 61.8623L23.2328 68.7672ZM22.915 2L22.915 68H25.085L25.085 2L22.915 2Z"
-                    fill="#171E0E"
-                  />
-                </svg>
-              )
-            }}
-            assets={assetArray}
-            from={assets[asset].from}
-            fromImage={assets[asset].fromImage}
-            to={assets[asset].to}
-            toImage={assets[asset].toImage}
-            handleSubmit={handleSwap}
-            balance={swapBalances[0]}
-            handleChange={handleChange}
-            sbalance={swapBalances[1]}
-            submitTitle={'Swap'}
-            showBalance={true}
-            handleChangeAsset={handleChangeAsset}
-          />
-        </LeftPart>
-        <RightPart>
-          <Pools>
-            <PoolsContent>
-=======
     if (Number(value) >= 0) {
       setSwapAmount(Number(value))
       Number(value) > Number(swapFromBalance) ? setDisableSwap(true) : setDisableSwap(false)
@@ -680,7 +510,6 @@ const castleDex = () => {
           <Pools>
             <PoolsContent>
               <Title>Pools</Title>
->>>>>>> main
               {assets.map(({ from, to, fromImage, toImage }, index) => (
                 <Pool
                   key={index}
@@ -688,16 +517,6 @@ const castleDex = () => {
                   to={to}
                   fromImage={fromImage}
                   toImage={toImage}
-<<<<<<< HEAD
-                  onClick={() => setAsset(index)}
-                  isActive={asset === index}
-                />
-              ))}
-            </PoolsContent>
-          </Pools>
-        </RightPart>
-      </div>
-=======
                   onClick={() => setPoolAsset(index)}
                   isActive={poolAsset === index}
                 />
@@ -717,7 +536,6 @@ const castleDex = () => {
           </PoolsContainer>
         </>
       )}
->>>>>>> main
     </Wrapper>
   )
 }
