@@ -451,6 +451,7 @@ const castleDex = () => {
               showBalance={true}
               handleChangeAsset={handleChangeAsset}
               disableSwap={disableSwap}
+              fromCastleDex = {true}
             />
           </LeftPart>
           <RightPart>

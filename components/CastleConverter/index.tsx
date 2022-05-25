@@ -43,12 +43,15 @@ const Converter = ({
   showBalance = true,
   showSubmitButton = true,
   disableSwap,
+  fromCastleDex,
 }) => {
   const { setSwapToken1 } = useSigningClient()
   const [exchange, setExchange] = useState(false)
 
   const handleExchangeClick = useCallback(() => {
-    setSwapToken1(exchange)
+    if (!fromCastleDex) {
+      setSwapToken1(exchange)
+    }
     setExchange(!exchange)
     handleExchange(to, from)
   }, [to, from, exchange])
