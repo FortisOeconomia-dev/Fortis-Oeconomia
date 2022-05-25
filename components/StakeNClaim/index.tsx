@@ -24,8 +24,8 @@ const Wrapper = styled.div`
   margin-top: ${props => props.slot === '/sFOTVault' && '-18px'};
   margin-bottom: ${props => (props.slot === '/sFOTVault' ? '32px' : '16px')};
   display: flex;
-  max-width: 950px;
-  margin-left: ${props => (props.slot === '/sFOTVault' ? '-45px' : '50px')};
+  max-width: ${props => (props.slot === '/sFOTVault' ? '1200px' : '950px')};
+  min-width: 70%;
   @media (max-width: 768px) {
     flex-direction: column;
   }
@@ -289,7 +289,7 @@ const StakeNClaim = ({
             </div>
             {Note && <MyStakedText>21 days Unbonding Period</MyStakedText>}
           </div>
-          <div style={{ overflowY: 'auto' }}>
+          <div style={{ overflowY: 'auto' }} className="w-full">
             <table className="w-full">
               {unstakingList.length > 0 && (
                 <tr>

@@ -1,15 +1,9 @@
 import styled from 'styled-components'
 import { useContext, useEffect, useState, ChangeEvent, MouseEvent } from 'react'
-import { NotificationContainer, NotificationManager } from 'react-notifications'
+import { NotificationManager } from 'react-notifications'
 
 import { ToggleContext } from '../Layout/Layout'
-import {
-  convertMicroDenomToDenom,
-  convertDenomToMicroDenom,
-  convertMicroDenomToDenom2,
-  convertDenomToMicroDenom2,
-  convertFromMicroDenom,
-} from '../../util/conversion'
+import { convertMicroDenomToDenom2, convertDenomToMicroDenom2 } from '../../util/conversion'
 import { useSigningClient } from '../../contexts/cosmwasm'
 import StakeNClaimSecond from '../StakeNClaimSecond'
 

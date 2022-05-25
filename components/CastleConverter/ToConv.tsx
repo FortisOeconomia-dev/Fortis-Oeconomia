@@ -40,6 +40,17 @@ const ExpectedVal = styled.span`
   line-height: 32px;
 `
 
+const BannerWrapperContent = styled.div`
+  height: fit-content;
+  text-align: right !important;
+`
+
+const SubTitle = styled.span`
+  background: #83b8dd;
+  margin-top: 10px !important;
+  margin-bottom: 32px;
+`
+
 const ToConv = ({ assets, to, expectedAmount, sbalance, maxW, toImage, showBalance, onSelect }) => {
   const router = useRouter()
   const { pathname } = router
@@ -70,11 +81,9 @@ const ToConv = ({ assets, to, expectedAmount, sbalance, maxW, toImage, showBalan
         <ExpectedVal>{realValue}</ExpectedVal>
       </ExpectedValWrapper>
       {showBalance && walletAddress.length != 0 && (
-        <div className="banner-wrapper-content" style={{ height: 'fit-content', textAlign: 'right' }}>
-          <span className="sub-title ms-2" style={{ background: '#83B8DD', marginTop: '10px', marginBottom: '32px' }}>
-            Balance {convertToNoExponents(sbalance)}
-          </span>
-        </div>
+        <BannerWrapperContent className="banner-wrapper-content">
+          <SubTitle className="sub-title ms-2">Balance {convertToNoExponents(sbalance)}</SubTitle>
+        </BannerWrapperContent>
       )}
     </div>
   )

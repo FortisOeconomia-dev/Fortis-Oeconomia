@@ -18,6 +18,7 @@ const TimePanel = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #030f49;
 `
 
 const StyledDiv = styled.div`

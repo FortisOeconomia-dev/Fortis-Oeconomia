@@ -1,6 +1,5 @@
-import { useContext, useEffect, useMemo, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
-
 import { ToggleContext } from '../Layout/Layout'
 
 const MainContent = styled.div`
@@ -90,8 +89,9 @@ const AssetSelector = ({
       <DropdownWrapper>
         {open && (
           <DropdownItems>
-            {assets.map(asset => (
+            {assets.map((asset, index) => (
               <DropdownItem
+                key={index}
                 onClick={() => {
                   setOpen(false)
                   onSelect(asset.name)

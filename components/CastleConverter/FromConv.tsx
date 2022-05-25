@@ -1,5 +1,5 @@
-import styled from 'styled-components'
 import { useContext, useState } from 'react'
+import styled from 'styled-components'
 import { useRouter } from 'next/router'
 import classnames from 'classnames'
 
@@ -37,6 +37,16 @@ const BottomArea = styled.span`
   margin-bottom: 30px;
 `
 
+const BalanceWrapper = styled.div`
+  height: fit-content;
+  width: fit-content;
+  textalign: right;
+`
+
+const BalanceSubtitle = styled.span`
+  background: #83b8dd;
+`
+
 const FromConv = ({
   assets,
   from,
@@ -56,6 +66,7 @@ const FromConv = ({
   const { walletAddress } = useSigningClient()
   const { toggle } = useContext(ToggleContext)
   const [isMax, setIsMax] = useState(false)
+
   return (
     <div className="gFotCurrencyt-selection" style={{ maxWidth: maxW }}>
       <span style={{ fontSize: 18, fontWeight: 700 }}>From</span>
@@ -98,14 +109,9 @@ const FromConv = ({
           </MaxButton>
         </div>
         {showBalance && walletAddress.length != 0 && (
-          <div
-            className="banner-wrapper-content"
-            style={{ height: 'fit-content', width: 'fit-content', textAlign: 'right' }}
-          >
-            <span className="sub-title ms-2" style={{ background: '#83B8DD' }}>
-              Balance {convertToNoExponents(balance)}
-            </span>
-          </div>
+          <BalanceWrapper className="banner-wrapper-content">
+            <BalanceSubtitle className="sub-title ms-2">Balance {convertToNoExponents(balance)}</BalanceSubtitle>
+          </BalanceWrapper>
         )}
       </BottomArea>
     </div>

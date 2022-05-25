@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   background: rgba(255, 255, 255, 0.44);
   box-shadow: 0px 8px 24px rgba(71, 94, 82, 0.25);
   border-radius: ${props => (!props.defaultChecked ? '200px 0px 0px 200px' : '0px 200px 200px 0px')};
-  padding: ${props => (!props.defaultChecked ? '21px 21px 21px 60px' : '21px 60px 21px 21px')};
+  padding: ${props => (!props.defaultChecked ? '21px' : '21px 60px 21px 21px')};
   display: flex;
   justify-content: center;
   position: fixed;
