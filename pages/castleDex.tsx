@@ -140,6 +140,7 @@ const castleDex = () => {
   const [swapBalances, setSwapBalances] = useState([0, 0])
   const [swapBalance, setSwapBalance] = useState(ustBalance)
   const [seconds, setSeconds] = useState(0)
+  const [loading, setLoading] = useState(true)
 
   const [asset, setAsset] = useState(0)
 
@@ -273,19 +274,25 @@ const castleDex = () => {
     if (signingClient && walletAddress.length !== 0) {
       getSfotBalances()
       getCommonBalances()
+      calcExpectedSwapAmount(swapFrom, swapTo)
     }
-  }, [signingClient, walletAddress])
+  }, [swapAmount, signingClient, walletAddress])
 
   useEffect(() => {
     if (seconds === 0) {
       getSfotBalances()
       getCommonBalances()
     }
+    if (loading && expectedToken2Amount === 0) {
+      calcExpectedSwapAmount(swapFrom, swapTo)
+    } else {
+      setLoading(false)
+    }
     const interval = setInterval(() => {
       setSeconds(seconds => (seconds + 1) % updateInterval)
     }, 1000)
     return () => clearInterval(interval)
-  }, [seconds])
+  }, [loading, seconds])
 
   useEffect(() => {
     setSwapAmount(0)
@@ -381,6 +388,7 @@ const castleDex = () => {
 
   useEffect(() => {
     if (!signingClient || walletAddress == '') return
+    console.log(swapAmount)
 
     calcExpectedSwapAmount(swapFrom, swapTo)
   }, [swapAmount, signingClient, walletAddress])
