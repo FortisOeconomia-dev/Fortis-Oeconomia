@@ -1265,6 +1265,7 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         info: {},
       })
       setSfotJunoPoolInfo(sfotJunoPoolInfo)
+
       const sfotJunoLpTokenInfo = await signingClient.queryContractSmart(sfotJunoPoolInfo.lp_token_address, {
         token_info: {},
       })
@@ -2869,7 +2870,11 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     }
   }
 
-  const calcSfotExpectedSwapAmount = (asset: Number, fromSfot: boolean, inputSwapAmount?: number): number => {
+  const calcSfotExpectedSwapAmount = async (
+    asset: Number,
+    fromSfot: boolean,
+    inputSwapAmount?: number,
+  ): Promise<number> => {
     let contract = ''
     let decimals = [10, 10]
     let poolInfo = null
@@ -2902,6 +2907,21 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         return
     }
 
+    //Initial load
+    if (poolInfo.token1_reserve === 0 || poolInfo.token2_reserve === 0) {
+      if (asset == 4) {
+        //sFOT-JUNO
+        poolInfo = await signingClient.queryContractSmart(PUBLIC_SFOT_JUNO_POOL_CONTRACT, {
+          info: {},
+        })
+      }
+      if (asset == 1) {
+        //sFOT _ bFOT
+        poolInfo = await signingClient.queryContractSmart(PUBLIC_SFOT_BFOT_POOL_CONTRACT, {
+          info: {},
+        })
+      }
+    }
     if (!fromSfot) {
       decimals = [decimals[1], decimals[0]]
     }
@@ -2917,14 +2937,14 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
     let out_amount
     if (from === 3) {
       //SFOT to TOKEN
-      out_amount = calcSfotExpectedSwapAmount(to, true)
+      out_amount = await calcSfotExpectedSwapAmount(to, true)
     } else if (to === 3) {
       //TOKEN to SFOT
-      out_amount = calcSfotExpectedSwapAmount(from, false)
+      out_amount = await calcSfotExpectedSwapAmount(from, false)
     } else {
       //TOKEN1 to TOKEN2 = TOKEN1/SFOT * SFOT/TOKEN2
-      let fromFROMToSfot = calcSfotExpectedSwapAmount(from, false)
-      let fromSfotToTO = calcSfotExpectedSwapAmount(to, true)
+      let fromFROMToSfot = await calcSfotExpectedSwapAmount(from, false)
+      let fromSfotToTO = await calcSfotExpectedSwapAmount(to, true)
       out_amount = (fromFROMToSfot * fromSfotToTO) / swapAmount
     }
     setExpectedToken2Amount(Number.isNaN(out_amount) ? 0 : out_amount)
@@ -3059,9 +3079,9 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
         // For 105bFot -> 0.08Juno
         // 105bFot -> 6.8sFot
         // For 6.8sFOT -> 0.08Juno
-        let token1ToSfotAmount = calcSfotExpectedSwapAmount(from, false)
+        let token1ToSfotAmount = await calcSfotExpectedSwapAmount(from, false)
         let fromToken1ToSfotMsg = setSwapMsg(from, false, swapAmount, token1ToSfotAmount)
-        let sfotToToken2Amount = calcSfotExpectedSwapAmount(to, true, token1ToSfotAmount)
+        let sfotToToken2Amount = await calcSfotExpectedSwapAmount(to, true, token1ToSfotAmount)
         let fromSfotToToken2Msg = setSwapMsg(to, true, token1ToSfotAmount, sfotToToken2Amount)
         msgList.push(...fromToken1ToSfotMsg, ...fromSfotToToken2Msg)
       }
