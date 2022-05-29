@@ -273,8 +273,9 @@ const castleDex = () => {
     if (signingClient && walletAddress.length !== 0) {
       getSfotBalances()
       getCommonBalances()
+      calcExpectedSwapAmount(swapFrom, swapTo)
     }
-  }, [signingClient, walletAddress])
+  }, [swapAmount, signingClient, walletAddress])
 
   useEffect(() => {
     if (seconds === 0) {
