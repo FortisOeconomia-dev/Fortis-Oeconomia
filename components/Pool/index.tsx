@@ -23,6 +23,12 @@ const Title = styled.span`
   font-size: 20px;
   line-height: 30px;
   color: #171e0e;
+  display: flex;
+`
+
+const Subtitle = styled.span`
+  font-size: 11px;
+  margin-top: 3px;
 `
 
 const Images = styled.div`
@@ -60,7 +66,9 @@ const Pool = ({ from, to, fromImage, toImage, onClick, isActive, imagesPosition 
       <Wrapper onClick={onClick}>
         {imagesPosition === 'top' && renderImages()}
         <Title>
-          {from} - {to}
+          {from}
+          {from === 'UST' && <Subtitle>(Classic) </Subtitle>} - {to}
+          {to === 'UST' && <Subtitle>(Classic) </Subtitle>}
           {!!level && ` (Level ${level})`}
         </Title>
         {imagesPosition === 'bottom' && renderImages()}
