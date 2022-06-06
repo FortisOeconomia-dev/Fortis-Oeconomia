@@ -50,6 +50,11 @@ const SubTitle = styled.span`
   margin-top: 10px !important;
   margin-bottom: 32px;
 `
+const AssetSubtitle = styled.div`
+  font-size: 14px;
+  padding-top: 8px;
+  line-height: 15px;
+`
 
 const ToConv = ({ assets, to, expectedAmount, sbalance, maxW, toImage, showBalance, onSelect }) => {
   const router = useRouter()
@@ -75,6 +80,7 @@ const ToConv = ({ assets, to, expectedAmount, sbalance, maxW, toImage, showBalan
               toImage(toggle)
             ))}{' '}
           {to}
+          {to === 'UST' && <AssetSubtitle>(Classic) </AssetSubtitle>}
         </AssetSelector>
       </WalletTitle>
       <ExpectedValWrapper className="wallet-label" slot={maxW}>

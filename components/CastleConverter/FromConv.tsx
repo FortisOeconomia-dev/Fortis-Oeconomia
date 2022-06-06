@@ -46,7 +46,11 @@ const BalanceWrapper = styled.div`
 const BalanceSubtitle = styled.span`
   background: #83b8dd;
 `
-
+const AssetSubtitle = styled.div`
+  font-size: 14px;
+  padding-top: 8px;
+  line-height: 15px;
+`
 const FromConv = ({
   assets,
   from,
@@ -79,6 +83,7 @@ const FromConv = ({
               fromImage(toggle)
             ))}{' '}
           {from}
+          {from === 'UST' && <AssetSubtitle>(Classic) </AssetSubtitle>}
         </AssetSelector>
       </WalletTitle>
       <InputWithIncDec

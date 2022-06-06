@@ -29,7 +29,6 @@ const DropdownItems = styled.div`
   z-index: 100;
   & > div {
     border-bottom: 1px solid black;
-    font-size: 15px;
     color: black;
   }
   & > div:last-child {
@@ -39,13 +38,24 @@ const DropdownItems = styled.div`
 
 const DropdownItem = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   line-height: 35px;
+  width: 90%;
+  margin-left: 5%;
   & > img {
     width: 30px;
     height: 30px;
   }
+`
+
+const AssetSubtitle = styled.div`
+  font-size: 10px;
+  margin-top: 2px;
+`
+
+const AssetTitle = styled.div`
+  font-size: 15px;
 `
 
 const AssetSelector = ({
@@ -97,7 +107,14 @@ const AssetSelector = ({
                   onSelect(asset.name)
                 }}
               >
-                {asset.name}
+                {asset.name === 'UST' ? (
+                  <div style={{ display: 'flex' }}>
+                    <AssetTitle> {asset.name}</AssetTitle>
+                    <AssetSubtitle style={{ fontSize: '10px !important', marginTop: '2px' }}>(Classic)</AssetSubtitle>
+                  </div>
+                ) : (
+                  <AssetTitle>{asset.name} </AssetTitle>
+                )}
                 {asset.image &&
                   (typeof asset.image === 'string' ? (
                     <img src={asset.image} style={{ background: 'transparent', color: 'transparent' }} />

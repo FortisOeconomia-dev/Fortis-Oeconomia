@@ -18,11 +18,25 @@ const Wrapper = styled.div`
   text-align: center;
 `
 
+const UstWrapper = styled.div`
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0px 7.28px 18.11px rgba(41, 54, 24, 0.25);
+  border-radius: 9.95992px;
+  text-align: center;
+`
+
 const Title = styled.span`
   font-weight: bold;
   font-size: 22px;
   line-height: 40px;
   color: #171e0e;
+  display: flex;
+`
+
+const Subtitle = styled.span`
+  font-size: 12px;
+  margin-top: 3px;
 `
 
 const Images = styled.div`
@@ -46,14 +60,26 @@ const Pool = ({ from, to, fromImage, toImage, onClick, isActive, imagesPosition 
 
   return (
     <OutWrapper defaultChecked={isActive}>
-      <Wrapper onClick={onClick}>
-        {imagesPosition === 'top' && renderImages()}
-        <Title>
-          {from} - {to}
-          {!!level && ` (Level ${level})`}
-        </Title>
-        {imagesPosition === 'bottom' && renderImages()}
-      </Wrapper>
+      {to === 'UST' ? (
+        <UstWrapper onClick={onClick}>
+          {imagesPosition === 'top' && renderImages()}
+          <Title>
+            {from} - {to}
+            <Subtitle>(Classic)</Subtitle>
+            {!!level && ` (Level ${level})`}
+          </Title>
+          {imagesPosition === 'bottom' && renderImages()}
+        </UstWrapper>
+      ) : (
+        <Wrapper onClick={onClick}>
+          {imagesPosition === 'top' && renderImages()}
+          <Title>
+            {from} - {to}
+            {!!level && ` (Level ${level})`}
+          </Title>
+          {imagesPosition === 'bottom' && renderImages()}
+        </Wrapper>
+      )}
     </OutWrapper>
   )
 }

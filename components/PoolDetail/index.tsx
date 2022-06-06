@@ -28,6 +28,11 @@ const Title = styled.p`
   text-align: center;
 `
 
+const Subtitle = styled.span`
+  font-size: 12px;
+  margin-top: 3px;
+`
+
 const PoolDetail = ({
   asset,
   from,
@@ -459,7 +464,10 @@ const PoolDetail = ({
             )}
           </div>
           <Title>
-            {from}-{to} Pool {!!level && ` (Level ${level})`}
+            {from}
+            {from === 'UST' && <Subtitle>(Classic) </Subtitle>} - {to}
+            {to === 'UST' && <Subtitle>(Classic) </Subtitle>} Pool
+            {!!level && ` (Level ${level})`}
           </Title>
         </TitleWrapper>
         <StakeNClaimSecond
