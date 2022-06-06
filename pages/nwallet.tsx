@@ -142,6 +142,10 @@ const Gradient4 = styled.div`
   filter: blur(80px);
   border-radius: 100%;
 `
+const AssetSubtitle = styled.div`
+  font-size: 14px;
+  margin-top: 5px;
+`
 
 const nwallet = () => {
   const {
@@ -229,7 +233,11 @@ const nwallet = () => {
                 <div className="w-full">
                   <Divider />
                   <AssetContent>
-                    {d.label}
+                    <div className="d-flex">
+                      {d.label}
+                      {d.label === 'UST' && <AssetSubtitle>(Classic) </AssetSubtitle>}
+                    </div>
+
                     <AssetValue> {walletAddress.length == 0 ? 0 : convertToNoExponents(d.amount)}</AssetValue>
                   </AssetContent>
                 </div>

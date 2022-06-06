@@ -38,6 +38,11 @@ const ExpectedVal = styled.span`
   line-height: 32px;
   margin-top: 20px;
 `
+const AssetSubtitle = styled.div`
+  font-size: 14px;
+  padding-top: 10px;
+  line-height: 15px;
+`
 
 const ToConv = ({ to, expectedAmount, sbalance, maxW, toImage, showBalance }) => {
   const router = useRouter()
@@ -61,6 +66,7 @@ const ToConv = ({ to, expectedAmount, sbalance, maxW, toImage, showBalance }) =>
             toImage(toggle)
           ))}{' '}
         {to}
+        {to === 'UST' && <AssetSubtitle>(Classic) </AssetSubtitle>}
       </WalletTitle>
       <ExpectedValWrapper className="wallet-label" slot={maxW}>
         <ExpectedVal>{realValue}</ExpectedVal>

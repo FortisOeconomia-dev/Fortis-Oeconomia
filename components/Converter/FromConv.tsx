@@ -27,6 +27,11 @@ const MaxButton = styled.span`
   min-width: unset !important;
   cursor: pointer;
 `
+const AssetSubtitle = styled.div`
+  font-size: 14px;
+  padding-top: 10px;
+  line-height: 15px;
+`
 
 const FromConv = ({
   from,
@@ -56,6 +61,7 @@ const FromConv = ({
             fromImage(toggle)
           ))}{' '}
         {from}
+        {from === 'UST' && <AssetSubtitle>(Classic) </AssetSubtitle>}
       </WalletTitle>
       <InputWithIncDec
         handleBurnMinus={handleBurnMinus}
