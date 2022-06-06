@@ -113,9 +113,7 @@ const AssetSelector = ({
                     <AssetSubtitle style={{ fontSize: '10px !important', marginTop: '2px' }}>(Classic)</AssetSubtitle>
                   </div>
                 ) : (
-                  <>
-                    <AssetTitle>{asset.name} </AssetTitle>
-                  </>
+                  <AssetTitle>{asset.name} </AssetTitle>
                 )}
                 {asset.image &&
                   (typeof asset.image === 'string' ? (
