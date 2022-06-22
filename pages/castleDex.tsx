@@ -210,7 +210,7 @@ const castleDex = () => {
       from: 'sFOT',
       to: 'USDC',
       fromImage: sFOTImage,
-      toImage: '/images/atom.png',
+      toImage: '/images/usdc.png',
     },
     {
       from: 'sFOT',
@@ -247,7 +247,7 @@ const castleDex = () => {
   const assetArray = [
     {
       name: 'USDC',
-      image: '/images/atom.png',
+      image: '/images/usdc.png',
     },
     {
       name: 'UST',
