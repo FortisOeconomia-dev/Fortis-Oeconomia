@@ -15,6 +15,7 @@ const Wrapper = styled.div`
 
   button {
     border-radius: 60px;
+    z-index: -1;
   }
 `
 

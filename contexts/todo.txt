@@ -1,0 +1,4 @@
+++ Add on env.local 
+-- Add configuration to the cosmwasm.tsx -> context
+-- Add configuration to the cosmwasm.tsx -> hooks
+
