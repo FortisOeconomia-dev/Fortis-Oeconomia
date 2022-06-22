@@ -497,6 +497,14 @@ const castleDex = () => {
                 <PoolButtonsLower>
                   <Pool
                     from="sFOT"
+                    to="USDC"
+                    fromImage={sFOTImage}
+                    toImage="/images/usdc.png"
+                    onClick={() => handlePoolAssetChange(-1)}
+                    isActive={poolAsset === -1}
+                  />
+                  <Pool
+                    from="sFOT"
                     to="Juno"
                     fromImage={sFOTImage}
                     toImage="/images/juno.png"
