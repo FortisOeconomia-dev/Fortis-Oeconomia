@@ -289,6 +289,13 @@ const Navbar = ({ toggle, setToggle }) => {
                   </Link>
                 </li>
                 <li className="nav-item">
+                  <Link href="/Tachyonic-token-producer" activeClassName="active">
+                    <NavLink className="nav-link" slot={pathname} defaultChecked={toggle}>
+                      Tachyonic Token Producer
+                    </NavLink>
+                  </Link>
+                </li>
+                <li className="nav-item">
                   <Link href="/nwallet" activeClassName="active">
                     <NavLink className="nav-link" slot={pathname} defaultChecked={toggle}>
                       Wallet
