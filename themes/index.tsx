@@ -9,5 +9,6 @@ import { default as theme7 } from './theme7'
 import { default as theme8 } from './theme8'
 import { default as theme9 } from './theme9'
 import { default as theme10 } from './theme10'
+import { default as theme11 } from './theme11'
 
-export { primary, theme1, theme2, theme3, theme4, theme5, theme6, theme7, theme8, theme9, theme10 }
+export { primary, theme1, theme2, theme3, theme4, theme5, theme6, theme7, theme8, theme9, theme10, theme11 }

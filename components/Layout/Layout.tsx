@@ -20,6 +20,8 @@ import useTheme from '../../hooks/useTheme'
 const Wrapper = styled.div`
   background: ${props => {
     switch (props.slot) {
+      case '/':
+        return `linear-gradient(133.37deg, #1F1452 1.09%, #16122D 1.1%, #1F1452 71.02%)`
       case '/gFOTmodule':
         return !props.defaultChecked ? 'white' : `linear-gradient(180deg, #8394DD 0%, #FFFFFF 100%)`
       case '/fortisDungeon':
@@ -41,8 +43,8 @@ const Wrapper = styled.div`
     !props.defaultChecked && props.slot === '/sFOTVault'
       ? 'hue-rotate(240deg)'
       : !props.defaultChecked && props.slot === '/castleDex'
-      ? 'hue-rotate(15deg)'
-      : ''};
+        ? 'hue-rotate(15deg)'
+        : ''};
 `
 const AssetImageWrapper = styled.div`
   background: ${props => props.slot};
@@ -238,6 +240,7 @@ const Layout = ({ children }) => {
             filter:
               toggle &&
               pathname !== '/fortisDungeon' &&
+              pathname !== '/' &&
               'drop-shadow(16px 16px 20px) invert(90) hue-rotate(170deg) saturate(200%) contrast(100%) brightness(90%)',
             background:
               pathname === '/sFOTVault' &&
