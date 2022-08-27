@@ -47,6 +47,18 @@ const rotateAnimation = keyframes`
   }
 `;
 
+const shineAnimation = keyframes`
+  0% {
+    opacity: .3;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: .3;
+  }
+`
+
 const LeftShadow = styled.div`
   position: fixed;
   width: 460px;
@@ -91,6 +103,12 @@ const Saturn = styled.img`
   animation: ${translateYAnimation} 2.5s linear infinite;
 `
 
+const Stars = styled.img<{ rotate?: number }>`
+  position: absolute;
+  animation: ${shineAnimation} 2s linear infinite;
+  transform: rotate(${props => props.rotate ?? 0}deg)
+`
+
 const Index = () => {
   const { setTheme } = useContext(ThemeContext);
 
@@ -100,7 +118,10 @@ const Index = () => {
 
   return (
     <>
-      <img src="./images/fortis-lite.png" style={{ display: 'block', margin: 'auto 0' }} />
+      <div style={{ position: 'relative', display: 'block', margin: 'auto 0' }}>
+        <img src="./images/fortis-lite.png" />
+        <Stars src='./images/stars.png' alt='stars' rotate={90} style={{ top: '-25%', right: '-75px' }} />
+      </div>
       <LeftShadow />
       <RightShadow />
       <DogImage src='./images/dog.png' alt='dog' />
@@ -108,6 +129,7 @@ const Index = () => {
       <Cube src='./images/cube.png' alt='cube' style={{ width: 215, bottom: '10%', right: '-5%', transform: 'translateX(5%)', animationDuration: '3500ms' }} />
       <Cube src='./images/cube.png' alt='cube' style={{ width: 265, bottom: '-13%', right: '7%', animationDuration: '4500ms' }} />
       <Saturn src='./images/saturn.png' alt='saturn' />
+      <Stars src='./images/stars.png' alt='stars' style={{ top: 176, left: 83 }} />
       {/* <a href="https://pupmos.github.io/whitepuppers/WhitepupperGenesis.pdf" target="_SEJ" rel="noreferrer">
         <img src="./images/pupmos.png" style={{width:"150px", height:"150px", cursor:"pointer",marginLeft:"auto",marginRight:"auto", filter: toggle && 'drop-shadow(16px 16px 20px) invert(1) hue-rotate(-170deg)'}}/>
       </a> */}
