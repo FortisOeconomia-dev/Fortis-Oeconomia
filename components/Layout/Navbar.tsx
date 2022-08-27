@@ -130,7 +130,7 @@ const Navbar = ({ toggle, setToggle }) => {
             showMenu ? 'show navbar navbar-expand-md navbar-light' : 'navbar navbar-expand-md navbar-light hide-menu'
           }
         >
-          <div className="container" style={{ padding: '20px 32px', maxWidth: 'unset' }}>
+          <div className="container" style={{ padding: '20px 32px', maxWidth: 'unset', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div className="flex">
               <div className="d-flex flex-row align-items-center">
                 <a
@@ -149,206 +149,53 @@ const Navbar = ({ toggle, setToggle }) => {
               </div>
             </div>
 
-            <div className="collapse navbar-collapse mean-menu">
-              <ul
-                className="navbar-nav"
-                style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-around' }}
-              >
-                <Dropdown title="Drops" slot={pathname} defaultChecked={toggle}>
-                  <li
-                    style={{
-                      background: '#FBFCFD',
-                      borderRadius: '13px 13px 0px 0px',
-                    }}
-                  >
-                    <Link href="/airdrop" activeClassName="active">
-                      <SubLink
-                        className="nav-link"
-                        slot={pathname}
-                        defaultChecked={toggle}
-                        onClick={() => setDropsMenu(!dropsMenu)}
-                      >
-                        Airdrop
-                      </SubLink>
-                    </Link>
-                  </li>
-                  <li
-                    style={{
-                      background: '#FBFCFD',
-                      borderRadius: '0px 0px 13px 13px',
-                      borderTop: '1px solid',
-                      borderColor: '#080451',
-                    }}
-                  >
-                    <Link href="/votedrops" activeClassName="active">
-                      <SubLink
-                        onClick={() => setDropsMenu(!dropsMenu)}
-                        className="nav-link"
-                        slot={pathname}
-                        defaultChecked={toggle}
-                      >
-                        Votedrops
-                      </SubLink>
-                    </Link>
-                  </li>
-                </Dropdown>
-                <li className="nav-item">
-                  <Link href="/communitySale" activeClassName="active">
-                    <NavLink className="nav-link" slot={pathname} defaultChecked={toggle}>
-                      Community Sale
-                    </NavLink>
-                  </Link>
-                </li>
-                <Dropdown title="Modules" slot={pathname} defaultChecked={toggle}>
-                  <li
-                    style={{
-                      background: '#FBFCFD',
-                      borderRadius: '13px 13px 0px 0px',
-                    }}
-                  >
-                    <Link href="/burnmodule" activeClassName="active">
-                      <SubLink
-                        className="nav-link"
-                        slot={pathname}
-                        defaultChecked={toggle}
-                        onClick={() => setModulesMenu(!modulesMenu)}
-                      >
-                        Burn Module (bFOT)
-                      </SubLink>
-                    </Link>
-                  </li>
-                  <li
-                    style={{
-                      background: '#FBFCFD',
-                      borderBottom: '1px solid',
-                      borderTop: '1px solid',
-                      borderColor: '#080451',
-                    }}
-                  >
-                    <Link href="/gFOTmodule" activeClassName="active">
-                      <SubLink
-                        onClick={() => setModulesMenu(!modulesMenu)}
-                        className="nav-link"
-                        slot={pathname}
-                        defaultChecked={toggle}
-                      >
-                        Grand Module (gFOT)
-                      </SubLink>
-                    </Link>
-                  </li>
-                  <li
-                    style={{
-                      background: '#FBFCFD',
-                      borderRadius: '0px 0px 13px 13px',
-                    }}
-                  >
-                    <Link href="/sFOTVault" activeClassName="active">
-                      <SubLink
-                        onClick={() => setModulesMenu(!modulesMenu)}
-                        className="nav-link"
-                        slot={pathname}
-                        defaultChecked={toggle}
-                      >
-                        sFOT Vault
-                      </SubLink>
-                    </Link>
-                  </li>
-                </Dropdown>
-                {/*<li className="nav-item">
-                  <Link href="/publicsale" activeClassName="active">
-                    <a className="nav-link">Public Sale</a>
-                  </Link>
-                  </li>*/}
-                {/*<li className="nav-item">
-                  <Link href="/burntostake" activeClassName="active">
-                    <a className="nav-link" style={{whiteSpace:"nowrap"}}>Burn to Stake</a>
-                  </Link>
-                </li>*/}
-                {/*<li className="nav-item">
-                  <Link href="/legionnairecoins" activeClassName="active">
-                    <a className="nav-link" style={{whiteSpace:"nowrap"}}>Legionnaire Coins</a>
-                  </Link>
-                </li>*/}
-                {/* <li className="nav-item">
-                  <Link href="/info" activeClassName="active">
-                    <NavLink className="nav-link" slot={pathname} defaultChecked={toggle}>Info</NavLink>
-                  </Link>
-                </li> */}
-                <li className="nav-item">
-                  <Link href="/castleDex" activeClassName="active">
-                    <NavLink className="nav-link" slot={pathname} defaultChecked={toggle}>
-                      Castle Dex
-                    </NavLink>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link href="/fortisDungeon" activeClassName="active">
-                    <NavLink className="nav-link" slot={pathname} defaultChecked={toggle}>
-                      Fortis Dungeon
-                    </NavLink>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link href="/nwallet" activeClassName="active">
-                    <NavLink className="nav-link" slot={pathname} defaultChecked={toggle}>
-                      Wallet
-                    </NavLink>
-                  </Link>
-                </li>
-                {/*                 <Governance className="nav-item">
-                  <Governance
-                    style={{ fontSize: '19px', fontWeight: '600' }}
-                    href="https://daodao.zone/dao/juno1anz3mg3n0pdj6d4pulk94sqz52j3duld6cclauzxhtv7de5hahssgc3r9n"
-                    target="_SEJ"
-                    rel="noreferrer"
-                    slot={pathname}
-                    defaultChecked={toggle}
-                  >
-                    Governance
-                  </Governance>
-                </Governance> */}
-                {pathname !== '/fortisDungeon' && <ToggleSwitch toggle={toggle} setToggle={setToggle} />}
-                <button
-                  className={`default-btn ${!toggle && pathname === '/gFOTmodule' ? 'secondary-btn' : ''}`}
-                  onClick={handleConnect}
-                >
-                  {walletAddress
-                    ? walletAddress.substring(0, 12) +
-                      '...' +
-                      walletAddress.substring(walletAddress.length - 6, walletAddress.length)
-                    : 'Connect Wallet'}
-                </button>
-              </ul>
-              {/* <div className="others-option">
-                <div className="d-flex align-items-center">
-                  {walletAddress.length == 0 ? (
-                    <></>
-                  ) : (
-                    <div
-                      className="banner-wrapper-content"
-                      style={{ marginLeft: "30px" }}
-                    >
-                    </div>
-                  )}
-                  <div className="flex flex-grow lg:flex-grow-0 max-w-full ms-2">
-                    <button
-                      className="block default-btn w-full max-w-full truncate"
-                      onClick={handleConnect}
-                    >
-                      <i className="bx bxs-contact"></i>
-                      {walletAddress
-                        ? walletAddress.substring(0, 12) +
-                        "..." +
-                        walletAddress.substring(
-                          walletAddress.length - 6,
-                          walletAddress.length
-                        )
-                        : "Connect Wallet"}
-                    </button>
-                  </div>
-                </div>
-              </div> */}
-            </div>
+            <ul
+              className="navbar-nav"
+              style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            >
+              <li className="nav-item custom-tooltip">
+                <Link href="#" activeClassName="active">
+                  <NavLink className="nav-link" slot={pathname} defaultChecked={toggle}>
+                    AirDrop
+                  </NavLink>
+                </Link>
+                <span className='tooltiptext'>Stay Tuned!</span>
+              </li>
+              <li className="nav-item custom-tooltip" style={{ marginLeft: 64 }}>
+                <Link href="#" activeClassName="active">
+                  <NavLink className="nav-link" slot={pathname} defaultChecked={toggle}>
+                    Burn Module
+                  </NavLink>
+                </Link>
+                <span className='tooltiptext'>Stay Tuned!</span>
+              </li>
+              <li className="nav-item custom-tooltip" style={{ marginLeft: 64 }}>
+                <Link href="#" activeClassName="active">
+                  <NavLink className="nav-link" slot={pathname} defaultChecked={toggle}>
+                    Grand Module
+                  </NavLink>
+                </Link>
+                <span className='tooltiptext'>Stay Tuned!</span>
+              </li>
+              <li className="nav-item custom-tooltip" style={{ marginLeft: 64 }}>
+                <Link href="#" activeClassName="active">
+                  <NavLink className="nav-link" slot={pathname} defaultChecked={toggle}>
+                    Wallet
+                  </NavLink>
+                </Link>
+                <span className='tooltiptext'>Stay Tuned!</span>
+              </li>
+            </ul>
+            <button
+              className={`default-btn ${!toggle && pathname === '/gFOTmodule' ? 'secondary-btn' : ''}`}
+              onClick={handleConnect}
+            >
+              {walletAddress
+                ? walletAddress.substring(0, 12) +
+                '...' +
+                walletAddress.substring(walletAddress.length - 6, walletAddress.length)
+                : 'Connect Wallet'}
+            </button>
           </div>
         </nav>
       </div>

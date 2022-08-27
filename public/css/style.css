@@ -58,6 +58,7 @@ Default CSS
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&family=Quicksand&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
+
 :root {
   --fontFamily: 'Quicksand', sans-serif;
   --fontFamily2: 'Quicksand', sans-serif;
@@ -70,6 +71,7 @@ Default CSS
   --fontSize: 16px;
   --transition: 0.5s;
 }
+
 .launch {
   background: rgba(251, 252, 253, 0.3);
   box-shadow: 15.1194px 15.1194px 60.4777px rgba(8, 4, 81, 0.18);
@@ -87,6 +89,7 @@ Default CSS
   padding: 2rem;
   font-size: 4rem;
 }
+
 .timer-wrapper {
   background-color: rgba(0, 0, 0, 0.8);
   padding: 2rem;
@@ -139,15 +142,18 @@ Default CSS
   position: relative;
   top: 0;
 }
+
 .currencyt-selection {
   position: relative;
   text-align: center;
 }
+
 .currencyt-selection .wallet-title {
   background: radial-gradient(207.29% 1467.58% at 50% 50%, #3b55ca 0%, #110f58 45.83%, #a8a4f7 100%);
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
 .currencyt-selection .wallet-label {
   color: #ffffff;
   position: relative;
@@ -177,10 +183,12 @@ Default CSS
   border-bottom: 2px solid #22053d;
   padding-bottom: 27px;
 }
+
 .countdownwrapper {
   width: 606px;
   display: block;
 }
+
 .wallet-text .wallet-label .wallet-span {
   margin: 0;
   padding-right: 10px;
@@ -188,6 +196,7 @@ Default CSS
   display: block;
   float: right;
 }
+
 /*================================================
 gFOT style
 =================================================*/
@@ -206,6 +215,7 @@ gFOT style
   position: relative;
   top: 120px;
 }
+
 .gFotCurrencyt-selection {
   position: relative;
   text-align: center;
@@ -213,6 +223,7 @@ gFOT style
   max-width: 453px;
   width: 100%;
 }
+
 .pool {
   position: fixed;
 }
@@ -224,6 +235,7 @@ gFOT style
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
 .gFotCurrencyt-selection .wallet-label {
   color: #22053d;
   font-weight: 800;
@@ -255,6 +267,7 @@ gFOT style
   text-indent: 15px;
   margin-top: 45px;
 }
+
 .gFotCurrencyt-selection .wallet-text .wallet-label .wallet-span {
   white-space: nowrap;
   color: #22053d;
@@ -329,6 +342,7 @@ h6 {
   font-family: var(--fontFamily2);
   font-weight: 700;
 }
+
 .trade-cryptocurrency-box .banner-wrapper-content span {
   background: linear-gradient(97.62deg, #a8a4f7 0%, #5f5bcd 100%);
   display: block;
@@ -336,6 +350,7 @@ h6 {
   top: 15px;
   width: fit-content;
 }
+
 .juno-load {
   position: absolute;
   display: flex;
@@ -345,9 +360,11 @@ h6 {
   text-align: right;
   align-items: flex-start;
 }
+
 .juno-load i {
   align-items: right;
 }
+
 .currency-selection .airdrop-span {
   text-align: center;
   align-items: center;
@@ -357,6 +374,7 @@ h6 {
   font-size: 23984px;
   position: relative;
 }
+
 a {
   -webkit-transition: var(--transition);
   transition: var(--transition);
@@ -484,6 +502,7 @@ p:last-child {
   from {
     opacity: 0;
   }
+
   to {
     background-color: 1;
   }
@@ -671,6 +690,7 @@ Navbar Area CSS
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
 .navbar-area .navbar .navbar-nav .nav-item a.active {
   color: black;
 }
@@ -966,6 +986,7 @@ Navbar Area CSS
     padding-top: 15px;
     padding-bottom: 15px;
   }
+
   .navbar-area.is-sticky {
     top: 0;
     left: 0;
@@ -978,32 +999,40 @@ Navbar Area CSS
     -webkit-animation: 500ms ease-in-out 0s normal none 1 running fadeInDown;
     animation: 500ms ease-in-out 0s normal none 1 running fadeInDown;
   }
+
   .navbar-area .navbar {
     display: none;
   }
+
   .raimo-responsive-nav {
     display: block;
   }
+
   .raimo-responsive-nav .raimo-responsive-menu {
     position: relative;
   }
+
   .raimo-responsive-nav .raimo-responsive-menu.mean-container .mean-nav {
     margin-top: 58px;
     background-color: var(--whiteColor);
   }
+
   .raimo-responsive-nav .raimo-responsive-menu.mean-container .mean-nav ul {
     font-size: 15px;
     border: none !important;
   }
+
   .raimo-responsive-nav .raimo-responsive-menu.mean-container .mean-nav ul li a {
     border-top-color: #dbeefd;
     color: var(--blackColor);
     text-transform: unset;
     font-weight: 600;
   }
+
   .raimo-responsive-nav .raimo-responsive-menu.mean-container .mean-nav ul li a i {
     display: none;
   }
+
   .raimo-responsive-nav .raimo-responsive-menu.mean-container .mean-nav ul li a.mean-expand {
     width: 50%;
     height: 28px;
@@ -1013,15 +1042,19 @@ Navbar Area CSS
     border-left: none !important;
     border-bottom: none !important;
   }
+
   .raimo-responsive-nav .raimo-responsive-menu.mean-container .mean-nav ul li a.active {
     color: var(--mainColor);
   }
+
   .raimo-responsive-nav .raimo-responsive-menu.mean-container .mean-nav ul li li a {
     font-size: 14px;
   }
+
   .raimo-responsive-nav .raimo-responsive-menu.mean-container .mean-nav ul li.megamenu li a {
     padding-left: 75px;
   }
+
   .raimo-responsive-nav .raimo-responsive-menu.mean-container .mean-nav ul li.megamenu li a img {
     top: 50%;
     left: 29px;
@@ -1030,6 +1063,7 @@ Navbar Area CSS
     transform: translateY(-50%);
     background-color: red;
   }
+
   .raimo-responsive-nav .raimo-responsive-menu.mean-container .mean-nav ul li.megamenu li a i {
     display: inline-block;
     font-size: 35px;
@@ -1041,6 +1075,7 @@ Navbar Area CSS
     -webkit-transform: translateY(-50%);
     transform: translateY(-50%);
   }
+
   .raimo-responsive-nav .raimo-responsive-menu.mean-container .navbar-nav {
     max-height: 70vh;
     overflow-y: scroll;
@@ -1048,6 +1083,7 @@ Navbar Area CSS
     -webkit-box-shadow: 0 7px 13px 0 rgba(0, 0, 0, 0.1);
     box-shadow: 0 7px 13px 0 rgba(0, 0, 0, 0.1);
   }
+
   .raimo-responsive-nav .mean-container a.meanmenu-reveal {
     top: 0;
     padding: 0;
@@ -1056,6 +1092,7 @@ Navbar Area CSS
     padding-top: 9px;
     color: var(--blackColor);
   }
+
   .raimo-responsive-nav .mean-container a.meanmenu-reveal span {
     top: 8px;
     height: 4px;
@@ -1064,29 +1101,36 @@ Navbar Area CSS
     position: relative;
     background: var(--blackColor);
   }
+
   .raimo-responsive-nav .mean-container .mean-bar {
     background: transparent;
     position: absolute;
     z-index: 999;
     padding: 0;
   }
+
   .raimo-responsive-nav .dropdown-toggle::after {
     display: none !important;
   }
+
   .raimo-responsive-nav .others-option {
     position: absolute;
     right: 55px;
     top: 9px;
   }
+
   .raimo-responsive-nav .others-option .option-item {
     margin-left: 7px;
   }
+
   .raimo-responsive-nav .others-option .option-item:first-child {
     margin-left: 0;
   }
+
   .raimo-responsive-nav .others-option .default-btn {
     display: none;
   }
+
   .raimo-responsive-nav .others-option .login-btn {
     top: 2px;
     font-size: 0;
@@ -1094,12 +1138,15 @@ Navbar Area CSS
     display: inline-block;
     color: var(--mainColor);
   }
+
   .raimo-responsive-nav .others-option .login-btn i {
     font-size: 20px;
   }
+
   .raimo-responsive-nav .others-option .login-btn:hover {
     color: var(--blackColor);
   }
+
   .raimo-responsive-nav .others-option .form-select {
     border: none;
     cursor: pointer;
@@ -1117,9 +1164,11 @@ Navbar Area CSS
     font-size: 14px;
     font-weight: 600;
   }
+
   .raimo-responsive-nav .others-option .register-btn {
     display: none;
   }
+
   .raimo-responsive-nav .logo {
     position: relative;
     z-index: 999;
@@ -4058,10 +4107,12 @@ App Download Area CSS
     -webkit-transform: translateY(0px);
     transform: translateY(0px);
   }
+
   50% {
     -webkit-transform: translateY(20px);
     transform: translateY(20px);
   }
+
   100% {
     -webkit-transform: translateY(0px);
     transform: translateY(0px);
@@ -4073,10 +4124,12 @@ App Download Area CSS
     -webkit-transform: translateY(0px);
     transform: translateY(0px);
   }
+
   50% {
     -webkit-transform: translateY(20px);
     transform: translateY(20px);
   }
+
   100% {
     -webkit-transform: translateY(0px);
     transform: translateY(0px);
@@ -4088,10 +4141,12 @@ App Download Area CSS
     -webkit-transform: translateX(0px);
     transform: translateX(0px);
   }
+
   50% {
     -webkit-transform: translateX(20px);
     transform: translateX(20px);
   }
+
   100% {
     -webkit-transform: translateX(0px);
     transform: translateX(0px);
@@ -4103,10 +4158,12 @@ App Download Area CSS
     -webkit-transform: translateX(0px);
     transform: translateX(0px);
   }
+
   50% {
     -webkit-transform: translateX(20px);
     transform: translateX(20px);
   }
+
   100% {
     -webkit-transform: translateX(0px);
     transform: translateX(0px);
@@ -4114,50 +4171,64 @@ App Download Area CSS
 }
 
 @-webkit-keyframes border-transform {
+
   0%,
   100% {
     border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%;
   }
+
   14% {
     border-radius: 40% 60% 54% 46% / 49% 60% 40% 51%;
   }
+
   28% {
     border-radius: 54% 46% 38% 62% / 49% 70% 30% 51%;
   }
+
   42% {
     border-radius: 61% 39% 55% 45% / 61% 38% 62% 39%;
   }
+
   56% {
     border-radius: 61% 39% 67% 33% / 70% 50% 50% 30%;
   }
+
   70% {
     border-radius: 50% 50% 34% 66% / 56% 68% 32% 44%;
   }
+
   84% {
     border-radius: 46% 54% 50% 50% / 35% 61% 39% 65%;
   }
 }
 
 @keyframes border-transform {
+
   0%,
   100% {
     border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%;
   }
+
   14% {
     border-radius: 40% 60% 54% 46% / 49% 60% 40% 51%;
   }
+
   28% {
     border-radius: 54% 46% 38% 62% / 49% 70% 30% 51%;
   }
+
   42% {
     border-radius: 61% 39% 55% 45% / 61% 38% 62% 39%;
   }
+
   56% {
     border-radius: 61% 39% 67% 33% / 70% 50% 50% 30%;
   }
+
   70% {
     border-radius: 50% 50% 34% 66% / 56% 68% 32% 44%;
   }
+
   84% {
     border-radius: 46% 54% 50% 50% / 35% 61% 39% 65%;
   }
@@ -4168,6 +4239,7 @@ App Download Area CSS
     -webkit-transform: rotateY(0deg);
     transform: rotateY(0deg);
   }
+
   100% {
     -webkit-transform: rotateY(360deg);
     transform: rotateY(360deg);
@@ -4179,6 +4251,7 @@ App Download Area CSS
     -webkit-transform: rotateY(0deg);
     transform: rotateY(0deg);
   }
+
   100% {
     -webkit-transform: rotateY(360deg);
     transform: rotateY(360deg);
@@ -4190,10 +4263,12 @@ App Download Area CSS
     -webkit-transform: scale(0.6);
     transform: scale(0.6);
   }
+
   50% {
     -webkit-transform: scale(0.8);
     transform: scale(0.8);
   }
+
   100% {
     -webkit-transform: scale(0.6);
     transform: scale(0.6);
@@ -4205,10 +4280,12 @@ App Download Area CSS
     -webkit-transform: scale(0.6);
     transform: scale(0.6);
   }
+
   50% {
     -webkit-transform: scale(0.8);
     transform: scale(0.8);
   }
+
   100% {
     -webkit-transform: scale(0.6);
     transform: scale(0.6);
@@ -4519,6 +4596,7 @@ Account Register Area CSS
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
+
   to {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
@@ -4530,6 +4608,7 @@ Account Register Area CSS
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
+
   to {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
@@ -4650,25 +4729,32 @@ Reigster Area CSS
 }
 
 @keyframes border-transform {
+
   0%,
   100% {
     border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%;
   }
+
   14% {
     border-radius: 40% 60% 54% 46% / 49% 60% 40% 51%;
   }
+
   28% {
     border-radius: 54% 46% 38% 62% / 49% 70% 30% 51%;
   }
+
   42% {
     border-radius: 61% 39% 55% 45% / 61% 38% 62% 39%;
   }
+
   56% {
     border-radius: 61% 39% 67% 33% / 70% 50% 50% 30%;
   }
+
   70% {
     border-radius: 50% 50% 34% 66% / 56% 68% 32% 44%;
   }
+
   84% {
     border-radius: 46% 54% 50% 50% / 35% 61% 39% 65%;
   }
@@ -5071,14 +5157,12 @@ Page Title Area CSS
   animation-fill-mode: forwards;
   -webkit-animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
   animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
-  background: -webkit-gradient(
-    linear,
-    left top,
-    left bottom,
-    from(rgba(255, 255, 255, 0)),
-    color-stop(75%, var(--whiteColor)),
-    to(var(--whiteColor))
-  );
+  background: -webkit-gradient(linear,
+      left top,
+      left bottom,
+      from(rgba(255, 255, 255, 0)),
+      color-stop(75%, var(--whiteColor)),
+      to(var(--whiteColor)));
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, var(--whiteColor) 75%, var(--whiteColor) 100%);
 }
 
@@ -5122,6 +5206,7 @@ Page Title Area CSS
   0% {
     top: -50%;
   }
+
   100% {
     top: 110%;
   }
@@ -5131,6 +5216,7 @@ Page Title Area CSS
   0% {
     top: -50%;
   }
+
   100% {
     top: 110%;
   }
@@ -5751,6 +5837,7 @@ Trade Cryptocurrency Area CSS
 .trade-cryptocurrency-content {
   padding-right: 15px;
 }
+
 .trade-cryptocurrency-content h1 span {
   color: #080451;
   font-size: 41px;
@@ -5809,6 +5896,7 @@ Trade Cryptocurrency Area CSS
   position: relative;
   top: 0;
 }
+
 .trade-cryptocurrency-box-div {
   position: relative;
 }
@@ -5846,12 +5934,14 @@ Trade Cryptocurrency Area CSS
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
 nav {
   display: flex;
   align-items: center;
   list-style: none;
   text-align: center;
 }
+
 @media only screen and (max-width: 960px) {
   nav {
     display: flex;
@@ -6073,6 +6163,7 @@ nav {
   transform: translateY(-1px);
   background: linear-gradient(97.62deg, #5f5bcd 0%, #a8a4f7 100%);
 }
+
 .currencyt-box button {
   color: #fbfcfd;
   margin-left: auto;
@@ -6095,15 +6186,18 @@ nav {
   background: linear-gradient(97.62deg, #a8a4f7 0%, #5f5bcd 100%);
   box-shadow: 0px 4px 16px 0px rgba(34, 40, 95, 0.24);
 }
+
 .currencyt-box button:hover {
   transform: translateY(-1px);
   background: linear-gradient(97.62deg, #5f5bcd 0%, #a8a4f7 100%);
 }
+
 .currencyt-box button i {
   color: #fbfcfd;
   font-size: 21px;
   font-weight: 600;
 }
+
 /*================================================
 Profile Authentication Area CSS
 =================================================*/
@@ -7940,11 +8034,13 @@ Go Top CSS
 .global-cursor {
   cursor: pointer;
 }
+
 /*# sourceMappingURL=style.css.map */
 
 /* Toggle Switch CSS */
 :root {
-  --gray-5: #010101; /*dark*/
+  --gray-5: #010101;
+  /*dark*/
   --gray-10: #040404;
   --gray-15: #070808;
   --gray-20: #0d0d0e;
@@ -7962,14 +8058,17 @@ Go Top CSS
   --gray-80: #eff2f5;
   --gray-85: #f4f7fa;
   --gray-90: #f7fafd;
-  --gray-95: #fcfefe; /*light*/
+  --gray-95: #fcfefe;
+  /*light*/
   --animate: 200ms;
 }
+
 .mode-toggle {
   display: inline-flex;
   flex-direction: row;
   align-items: center;
 }
+
 .toggle-switch {
   margin: 0;
   padding: 0;
@@ -7983,17 +8082,21 @@ Go Top CSS
   display: inline-block;
   background: var(--gray-40);
 }
+
 .mode-toggle.dark .toggle-switch {
   width: 48px;
 }
+
 .toggle-switch,
 .toggle-switch:before,
 .toggle-switch:after {
   transition: all var(--animate) ease-in-out;
 }
+
 .mode-toggle.dark .toggle-switch {
   background: var(--gray-70);
 }
+
 .toggle-switch:before {
   top: 4px;
   left: 24px;
@@ -8005,10 +8108,12 @@ Go Top CSS
   border-radius: 12px;
   background: var(--gray-70);
 }
+
 .mode-toggle.dark .toggle-switch:before {
   left: 4px;
   background: var(--gray-35);
 }
+
 .toggle-switch:after {
   content: '';
   top: 14px;
@@ -8020,6 +8125,7 @@ Go Top CSS
   border-radius: 0.5px;
   background: var(--gray-40);
 }
+
 .mode-toggle.dark .toggle-switch:after {
   top: -2px;
   right: 2px;
@@ -8028,30 +8134,36 @@ Go Top CSS
   border-radius: 16px;
   background: var(--gray-70);
 }
+
 .toggle-switch:hover,
 .toggle-switch:hover:after {
   background: var(--gray-35);
 }
+
 .toggle-switch:focus,
 .toggle-switch:active,
 .toggle-switch:active:after {
   background: var(--gray-25);
 }
+
 .mode-toggle.dark .toggle-switch:hover,
 .mode-toggle.dark .toggle-switch:hover:after {
   background: var(--gray-95);
 }
+
 .mode-toggle.dark .toggle-switch:focus,
 .mode-toggle.dark .toggle-switch:active,
 .mode-toggle.dark .toggle-switch:active:after {
   background: var(--gray-65);
 }
+
 .noselect {
   user-select: none;
   -ms-user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
 }
+
 .disableEasingTemporarily,
 .disableEasingTemporarily:after,
 .disableEasingTemporarily:before {
@@ -8071,4 +8183,30 @@ Go Top CSS
   -ms-animation: none !important;
   animation: none !important;
 }
+
+.custom-tooltip {
+  position: relative;
+}
+
+.custom-tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 100%);
+}
+
+.custom-tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
 /* end */
