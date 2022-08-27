@@ -5,6 +5,7 @@ import { ToggleContext } from '../Layout/Layout'
 import FromConv from './FromConv'
 import ToConv from './ToConv'
 import { useSigningClient } from '../../contexts/cosmwasm'
+import { useRouter } from 'next/router'
 
 const Wrapper = styled.div`
   display: flex;
@@ -16,6 +17,20 @@ const Wrapper = styled.div`
   button {
     border-radius: 60px;
   }
+`
+
+const SubmitButton = styled.button<{ slot?: string }>`
+  background: ${props => props.slot === '/burnmodule' && 'linear-gradient(97.62deg, #5F5BCD 0%, #A8A4F7 100%);'}
+`
+
+const ButtonBlur = styled.span<{ slot: string, active: boolean }>`
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background: ${props => props.slot === '/burnmodule' && 'linear-gradient(97.62deg, #5F5BCD 0%, #A8A4F7 100%);'}
+  filter: ${props => props.slot === '/burnmodule' && props.active && 'blur(50px);'}
 `
 
 const Converter = ({
@@ -40,6 +55,7 @@ const Converter = ({
   showBalance = true,
   showSubmitButton = true,
 }) => {
+  const { pathname } = useRouter();
   const { swapToken1, setSwapToken1 } = useSigningClient()
   const { toggle } = useContext(ToggleContext)
   const [exchange, setExchange] = useState(false)
@@ -74,11 +90,14 @@ const Converter = ({
         maxW={maxW}
         showBalance={showBalance}
       />
-      {showSubmitButton && (
-        <button className={`default-btn ${!toggle && 'secondary-btn'}`} onClick={handleSubmit}>
-          {submitTitle}
-        </button>
-      )}
+      <div style={{ position: 'relative' }}>
+        <ButtonBlur className={`default-btn ${!toggle && 'secondary-btn'}`} slot={pathname} active={showSubmitButton} />
+        {showSubmitButton && (
+          <SubmitButton className={`default-btn ${!toggle && 'secondary-btn'}`} onClick={handleSubmit} slot={pathname}>
+            {submitTitle}
+          </SubmitButton>
+        )}
+      </div>
     </Wrapper>
   )
 }

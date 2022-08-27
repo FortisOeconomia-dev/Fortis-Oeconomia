@@ -5,8 +5,8 @@ import React, { useContext } from 'react'
 import { ToggleContext } from '../Layout/Layout'
 import { convertToFixedDecimals, convertToNoExponents } from '../../util/conversion'
 
-const Wrapper = styled('div')<{ slot: string; page: number }>`
-  background: ${props => (props.slot === '/gFOTmodule' ? 'rgba(255, 255, 255, 0.25)' : 'rgba(251, 252, 253, 0.3)')};
+const Wrapper = styled('div') <{ slot: string; page: number }>`
+  background: ${props => (props.slot === '/gFOTmodule' ? 'rgba(255, 255, 255, 0.25)' : props.slot === '/burnmodule' ? '#F0A841' : 'rgba(251, 252, 253, 0.3)')};
   box-shadow: ${props =>
     props.slot === '/gFOTmodule'
       ? '2.74846px 5.49692px 57.0305px rgba(161, 164, 176, 0.25)'
@@ -32,7 +32,7 @@ const ContentWrapper = styled.div`
   padding: 10px;
 `
 
-const StatisticLabel = styled('span')<{ slot: string; page: number; toggle: boolean }>`
+const StatisticLabel = styled('span') <{ slot: string; page: number; toggle: boolean }>`
   font-weight: 600;
   font-size: ${props =>
     props.slot === '/gFOTmodule' || (props.slot === '/sFOTVault' && props.page === 0) ? '16.4907px' : '24px'};
@@ -40,6 +40,8 @@ const StatisticLabel = styled('span')<{ slot: string; page: number; toggle: bool
     props.slot === '/gFOTmodule' || (props.slot === '/sFOTVault' && props.page === 0) ? '25px' : '36px'};
   color: ${props => {
     switch (props.slot) {
+      case '/burnmodule':
+        return '#FBFCFD'
       case '/gFOTmodule':
         return '#080451'
       case '/sFOTVault':
@@ -52,7 +54,7 @@ const StatisticLabel = styled('span')<{ slot: string; page: number; toggle: bool
   }};
 `
 
-const StatisticValue = styled('span')<{ slot: string; page: number }>`
+const StatisticValue = styled('span') <{ slot: string; page: number }>`
   font-weight: 600;
   font-size: ${props =>
     props.slot === '/gFOTmodule' || (props.slot === '/sFOTVault' && props.page === 0) ? '20.6134px' : '30px'};
@@ -62,11 +64,11 @@ const StatisticValue = styled('span')<{ slot: string; page: number }>`
     props.slot === '/sFOTVault' ? '#171E0E' : props.slot === '/communitySale' ? '#233A54' : '#22053d'};
 `
 
-const StatisticItem = styled('label')<{ datatype: string; page: number }>`
+const StatisticItem = styled('label') <{ datatype: string; page: number }>`
   width: 100%;
   max-width: 470px;
   padding: ${props =>
-      props.datatype === '/gFOTmodule' || (props.datatype === '/sFOTVault' && props.page === 0) ? '36px' : '72px'}
+    props.datatype === '/gFOTmodule' || (props.datatype === '/sFOTVault' && props.page === 0) ? '36px' : '72px'}
     0;
   transform: rotate(0.01deg);
   display: flex;
@@ -193,8 +195,9 @@ const Divider = styled.div`
     props.slot === '/gFOTmodule'
       ? '#2E0752'
       : props.slot === '/communitySale'
-      ? 'linear-gradient(270deg, #76C893 0%, #34A0A4 100%)'
-      : 'linear-gradient(270deg, #5F5BCD 0%, #83B8DD 100%)'};
+        ? 'linear-gradient(270deg, #76C893 0%, #34A0A4 100%)'
+        : props.slot === '/burnmodule' ? '#FFFFFF'
+          : 'linear-gradient(270deg, #5F5BCD 0%, #83B8DD 100%)'};
   height: ${props => (props.slot === '/gFOTmodule' ? '1.71779px' : '2.5px')};
   width: 100%;
   transform: rotate(0.01deg);
@@ -237,6 +240,7 @@ const StatisticBox = ({
   const renderShadowShapes = () => {
     switch (pathname) {
       case '/gFOTmodule':
+      case '/burnmodule':
       case '/communitySale':
         return null
       case '/castleDex':

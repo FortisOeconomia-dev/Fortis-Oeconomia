@@ -17,7 +17,12 @@ const WalletTitle = styled.label`
   line-height: 48px;
   margin-bottom: 32px;
   background-color: ${props => props.slot !== '/gFOTmodule' && 'transparent !important'};
-  color: ${props => (props.slot === '/sFOTVault' || props.slot === '/communitySale') && '#FBFCFD'};
+  color: ${props => (props.slot === '/sFOTVault' || props.slot === '/communitySale' || props.slot === '/burnmodule') && '#FBFCFD'};
+`
+
+const MaxButtonWrapper = styled.div<{ slot?: string }>`
+  width: 100%;
+  display: ${props => props.slot === '/burnmodule' && 'flex'}
 `
 
 const MaxButton = styled.span`
@@ -26,7 +31,7 @@ const MaxButton = styled.span`
   width: 100px !important;
   min-width: unset !important;
   cursor: pointer;
-`
+ `
 const AssetSubtitle = styled.div`
   font-size: 14px;
   padding-top: 10px;
@@ -79,15 +84,18 @@ const FromConv = ({
       {isMax && from === 'JUNO' && (
         <div style={{ padding: '5px' }}>Please do not forget to allocate funds for the gas fee!</div>
       )}
-      <MaxButton
-        onClick={() => {
-          setIsMax(true)
-          handleChange(balance)
-        }}
-        className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
-      >
-        Max
-      </MaxButton>
+      <MaxButtonWrapper slot={pathname}>
+        <MaxButton
+          onClick={() => {
+            setIsMax(true)
+            handleChange(balance)
+          }}
+          className={`default-btn  ${!toggle && 'secondary-btn outlined'}`}
+          slot={pathname}
+        >
+          Max
+        </MaxButton>
+      </MaxButtonWrapper>
     </div>
   )
 }

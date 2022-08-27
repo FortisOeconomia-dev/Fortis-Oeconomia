@@ -22,6 +22,8 @@ const Wrapper = styled.div`
     switch (props.slot) {
       case '/':
         return `linear-gradient(133.37deg, #1F1452 1.09%, #16122D 1.1%, #1F1452 71.02%)`
+      case '/burnmodule':
+        return `linear-gradient(133.37deg, #1F1452 1.09%, #16122D 1.1%, #1F1452 71.02%)`
       case '/gFOTmodule':
         return !props.defaultChecked ? 'white' : `linear-gradient(180deg, #8394DD 0%, #FFFFFF 100%)`
       case '/fortisDungeon':

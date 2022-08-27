@@ -1,7 +1,7 @@
 import { useEffect, useState, MouseEvent, ChangeEvent, useContext } from 'react'
 import { NotificationManager } from 'react-notifications'
 import 'react-notifications/lib/notifications.css'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
 import { useSigningClient } from '../contexts/cosmwasm'
 import { convertMicroDenomToDenom2 } from '../util/conversion'
@@ -10,6 +10,18 @@ import StatisticBox from '../components/StatisticBox'
 import ThemeContext from '../contexts/ThemeContext'
 
 //styled components
+const shineAnimation = keyframes`
+  0% {
+    opacity: .3;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: .3;
+  }
+`
+
 const Wrapper = styled.div`
   max-width: 1368px;
   height: 100%;
@@ -20,7 +32,7 @@ const Wrapper = styled.div`
   width: 100%;
   margin: 70px;
   padding: 0 20px;
-  gap: 125px;
+  gap: 185px;
 `
 
 const LeftPart = styled.div`
@@ -30,9 +42,11 @@ const LeftPart = styled.div`
   flex: 1;
   max-width: 100%;
   margin-top: -50px;
+  z-index: 10;
 `
 
 const RightPart = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -40,6 +54,44 @@ const RightPart = styled.div`
   flex: 1;
   max-width: 100%;
   margin-top: -50px;
+  z-index: 10;
+`
+
+const PageLine = styled.img`
+  width: 100vw;
+  position: fixed;
+  left: 0px;
+  top: 75%;
+  z-index: 0;
+  transform: translateY(-50%);
+`
+
+const DogIcon = styled.img`
+  width: 480px;
+  position: fixed;
+  left: 44%;
+  bottom: 0px;
+  z-index: 1000;
+  transform: translateX(-50%);
+  pointer-events: none;
+`
+
+const StarsIcon = styled.img`
+  position: fixed;
+  top: 190px;
+  left: 44%;
+  z-index: 1000;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  animation: ${shineAnimation} 2s linear infinite;
+`
+
+const AsteroidIcon = styled.img`
+  position: absolute;
+  right: 0px;
+  top: 50%;
+  transform: translate(10px, -50%);
+  z-index: -1;
 `
 
 const burnmodule = () => {
@@ -94,7 +146,7 @@ const burnmodule = () => {
       value: `${convertMicroDenomToDenom2(fotBurnContractInfo.fot_burn_amount, bfotTokenInfo.decimals)}`,
     },
     {
-      key: 'bFOT Supply',
+      key: 'Total bFOT Supply',
       value: `${convertMicroDenomToDenom2(fotBurnContractInfo.bfot_sent_amount, bfotTokenInfo.decimals)}`,
     },
   ]
@@ -145,7 +197,7 @@ const burnmodule = () => {
           burnAmount={fotBurnAmount}
           onBurnChange={onFotBurnChange}
           handleBurnPlus={handleFotBurnPlus}
-          convImg="/images/fire.png"
+          convImg="/images/fire-orange.png"
           from="FOT"
           to="bFOT"
           expectedAmount={expectedBfotAmount}
@@ -156,8 +208,12 @@ const burnmodule = () => {
         />
       </LeftPart>
       <RightPart>
+        <AsteroidIcon src='/images/asteroid.png' alt='asteroid' />
         <StatisticBox values={defaultValues} />
       </RightPart>
+      <PageLine src='/images/page-line.png' alt='page-line' />
+      <DogIcon src='/images/dogXL.png' alt='dog' />
+      <StarsIcon src='/images/four-stars.png' alt='four-stars' />
     </Wrapper>
   )
 }
